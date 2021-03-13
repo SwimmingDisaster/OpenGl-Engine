@@ -1,0 +1,990 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"ran",
+				"randindex"
+			],
+			[
+				"particle",
+				"particleComputeUpdate"
+			],
+			[
+				"plan",
+				"planine"
+			],
+			[
+				"SCREE",
+				"SCREEN_WIDTH"
+			],
+			[
+				"SCR",
+				"SCREEN_WIDTH"
+			],
+			[
+				"cur",
+				"cursorX"
+			],
+			[
+				"pro",
+				"projection"
+			],
+			[
+				"in",
+				"intensities"
+			],
+			[
+				"c_s",
+				"c_str"
+			],
+			[
+				"Draw",
+				"ImGuiDraw"
+			],
+			[
+				"text",
+				"textVAO"
+			],
+			[
+				"linem",
+				"lineMaxWidth"
+			],
+			[
+				"linema",
+				"lineMaxHeight"
+			],
+			[
+				"line",
+				"lines"
+			],
+			[
+				"Color",
+				"ColorEdit3"
+			],
+			[
+				"IM",
+				"ImGui"
+			],
+			[
+				"Re",
+				"RecalculateText"
+			],
+			[
+				"font",
+				"fontSize"
+			],
+			[
+				"size",
+				"sizeof"
+			],
+			[
+				"tex",
+				"textureCoord"
+			],
+			[
+				"maxX",
+				"maxX"
+			],
+			[
+				"ve",
+				"vertexCoord"
+			],
+			[
+				"gly",
+				"glyphShader"
+			],
+			[
+				"inc",
+				"inc\t#include \"…\""
+			],
+			[
+				"Char",
+				"Char_map"
+			],
+			[
+				"Addte",
+				"addTexCoords"
+			],
+			[
+				"Ui",
+				"UI_text"
+			],
+			[
+				"X",
+				"xAdvance"
+			],
+			[
+				"max",
+				"lineMaxWidth"
+			],
+			[
+				"lne",
+				"line"
+			],
+			[
+				"get",
+				"getSize"
+			],
+			[
+				"cha",
+				"characters"
+			],
+			[
+				"si",
+				"sizeX"
+			],
+			[
+				"x",
+				"xAdvance"
+			],
+			[
+				"y",
+				"yMaxTextureCoord"
+			],
+			[
+				"re",
+				"reached"
+			],
+			[
+				"con",
+				"con_fours"
+			],
+			[
+				"ans",
+				"ans2"
+			],
+			[
+				"map",
+				"mapi"
+			],
+			[
+				"Print",
+				"PrintAns"
+			],
+			[
+				"Prin",
+				"PrintAns"
+			],
+			[
+				"Pir",
+				"PrintAns"
+			],
+			[
+				"SDL",
+				"SDL_Delay"
+			],
+			[
+				"c_",
+				"c_b"
+			],
+			[
+				"vel",
+				"vely"
+			],
+			[
+				"pu",
+				"push_back"
+			],
+			[
+				"par",
+				"particle"
+			],
+			[
+				"circl",
+				"circleParticle"
+			],
+			[
+				"c_r",
+				"c_radius"
+			],
+			[
+				"end",
+				"end_time"
+			],
+			[
+				"del",
+				"deltaTime"
+			],
+			[
+				"de",
+				"deltaTime"
+			],
+			[
+				"pari",
+				"particles"
+			],
+			[
+				"p",
+				"particles"
+			],
+			[
+				"part",
+				"particles"
+			],
+			[
+				"pa",
+				"particle"
+			],
+			[
+				"TILE",
+				"TILE_SIZE"
+			],
+			[
+				"lo",
+				"loc_str"
+			],
+			[
+				"tile",
+				"tile_map"
+			],
+			[
+				"or",
+				"order_size"
+			],
+			[
+				"In",
+				"include"
+			],
+			[
+				"vec",
+				"Vector2f"
+			],
+			[
+				"ios",
+				"iostream\tstandard header"
+			],
+			[
+				"main",
+				"mainPlayer"
+			],
+			[
+				"pla",
+				"player"
+			],
+			[
+				"rend",
+				"renderVector"
+			],
+			[
+				"player",
+				"player1"
+			],
+			[
+				"e",
+				"Entity"
+			],
+			[
+				"win",
+				"window"
+			],
+			[
+				"ren",
+				"renderVector"
+			],
+			[
+				"ent",
+				"entity"
+			],
+			[
+				"enti",
+				"entities"
+			],
+			[
+				"sd",
+				"SDL"
+			],
+			[
+				"r",
+				"RenderWindow"
+			],
+			[
+				"SD",
+				"SDL"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "src/lightManager.cpp",
+			"settings":
+			{
+				"buffer_size": 1720,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/User/Terminal.sublime-settings",
+			"settings":
+			{
+				"buffer_size": 556,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Build Debug x64",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Build Debug",
+					""
+				],
+				[
+					"Build Debug",
+					"RUN"
+				]
+			],
+			[
+				"Build Debug",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Build Debug Win32",
+					""
+				],
+				[
+					"Build Debug Win32",
+					"RUN"
+				]
+			],
+			[
+				"Build Debug Win32",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Build Debug x64",
+					""
+				],
+				[
+					"Build Debug x64",
+					"BUILD"
+				],
+				[
+					"Build Debug x64",
+					"RUN"
+				]
+			],
+			[
+				"Build Debug x64",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Build Debug x64",
+					""
+				],
+				[
+					"Build Debug x64",
+					"RUN"
+				]
+			],
+			[
+				"Build Debug x64",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					""
+				],
+				[
+					"Packages/C++/C++ Single File.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/C++/C++ Single File.sublime-build",
+				""
+			]
+		],
+		[
+			[
+				[
+					"Packages/User/c++17.sublime-build",
+					""
+				],
+				[
+					"Packages/User/c++17.sublime-build",
+					"Run"
+				]
+			],
+			[
+				"Packages/User/c++17.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"instll",
+				"Package Control: Install Package"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"instka",
+				"Package Control: Install Package"
+			],
+			[
+				"tthe",
+				"UI: Select Theme"
+			],
+			[
+				"the",
+				"UI: Select Theme"
+			],
+			[
+				"Package/",
+				"Package Control: Upgrade/Overwrite All Packages"
+			],
+			[
+				"file",
+				"View Package File"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"resource",
+				"PackageResourceViewer: Open Resource"
+			],
+			[
+				"package contoll ins",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 0.0
+	},
+	"console":
+	{
+		"height": 0.0,
+		"history":
+		[
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src"
+	],
+	"file_history":
+	[
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/particles.cpp",
+		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/Terminal/Terminal.sublime-settings",
+		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/Terminal/Default (Windows).sublime-keymap",
+		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/User/Terminal.sublime-settings",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/particles.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/compute.cs",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/particle.vs",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/particleUpdate.cs",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/game.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/shaders/particleUpdate.cs",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/shaders/compute.cs",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/bin/x64/Debug/other/output.txt",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/random.h",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/random.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/shaders/particle.vs",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/particles.h",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/game.h",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/other/output.txt",
+		"/C/Users/mixog/Desktop/GAMMEZ/CUBE BOI/main.cpp",
+		"/C/Users/mixog/Desktop/GAMMEZ/StuckInALoop/main.cpp",
+		"/C/Users/mixog/Desktop/GAMMEZ/LUKA DA UCI I TAKO TO/main.cpp",
+		"/C/Users/mixog/Desktop/GAMMEZ/LONEBLOB/main.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/main.cpp",
+		"/C/Users/mixog/Desktop/GAMMEZ/GAME - Copy (2)/main.cpp",
+		"/C/Users/mixog/Desktop/GAMMEZ/GAME - Copy/main.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/ui.h",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/ui.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/shaders/glyph.vs",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/shaders/glyph.fs",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/GLFW/glfw3.h",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/texture.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/model.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/mesh_new.h",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/utImporter.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/lightManager.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/shaders/light.fs",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/ImGUI/imgui_stdlib.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/main_includes.h",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/lights.h",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/imgui.ini",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/ImGUI/imgui_widgets.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/ImGUI/imgui.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/shader.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/texture.h",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/profiler.h",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/profiler.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/BOIII.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/mesh.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/mesh_new.cpp",
+		"/C/Users/mixog/Desktop/BIG_PROJECT_FOLDER/PROGRAMIRANJE/output.txt",
+		"/C/Users/mixog/Desktop/BIG_PROJECT_FOLDER/PROGRAMIRANJE/input.txt",
+		"/C/Users/mixog/Desktop/BIG_PROJECT_FOLDER/PROGRAMIRANJE/main.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/luka.fbx",
+		"/C/Program Files/Sublime Text 3/Packages/C++.sublime-package",
+		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/User/c++17.sublime-build",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/math.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/math.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/main.o",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/main.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/proj_includes.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/particles.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/particles.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/customRenderer.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/customRenderer.o",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/customRenderer.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/output.txt",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game - Copy/src/main.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/SDL_gpu.cpp",
+		"/C/Users/mixog/Desktop/PROGRAMIRANJE/main.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_RendererImpl.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game - Copy/src/README.md",
+		"/C/Users/mixog/AppData/Local/Temp/Rar$DIa9032.47367/README.md",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/Include.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/Include.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/SDL_gpu_renderer.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/SDL_gpu.o",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/input.txt",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/input.txt",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/stb_image_write.o",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/glew.o",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/glew.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/gl3stub.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/externals/stb_image/stb_image.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/renderer_OpenGL_1_BASE.o",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/renderer_GL_common.inl",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/stb_image.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_version.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_OpenGL_4.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_OpenGL_3.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_OpenGL_2.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_OpenGL_1_BASE.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_GLES_3.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_GLES_2.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_GLES_1.h",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/renderer_GLES_1.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/mainpage.dox",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/SDLGame.sublime-workspace",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/Player.hpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/Player.o",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/Math.cpp",
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/Entity.cpp",
+		"/C/Users/mixog/Desktop/SDL_Game/src/Math.cpp",
+		"/C/Users/mixog/Desktop/SDL_Game/include/Math.hpp",
+		"/C/Users/mixog/Desktop/SDL_Game/src/RenderWindow.cpp",
+		"/C/Users/mixog/Desktop/SDL_Game/include/Entity.hpp",
+		"/C/Users/mixog/Desktop/SDL_Game/src/Entity.cpp",
+		"/C/Users/mixog/Desktop/SDL_Game/include/RenderWindow.hpp",
+		"/C/Users/mixog/Desktop/SDL_Game/src/main.cpp",
+		"/C/Users/mixog/Desktop/SDL_Game/main.o",
+		"/C/Users/mixog/Desktop/SDL_Game/SDLGame.sublime-project",
+		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/Default/exec.py"
+	],
+	"find":
+	{
+		"height": 31.0
+	},
+	"find_in_files":
+	{
+		"height": 156.0,
+		"where_history":
+		[
+			"",
+			"ui.cpp",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			" % 100000",
+			"init",
+			"float",
+			";\n",
+			");\n",
+			"angle",
+			"glm",
+			" \"Miroc\" , \"Veliki greben\" , \"Deli jovan\" , \"Sarida\" , \"Mali krs\" , \"Veliki krs\" , \"Homoljske\" , \"Beljanica\" , \"Kucajske\" , \"Rtanj\" , \"Ozren\", \"Devica\", \"Tupiznjica\", \"Tresibaba\", \"Svrljiste\", \"Suva planina\", \"Stara planina\"",
+			"img.",
+			"{\n",
+			"SCREEN_WIDTH",
+			"getTime",
+			"cout",
+			"Log",
+			"projection",
+			"imgui",
+			");\n",
+			".front()",
+			"front",
+			"uniqueIndex",
+			"ImGUI",
+			"blend",
+			"spaceWidth",
+			"32",
+			"token_compress_on ",
+			"Ui_Text",
+			"imgui",
+			"linemaxWidth",
+			"glm",
+			"3",
+			");\n",
+			"token_compress_on",
+			"junk",
+			"window",
+			"game",
+			"();\n"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"line"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "src/lightManager.cpp",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1720,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								444,
+								444
+							]
+						],
+						"settings":
+						{
+							"bs_sintax": "c++",
+							"buffer_scroll_name": "30f6c004",
+							"spell_check": false,
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/User/Terminal.sublime-settings",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 556,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								556,
+								556
+							]
+						],
+						"settings":
+						{
+							"auto_complete": true,
+							"bs_sintax": "json",
+							"buffer_scroll_name": "7328d913",
+							"spell_check": false,
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 31.0
+	},
+	"input":
+	{
+		"height": 50.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.SublimeLinter":
+	{
+		"height": 0.0
+	},
+	"output.astyle_error_message":
+	{
+		"height": 0.0
+	},
+	"output.exec":
+	{
+		"height": 244.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Build Debug x64",
+	"project": "GAME.sublime-project",
+	"replace":
+	{
+		"height": 58.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"particles",
+				"src\\particles.cpp"
+			],
+			[
+				"game.cpp",
+				"src\\game.cpp"
+			],
+			[
+				"particles.cpp",
+				"src\\particles.cpp"
+			],
+			[
+				"compute",
+				"res\\shaders\\compute.cs"
+			],
+			[
+				"particle",
+				"res\\shaders\\particleUpdate.cs"
+			],
+			[
+				"outp",
+				"bin\\x64\\Debug\\other\\output.txt"
+			],
+			[
+				"part",
+				"src\\particles.cpp"
+			],
+			[
+				"par",
+				"res\\shaders\\particle.vs"
+			],
+			[
+				"output.",
+				"other\\output.txt"
+			],
+			[
+				"particle.h",
+				"include\\particles.h"
+			],
+			[
+				"game.h",
+				"include\\game.h"
+			],
+			[
+				"particle.vs",
+				"res\\shaders\\particle.vs"
+			],
+			[
+				"main.cpp",
+				"src\\main.cpp"
+			],
+			[
+				"gyph",
+				"res\\shaders\\glyph.fs"
+			],
+			[
+				"glyph.vs",
+				"res\\shaders\\glyph.vs"
+			],
+			[
+				"texture.cpp",
+				"src\\texture.cpp"
+			],
+			[
+				"model.cpp",
+				"src\\model.cpp"
+			],
+			[
+				"glyp",
+				"res\\shaders\\glyph.fs"
+			],
+			[
+				"ui.h",
+				"include\\ui.h"
+			],
+			[
+				"light.fs",
+				"res\\shaders\\light.fs"
+			],
+			[
+				"ligh",
+				"src\\lightManager.cpp"
+			],
+			[
+				"lights.h",
+				"include\\lights.h"
+			],
+			[
+				"main",
+				"include\\main_includes.h"
+			],
+			[
+				"",
+				"src\\ui.cpp"
+			],
+			[
+				"ui.cpp",
+				"src\\ui.cpp"
+			],
+			[
+				"text",
+				"src\\texture.cpp"
+			],
+			[
+				"glyph.fs",
+				"res\\shaders\\glyph.fs"
+			],
+			[
+				"ain_inc",
+				"include\\main_includes.h"
+			],
+			[
+				"texture.h",
+				"include\\texture.h"
+			],
+			[
+				"outpu",
+				"bin\\x64\\Debug\\other\\output.txt"
+			],
+			[
+				"output",
+				"bin\\x64\\Debug\\other\\output.txt"
+			],
+			[
+				"game.",
+				"include\\game.h"
+			],
+			[
+				"outut",
+				"other\\output.txt"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 248.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 2
+	}
+}

@@ -1,27 +1,10 @@
-#include <iostream>
-#include <fstream>
-#include <unordered_map>
-#include <vector>
-#include <string>
-
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include <ImGUI/imgui.h>
-#include <ImGUI/imgui_impl_glfw.h>
-#include <ImGUI/imgui_impl_opengl3.h>
-
+#include "mypch.h"
 
 #include "shader.h"
 #include "camera.h"
 #include "lights.h"
 #include "texture.h"
 #include "particles.h"
-#include "lightManager.h"
 
 #include "game.h"
 
@@ -54,6 +37,7 @@ int main() {
 		std::cout << returnValue << std::endl;
 		return returnValue;
 	}
+
 
 	game.Start();//inits game elements
 

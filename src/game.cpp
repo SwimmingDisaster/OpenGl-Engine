@@ -1,3 +1,4 @@
+#include "mypch.h"
 #include "main_includes.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -18,7 +19,6 @@ std::vector<DirLight> Game::dirLightVector;
 
 //---OBJECTS---
 Camera Game::mainCamera;
-ParticleSystem Game::particleSystem;
 
 //---PROJECTIONS---
 glm::mat4 Game::viewMatrix = glm::mat4(1.0f);
@@ -39,12 +39,9 @@ Shader Game::coolSahder;
 Shader Game::notCoolSahder;
 Shader Game::boxShader;
 
-Shader Game::particleShader;
-Shader Game::particlesCompute;
 
 Shader Game::glyphShader;
 
-Shader Game::particleComputeUpdate;
 
 
 //---MODELS---
@@ -61,7 +58,6 @@ ImGuiIO* Game::ioPtr = nullptr;
 
 //-----wierd shit varibales----
 unsigned int matrixUBO;
-LightManager lightManager;
 glm::vec3 edgeColor = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::vec3 baseColor = glm::vec3(0.1f, 0.1f, 0.1f);
 glm::vec3 transformColor = glm::vec3(1.0f, 0.0f, 0.0f);
@@ -72,8 +68,6 @@ glm::vec3 ROOOTOTTO = glm::vec3(270.0f, 0.0f, 90.0f);
 int frameCountToDisplay = 0;
 std::string frameImGuiText = "FPS";
 
-Font foni;
-UI_text img;
 
 int Game::Init() {
 	glfwInit();
@@ -158,10 +152,7 @@ void Game::Start() {
 	notCoolSahder = Shader("res/shaders/model.vs", "res/shaders/notcool.fs");
 	boxShader = Shader("res/shaders/model.vs", "res/shaders/box.fs");
 
-	particleShader = Shader("res/shaders/particle.vs", "res/shaders/particle.fs");
-	particlesCompute = Shader("res/shaders/compute.cs");
 	glyphShader = Shader("res/shaders/glyph.vs", "res/shaders/glyph.fs");
-	particleComputeUpdate = Shader("res/shaders/particleUpdate.cs");
 
 	lightingShader1.use();
 
@@ -169,27 +160,10 @@ void Game::Start() {
 
 
 
-	boxModel = Model("res/box.obj");
-	//Model ourModel("res/robot/nanosuuit.fbx");
 	ourModel = Model("res/BOXES/BOX.obj");
-	sphereModel = Model("res/sphere.fbx");
 	monkyModel = Model("res/robot/nanosuuit.fbx");
 
-	lightManager.Init();
 
-
-
-
-	lightingShader1.setVec3("spotLight[0].position", Game::mainCamera.vPos);
-	lightingShader1.setVec3("spotLight[0].direction", Game::mainCamera.vFront);
-	lightingShader1.setVec3("spotLight[0].ambient", 0.0f, 0.0f, 0.0f);
-	lightingShader1.setVec3("spotLight[0].diffuse", 1.0f, 1.0f, 1.0f);
-	lightingShader1.setVec3("spotLight[0].specular", 1.0f, 1.0f, 1.0f);
-	lightingShader1.setFloat("spotLight[0].constant", 1.0f);
-	lightingShader1.setFloat("spotLight[0].linear", 0.09f);
-	lightingShader1.setFloat("spotLight[0].quadratic", 0.032f);
-	lightingShader1.setFloat("spotLight[0].cutOff", glm::cos(glm::radians(12.5f)));
-	lightingShader1.setFloat("spotLight[0].outerCutOff", glm::cos(glm::radians(15.0f)));
 
 	projectionMatrix = glm::perspective(glm::radians(90.0f), (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT, 0.1f, 1000.0f);
 
@@ -201,17 +175,7 @@ void Game::Start() {
 }
 void Game::Run() {
 
-
-	foni.Init("res/fonts/IHATEYOU.fnt", "res/fonts/IHATEYOU.png");
-	img.Init("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id pretium felis, vel ornare risus. Etiam sit amet malesuada est. In mattis tempor odio vel finibus. Integer feugiat felis in mi porta, a tempor augue dapibus. Phasellus porta ac lectus vel mattis. Duis enim nisl, facilisis vel dui posuere, euismod luctus tortor. Donec tempor dui quis hendrerit consequat. Sed ac ante condimentum, porttitor orci id, imperdiet lacus. Sed interdum tincidunt eros id porttitor. Proin consectetur ut ligula et placerat. Fusce luctus risus a efficitur pretium.", &foni);
-
-	particleComputeUpdate.use();
-	particleComputeUpdate.setFloat("maxLifetime", particleSystem.maxLifetime);
-	particleComputeUpdate.setFloat("minLifetime", particleSystem.minLifetime);
-	particleComputeUpdate.setVec3("vPos", particleSystem.vPos);
-	particleComputeUpdate.setVec3("vRot", particleSystem.vRot);
-
-	glDispatchCompute(1, 1, 1);
+	for (int i = 0; i < 100; i++) {Log(i);}
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -242,9 +206,6 @@ void Game::Run() {
 
 
 
-			lightingShader1.use();
-			lightManager.Update(lightingShader1);
-			lightingShader1.setVec3("material.specular", 0.0f, 0.0f, 0.0f);
 			lightingShader1.setFloat("material.shininess", 64.0f);
 
 			lightingShader1.use();
@@ -261,109 +222,10 @@ void Game::Run() {
 			boxShader.use();
 			boxModel.vRot = glm::vec3(0.0f, 0.0f, 0.0f);
 			boxModel.vScale = glm::vec3(1.0f, 1.0f, 1.0f);
-			for (int i = 0; i < pointLightVector.size(); i++) {
-				boxModel.vPos = glm::vec3(pointLightVector[i].position_junk);
-				boxShader.setVec3("color", pointLightVector[i].diffuse_linear.x, pointLightVector[i].diffuse_linear.y, pointLightVector[i].diffuse_linear.z);
-				boxModel.Draw(boxShader);
 
-			}
-
-
-
-			if (!useTransparency) {
-				coolSahder.use();
-
-				coolSahder.setVec3("viewPos", mainCamera.vPos);
-				coolSahder.setMat4("matProj", projectionMatrix);
-				coolSahder.setMat4("matView", viewMatrix);
-				float itme = glfwGetTime() / 2.0f;
-				float ttresh = (sin(itme) + 1.0f) / 2.0f;
-				coolSahder.setFloat("width", widthValue);
-				coolSahder.setFloat("scale", scaleValue);
-				coolSahder.setFloat("treshold", ttresh);
-				coolSahder.setVec3("resolution", 2.0f, 2.0f, 2.0f);
-
-				coolSahder.setVec3("transformColor", transformColor);
-				coolSahder.setVec3("baseColor", baseColor);
-				coolSahder.setVec3("edgeColor", edgeColor);
-			}
-			else {
-				notCoolSahder.use();
-				notCoolSahder.setVec3("viewPos", mainCamera.vPos);
-				notCoolSahder.setMat4("matProj", projectionMatrix);
-				notCoolSahder.setMat4("matView", viewMatrix);
-				float itme = glfwGetTime() / 2.0f;
-				float ttresh = (sin(itme) + 1.0f) / 2.0f;
-				notCoolSahder.setFloat("width", widthValue);
-				notCoolSahder.setFloat("scale", scaleValue);
-				notCoolSahder.setFloat("treshold", ttresh);
-				notCoolSahder.setVec3("resolution", 2.0f, 2.0f, 2.0f);
-
-				notCoolSahder.setVec3("transformColor", transformColor);
-				notCoolSahder.setVec3("baseColor", baseColor);
-				notCoolSahder.setVec3("edgeColor", edgeColor);
-			}
-
-			sphereModel.vRot = glm::vec3(0.0f, 0.0f, 0.0f);
-			sphereModel.vScale = glm::vec3(1.0f, 1.0f, 1.0f);
-			sphereModel.vPos = glm::vec3(1.0f, 1.0f, 1.0f);
-
-			monkyModel.vRot = glm::vec3(0.0f, 90.0f, 0.0f);
-			monkyModel.vScale = glm::vec3(1.0f, 1.0f, 1.0f);
-			monkyModel.vPos = glm::vec3(0.0f, 0.0f, 8.0f);
-
-
-			if (!useTransparency) {
-				monkyModel.Draw(coolSahder);
-			}
-			else {
-				monkyModel.Draw(notCoolSahder);
-			}
-
-
-
-			{
-				PROFILE_SCOPE("wow Upadte");
-				particleSystem.Update(deltaTime);
-
-
-
-
-
-				particlesCompute.use();
-				particlesCompute.setFloat("deltaTime", deltaTime);
-
-
-
-				particlesCompute.setVec4("start_color", particleSystem.start_color);
-				particlesCompute.setVec4("end_color", particleSystem.end_color);
-				particlesCompute.setVec3("gravity", particleSystem.gravity);
-
-
-				particlesCompute.setFloat("maxLifetime", particleSystem.maxLifetime);
-				particlesCompute.setFloat("minLifetime", particleSystem.minLifetime);
-
-
-
-
-				glDispatchCompute(particleSystem.maxParticles / 1000, 1, 1);
-
-
-				glMemoryBarrier(GL_SHADER_STORAGE_BARRIER_BIT);
-				glFinish();
-
-
-			}
-			{
-				PROFILE_SCOPE("wow Draw");
-				particleSystem.Draw(particleShader);
-			}
 
 		}
-		//--------------------------Draw--------------------------
 
-		//--------------------------GUI--------------------------
-		//--------------------------GUI--------------------------
 
 		//--------------------------ImGui--------------------------
 		{
@@ -409,48 +271,26 @@ void Game::ImGUI() {
 	ImGui::TextColored(ImVec4(1, 1, 0, 1), frameImGuiText.c_str());
 
 
-	for (int i = 0; i < pointLightVector.size(); i++) {
-		if (ImGui::CollapsingHeader(("Light" + std::to_string(i)).c_str()))
-		{
-			ImGui::DragFloat3((std::to_string(i) + "-light pos").c_str(), glm::value_ptr(pointLightVector[i].position_junk));
-			ImGui::ColorEdit3((std::to_string(i) + "-ambient color").c_str(), glm::value_ptr(pointLightVector[i].ambient_constant));
-			ImGui::ColorEdit3((std::to_string(i) + "-diffuse color").c_str(), glm::value_ptr(pointLightVector[i].diffuse_linear));
-			ImGui::ColorEdit3((std::to_string(i) + "-specular color").c_str(), glm::value_ptr(pointLightVector[i].specular_quadratic));
-			ImGui::DragFloat3((std::to_string(i) + "-intensities").c_str(), glm::value_ptr(pointLightVector[i].intensities), 0.01f);
-		}
-
-	}
-	if (ImGui::CollapsingHeader("Cool shader")) {
-		ImGui::ColorEdit3("edgeColor", glm::value_ptr(edgeColor));
-		ImGui::ColorEdit3("baseColor", glm::value_ptr(baseColor));
-		ImGui::ColorEdit3("transformColor", glm::value_ptr(transformColor));
-		ImGui::SliderFloat("width", &widthValue, 0.0f, 1.0f);
-		ImGui::SliderFloat("scale", &scaleValue, 0.0f, 15.0f);
-		ImGui::Checkbox ("cool?", &useTransparency);
-		ImGui::DragFloat3("AAAAAAAAAAA",  glm::value_ptr(ROOOTOTTO));
-	}
-
-
-	particleSystem.ImGuiDraw();
-
-	img.ImGuiDraw();
-	img.Draw(glyphShader);
-
-
-
 	ImGui::End();
 	ImGui::Begin("OUTPUT");
 	ImGui::TextColored(ImVec4(1, 1, 0, 1), "OUTPUT");
 	ImGui::BeginChild("Output list");
 	std::string line;
 	std::ifstream myfile ("other/output.txt");
+
 	if (myfile.is_open())
 	{
 		int i = 0;
-		while ( getline (myfile, line) )
-		{
-			ImGui::Text(line.c_str(), i);
-			i++;
+		for (int lineCount = 0; lineCount < 100; lineCount++) {
+			if ( getline (myfile, line) )
+			{
+				ImGui::Text(line.c_str(), i);
+				i++;
+			}
+			else {
+				break;
+			}
+
 		}
 		myfile.close();
 	}
@@ -485,230 +325,17 @@ void Game::LoadScene(const std::string& fileName) {
 	std::ifstream infile(fileName);
 
 	if (infile.is_open()) {
-		unsigned int n = 0;
-		infile >> n;
-		for (unsigned int i = 0; i < n; i++) {
-			std::string listName;
-			int listSize;
-			infile >> listName >> listSize;
-			if (listName == "PointLight") {
-				pointLightVector.reserve(listSize);
-			}
-			if (listName == "SpotLight") {
-				spotLightVector.reserve(listSize);
-			}
-			if (listName == "DirLight") {
-				dirLightVector.reserve(listSize);
-			}
-		}
 		std::string classType;
 		while (infile >> classType) {
-			if (classType == "PointLight") {
-				LoadPointLight(infile);
-			}
-			if (classType == "SpotLight") {
-				LoadSpotLight(infile);
-			}
-			if (classType == "DirLight") {
-				LoadDirLight(infile);
-			}
 			if (classType == "Camera") {
 				LoadCamera(infile);
-			}
-			if (classType == "ParticleSystem") {
-				LoadParticleSystem(infile);
 			}
 		}
 	}
 }
 void Game::SaveScene(const std::string& fileName) {
 	std::ofstream outfile(fileName);
-	outfile << 3 << "\n";
-	outfile << "PointLight " << pointLightVector.size() << "\n";
-	outfile << "SpotLight " << spotLightVector.size() << "\n";
-	outfile << "DirLight " << dirLightVector.size() << "\n";
-	for (int i = 0; i < pointLightVector.size(); i++) {
-		SavePointLight(pointLightVector[i], outfile);
-	}
-	for (int i = 0; i < spotLightVector.size(); i++) {
-		SaveSpotLight(spotLightVector[i], outfile);
-	}
-	for (int i = 0; i < dirLightVector.size(); i++) {
-		SaveDirLight(dirLightVector[i], outfile);
-	}
 	SaveCamera(outfile);
-	SaveParticleSystem(outfile);
-}
-
-
-void Game::LoadPointLight(std::ifstream& infile) {
-	PointLight t;
-
-	infile >> t.position_junk.x;
-	infile >> t.position_junk.y;
-	infile >> t.position_junk.z;
-	infile >> t.ambient_constant.x;
-	infile >> t.ambient_constant.y;
-	infile >> t.ambient_constant.z;
-	infile >> t.diffuse_linear.x;
-	infile >> t.diffuse_linear.y;
-	infile >> t.diffuse_linear.z;
-	infile >> t.specular_quadratic.x;
-	infile >> t.specular_quadratic.y;
-	infile >> t.specular_quadratic.z;
-	infile >> t.ambient_constant.w;
-	infile >> t.diffuse_linear.w;
-	infile >> t.specular_quadratic.w;
-	infile >> t.intensities.x;
-	infile >> t.intensities.y;
-	infile >> t.intensities.z;
-
-
-	pointLightVector.push_back(t);
-}
-void Game::SavePointLight(const PointLight& pointLight, std::ofstream& outfile) {
-	outfile << "PointLight\n";
-	outfile << pointLight.position_junk.x << " ";
-	outfile << pointLight.position_junk.y << " ";
-	outfile << pointLight.position_junk.z;
-	outfile << "\n";
-	outfile << pointLight.ambient_constant.x << " ";
-	outfile << pointLight.ambient_constant.y << " ";
-	outfile << pointLight.ambient_constant.z;
-	outfile << "\n";
-	outfile << pointLight.diffuse_linear.x << " ";
-	outfile << pointLight.diffuse_linear.y << " ";
-	outfile << pointLight.diffuse_linear.z;
-	outfile << "\n";
-	outfile << pointLight.specular_quadratic.x << " ";
-	outfile << pointLight.specular_quadratic.y << " ";
-	outfile << pointLight.specular_quadratic.z;
-	outfile << "\n";
-	outfile << pointLight.ambient_constant.w;
-	outfile << "\n";
-	outfile << pointLight.diffuse_linear.w;
-	outfile << "\n";
-	outfile << pointLight.specular_quadratic.w;
-	outfile << "\n";
-	outfile << pointLight.intensities.x << " ";
-	outfile << pointLight.intensities.y << " ";
-	outfile << pointLight.intensities.z;
-	outfile << "\n";
-}
-
-
-void Game::LoadDirLight(std::ifstream& infile) {
-	DirLight t;
-
-	infile >> t.direction_junk.x;
-	infile >> t.direction_junk.y;
-	infile >> t.direction_junk.z;
-	infile >> t.ambient_junk.x;
-	infile >> t.ambient_junk.y;
-	infile >> t.ambient_junk.z;
-	infile >> t.diffuse_junk.x;
-	infile >> t.diffuse_junk.y;
-	infile >> t.diffuse_junk.z;
-	infile >> t.specular_junk.x;
-	infile >> t.specular_junk.y;
-	infile >> t.specular_junk.z;
-	infile >> t.intensities.x;
-	infile >> t.intensities.y;
-	infile >> t.intensities.z;
-
-	dirLightVector.push_back(t);
-}
-void Game::SaveDirLight(const DirLight& pointLight, std::ofstream& outfile) {
-	outfile << "DirLight\n";
-	outfile << pointLight.direction_junk.x << " ";
-	outfile << pointLight.direction_junk.y << " ";
-	outfile << pointLight.direction_junk.z;
-	outfile << "\n";
-	outfile << pointLight.ambient_junk.x << " ";
-	outfile << pointLight.ambient_junk.y << " ";
-	outfile << pointLight.ambient_junk.z;
-	outfile << "\n";
-	outfile << pointLight.diffuse_junk.x << " ";
-	outfile << pointLight.diffuse_junk.y << " ";
-	outfile << pointLight.diffuse_junk.z;
-	outfile << "\n";
-	outfile << pointLight.specular_junk.x << " ";
-	outfile << pointLight.specular_junk.y << " ";
-	outfile << pointLight.specular_junk.z;
-	outfile << "\n";
-	outfile << pointLight.intensities.x << " ";
-	outfile << pointLight.intensities.y << " ";
-	outfile << pointLight.intensities.z;
-	outfile << "\n";
-}
-
-
-void Game::LoadSpotLight(std::ifstream& infile) {
-	SpotLight t;
-
-	infile >> t.position_cutOff.x;
-	infile >> t.position_cutOff.y;
-	infile >> t.position_cutOff.z;
-	infile >> t.direction_outerCutOff.x;
-	infile >> t.direction_outerCutOff.y;
-	infile >> t.direction_outerCutOff.z;
-	infile >> t.ambient_constant.x;
-	infile >> t.ambient_constant.y;
-	infile >> t.ambient_constant.z;
-	infile >> t.diffuse_linear.x;
-	infile >> t.diffuse_linear.y;
-	infile >> t.diffuse_linear.z;
-	infile >> t.specular_quadratic.x;
-	infile >> t.specular_quadratic.y;
-	infile >> t.specular_quadratic.z;
-	infile >> t.ambient_constant.w;
-	infile >> t.diffuse_linear.w;
-	infile >> t.specular_quadratic.w;
-	infile >> t.position_cutOff.w;
-	infile >> t.direction_outerCutOff.w;
-	infile >> t.intensities.x;
-	infile >> t.intensities.y;
-	infile >> t.intensities.z;
-
-	spotLightVector.push_back(t);
-}
-void Game::SaveSpotLight(const SpotLight& pointLight, std::ofstream& outfile) {
-	outfile << "PointLight\n";
-	outfile << pointLight.position_cutOff.x << " ";
-	outfile << pointLight.position_cutOff.y << " ";
-	outfile << pointLight.position_cutOff.z;
-	outfile << "\n";
-	outfile << pointLight.direction_outerCutOff.x << " ";
-	outfile << pointLight.direction_outerCutOff.y << " ";
-	outfile << pointLight.direction_outerCutOff.z;
-	outfile << "\n";
-	outfile << pointLight.ambient_constant.x << " ";
-	outfile << pointLight.ambient_constant.y << " ";
-	outfile << pointLight.ambient_constant.z;
-	outfile << "\n";
-	outfile << pointLight.diffuse_linear.x << " ";
-	outfile << pointLight.diffuse_linear.y << " ";
-	outfile << pointLight.diffuse_linear.z;
-	outfile << "\n";
-	outfile << pointLight.specular_quadratic.x << " ";
-	outfile << pointLight.specular_quadratic.y << " ";
-	outfile << pointLight.specular_quadratic.z;
-	outfile << "\n";
-	outfile << pointLight.ambient_constant.w;
-	outfile << "\n";
-	outfile << pointLight.diffuse_linear.w;
-	outfile << "\n";
-	outfile << pointLight.specular_quadratic.w;
-	outfile << "\n";
-	outfile << pointLight.position_cutOff.w;
-	outfile << "\n";
-	outfile << pointLight.direction_outerCutOff.w;
-	outfile << "\n";
-	outfile << pointLight.intensities.x << " ";
-	outfile << pointLight.intensities.y << " ";
-	outfile << pointLight.intensities.z;
-	outfile << "\n";
-
 }
 
 
@@ -738,71 +365,5 @@ void Game::SaveCamera(std::ofstream& outfile) {
 	outfile << mainCamera.fYaw;
 	outfile << "\n";
 	outfile << mainCamera.fPitch;
-	outfile << "\n";
-}
-
-
-void Game::LoadParticleSystem(std::ifstream& infile) {
-	infile >> particleSystem.vPos.x;
-	infile >> particleSystem.vPos.y;
-	infile >> particleSystem.vPos.z;
-
-	infile >> particleSystem.vRot.x;
-	infile >> particleSystem.vRot.y;
-	infile >> particleSystem.vRot.z;
-
-	infile >> particleSystem.gravity.x;
-	infile >> particleSystem.gravity.y;
-	infile >> particleSystem.gravity.z;
-
-	infile >> particleSystem.start_color.x;
-	infile >> particleSystem.start_color.y;
-	infile >> particleSystem.start_color.z;
-	infile >> particleSystem.start_color.w;
-
-	infile >> particleSystem.end_color.x;
-	infile >> particleSystem.end_color.y;
-	infile >> particleSystem.end_color.z;
-	infile >> particleSystem.end_color.w;
-
-
-	infile >> particleSystem.angle;
-	infile >> particleSystem.minLifetime;
-	infile >> particleSystem.maxLifetime;
-	infile >> particleSystem.spawnrate;
-	particleSystem.Init();
-}
-void Game::SaveParticleSystem(std::ofstream& outfile) {
-	outfile << "ParticleSystem\n";
-	outfile << particleSystem.vPos.x << " ";
-	outfile << particleSystem.vPos.y << " ";
-	outfile << particleSystem.vPos.z;
-	outfile << "\n";
-	outfile << particleSystem.vRot.x << " ";
-	outfile << particleSystem.vRot.y << " ";
-	outfile << particleSystem.vRot.z;
-	outfile << "\n";
-	outfile << particleSystem.gravity.x << " ";
-	outfile << particleSystem.gravity.y << " ";
-	outfile << particleSystem.gravity.z;
-	outfile << "\n";
-	outfile << particleSystem.start_color.x << " ";
-	outfile << particleSystem.start_color.y << " ";
-	outfile << particleSystem.start_color.z << " ";
-	outfile << particleSystem.start_color.w;
-	outfile << "\n";
-	outfile << particleSystem.end_color.x << " ";
-	outfile << particleSystem.end_color.y << " ";
-	outfile << particleSystem.end_color.z << " ";
-	outfile << particleSystem.end_color.w;
-
-	outfile << "\n";
-	outfile << particleSystem.angle;
-	outfile << "\n";
-	outfile << particleSystem.minLifetime;
-	outfile << "\n";
-	outfile << particleSystem.maxLifetime;
-	outfile << "\n";
-	outfile << particleSystem.spawnrate;
 	outfile << "\n";
 }

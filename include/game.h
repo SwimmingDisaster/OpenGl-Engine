@@ -1,21 +1,5 @@
 #pragma once
-#include <iostream>
-#include <fstream>
-#include <unordered_map>
-#include <vector>
-#include <string>
-
-#define GLEW_STATIC
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include <ImGUI/imgui.h>
-#include <ImGUI/imgui_impl_glfw.h>
-#include <ImGUI/imgui_impl_opengl3.h>
+#include  "mypch.h"
 
 
 #include "shader.h"
@@ -23,7 +7,6 @@
 #include "lights.h"
 #include "texture.h"
 #include "particles.h"
-#include "lightManager.h"
 #include "ui.h"
 
 #include "mesh_new.h"
@@ -42,7 +25,6 @@ public:
 
 	//---OBJECTS---
 	static Camera mainCamera;
-	static ParticleSystem particleSystem;
 
 
 	//---PROJECTIONS---
@@ -58,12 +40,9 @@ public:
 	static Shader notCoolSahder;
 	static Shader boxShader;
 
-	static Shader particleShader;
-	static Shader particlesCompute;
 
 	static Shader glyphShader;
 
-	static Shader particleComputeUpdate;
 
 
 	//---MODELS---

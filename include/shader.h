@@ -31,7 +31,7 @@ public:
 	void setVec3(const char* name, const glm::vec3 &value) const;
 	void setVec3(const char* name, float x, float y, float z) const;
 	void setVec4(const char* name, const glm::vec4 &value) const;
-	//void setVec4(const char* name, const glm::vec3 &value) const;
+	void setVec4(const char* name, const glm::vec3 &value) const;
 	void setVec4(const char* name, float x, float y, float z, float w) const;
 	void setMat2(const char* name, const glm::mat2 &mat) const;
 	void setMat3(const char* name, const glm::mat3 &mat) const;

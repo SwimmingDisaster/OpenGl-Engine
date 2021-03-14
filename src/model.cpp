@@ -1,26 +1,12 @@
-#pragma once
-
-#include <glad/glad.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <stb_image.h>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
+#include "mypch.h"
 
 #include <mesh_new.h>
 #include <shader.h>
 
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-#include <map>
-#include <vector>
 
 #include "texture.h"
 #include "model.h"
+#include "mesh_new.h"
 
 
 Model::Model() {}
@@ -45,6 +31,7 @@ void  Model::Draw(Shader& shader)
     for (unsigned int i = 0; i < meshes.size(); i++) {
         meshes[i].Draw(shader);
     }
+
 }
 
 // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
@@ -73,7 +60,8 @@ void  Model::processNode(aiNode* node, const aiScene* scene)
         // the node object only contains indices to index the actual objects in the scene.
         // the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        meshes.push_back(processMesh(mesh, scene));
+        meshes.push_back(Mesh());
+        meshes[meshes.size() - 1].processMesh(mesh, scene, directory    );
     }
     // after we've processed all of the meshes (if any) we then recursively process each of the children nodes
     for (unsigned int i = 0; i < node->mNumChildren; i++)
@@ -81,9 +69,10 @@ void  Model::processNode(aiNode* node, const aiScene* scene)
         processNode(node->mChildren[i], scene);
     }
 
+
 }
 
-Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
+/*Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 {
     // data to fill
     std::vector<Vertex> vertices;
@@ -168,9 +157,9 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 
     // return a mesh object created from the extracted mesh data
     return Mesh(vertices, indices, textures);
-}
+}*/
 
-std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
+/*std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
 {
     std::vector<Texture> textures;
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
@@ -199,6 +188,6 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial* mat, aiTextureType 
         }
     }
     return textures;
-}
+}*/
 
 

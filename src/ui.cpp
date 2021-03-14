@@ -1,13 +1,10 @@
+#include "mypch.h"
 #include "ui.h"
 #include "shader.h"
 
 #include "game.h"
-#include "log.h"
 #include "texture.h"
-#include <ImGUI/imgui_stdlib.h>
 
-#include <fstream>
-#include <boost/algorithm/string.hpp>
 
 Font::Font() {
 }

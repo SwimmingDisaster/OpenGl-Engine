@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"tex",
+				"TexCoords"
+			],
+			[
+				"diffu",
+				"texture_diffuse1"
+			],
+			[
 				"ran",
 				"randindex"
 			],
@@ -78,10 +86,6 @@
 			[
 				"size",
 				"sizeof"
-			],
-			[
-				"tex",
-				"textureCoord"
 			],
 			[
 				"maxX",
@@ -308,19 +312,10 @@
 	"buffers":
 	[
 		{
-			"file": "src/lightManager.cpp",
+			"file": "src/main.cpp",
 			"settings":
 			{
-				"buffer_size": 1720,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/User/Terminal.sublime-settings",
-			"settings":
-			{
-				"buffer_size": 556,
+				"buffer_size": 2906,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -499,15 +494,49 @@
 	"expanded_folders":
 	[
 		"/C/Users/mixog/Desktop/3DGAME/ENGINE",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res",
 		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src"
 	],
 	"file_history":
 	[
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/game.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/mypch.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/model.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/game.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/lights.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/mesh.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/mesh_new.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/mypch.cpp",
 		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/particles.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/camera.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/ui.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/texture.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/profiler.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/random.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/shader.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/random.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/main_includes.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/glm/gtx/component_wise.inl",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/AAAAAAAAA.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/log.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/main.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/light.fs",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/model.vs",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/model.fs",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/x64/Debug/particles.obj",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/x64/Debug/GAME.Build.CppClean.log",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/lightManager.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/x64/Debug/other/output.txt",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/mesh_new.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/model.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/shader.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/camera.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/texture.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assimp/mesh.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/aaa.h",
+		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/User/Terminal.sublime-settings",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/lightManager.cpp",
 		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/Terminal/Terminal.sublime-settings",
 		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/Terminal/Default (Windows).sublime-keymap",
-		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/User/Terminal.sublime-settings",
 		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/particles.cpp",
 		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/compute.cs",
 		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/particle.vs",
@@ -596,26 +625,7 @@
 		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_OpenGL_3.h",
 		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_OpenGL_2.h",
 		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_OpenGL_1_BASE.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_GLES_3.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_GLES_2.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_GLES_1.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/renderer_GLES_1.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/mainpage.dox",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/SDLGame.sublime-workspace",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/Player.hpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/Player.o",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/Math.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/Entity.cpp",
-		"/C/Users/mixog/Desktop/SDL_Game/src/Math.cpp",
-		"/C/Users/mixog/Desktop/SDL_Game/include/Math.hpp",
-		"/C/Users/mixog/Desktop/SDL_Game/src/RenderWindow.cpp",
-		"/C/Users/mixog/Desktop/SDL_Game/include/Entity.hpp",
-		"/C/Users/mixog/Desktop/SDL_Game/src/Entity.cpp",
-		"/C/Users/mixog/Desktop/SDL_Game/include/RenderWindow.hpp",
-		"/C/Users/mixog/Desktop/SDL_Game/src/main.cpp",
-		"/C/Users/mixog/Desktop/SDL_Game/main.o",
-		"/C/Users/mixog/Desktop/SDL_Game/SDLGame.sublime-project",
-		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/Default/exec.py"
+		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_GLES_3.h"
 	],
 	"find":
 	{
@@ -636,6 +646,21 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			">\n",
+			"lightVector",
+			"lightsVector",
+			");\n",
+			"light",
+			"    \n",
+			"lightmanager",
+			"particle",
+			"ourmodel",
+			"texturefromfile",
+			"directory",
+			"textures_loaded",
+			" % 10000",
+			" % 100000",
+			"textures_loaded",
 			" % 100000",
 			"init",
 			"float",
@@ -695,25 +720,25 @@
 			[
 				{
 					"buffer": 0,
-					"file": "src/lightManager.cpp",
+					"file": "src/main.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1720,
+						"buffer_size": 2906,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								444,
-								444
+								567,
+								567
 							]
 						],
 						"settings":
 						{
 							"bs_sintax": "c++",
-							"buffer_scroll_name": "30f6c004",
+							"buffer_scroll_name": "27f92bec",
 							"spell_check": false,
 							"syntax": "Packages/C++/C++.sublime-syntax",
 							"translate_tabs_to_spaces": false
@@ -723,38 +748,6 @@
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/User/Terminal.sublime-settings",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 556,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								556,
-								556
-							]
-						],
-						"settings":
-						{
-							"auto_complete": true,
-							"bs_sintax": "json",
-							"buffer_scroll_name": "7328d913",
-							"spell_check": false,
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
 					"type": "text"
 				}
 			]
@@ -821,12 +814,92 @@
 		"selected_items":
 		[
 			[
-				"particles",
-				"src\\particles.cpp"
+				"mypch.h",
+				"include\\mypch.h"
+			],
+			[
+				"log.h",
+				"include\\log.h"
+			],
+			[
+				"component_wise.inl",
+				"include\\glm\\gtx\\component_wise.inl"
+			],
+			[
+				"main",
+				"include\\main_includes.h"
+			],
+			[
+				"game.h",
+				"include\\game.h"
 			],
 			[
 				"game.cpp",
 				"src\\game.cpp"
+			],
+			[
+				"main.cpp",
+				"src\\main.cpp"
+			],
+			[
+				"light.fs",
+				"res\\shaders\\light.fs"
+			],
+			[
+				"model.fs",
+				"res\\shaders\\model.fs"
+			],
+			[
+				"model.vs",
+				"res\\shaders\\model.vs"
+			],
+			[
+				"game.cpcp",
+				"bin\\intermediates\\x64\\Debug\\GAME.Build.CppClean.log"
+			],
+			[
+				"maiin",
+				"include\\main_includes.h"
+			],
+			[
+				"light",
+				"include\\lightManager.h"
+			],
+			[
+				"random",
+				"src\\random.cpp"
+			],
+			[
+				"model.h",
+				"include\\model.h"
+			],
+			[
+				"model.cpp",
+				"src\\model.cpp"
+			],
+			[
+				"mesh",
+				"src\\mesh.cpp"
+			],
+			[
+				"out",
+				"bin\\x64\\Debug\\other\\output.txt"
+			],
+			[
+				"mesh.h",
+				"include\\assimp\\mesh.h"
+			],
+			[
+				"mesh_new",
+				"include\\mesh_new.h"
+			],
+			[
+				"model",
+				"src\\model.cpp"
+			],
+			[
+				"particles",
+				"src\\particles.cpp"
 			],
 			[
 				"particles.cpp",
@@ -861,16 +934,8 @@
 				"include\\particles.h"
 			],
 			[
-				"game.h",
-				"include\\game.h"
-			],
-			[
 				"particle.vs",
 				"res\\shaders\\particle.vs"
-			],
-			[
-				"main.cpp",
-				"src\\main.cpp"
 			],
 			[
 				"gyph",
@@ -885,10 +950,6 @@
 				"src\\texture.cpp"
 			],
 			[
-				"model.cpp",
-				"src\\model.cpp"
-			],
-			[
 				"glyp",
 				"res\\shaders\\glyph.fs"
 			],
@@ -897,20 +958,12 @@
 				"include\\ui.h"
 			],
 			[
-				"light.fs",
-				"res\\shaders\\light.fs"
-			],
-			[
 				"ligh",
 				"src\\lightManager.cpp"
 			],
 			[
 				"lights.h",
 				"include\\lights.h"
-			],
-			[
-				"main",
-				"include\\main_includes.h"
 			],
 			[
 				"",

@@ -1,8 +1,0 @@
-﻿  game.cpp
-C:\Users\mixog\Desktop\3DGAME\VISUALOPENGL\include\mesh_new.h(86,1): warning C4267: 'argument': conversion from 'size_t' to 'GLsizei', possible loss of data
-C:\Users\mixog\Desktop\3DGAME\VISUALOPENGL\src\game.cpp(118,13): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-C:\Users\mixog\Desktop\3DGAME\VISUALOPENGL\src\game.cpp(264,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\mixog\Desktop\3DGAME\VISUALOPENGL\src\game.cpp(280,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-  GAME.vcxproj -> C:\Users\mixog\Desktop\3DGAME\VISUALOPENGL\bin\x64\Debug\GAME.exe
-  Copy DLLs to Target Directory
-  0 File(s) copied

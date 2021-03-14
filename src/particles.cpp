@@ -1,25 +1,10 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtx/norm.hpp>
-#include <glm/gtx/rotate_vector.hpp>
-
+#include "mypch.h"
 
 #include "particles.h"
 #include "game.h"
 #include "shader.h"
 #include "model.h"
-#include "log.h"
 #include "random.h"
-
-#include <iostream>
-#include <algorithm>
-
-#include <ImGUI/imgui.h>
-#include <ImGUI/imgui_impl_glfw.h>
-#include <ImGUI/imgui_impl_opengl3.h>
 
 #define PI 3.14159265
 

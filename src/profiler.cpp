@@ -1,45 +1,7 @@
-//
-// Basic instrumentation profiler by Cherno
-
-// Usage: include this header file somewhere in your code (eg. precompiled header), and then use like:
-//
-// Instrumentor::Get().BeginSession("Session Name");        // Begin session
-// {
-//     InstrumentationTimer timer("Profiled Scope Name");   // Place code like this in scopes you'd like to include in profiling
-//     // Code
-// }
-// Instrumentor::Get().EndSession();                        // End Session
-//
-// You will probably want to macro-fy this, to switch on/off easily and use things like __FUNCSIG__ for the profile name.
-//
-
-#include <string>
-#include <chrono>
-#include <algorithm>
-#include <fstream>
-#include <iostream>
-
-#include "windows.h"
+#include "mypch.h"
 #include "profiler.h"
 
 
-
-
-
-//void* (*new)(size_t, const std::experimental::source_location&);
-/*#define PROFILE 1
-#if !PROFILE
-void* operator new(size_t size) {
-    //std::cout << boost::stacktrace::stacktrace() << "\n";
-    std::cout << "Allocated " << size << " bytes of memory!\n";
-    return malloc(size);
-}
-
-void operator delete(void* data) {
-    std::cout << "Freed some memory!\n";
-    free(data);
-}
-#endif*/
 
 Instrumentor::Instrumentor()
     : m_CurrentSession(nullptr), m_ProfileCount(0)

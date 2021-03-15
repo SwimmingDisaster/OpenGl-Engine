@@ -1,5 +1,14 @@
 #include "mypch.h"
-#include "main_includes.h"
+#include "shader.h"
+#include "camera.h"
+#include "lights.h"
+#include "game.h"
+#include "texture.h"
+#include "log.h"
+#include "mesh_new.h"
+#include "model.h"
+
+#include "input.h"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
@@ -28,7 +37,6 @@ glm::mat4 Game::viewProjectionMatrix = glm::mat4(1.0f);
 //---GLLOBALS---
 int Game::SCREEN_WIDTH = 1280;
 int Game::SCREEN_HEIGHT = 720;
-
 float Game::deltaTime = 0.0001f;
 float Game::lastFrame = 0.0f;
 
@@ -38,23 +46,15 @@ Shader Game::lightingShader1;
 Shader Game::coolSahder;
 Shader Game::notCoolSahder;
 Shader Game::boxShader;
-
-
 Shader Game::glyphShader;
-
-
-
-//---MODELS---
-Model Game::boxModel;
-Model Game::ourModel;
-Model Game::sphereModel;
-Model Game::monkyModel;
-
 
 //---CONTROLLERS---
 GLFWwindow* Game::window = nullptr;
 ImGuiIO* Game::ioPtr = nullptr;
 
+
+std::unordered_map<int, bool> Game::isPressed1;
+std::unordered_map<int, bool> Game::isPressed2;
 
 //-----wierd shit varibales----
 unsigned int matrixUBO;
@@ -92,7 +92,7 @@ int Game::Init() {
 	glfwMakeContextCurrent(window);
 	glfwShowWindow(window);
 
-	glfwSetKeyCallback(window, key_callback);
+	glfwSetKeyCallback(window, Input::KeyInputCallback);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 	glfwSetCursorPosCallback(window, mouse_callback);
 
@@ -157,9 +157,6 @@ void Game::Start() {
 	lightingShader1.use();
 
 
-
-
-
 	ourModel = Model("res/BOXES/BOX.obj");
 	monkyModel = Model("res/robot/nanosuuit.fbx");
 
@@ -175,65 +172,69 @@ void Game::Start() {
 }
 void Game::Run() {
 
-	for (int i = 0; i < 100; i++) {Log(i);}
 
 	while (!glfwWindowShouldClose(window))
 	{
-		PROFILE_SCOPE("Game loop");
-		{
-			PROFILE_SCOPE("Input");
-			glEnable(GL_DEPTH_TEST);
-			processInput(window);
-			viewMatrix = mainCamera.GetViewMatrix();
-			viewProjectionMatrix = projectionMatrix * viewMatrix;
 
 
-			glBindBuffer(GL_UNIFORM_BUFFER, matrixUBO);
-			glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(viewMatrix));
-			glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(projectionMatrix));
-			glBindBuffer(GL_UNIFORM_BUFFER, 0);
+		mainCamera.ProcessKeyboard(deltaTime);
+		viewMatrix = mainCamera.GetViewMatrix();
+		viewProjectionMatrix = projectionMatrix * viewMatrix;
+
+		glBindBuffer(GL_UNIFORM_BUFFER, matrixUBO);
+		glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(viewMatrix));
+		glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(projectionMatrix));
+		glBindBuffer(GL_UNIFORM_BUFFER, 0);
 
 
+
+
+		if (Input::IsKeyPressed(INPUT_KEY_ESCAPE)) {
+			if (glfwGetInputMode(window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL) {
+				mainCamera.isLocked = false;
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			}
+			else {
+				mainCamera.isLocked = true;
+				glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			}
 		}
 
 		//--------------------------Draw--------------------------
-		{
-			PROFILE_SCOPE("Render");
-			glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
 
 
 
-			lightingShader1.setFloat("material.shininess", 64.0f);
+		lightingShader1.setFloat("material.shininess", 64.0f);
 
-			lightingShader1.use();
-			ourModel.vRot = glm::vec3(0.0f, 90.0f, 0.0f);
-			ourModel.vScale = glm::vec3(10.0f, 1.0f, 10.0f);
-			ourModel.vPos = glm::vec3(0.0f, 0.0f, 25.0f);
+		lightingShader1.use();
+		ourModel.vRot = glm::vec3(0.0f, 90.0f, 0.0f);
+		ourModel.vScale = glm::vec3(10.0f, 1.0f, 10.0f);
+		ourModel.vPos = glm::vec3(0.0f, 0.0f, 25.0f);
 
-			ourModel.Draw(lightingShader1);
-			monkyModel.vRot = glm::vec3(0.0f, 90.0f, 0.0f);
-			monkyModel.vScale = glm::vec3(1.0f, 1.0f, 1.0f);
-			monkyModel.vPos = glm::vec3(0.0f, 0.0f, 0.0f);
-			monkyModel.Draw(lightingShader1);
+		ourModel.Draw(lightingShader1);
+		monkyModel.vRot = glm::vec3(0.0f, 90.0f, 0.0f);
+		monkyModel.vScale = glm::vec3(1.0f, 1.0f, 1.0f);
+		monkyModel.vPos = glm::vec3(0.0f, 0.0f, 0.0f);
+		monkyModel.Draw(lightingShader1);
 
-			boxShader.use();
-			boxModel.vRot = glm::vec3(0.0f, 0.0f, 0.0f);
-			boxModel.vScale = glm::vec3(1.0f, 1.0f, 1.0f);
+		boxShader.use();
+		boxModel.vRot = glm::vec3(0.0f, 0.0f, 0.0f);
+		boxModel.vScale = glm::vec3(1.0f, 1.0f, 1.0f);
 
 
-		}
 
 
 		//--------------------------ImGui--------------------------
-		{
-			PROFILE_SCOPE("ImGui");
-			ImGUI();
-		}
+		ImGUI();
 
 		//--------------------------ImGui--------------------------
+
+
+		Input::Update();
 		glfwSwapBuffers(window);
 		glfwPollEvents();
 

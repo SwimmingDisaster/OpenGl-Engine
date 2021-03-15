@@ -1,6 +1,8 @@
 
 #include "mypch.h"
 #include "camera.h"
+#include "game.h"
+#include "input.h"
 
 
 
@@ -30,21 +32,32 @@ glm::mat4 Camera::GetViewMatrix()
     return glm::lookAt(vPos, vPos + vFront, vUp);
 }
 
-void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
+void Camera::ProcessKeyboard(float deltaTime)
 {
     float velocity = movementSpeed * deltaTime;
-    if (direction == FORWARD)
-        vPos += vFront * velocity;
-    if (direction == BACKWARD)
-        vPos -= vFront * velocity;
-    if (direction == LEFT)
-        vPos -= vRight * velocity;
-    if (direction == RIGHT)
-        vPos += vRight * velocity;
+
+    float speedup = 1.0f;
+    if (glfwGetKey(Game::window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+        speedup = 3.0f;
+
+    if (Input::IsKeyHeld(INPUT_KEY_W)) {
+        vPos += vFront * velocity * speedup;
+    }
+    if (Input::IsKeyHeld(INPUT_KEY_S)) {
+        vPos -= vFront * velocity * speedup;
+    }
+    if (Input::IsKeyHeld(INPUT_KEY_A)) {
+        vPos -= vRight * velocity * speedup;
+    }
+    if (Input::IsKeyHeld(INPUT_KEY_D)) {
+        vPos += vRight * velocity * speedup;
+    }
+
 }
 
 void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch)
 {
+
     if (!isLocked) {
         xoffset *= mouseSensitivity;
         yoffset *= mouseSensitivity;

@@ -6,13 +6,10 @@
 #include "camera.h"
 #include "lights.h"
 #include "texture.h"
-#include "particles.h"
-#include "ui.h"
 
 #include "mesh_new.h"
 #include "model.h"
 
-#include "profiler.h"
 
 
 class Game {
@@ -21,7 +18,6 @@ public:
 	static std::vector<PointLight> pointLightVector;
 	static std::vector<SpotLight> spotLightVector;
 	static std::vector<DirLight> dirLightVector;
-
 
 	//---OBJECTS---
 	static Camera mainCamera;
@@ -44,12 +40,16 @@ public:
 	static Shader glyphShader;
 
 
+	static std::unordered_map<int, bool> isPressed1;
+	static std::unordered_map<int, bool> isPressed2;
+
+
 
 	//---MODELS---
-	static Model boxModel;
-	static Model ourModel;
-	static Model sphereModel;
-	static Model monkyModel;
+	Model boxModel;
+	Model ourModel;
+	Model sphereModel;
+	Model monkyModel;
 
 
 
@@ -76,21 +76,6 @@ public:
 
 
 private:
-	static void LoadPointLight(std::ifstream& infile);
-	static void SavePointLight(const PointLight& pointLight, std::ofstream& outfile);
-
-	static void LoadDirLight(std::ifstream& infile);
-	static void SaveDirLight(const DirLight& pointLight, std::ofstream& outfile);
-
-	static void LoadSpotLight(std::ifstream& infile);
-	static void SaveSpotLight(const SpotLight& pointLight, std::ofstream& outfile);
-
 	static void LoadCamera(std::ifstream& infile);
 	static void SaveCamera(std::ofstream& outfile);
-
-	static void LoadParticleSystem(std::ifstream& infile);
-	static void SaveParticleSystem(std::ofstream& outfile);
-
-
-
 };

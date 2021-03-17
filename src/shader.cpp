@@ -1,6 +1,5 @@
 #include "mypch.h"
 #include "shader.h"
-#include "lights.h"
 
 
 
@@ -28,9 +27,9 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
 		vertexCode   = vShaderStream.str();
 		fragmentCode = fShaderStream.str();
 	}
-	catch (const std::ifstream::failure& e)
+	catch (const std::exception& e)
 	{
-		std::cout << "Shader file not read successfully" << std::endl;
+		std::cout << "Shader file not read successfully" << e.what() << std::endl;
 	}
 	const char* vShaderCode = vertexCode.c_str();
 	const char* fShaderCode = fragmentCode.c_str();
@@ -64,7 +63,6 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
 	glDeleteShader(fragmentShader);
 }
 
-
 Shader::Shader(const char* computePath) {
 	std::string computeCode;
 	std::ifstream computeFile;
@@ -82,9 +80,9 @@ Shader::Shader(const char* computePath) {
 
 		computeCode = vComputeStream.str();
 	}
-	catch (const std::ifstream::failure& e)
+	catch (const std::exception& e)
 	{
-		std::cout << "Shader file not read successfully" << std::endl;
+		std::cout << "Shader file not read successfully" << e.what() << std::endl;
 	}
 	const char* shaderCode = computeCode.c_str();
 
@@ -109,15 +107,13 @@ Shader::Shader(const char* computePath) {
 	glDeleteShader(computeShader);
 }
 
-Shader::Shader() {
-
-}
+Shader::Shader() {}
 
 
 void Shader::use() {
 	glUseProgram(ID);
 }
-
+// ------------------------------------------------------------------------
 void Shader::setBool(const char* name, bool value) const
 {
 	glUniform1i(glGetUniformLocation(ID, name), (int)value);
@@ -137,6 +133,7 @@ void Shader::setVec2(const char* name, const glm::vec2 &value) const
 {
 	glUniform2fv(glGetUniformLocation(ID, name), 1, &value[0]);
 }
+// ------------------------------------------------------------------------
 void Shader::setVec2(const char* name, float x, float y) const
 {
 	glUniform2f(glGetUniformLocation(ID, name), x, y);
@@ -146,6 +143,7 @@ void Shader::setVec3(const char* name, const glm::vec3 &value) const
 {
 	glUniform3fv(glGetUniformLocation(ID, name), 1, &value[0]);
 }
+// ------------------------------------------------------------------------
 void Shader::setVec3(const char* name, float x, float y, float z) const
 {
 	glUniform3f(glGetUniformLocation(ID, name), x, y, z);
@@ -155,10 +153,12 @@ void Shader::setVec4(const char* name, const glm::vec4 &value) const
 {
 	glUniform4fv(glGetUniformLocation(ID, name), 1, &value[0]);
 }
-/*void Shader::setVec4(const char* name, const glm::vec3 &value) const
+// ------------------------------------------------------------------------
+void Shader::setVec4(const char* name, const glm::vec3 &value) const
 {
 	glUniform4fv(glGetUniformLocation(ID, name), 1, &value[0]);
-}*/
+}
+// ------------------------------------------------------------------------
 void Shader::setVec4(const char* name, float x, float y, float z, float w) const
 {
 	glUniform4f(glGetUniformLocation(ID, name), x, y, z, w);

@@ -130,13 +130,22 @@
 class Input {
 private:
 	static Input m_instance;
+
+public:
 	std::unordered_map<int, bool> m_pressedKeysNow;
 	std::unordered_map<int, bool> m_pressedKeysLast;
 
+	float lastX = 0;
+	float lastY = 0;
+
+	float xoffset = 0;
+	float yoffset = 0;
 public:
+
 	static Input& Get();
 	static void Update();
 	static void KeyInputCallback(GLFWwindow * window, int key, int scancode, int action, int mods);
+	static void MouseCallback(GLFWwindow * window, double xpos, double ypos);
 
 	static bool IsKeyPressed(int keycode);
 	static bool IsKeyHeld(int keycode);

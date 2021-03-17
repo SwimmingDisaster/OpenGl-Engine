@@ -26,13 +26,14 @@ class Camera
 public:
 
 	glm::vec3 vPos;
+	glm::vec3 vRot;
 	glm::vec3 vFront;
+
+
 	glm::vec3 vUp;
 	glm::vec3 vRight;
 	glm::vec3 vWorldUp;
 
-	float fYaw;
-	float fPitch;
 
 	float movementSpeed;
 	float mouseSensitivity;
@@ -48,7 +49,7 @@ public:
 	glm::mat4 GetViewMatrix();
 
 	void ProcessKeyboard(float deltaTime);
-	void ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch = true);
+	void ProcessMouseMovement(GLboolean constrainPitch = true);
 
 	void updateCameraVectors();
 };

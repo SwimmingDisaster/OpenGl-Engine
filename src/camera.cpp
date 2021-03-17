@@ -1,7 +1,7 @@
 
 #include "mypch.h"
 #include "camera.h"
-#include "game.h"
+#include "application.h"
 #include "input.h"
 
 
@@ -12,8 +12,8 @@ Camera::Camera(glm::vec3 position, glm::vec3 up, float yaw, float pitch) : vFron
 {
     vPos = position;
     vWorldUp = up;
-    fYaw = yaw;
-    fPitch = pitch;
+    vRot.y = yaw;
+    vRot.x = pitch;
     updateCameraVectors();
 }
 
@@ -22,8 +22,8 @@ Camera::Camera(float posX, float posY, float posZ, float upX, float upY, float u
 {
     vPos = glm::vec3(posX, posY, posZ);
     vWorldUp = glm::vec3(upX, upY, upZ);
-    fYaw = yaw;
-    fPitch = pitch;
+    vRot.y = yaw;
+    vRot.x = pitch;
     updateCameraVectors();
 }
 
@@ -37,7 +37,7 @@ void Camera::ProcessKeyboard(float deltaTime)
     float velocity = movementSpeed * deltaTime;
 
     float speedup = 1.0f;
-    if (glfwGetKey(Game::window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+    if (glfwGetKey(Application::window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         speedup = 3.0f;
 
     if (Input::IsKeyHeld(INPUT_KEY_W)) {
@@ -55,22 +55,20 @@ void Camera::ProcessKeyboard(float deltaTime)
 
 }
 
-void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch)
+void Camera::ProcessMouseMovement(GLboolean constrainPitch)
 {
 
     if (!isLocked) {
-        xoffset *= mouseSensitivity;
-        yoffset *= mouseSensitivity;
 
-        fYaw   += xoffset;
-        fPitch += yoffset;
+        vRot.y   += Input::Get().xoffset * mouseSensitivity;
+        vRot.x   += Input::Get().yoffset * mouseSensitivity;
 
         if (constrainPitch)
         {
-            if (fPitch > 89.0f)
-                fPitch = 89.0f;
-            if (fPitch < -89.0f)
-                fPitch = -89.0f;
+            if (vRot.x > 89.0f)
+                vRot.x = 89.0f;
+            if (vRot.x < -89.0f)
+                vRot.x = -89.0f;
         }
 
         updateCameraVectors();
@@ -81,9 +79,9 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constr
 void Camera::updateCameraVectors()
 {
     glm::vec3 front;
-    front.x = cos(glm::radians(fYaw)) * cos(glm::radians(fPitch));
-    front.y = sin(glm::radians(fPitch));
-    front.z = sin(glm::radians(fYaw)) * cos(glm::radians(fPitch));
+    front.x = cos(glm::radians(vRot.y)) * cos(glm::radians(vRot.x));
+    front.y = sin(glm::radians(vRot.x));
+    front.z = sin(glm::radians(vRot.y)) * cos(glm::radians(vRot.x));
     vFront = glm::normalize(front);
 
     vRight = glm::normalize(glm::cross(vFront, vWorldUp));

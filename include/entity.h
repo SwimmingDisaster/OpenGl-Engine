@@ -4,11 +4,11 @@
 #include <vector>
 #include <memory>
 
-class Entity { /*: public std::enable_shared_from_this<Entity>*/
+class Entity : public std::enable_shared_from_this<Entity> {
 public:
 	std::vector< std::shared_ptr<Component> > m_components;
-	std::string m_name;
-	long long m_uuid;
+	std::string name;
+	long long uuid;
 
 public:
 	virtual void Start();
@@ -29,7 +29,7 @@ public:
 
 	template<typename T> void AddComponent() {
 		std::shared_ptr<T> comp = std::make_shared<T>();
-		comp->m_parentEntity = std::make_shared<Entity>(*this); //shared_from_this();
+		comp->m_parentEntity = shared_from_this();
 		m_components.push_back(comp);
 	}
 
@@ -39,6 +39,7 @@ public:
 			if ( std::shared_ptr<T> castedComp = std::dynamic_pointer_cast<T>( m_components[i] ) )
 			{
 				m_components.erase(m_components.begin() + i);
+				i--;
 			}
 		}
 

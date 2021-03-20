@@ -40,9 +40,6 @@ public:
 	void ImGUI();
 
 	static void framebuffer_size_callback(GLFWwindow * window, int width, int height);
-	static void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-
-
 
 private:
 	static void LoadCamera(std::ifstream& infile);

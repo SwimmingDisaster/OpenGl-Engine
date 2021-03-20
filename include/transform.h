@@ -1,5 +1,7 @@
 #pragma once
 #include "component.h"
+#include <string.h>
+
 
 class Transform : public Component {
 public:
@@ -9,4 +11,7 @@ public:
 
 public:
 	virtual void Start();
+	virtual void Show();
+	~Transform();
+	Transform();
 };

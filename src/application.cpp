@@ -17,7 +17,6 @@
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
 
 
@@ -59,6 +58,7 @@ void Application::framebuffer_size_callback(GLFWwindow * window, int width, int 
 
 
 int Application::Init() {
+	Random::Init();
 	int exitCode = Renderer::InitOpenGL();
 	if (exitCode != 0) {
 		return exitCode;
@@ -79,19 +79,21 @@ void Application::Start() {
 
 	Renderer::InitMatrices();
 }
+std::shared_ptr<Entity> enntt = std::make_shared<Entity>(); //if this fails with shared pointer in add component use make shared  from this
 void Application::Run() {
-	Entity enntt; //if this fails with shared pointer in add component use make shared  from this
 
-	enntt.AddComponent<Transform>();
-	enntt.AddComponent<TestComponent>();
-	enntt.m_components[0]->Start();
-	enntt.m_components[1]->Start();
+	enntt->name = "Entity 1";
+	enntt->uuid = abs(Random::Int());
+
+	enntt->AddComponent<Transform>();
+	enntt->AddComponent<TestComponent>();
+
+	enntt->m_components[0]->Start();
+	enntt->m_components[1]->Start();
 
 
-	enntt.RemoveComponent<TestComponent>();
-	enntt.RemoveComponent<Transform>();
 
-
+	//enntt.m_components.clear();
 
 
 
@@ -149,6 +151,8 @@ void Application::Run() {
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 	}
+	enntt->RemoveComponent<TestComponent>();
+	enntt->RemoveComponent<Transform>();
 }
 
 void Application::ImGUI() {
@@ -167,6 +171,10 @@ void Application::ImGUI() {
 
 	ImGui::End();
 
+	ImGui::Begin("Hierarchy");
+	ImGuiManager::DrawEnity(enntt);
+
+	ImGui::End();
 
 	ImGui::Begin("OUTPUT");
 	ImGui::TextColored(ImVec4(1, 1, 0, 1), "OUTPUT");
@@ -178,7 +186,7 @@ void Application::ImGUI() {
 	{
 		int i = 0;
 		for (int lineCount = 0; lineCount < 100; lineCount++) {
-			if ( getline (myfile, line) )
+			if (getline (myfile, line))
 			{
 				ImGui::Text(line.c_str(), i);
 				i++;
@@ -197,6 +205,7 @@ void Application::ImGUI() {
 }
 void Application::Shutdown() {
 	SaveScene("other/save.txt");
+	//ImGui::DestroyContext();
 	ImGuiManager::ShutdownImGui();
 	Renderer::ShutdownOpenGL();
 }

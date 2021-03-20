@@ -1,8 +1,6 @@
 #pragma once
 #include "mypch.h"
 
-
-
 class Entity;
 class Component {
 public:
@@ -11,9 +9,10 @@ public:
 	virtual void End() {}
 	virtual void Serialize() {}
 	virtual void Deserialize() {}
+	virtual void Show() {}
 
-	~Component();
 public:
 	std::shared_ptr<Entity> m_parentEntity;
+	std::string m_name;
 	//+ GetComponent<template T>()
 };

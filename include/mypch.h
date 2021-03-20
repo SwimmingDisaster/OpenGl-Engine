@@ -31,6 +31,7 @@
 #include <ImGUI/imgui_impl_glfw.h>
 #include <ImGUI/imgui_impl_opengl3.h>
 #include <ImGUI/imgui_stdlib.h>
+#include <ImGUI/imgui_internal.h>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>

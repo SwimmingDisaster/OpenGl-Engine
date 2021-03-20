@@ -1,11 +1,17 @@
 #include "mypch.h"
 #include "imGuiManager.h"
 #include "application.h"
+#include "entity.h"
+
+
+const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
+
+ImGuiContext* ImGuiManager::imGuiContext;
 
 void ImGuiManager::InitImGui() {
 	IMGUI_CHECKVERSION();
 
-	ImGui::CreateContext();
+	imGuiContext = ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
@@ -52,5 +58,46 @@ void ImGuiManager::EndFrame() {
 		ImGui::UpdatePlatformWindows();
 		ImGui::RenderPlatformWindowsDefault();
 		glfwMakeContextCurrent(backup_context);
+	}
+}
+
+void ImGuiManager::DrawEnity(const std::shared_ptr<Entity>& entityToDraw) {
+
+	ImGui::InputText("Name", &entityToDraw->name, ImGuiInputTextFlags_CallbackResize);
+	ImGui::Text(("UIID: " + std::to_string(entityToDraw->uuid)).c_str());
+	for (int i = 0; i < entityToDraw->m_components.size(); i++) {
+		ImVec2 contentRegionAvailable = ImGui::GetContentRegionAvail();
+
+		ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{ 4, 4 });
+		float lineHeight = ImGuiManager::imGuiContext->Font->FontSize + ImGuiManager::imGuiContext->Style.FramePadding.y * 2.0f;
+		ImGui::Separator();
+		bool open = ImGui::TreeNodeEx((void*)i, treeNodeFlags, entityToDraw->m_components[i]->m_name.c_str());
+		ImGui::PopStyleVar(
+		);
+		ImGui::SameLine(contentRegionAvailable.x - lineHeight * 0.5f);
+		if (ImGui::Button("*", ImVec2{ lineHeight, lineHeight }))
+		{
+			ImGui::OpenPopup("ComponentSettings");
+		}
+
+		bool removeComponent = false;
+		if (ImGui::BeginPopup("ComponentSettings"))
+		{
+			if (ImGui::MenuItem("Remove component"))
+				removeComponent = true;
+
+			ImGui::EndPopup();
+		}
+
+		if (open)
+		{
+			entityToDraw->m_components[i]->Show();
+			ImGui::TreePop();
+		}
+
+		if (removeComponent) {
+			entityToDraw->m_components.erase(entityToDraw->m_components.begin() + i);
+			i--;
+		}
 	}
 }

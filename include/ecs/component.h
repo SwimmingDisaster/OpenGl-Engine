@@ -14,5 +14,4 @@ public:
 public:
 	std::shared_ptr<Entity> m_parentEntity;
 	std::string m_name;
-	//+ GetComponent<template T>()
 };

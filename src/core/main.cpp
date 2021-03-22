@@ -1,6 +1,5 @@
 #include "mypch.h"
-#include "input.h"
-#include "application.h"
+#include "core/application.h"
 
 
 

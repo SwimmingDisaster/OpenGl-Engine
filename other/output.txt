@@ -1,5 +1,2 @@
-Log: vec3(1.000000, 10.000000, 1.000000)
-Log: 0
-Log: vec3(0.000000, 999.900024, 69.000000)
-Log: Deleted TestComponent
 Log: Deleted Transform
+Log: Removed Entity bob

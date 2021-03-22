@@ -1,8 +1,8 @@
 
 #include "mypch.h"
-#include "camera.h"
-#include "application.h"
-#include "input.h"
+#include "core/other/camera.h"
+#include "core/application.h"
+#include "core/input.h"
 
 
 

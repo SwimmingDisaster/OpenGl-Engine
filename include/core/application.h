@@ -2,16 +2,13 @@
 #include  "mypch.h"
 
 
-#include "shader.h"
-#include "camera.h"
-#include "lights.h"
+#include "core/shader.h"
+#include "core/other/camera.h"
 #include "texture.h"
 
-#include "mesh_new.h"
-#include "model.h"
+#include "ecs/entity.h"
+#include "ecs/scene.h"
 
-#include "entity.h"
-#include "transform.h"
 
 
 class Application {
@@ -27,6 +24,8 @@ public:
 
 	//---CONTROLLERS---
 	static GLFWwindow* window;
+	static std::shared_ptr<Entity> m_selectedEntity;
+	static Scene m_curentScene;
 
 
 public:

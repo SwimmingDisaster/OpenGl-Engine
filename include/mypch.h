@@ -37,12 +37,13 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-#include <stb_image.h>
+
+#include <stb/stb_image.h>
 
 #include <boost/algorithm/string.hpp>
 
-#include "log.h"
-#include "random.h"
+#include "core/other/log.h"
+#include "core/other/random.h"
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 #include <Windows.h>

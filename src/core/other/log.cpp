@@ -1,4 +1,4 @@
-#include "log.h"
+#include "core/other/log.h"
 
 
 std::ostream& operator<<(std::ostream& out, const glm::vec3& g)

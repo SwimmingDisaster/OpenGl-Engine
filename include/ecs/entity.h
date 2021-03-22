@@ -45,6 +45,7 @@ public:
 
 	}
 
-
-
+	~Entity() 	{
+		Log("Removed Entity " << name);
+	}
 };

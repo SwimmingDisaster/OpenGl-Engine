@@ -1,7 +1,7 @@
 #include "mypch.h"
-#include "renderer.h"
-#include "application.h"
-#include "input.h"
+#include "core/renderer.h"
+#include "core/application.h"
+#include "core/input.h"
 
 unsigned int Renderer::matrixUBO;
 glm::mat4 Renderer::projectionMatrix;

@@ -1,24 +1,23 @@
 #include "mypch.h"
-#include "shader.h"
-#include "camera.h"
-#include "lights.h"
-#include "application.h"
-#include "texture.h"
-#include "log.h"
-#include "mesh_new.h"
-#include "model.h"
-#include "renderer.h"
-#include "imGuiManager.h"
-#include "input.h"
-#include "test.h"
-#define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
 
+#include "core/shader.h"
+#include "core/application.h"
+#include "core/texture.h"
+#include "core/renderer.h"
+#include "core/imGuiManager.h"
+#include "core/input.h"
+
+#include "core/other/camera.h"
+#include "core/other/log.h"
+
+
+#include "assets/transform.h"
+#include "assets/mesh.h"
+
+#define STB_IMAGE_IMPLEMENTATION
 
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-
-
 
 //---OBJECTS---
 Camera Application::mainCamera;
@@ -31,12 +30,11 @@ float Application::lastFrame = 0.0f;
 
 //---SHADERS---
 Shader lightingShader1;
-
 //---MODELS---
-Model ourModel;
-Model monkyModel;
 
 
+std::shared_ptr<Entity> Application::m_selectedEntity;
+Scene  Application::m_curentScene;
 
 //---CONTROLLERS---
 GLFWwindow* Application::window = nullptr;
@@ -74,28 +72,28 @@ void Application::Start() {
 
 	lightingShader1.use();
 
-	ourModel = Model("res/BOXES/BOX.obj");
-	monkyModel = Model("res/robot/nanosuuit.fbx");
 
 	Renderer::InitMatrices();
 }
-std::shared_ptr<Entity> enntt = std::make_shared<Entity>(); //if this fails with shared pointer in add component use make shared  from this
 void Application::Run() {
+	m_curentScene.AddEntity("bob");
+	m_curentScene.m_entities[0]->uuid = Random::Int();
+	m_curentScene.m_entities[0]->AddComponent<Transform>();
+	m_curentScene.m_entities[0]->m_components[0]->Start();
 
-	enntt->name = "Entity 1";
-	enntt->uuid = abs(Random::Int());
+	m_selectedEntity = m_curentScene.GetEntity("bob");
 
-	enntt->AddComponent<Transform>();
-	enntt->AddComponent<TestComponent>();
-
-	enntt->m_components[0]->Start();
-	enntt->m_components[1]->Start();
-
-
-
-	//enntt.m_components.clear();
+	m_curentScene.AddEntity("bob 2");
+	m_curentScene.m_entities[1]->uuid = Random::Int();
+	m_curentScene.m_entities[1]->AddComponent<Transform>();
+	m_curentScene.m_entities[1]->AddComponent<Model>();
+	m_curentScene.m_entities[1]->m_components[0]->Start();
+	m_curentScene.m_entities[1]->m_components[1]->Start();
 
 
+	m_curentScene.m_entities[1]->GetComponent<Transform>()->position = glm::vec3(0.0f, 0.0f, 0.0f);
+	m_curentScene.m_entities[1]->GetComponent<Transform>()->rotation = glm::vec3(0.0f, 90.0f, 0.0f);
+	m_curentScene.m_entities[1]->GetComponent<Transform>()->scale = glm::vec3(1.0f, 1.0f, 1.0f);
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -116,6 +114,14 @@ void Application::Run() {
 		}
 
 
+		//--------------------------Update--------------------------
+		for (int i = 0; i < m_curentScene.m_entities.size(); i++) {
+			m_curentScene.m_entities[i]->Update();
+		}
+
+		//--------------------------Update--------------------------
+
+
 		//--------------------------Draw--------------------------
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -125,16 +131,7 @@ void Application::Run() {
 
 		lightingShader1.use();
 
-		ourModel.vRot = glm::vec3(0.0f, 90.0f, 0.0f);
-		ourModel.vScale = glm::vec3(10.0f, 1.0f, 10.0f);
-		ourModel.vPos = glm::vec3(0.0f, 0.0f, 25.0f);
-		ourModel.Draw(lightingShader1);
-
-
-		monkyModel.vRot = glm::vec3(0.0f, 90.0f, 0.0f);
-		monkyModel.vScale = glm::vec3(1.0f, 1.0f, 1.0f);
-		monkyModel.vPos = glm::vec3(0.0f, 0.0f, 0.0f);
-		monkyModel.Draw(lightingShader1);
+		ModelRenderer::DrawModel(lightingShader1, m_curentScene.m_entities[1]->GetComponent<Model>());
 
 
 		//--------------------------ImGui--------------------------
@@ -151,8 +148,8 @@ void Application::Run() {
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 	}
-	enntt->RemoveComponent<TestComponent>();
-	enntt->RemoveComponent<Transform>();
+
+	m_curentScene.Clear();
 }
 
 void Application::ImGUI() {
@@ -166,13 +163,30 @@ void Application::ImGUI() {
 		frameImGuiText = std::to_string(1 / deltaTime);
 	}
 
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+
 	ImGui::TextColored(ImVec4(1, 1, 0, 1), frameImGuiText.c_str());
 
 
 	ImGui::End();
 
 	ImGui::Begin("Hierarchy");
-	ImGuiManager::DrawEnity(enntt);
+
+	for (int i = 0; i < m_curentScene.m_entities.size(); i++)
+		ImGuiManager::DrawEnityHierarchy(m_curentScene.m_entities[i ]);
+
+	if (ImGui::Button("Add Entity")) {
+		m_curentScene.AddEntity();
+	}
+
+	if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered()) {
+		m_selectedEntity.reset();
+	}
+
+	ImGui::End();
+
+	ImGui::Begin("Properties");
+	ImGuiManager::DrawEnity(m_selectedEntity);
 
 	ImGui::End();
 

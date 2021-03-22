@@ -10,9 +10,6 @@
 #include <sstream>
 #include <iostream>
 
-#include "lights.h"
-
-
 class Shader {
 public:
 	unsigned int ID;

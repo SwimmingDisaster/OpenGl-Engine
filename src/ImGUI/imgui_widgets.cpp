@@ -827,7 +827,7 @@ bool ImGui::CollapseButton(ImGuiID id, const ImVec2& pos, ImGuiDockNode* dock_no
     ImU32 text_col = GetColorU32(ImGuiCol_Text);
     ImVec2 center = bb.GetCenter();
     if (hovered || held)
-        window->DrawList->AddCircleFilled(center + off + ImVec2(0,-0.5f), g.FontSize * 0.5f + 1.0f, bg_col, 12);
+        window->DrawList->AddCircleFilled(center + off + ImVec2(0, -0.5f), g.FontSize * 0.5f + 1.0f, bg_col, 12);
 
     if (dock_node)
         RenderArrowDockMenu(window->DrawList, bb.Min + g.Style.FramePadding, g.FontSize, text_col);
@@ -1772,14 +1772,14 @@ static const ImGuiDataTypeInfo GDataTypeInfo[] =
     { sizeof(int),              "S32",  "%d",   "%d"    },  // ImGuiDataType_S32
     { sizeof(unsigned int),     "U32",  "%u",   "%u"    },
 #ifdef _MSC_VER
-    { sizeof(ImS64),            "S64",  "%I64d","%I64d" },  // ImGuiDataType_S64
-    { sizeof(ImU64),            "U64",  "%I64u","%I64u" },
+    { sizeof(ImS64),            "S64",  "%I64d", "%I64d" }, // ImGuiDataType_S64
+    { sizeof(ImU64),            "U64",  "%I64u", "%I64u" },
 #else
     { sizeof(ImS64),            "S64",  "%lld", "%lld"  },  // ImGuiDataType_S64
     { sizeof(ImU64),            "U64",  "%llu", "%llu"  },
 #endif
     { sizeof(float),            "float", "%f",  "%f"    },  // ImGuiDataType_Float (float are promoted to double in va_arg)
-    { sizeof(double),           "double","%f",  "%lf"   },  // ImGuiDataType_Double
+    { sizeof(double),           "double", "%f",  "%lf"   }, // ImGuiDataType_Double
 };
 IM_STATIC_ASSERT(IM_ARRAYSIZE(GDataTypeInfo) == ImGuiDataType_COUNT);
 
@@ -1841,47 +1841,47 @@ void ImGui::DataTypeApplyOp(ImGuiDataType data_type, int op, void* output, const
     IM_ASSERT(op == '+' || op == '-');
     switch (data_type)
     {
-        case ImGuiDataType_S8:
-            if (op == '+') { *(ImS8*)output  = ImAddClampOverflow(*(const ImS8*)arg1,  *(const ImS8*)arg2,  IM_S8_MIN,  IM_S8_MAX); }
-            if (op == '-') { *(ImS8*)output  = ImSubClampOverflow(*(const ImS8*)arg1,  *(const ImS8*)arg2,  IM_S8_MIN,  IM_S8_MAX); }
-            return;
-        case ImGuiDataType_U8:
-            if (op == '+') { *(ImU8*)output  = ImAddClampOverflow(*(const ImU8*)arg1,  *(const ImU8*)arg2,  IM_U8_MIN,  IM_U8_MAX); }
-            if (op == '-') { *(ImU8*)output  = ImSubClampOverflow(*(const ImU8*)arg1,  *(const ImU8*)arg2,  IM_U8_MIN,  IM_U8_MAX); }
-            return;
-        case ImGuiDataType_S16:
-            if (op == '+') { *(ImS16*)output = ImAddClampOverflow(*(const ImS16*)arg1, *(const ImS16*)arg2, IM_S16_MIN, IM_S16_MAX); }
-            if (op == '-') { *(ImS16*)output = ImSubClampOverflow(*(const ImS16*)arg1, *(const ImS16*)arg2, IM_S16_MIN, IM_S16_MAX); }
-            return;
-        case ImGuiDataType_U16:
-            if (op == '+') { *(ImU16*)output = ImAddClampOverflow(*(const ImU16*)arg1, *(const ImU16*)arg2, IM_U16_MIN, IM_U16_MAX); }
-            if (op == '-') { *(ImU16*)output = ImSubClampOverflow(*(const ImU16*)arg1, *(const ImU16*)arg2, IM_U16_MIN, IM_U16_MAX); }
-            return;
-        case ImGuiDataType_S32:
-            if (op == '+') { *(ImS32*)output = ImAddClampOverflow(*(const ImS32*)arg1, *(const ImS32*)arg2, IM_S32_MIN, IM_S32_MAX); }
-            if (op == '-') { *(ImS32*)output = ImSubClampOverflow(*(const ImS32*)arg1, *(const ImS32*)arg2, IM_S32_MIN, IM_S32_MAX); }
-            return;
-        case ImGuiDataType_U32:
-            if (op == '+') { *(ImU32*)output = ImAddClampOverflow(*(const ImU32*)arg1, *(const ImU32*)arg2, IM_U32_MIN, IM_U32_MAX); }
-            if (op == '-') { *(ImU32*)output = ImSubClampOverflow(*(const ImU32*)arg1, *(const ImU32*)arg2, IM_U32_MIN, IM_U32_MAX); }
-            return;
-        case ImGuiDataType_S64:
-            if (op == '+') { *(ImS64*)output = ImAddClampOverflow(*(const ImS64*)arg1, *(const ImS64*)arg2, IM_S64_MIN, IM_S64_MAX); }
-            if (op == '-') { *(ImS64*)output = ImSubClampOverflow(*(const ImS64*)arg1, *(const ImS64*)arg2, IM_S64_MIN, IM_S64_MAX); }
-            return;
-        case ImGuiDataType_U64:
-            if (op == '+') { *(ImU64*)output = ImAddClampOverflow(*(const ImU64*)arg1, *(const ImU64*)arg2, IM_U64_MIN, IM_U64_MAX); }
-            if (op == '-') { *(ImU64*)output = ImSubClampOverflow(*(const ImU64*)arg1, *(const ImU64*)arg2, IM_U64_MIN, IM_U64_MAX); }
-            return;
-        case ImGuiDataType_Float:
-            if (op == '+') { *(float*)output = *(const float*)arg1 + *(const float*)arg2; }
-            if (op == '-') { *(float*)output = *(const float*)arg1 - *(const float*)arg2; }
-            return;
-        case ImGuiDataType_Double:
-            if (op == '+') { *(double*)output = *(const double*)arg1 + *(const double*)arg2; }
-            if (op == '-') { *(double*)output = *(const double*)arg1 - *(const double*)arg2; }
-            return;
-        case ImGuiDataType_COUNT: break;
+    case ImGuiDataType_S8:
+        if (op == '+') { *(ImS8*)output  = ImAddClampOverflow(*(const ImS8*)arg1,  *(const ImS8*)arg2,  IM_S8_MIN,  IM_S8_MAX); }
+        if (op == '-') { *(ImS8*)output  = ImSubClampOverflow(*(const ImS8*)arg1,  *(const ImS8*)arg2,  IM_S8_MIN,  IM_S8_MAX); }
+        return;
+    case ImGuiDataType_U8:
+        if (op == '+') { *(ImU8*)output  = ImAddClampOverflow(*(const ImU8*)arg1,  *(const ImU8*)arg2,  IM_U8_MIN,  IM_U8_MAX); }
+        if (op == '-') { *(ImU8*)output  = ImSubClampOverflow(*(const ImU8*)arg1,  *(const ImU8*)arg2,  IM_U8_MIN,  IM_U8_MAX); }
+        return;
+    case ImGuiDataType_S16:
+        if (op == '+') { *(ImS16*)output = ImAddClampOverflow(*(const ImS16*)arg1, *(const ImS16*)arg2, IM_S16_MIN, IM_S16_MAX); }
+        if (op == '-') { *(ImS16*)output = ImSubClampOverflow(*(const ImS16*)arg1, *(const ImS16*)arg2, IM_S16_MIN, IM_S16_MAX); }
+        return;
+    case ImGuiDataType_U16:
+        if (op == '+') { *(ImU16*)output = ImAddClampOverflow(*(const ImU16*)arg1, *(const ImU16*)arg2, IM_U16_MIN, IM_U16_MAX); }
+        if (op == '-') { *(ImU16*)output = ImSubClampOverflow(*(const ImU16*)arg1, *(const ImU16*)arg2, IM_U16_MIN, IM_U16_MAX); }
+        return;
+    case ImGuiDataType_S32:
+        if (op == '+') { *(ImS32*)output = ImAddClampOverflow(*(const ImS32*)arg1, *(const ImS32*)arg2, IM_S32_MIN, IM_S32_MAX); }
+        if (op == '-') { *(ImS32*)output = ImSubClampOverflow(*(const ImS32*)arg1, *(const ImS32*)arg2, IM_S32_MIN, IM_S32_MAX); }
+        return;
+    case ImGuiDataType_U32:
+        if (op == '+') { *(ImU32*)output = ImAddClampOverflow(*(const ImU32*)arg1, *(const ImU32*)arg2, IM_U32_MIN, IM_U32_MAX); }
+        if (op == '-') { *(ImU32*)output = ImSubClampOverflow(*(const ImU32*)arg1, *(const ImU32*)arg2, IM_U32_MIN, IM_U32_MAX); }
+        return;
+    case ImGuiDataType_S64:
+        if (op == '+') { *(ImS64*)output = ImAddClampOverflow(*(const ImS64*)arg1, *(const ImS64*)arg2, IM_S64_MIN, IM_S64_MAX); }
+        if (op == '-') { *(ImS64*)output = ImSubClampOverflow(*(const ImS64*)arg1, *(const ImS64*)arg2, IM_S64_MIN, IM_S64_MAX); }
+        return;
+    case ImGuiDataType_U64:
+        if (op == '+') { *(ImU64*)output = ImAddClampOverflow(*(const ImU64*)arg1, *(const ImU64*)arg2, IM_U64_MIN, IM_U64_MAX); }
+        if (op == '-') { *(ImU64*)output = ImSubClampOverflow(*(const ImU64*)arg1, *(const ImU64*)arg2, IM_U64_MIN, IM_U64_MAX); }
+        return;
+    case ImGuiDataType_Float:
+        if (op == '+') { *(float*)output = *(const float*)arg1 + *(const float*)arg2; }
+        if (op == '-') { *(float*)output = *(const float*)arg1 - *(const float*)arg2; }
+        return;
+    case ImGuiDataType_Double:
+        if (op == '+') { *(double*)output = *(const double*)arg1 + *(const double*)arg2; }
+        if (op == '-') { *(double*)output = *(const double*)arg1 - *(const double*)arg2; }
+        return;
+    case ImGuiDataType_COUNT: break;
     }
     IM_ASSERT(0);
 }
@@ -2049,7 +2049,7 @@ static float GetMinimumStepAtDecimalPrecision(int decimal_precision)
     static const float min_steps[10] = { 1.0f, 0.1f, 0.01f, 0.001f, 0.0001f, 0.00001f, 0.000001f, 0.0000001f, 0.00000001f, 0.000000001f };
     if (decimal_precision < 0)
         return FLT_MIN;
-    return (decimal_precision < IM_ARRAYSIZE(min_steps)) ? min_steps[decimal_precision] : ImPow(10.0f, (float)-decimal_precision);
+    return (decimal_precision < IM_ARRAYSIZE(min_steps)) ? min_steps[decimal_precision] : ImPow(10.0f, (float) - decimal_precision);
 }
 
 template<typename TYPE>
@@ -2196,11 +2196,11 @@ bool ImGui::DragBehaviorT(ImGuiDataType data_type, TYPE* v, float v_speed, const
     }
     else
     {
-        g.DragCurrentAccum -= (float)((SIGNEDTYPE)v_cur - (SIGNEDTYPE)*v);
+        g.DragCurrentAccum -= (float)((SIGNEDTYPE)v_cur - (SIGNEDTYPE) * v);
     }
 
     // Lose zero sign for float/double
-    if (v_cur == (TYPE)-0)
+    if (v_cur == (TYPE) - 0)
         v_cur = (TYPE)0;
 
     // Clamp values (+ handle overflow/wrap-around for integer types)
@@ -2239,16 +2239,16 @@ bool ImGui::DragBehavior(ImGuiID id, ImGuiDataType data_type, void* p_v, float v
 
     switch (data_type)
     {
-    case ImGuiDataType_S8:     { ImS32 v32 = (ImS32)*(ImS8*)p_v;  bool r = DragBehaviorT<ImS32, ImS32, float>(ImGuiDataType_S32, &v32, v_speed, p_min ? *(const ImS8*) p_min : IM_S8_MIN,  p_max ? *(const ImS8*)p_max  : IM_S8_MAX,  format, flags); if (r) *(ImS8*)p_v = (ImS8)v32; return r; }
-    case ImGuiDataType_U8:     { ImU32 v32 = (ImU32)*(ImU8*)p_v;  bool r = DragBehaviorT<ImU32, ImS32, float>(ImGuiDataType_U32, &v32, v_speed, p_min ? *(const ImU8*) p_min : IM_U8_MIN,  p_max ? *(const ImU8*)p_max  : IM_U8_MAX,  format, flags); if (r) *(ImU8*)p_v = (ImU8)v32; return r; }
-    case ImGuiDataType_S16:    { ImS32 v32 = (ImS32)*(ImS16*)p_v; bool r = DragBehaviorT<ImS32, ImS32, float>(ImGuiDataType_S32, &v32, v_speed, p_min ? *(const ImS16*)p_min : IM_S16_MIN, p_max ? *(const ImS16*)p_max : IM_S16_MAX, format, flags); if (r) *(ImS16*)p_v = (ImS16)v32; return r; }
-    case ImGuiDataType_U16:    { ImU32 v32 = (ImU32)*(ImU16*)p_v; bool r = DragBehaviorT<ImU32, ImS32, float>(ImGuiDataType_U32, &v32, v_speed, p_min ? *(const ImU16*)p_min : IM_U16_MIN, p_max ? *(const ImU16*)p_max : IM_U16_MAX, format, flags); if (r) *(ImU16*)p_v = (ImU16)v32; return r; }
-    case ImGuiDataType_S32:    return DragBehaviorT<ImS32, ImS32, float >(data_type, (ImS32*)p_v,  v_speed, p_min ? *(const ImS32* )p_min : IM_S32_MIN, p_max ? *(const ImS32* )p_max : IM_S32_MAX, format, flags);
-    case ImGuiDataType_U32:    return DragBehaviorT<ImU32, ImS32, float >(data_type, (ImU32*)p_v,  v_speed, p_min ? *(const ImU32* )p_min : IM_U32_MIN, p_max ? *(const ImU32* )p_max : IM_U32_MAX, format, flags);
-    case ImGuiDataType_S64:    return DragBehaviorT<ImS64, ImS64, double>(data_type, (ImS64*)p_v,  v_speed, p_min ? *(const ImS64* )p_min : IM_S64_MIN, p_max ? *(const ImS64* )p_max : IM_S64_MAX, format, flags);
-    case ImGuiDataType_U64:    return DragBehaviorT<ImU64, ImS64, double>(data_type, (ImU64*)p_v,  v_speed, p_min ? *(const ImU64* )p_min : IM_U64_MIN, p_max ? *(const ImU64* )p_max : IM_U64_MAX, format, flags);
-    case ImGuiDataType_Float:  return DragBehaviorT<float, float, float >(data_type, (float*)p_v,  v_speed, p_min ? *(const float* )p_min : -FLT_MAX,   p_max ? *(const float* )p_max : FLT_MAX,    format, flags);
-    case ImGuiDataType_Double: return DragBehaviorT<double,double,double>(data_type, (double*)p_v, v_speed, p_min ? *(const double*)p_min : -DBL_MAX,   p_max ? *(const double*)p_max : DBL_MAX,    format, flags);
+    case ImGuiDataType_S8:     { ImS32 v32 = (ImS32) * (ImS8*)p_v;  bool r = DragBehaviorT<ImS32, ImS32, float>(ImGuiDataType_S32, &v32, v_speed, p_min ? * (const ImS8*) p_min : IM_S8_MIN,  p_max ? * (const ImS8*)p_max  : IM_S8_MAX,  format, flags); if (r) *(ImS8*)p_v = (ImS8)v32; return r; }
+    case ImGuiDataType_U8:     { ImU32 v32 = (ImU32) * (ImU8*)p_v;  bool r = DragBehaviorT<ImU32, ImS32, float>(ImGuiDataType_U32, &v32, v_speed, p_min ? * (const ImU8*) p_min : IM_U8_MIN,  p_max ? * (const ImU8*)p_max  : IM_U8_MAX,  format, flags); if (r) *(ImU8*)p_v = (ImU8)v32; return r; }
+    case ImGuiDataType_S16:    { ImS32 v32 = (ImS32) * (ImS16*)p_v; bool r = DragBehaviorT<ImS32, ImS32, float>(ImGuiDataType_S32, &v32, v_speed, p_min ? * (const ImS16*)p_min : IM_S16_MIN, p_max ? * (const ImS16*)p_max : IM_S16_MAX, format, flags); if (r) *(ImS16*)p_v = (ImS16)v32; return r; }
+    case ImGuiDataType_U16:    { ImU32 v32 = (ImU32) * (ImU16*)p_v; bool r = DragBehaviorT<ImU32, ImS32, float>(ImGuiDataType_U32, &v32, v_speed, p_min ? * (const ImU16*)p_min : IM_U16_MIN, p_max ? * (const ImU16*)p_max : IM_U16_MAX, format, flags); if (r) *(ImU16*)p_v = (ImU16)v32; return r; }
+    case ImGuiDataType_S32:    return DragBehaviorT<ImS32, ImS32, float >(data_type, (ImS32*)p_v,  v_speed, p_min ? * (const ImS32* )p_min : IM_S32_MIN, p_max ? * (const ImS32* )p_max : IM_S32_MAX, format, flags);
+    case ImGuiDataType_U32:    return DragBehaviorT<ImU32, ImS32, float >(data_type, (ImU32*)p_v,  v_speed, p_min ? * (const ImU32* )p_min : IM_U32_MIN, p_max ? * (const ImU32* )p_max : IM_U32_MAX, format, flags);
+    case ImGuiDataType_S64:    return DragBehaviorT<ImS64, ImS64, double>(data_type, (ImS64*)p_v,  v_speed, p_min ? * (const ImS64* )p_min : IM_S64_MIN, p_max ? * (const ImS64* )p_max : IM_S64_MAX, format, flags);
+    case ImGuiDataType_U64:    return DragBehaviorT<ImU64, ImS64, double>(data_type, (ImU64*)p_v,  v_speed, p_min ? * (const ImU64* )p_min : IM_U64_MIN, p_max ? * (const ImU64* )p_max : IM_U64_MAX, format, flags);
+    case ImGuiDataType_Float:  return DragBehaviorT<float, float, float >(data_type, (float*)p_v,  v_speed, p_min ? * (const float* )p_min : -FLT_MAX,   p_max ? * (const float* )p_max : FLT_MAX,    format, flags);
+    case ImGuiDataType_Double: return DragBehaviorT<double, double, double>(data_type, (double*)p_v, v_speed, p_min ? * (const double*)p_min : -DBL_MAX,   p_max ? * (const double*)p_max : DBL_MAX,    format, flags);
     case ImGuiDataType_COUNT:  break;
     }
     IM_ASSERT(0);
@@ -2632,12 +2632,12 @@ TYPE ImGui::ScaleValueFromRatioT(ImGuiDataType data_type, float t, TYPE v_min, T
                 if (t_with_flip >= zero_point_snap_L && t_with_flip <= zero_point_snap_R)
                     result = (TYPE)0.0f; // Special case to make getting exactly zero possible (the epsilon prevents it otherwise)
                 else if (t_with_flip < zero_point_center)
-                    result = (TYPE)-(logarithmic_zero_epsilon * ImPow(-v_min_fudged / logarithmic_zero_epsilon, (FLOATTYPE)(1.0f - (t_with_flip / zero_point_snap_L))));
+                    result = (TYPE) - (logarithmic_zero_epsilon * ImPow(-v_min_fudged / logarithmic_zero_epsilon, (FLOATTYPE)(1.0f - (t_with_flip / zero_point_snap_L))));
                 else
                     result = (TYPE)(logarithmic_zero_epsilon * ImPow(v_max_fudged / logarithmic_zero_epsilon, (FLOATTYPE)((t_with_flip - zero_point_snap_R) / (1.0f - zero_point_snap_R))));
             }
             else if ((v_min < 0.0f) || (v_max < 0.0f)) // Entirely negative slider
-                result = (TYPE)-(-v_max_fudged * ImPow(-v_min_fudged / -v_max_fudged, (FLOATTYPE)(1.0f - t_with_flip)));
+                result = (TYPE) - (-v_max_fudged * ImPow(-v_min_fudged / -v_max_fudged, (FLOATTYPE)(1.0f - t_with_flip)));
             else
                 result = (TYPE)(v_min_fudged * ImPow(v_max_fudged / v_min_fudged, (FLOATTYPE)t_with_flip));
         }
@@ -2843,10 +2843,10 @@ bool ImGui::SliderBehavior(const ImRect& bb, ImGuiID id, ImGuiDataType data_type
 
     switch (data_type)
     {
-    case ImGuiDataType_S8:  { ImS32 v32 = (ImS32)*(ImS8*)p_v;  bool r = SliderBehaviorT<ImS32, ImS32, float>(bb, id, ImGuiDataType_S32, &v32, *(const ImS8*)p_min,  *(const ImS8*)p_max,  format, flags, out_grab_bb); if (r) *(ImS8*)p_v  = (ImS8)v32;  return r; }
-    case ImGuiDataType_U8:  { ImU32 v32 = (ImU32)*(ImU8*)p_v;  bool r = SliderBehaviorT<ImU32, ImS32, float>(bb, id, ImGuiDataType_U32, &v32, *(const ImU8*)p_min,  *(const ImU8*)p_max,  format, flags, out_grab_bb); if (r) *(ImU8*)p_v  = (ImU8)v32;  return r; }
-    case ImGuiDataType_S16: { ImS32 v32 = (ImS32)*(ImS16*)p_v; bool r = SliderBehaviorT<ImS32, ImS32, float>(bb, id, ImGuiDataType_S32, &v32, *(const ImS16*)p_min, *(const ImS16*)p_max, format, flags, out_grab_bb); if (r) *(ImS16*)p_v = (ImS16)v32; return r; }
-    case ImGuiDataType_U16: { ImU32 v32 = (ImU32)*(ImU16*)p_v; bool r = SliderBehaviorT<ImU32, ImS32, float>(bb, id, ImGuiDataType_U32, &v32, *(const ImU16*)p_min, *(const ImU16*)p_max, format, flags, out_grab_bb); if (r) *(ImU16*)p_v = (ImU16)v32; return r; }
+    case ImGuiDataType_S8:  { ImS32 v32 = (ImS32) * (ImS8*)p_v;  bool r = SliderBehaviorT<ImS32, ImS32, float>(bb, id, ImGuiDataType_S32, &v32, *(const ImS8*)p_min,  *(const ImS8*)p_max,  format, flags, out_grab_bb); if (r) *(ImS8*)p_v  = (ImS8)v32;  return r; }
+    case ImGuiDataType_U8:  { ImU32 v32 = (ImU32) * (ImU8*)p_v;  bool r = SliderBehaviorT<ImU32, ImS32, float>(bb, id, ImGuiDataType_U32, &v32, *(const ImU8*)p_min,  *(const ImU8*)p_max,  format, flags, out_grab_bb); if (r) *(ImU8*)p_v  = (ImU8)v32;  return r; }
+    case ImGuiDataType_S16: { ImS32 v32 = (ImS32) * (ImS16*)p_v; bool r = SliderBehaviorT<ImS32, ImS32, float>(bb, id, ImGuiDataType_S32, &v32, *(const ImS16*)p_min, *(const ImS16*)p_max, format, flags, out_grab_bb); if (r) *(ImS16*)p_v = (ImS16)v32; return r; }
+    case ImGuiDataType_U16: { ImU32 v32 = (ImU32) * (ImU16*)p_v; bool r = SliderBehaviorT<ImU32, ImS32, float>(bb, id, ImGuiDataType_U32, &v32, *(const ImU16*)p_min, *(const ImU16*)p_max, format, flags, out_grab_bb); if (r) *(ImU16*)p_v = (ImU16)v32; return r; }
     case ImGuiDataType_S32:
         IM_ASSERT(*(const ImS32*)p_min >= IM_S32_MIN / 2 && *(const ImS32*)p_max <= IM_S32_MAX / 2);
         return SliderBehaviorT<ImS32, ImS32, float >(bb, id, data_type, (ImS32*)p_v,  *(const ImS32*)p_min,  *(const ImS32*)p_max,  format, flags, out_grab_bb);
@@ -3176,8 +3176,8 @@ const char* ImParseFormatFindEnd(const char* fmt)
     // Printf/scanf types modifiers: I/L/h/j/l/t/w/z. Other uppercase letters qualify as types aka end of the format.
     if (fmt[0] != '%')
         return fmt;
-    const unsigned int ignored_uppercase_mask = (1 << ('I'-'A')) | (1 << ('L'-'A'));
-    const unsigned int ignored_lowercase_mask = (1 << ('h'-'a')) | (1 << ('j'-'a')) | (1 << ('l'-'a')) | (1 << ('t'-'a')) | (1 << ('w'-'a')) | (1 << ('z'-'a'));
+    const unsigned int ignored_uppercase_mask = (1 << ('I' - 'A')) | (1 << ('L' - 'A'));
+    const unsigned int ignored_lowercase_mask = (1 << ('h' - 'a')) | (1 << ('j' - 'a')) | (1 << ('l' - 'a')) | (1 << ('t' - 'a')) | (1 << ('w' - 'a')) | (1 << ('z' - 'a'));
     for (char c; (c = *fmt) != 0; fmt++)
     {
         if (c >= 'A' && c <= 'Z' && ((1 << (c - 'A')) & ignored_uppercase_mask) == 0)
@@ -3556,7 +3556,7 @@ static void    STB_TEXTEDIT_LAYOUTROW(StbTexteditRow* r, STB_TEXTEDIT_STRING* ob
     r->num_chars = (int)(text_remaining - (text + line_start_idx));
 }
 
-static bool is_separator(unsigned int c)                                        { return ImCharIsBlankW(c) || c==',' || c==';' || c=='(' || c==')' || c=='{' || c=='}' || c=='[' || c==']' || c=='|'; }
+static bool is_separator(unsigned int c)                                        { return ImCharIsBlankW(c) || c == ',' || c == ';' || c == '(' || c == ')' || c == '{' || c == '}' || c == '[' || c == ']' || c == '|'; }
 static int  is_word_boundary_from_right(STB_TEXTEDIT_STRING* obj, int idx)      { return idx > 0 ? (is_separator(obj->TextW[idx - 1]) && !is_separator(obj->TextW[idx]) ) : 1; }
 static int  STB_TEXTEDIT_MOVEWORDLEFT_IMPL(STB_TEXTEDIT_STRING* obj, int idx)   { idx--; while (idx >= 0 && !is_word_boundary_from_right(obj, idx)) idx--; return idx < 0 ? 0 : idx; }
 #ifdef __APPLE__    // FIXME: Move setting to IO structure
@@ -3580,7 +3580,7 @@ static void STB_TEXTEDIT_DELETECHARS(STB_TEXTEDIT_STRING* obj, int pos, int n)
     // Offset remaining text (FIXME-OPT: Use memmove)
     const ImWchar* src = obj->TextW.Data + pos + n;
     while (ImWchar c = *src++)
-        *dst++ = c;
+        * dst++ = c;
     *dst = '\0';
 }
 
@@ -3678,7 +3678,7 @@ void ImGuiInputTextCallbackData::DeleteChars(int pos, int bytes_count)
     char* dst = Buf + pos;
     const char* src = Buf + pos + bytes_count;
     while (char c = *src++)
-        *dst++ = c;
+        * dst++ = c;
     *dst = '\0';
 
     if (CursorPos >= pos + bytes_count)
@@ -4608,6 +4608,10 @@ bool ImGui::InputTextEx(const char* label, const char* hint, char* buf, int buf_
         MarkItemEdited(id);
 
     IMGUI_TEST_ENGINE_ITEM_INFO(id, label, window->DC.ItemFlags);
+    if ((flags & ImGuiInputTextFlags_CallbackAlways) != 0) {
+        return render_cursor;
+    }
+
     if ((flags & ImGuiInputTextFlags_EnterReturnsTrue) != 0)
         return enter_pressed;
     else
@@ -4887,10 +4891,10 @@ bool ImGui::ColorPicker3(const char* label, float col[3], ImGuiColorEditFlags fl
 static void RenderArrowsForVerticalBar(ImDrawList* draw_list, ImVec2 pos, ImVec2 half_sz, float bar_w, float alpha)
 {
     ImU32 alpha8 = IM_F32_TO_INT8_SAT(alpha);
-    ImGui::RenderArrowPointingAt(draw_list, ImVec2(pos.x + half_sz.x + 1,         pos.y), ImVec2(half_sz.x + 2, half_sz.y + 1), ImGuiDir_Right, IM_COL32(0,0,0,alpha8));
-    ImGui::RenderArrowPointingAt(draw_list, ImVec2(pos.x + half_sz.x,             pos.y), half_sz,                              ImGuiDir_Right, IM_COL32(255,255,255,alpha8));
-    ImGui::RenderArrowPointingAt(draw_list, ImVec2(pos.x + bar_w - half_sz.x - 1, pos.y), ImVec2(half_sz.x + 2, half_sz.y + 1), ImGuiDir_Left,  IM_COL32(0,0,0,alpha8));
-    ImGui::RenderArrowPointingAt(draw_list, ImVec2(pos.x + bar_w - half_sz.x,     pos.y), half_sz,                              ImGuiDir_Left,  IM_COL32(255,255,255,alpha8));
+    ImGui::RenderArrowPointingAt(draw_list, ImVec2(pos.x + half_sz.x + 1,         pos.y), ImVec2(half_sz.x + 2, half_sz.y + 1), ImGuiDir_Right, IM_COL32(0, 0, 0, alpha8));
+    ImGui::RenderArrowPointingAt(draw_list, ImVec2(pos.x + half_sz.x,             pos.y), half_sz,                              ImGuiDir_Right, IM_COL32(255, 255, 255, alpha8));
+    ImGui::RenderArrowPointingAt(draw_list, ImVec2(pos.x + bar_w - half_sz.x - 1, pos.y), ImVec2(half_sz.x + 2, half_sz.y + 1), ImGuiDir_Left,  IM_COL32(0, 0, 0, alpha8));
+    ImGui::RenderArrowPointingAt(draw_list, ImVec2(pos.x + bar_w - half_sz.x,     pos.y), half_sz,                              ImGuiDir_Left,  IM_COL32(255, 255, 255, alpha8));
 }
 
 // Note: ColorPicker4() only accesses 3 floats if ImGuiColorEditFlags_NoAlpha flag is set.
@@ -4948,7 +4952,7 @@ bool ImGui::ColorPicker4(const char* label, float col[4], ImGuiColorEditFlags fl
     float wheel_thickness = sv_picker_size * 0.08f;
     float wheel_r_outer = sv_picker_size * 0.50f;
     float wheel_r_inner = wheel_r_outer - wheel_thickness;
-    ImVec2 wheel_center(picker_pos.x + (sv_picker_size + bars_width)*0.5f, picker_pos.y + sv_picker_size * 0.5f);
+    ImVec2 wheel_center(picker_pos.x + (sv_picker_size + bars_width) * 0.5f, picker_pos.y + sv_picker_size * 0.5f);
 
     // Note: the triangle is displayed rotated with triangle_pa pointing to Hue, but most coordinates stays unrotated for logic.
     float triangle_r = wheel_r_inner - (int)(sv_picker_size * 0.027f);
@@ -5169,10 +5173,10 @@ bool ImGui::ColorPicker4(const char* label, float col[4], ImGuiColorEditFlags fl
     }
 
     const int style_alpha8 = IM_F32_TO_INT8_SAT(style.Alpha);
-    const ImU32 col_black = IM_COL32(0,0,0,style_alpha8);
-    const ImU32 col_white = IM_COL32(255,255,255,style_alpha8);
-    const ImU32 col_midgrey = IM_COL32(128,128,128,style_alpha8);
-    const ImU32 col_hues[6 + 1] = { IM_COL32(255,0,0,style_alpha8), IM_COL32(255,255,0,style_alpha8), IM_COL32(0,255,0,style_alpha8), IM_COL32(0,255,255,style_alpha8), IM_COL32(0,0,255,style_alpha8), IM_COL32(255,0,255,style_alpha8), IM_COL32(255,0,0,style_alpha8) };
+    const ImU32 col_black = IM_COL32(0, 0, 0, style_alpha8);
+    const ImU32 col_white = IM_COL32(255, 255, 255, style_alpha8);
+    const ImU32 col_midgrey = IM_COL32(128, 128, 128, style_alpha8);
+    const ImU32 col_hues[6 + 1] = { IM_COL32(255, 0, 0, style_alpha8), IM_COL32(255, 255, 0, style_alpha8), IM_COL32(0, 255, 0, style_alpha8), IM_COL32(0, 255, 255, style_alpha8), IM_COL32(0, 0, 255, style_alpha8), IM_COL32(255, 0, 255, style_alpha8), IM_COL32(255, 0, 0, style_alpha8) };
 
     ImVec4 hue_color_f(1, 1, 1, style.Alpha); ColorConvertHSVtoRGB(H, 1, 1, hue_color_f.x, hue_color_f.y, hue_color_f.z);
     ImU32 hue_color32 = ColorConvertFloat4ToU32(hue_color_f);
@@ -5187,10 +5191,10 @@ bool ImGui::ColorPicker4(const char* label, float col[4], ImGuiColorEditFlags fl
         const int segment_per_arc = ImMax(4, (int)wheel_r_outer / 12);
         for (int n = 0; n < 6; n++)
         {
-            const float a0 = (n)     /6.0f * 2.0f * IM_PI - aeps;
-            const float a1 = (n+1.0f)/6.0f * 2.0f * IM_PI + aeps;
+            const float a0 = (n)     / 6.0f * 2.0f * IM_PI - aeps;
+            const float a1 = (n + 1.0f) / 6.0f * 2.0f * IM_PI + aeps;
             const int vert_start_idx = draw_list->VtxBuffer.Size;
-            draw_list->PathArcTo(wheel_center, (wheel_r_inner + wheel_r_outer)*0.5f, a0, a1, segment_per_arc);
+            draw_list->PathArcTo(wheel_center, (wheel_r_inner + wheel_r_outer) * 0.5f, a0, a1, segment_per_arc);
             draw_list->PathStroke(col_white, false, wheel_thickness);
             const int vert_end_idx = draw_list->VtxBuffer.Size;
 
@@ -6898,13 +6902,13 @@ struct ImGuiTabBarSection
 
 namespace ImGui
 {
-    static void             TabBarLayout(ImGuiTabBar* tab_bar);
-    static ImU32            TabBarCalcTabID(ImGuiTabBar* tab_bar, const char* label, ImGuiWindow* docked_window);
-    static float            TabBarCalcMaxTabWidth();
-    static float            TabBarScrollClamp(ImGuiTabBar* tab_bar, float scrolling);
-    static void             TabBarScrollToTab(ImGuiTabBar* tab_bar, ImGuiTabItem* tab, ImGuiTabBarSection* sections);
-    static ImGuiTabItem*    TabBarScrollingButtons(ImGuiTabBar* tab_bar);
-    static ImGuiTabItem*    TabBarTabListPopupButton(ImGuiTabBar* tab_bar);
+static void             TabBarLayout(ImGuiTabBar* tab_bar);
+static ImU32            TabBarCalcTabID(ImGuiTabBar* tab_bar, const char* label, ImGuiWindow* docked_window);
+static float            TabBarCalcMaxTabWidth();
+static float            TabBarScrollClamp(ImGuiTabBar* tab_bar, float scrolling);
+static void             TabBarScrollToTab(ImGuiTabBar* tab_bar, ImGuiTabItem* tab, ImGuiTabBarSection* sections);
+static ImGuiTabItem*    TabBarScrollingButtons(ImGuiTabBar* tab_bar);
+static ImGuiTabItem*    TabBarTabListPopupButton(ImGuiTabBar* tab_bar);
 }
 
 ImGuiTabBar::ImGuiTabBar()

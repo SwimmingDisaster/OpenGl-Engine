@@ -15,6 +15,17 @@ public:
 		ImGui::DragFloat3("scale", glm::value_ptr(scale), 0.01f);
 	}
 
+	virtual void Serialize(YAML::Emitter& out) {
+		out << YAML::Key << m_name;
+		out << YAML::BeginMap;
+
+		out << YAML::Key << "Position" << YAML::Value << position;
+		out << YAML::Key << "Rotation" << YAML::Value << rotation;
+		out << YAML::Key << "Scale" << YAML::Value << scale;
+
+		out << YAML::EndMap;
+	}
+
 	~Transform() {
 		Log("Deleted " << m_name);
 	}

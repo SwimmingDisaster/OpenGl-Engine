@@ -4,6 +4,8 @@
 #include "ecs/component.h"
 #include "utils/fileUtils.h"
 
+#include "core/shader.h"
+
 
 struct Vertex {
 	glm::vec3 Position;
@@ -145,6 +147,17 @@ public:
 		loadModel(path);
 	}
 
+
+	virtual void Serialize(YAML::Emitter& out) {
+		out << YAML::Key << m_name;
+		out << YAML::BeginMap;
+
+		out << YAML::Key << "Is flipped" << YAML::Value << isFlipped;
+		out << YAML::Key << "Path" << YAML::Value << path;
+
+		out << YAML::EndMap;
+	}
+
 	virtual void Show() {
 		ImGui::Checkbox("Is flipped", &isFlipped);
 
@@ -171,32 +184,28 @@ public:
 		stbi_set_flip_vertically_on_load(isFlipped);
 
 
-		// read file via ASSIMP
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_ImproveCacheLocality | aiProcess_OptimizeMeshes);
-		// check for errors
-		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode) // if is Not Zero
+
+
+		if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
 		{
-			std::cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << std::endl;
+			Error("Assimp:  " << importer.GetErrorString());
 			return;
 		}
-		// retrieve the directory path of the filepath
+
 		directory = path.substr(0, path.find_last_of('/'));
-		// process ASSIMP's root node recursively
 		processNode(scene->mRootNode, scene);
 	}
 
 	void  processNode(aiNode * node, const aiScene * scene)
 	{
-		// process each mesh located at the current node
 		for (unsigned int i = 0; i < node->mNumMeshes; i++)
 		{
-			// the node object only contains indices to index the actual objects in the scene.
-			// the scene contains all the data, node is just to keep stuff organized (like relations between nodes).
 			aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
 			meshes.push_back(processMesh(mesh, scene));
 		}
-		// after we've processed all of the meshes (if any) we then recursively process each of the children nodes
+
 		for (unsigned int i = 0; i < node->mNumChildren; i++)
 		{
 			processNode(node->mChildren[i], scene);
@@ -205,7 +214,7 @@ public:
 
 	Mesh processMesh(aiMesh * mesh, const aiScene * scene)
 	{
-		// data to fill
+
 		std::vector<Vertex> vertices;
 		std::vector<unsigned int> indices;
 		std::vector<Texture> textures;
@@ -315,7 +324,7 @@ public:
 				texture.type = typeName;
 				texture.path = str.C_Str();
 				textures.push_back(texture);
-				textures_loaded.push_back(texture);  // store it as texture loaded for entire model, to ensure we won't unnecesery load duplicate textures.
+				textures_loaded.push_back(texture);
 			}
 		}
 		return textures;
@@ -343,6 +352,16 @@ public:
 		Log("Deleted " << m_name);
 	}
 
+	virtual void Serialize(YAML::Emitter& out) {
+		out << YAML::Key << m_name;
+		out << YAML::BeginMap;
+
+		out << YAML::Key << "Shader name" << YAML::Value << shaderName;
+		out << YAML::Key << "Color" << YAML::Value << m_color;
+
+		out << YAML::EndMap;
+	}
+
 	virtual void Start() {
 		m_shader = Shader::shaderMap[shaderName];
 		m_modelComponent = m_parentEntity->GetComponent<Model>();
@@ -362,10 +381,11 @@ public:
 	{
 		glm::mat4 matModel = glm::mat4(1.0f);
 		matModel = glm::translate(matModel, model->transform->position);
-		matModel = glm::scale(matModel, model->transform->scale);
 		matModel = glm::rotate(matModel, glm::radians(model->transform->rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
 		matModel = glm::rotate(matModel, glm::radians(model->transform->rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
 		matModel = glm::rotate(matModel, glm::radians(model->transform->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+		matModel = glm::scale(matModel, model->transform->scale);
+
 
 		shader.setMat4("matModel", matModel);
 		for (unsigned int i = 0; i < model->meshes.size(); i++) {

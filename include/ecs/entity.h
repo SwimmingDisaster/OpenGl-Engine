@@ -14,7 +14,7 @@ public:
 	virtual void Start();
 	virtual void Update();
 	virtual void End();
-	virtual void Serialize();
+	virtual void Serialize(YAML::Emitter& out);
 	virtual void Deserialize();
 
 	template<typename T> std::shared_ptr<T> GetComponent() {

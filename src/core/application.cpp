@@ -50,15 +50,18 @@ void Application::Run() {
 	Shader colorShader1 = Shader("res/shaders/color.vs", "res/shaders/color.fs");
 	colorShader1.use();
 
+	/*
+		m_curentScene.AddEntity("GOGO PAY");
+		m_curentScene.m_entities[0]->AddComponent<Transform>();
+		m_curentScene.m_entities[0]->AddComponent<Model>();
+		m_curentScene.m_entities[0]->AddComponent<ModelRenderer>();
+		m_curentScene.m_entities[0]->Start();
 
-	m_curentScene.AddEntity("GOGO PAY");
-	m_curentScene.m_entities[0]->AddComponent<Transform>();
-	m_curentScene.m_entities[0]->AddComponent<Model>();
-	m_curentScene.m_entities[0]->AddComponent<ModelRenderer>();
-	m_curentScene.m_entities[0]->Start();
 
+		m_selectedEntity = m_curentScene.GetEntity("GOGO PAY");*/
 
-	m_selectedEntity = m_curentScene.GetEntity("GOGO PAY");
+	m_curentScene.Deserialize("other/savetest.txt");
+
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -109,6 +112,7 @@ void Application::Run() {
 		lastFrame = currentFrame;
 	}
 
+	m_curentScene.Serialize("other/savetest.txt");
 	m_curentScene.Clear();
 }
 

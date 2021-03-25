@@ -1,2 +1,0 @@
-Log: Deleted Transform
-Log: Removed Entity bob

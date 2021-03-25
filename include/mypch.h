@@ -37,6 +37,7 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+#include <yaml-cpp/yaml.h>
 
 #include <stb/stb_image.h>
 
@@ -44,6 +45,8 @@
 
 #include "core/other/log.h"
 #include "core/other/random.h"
+
+#include "core/other/helpers.h"
 
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 #include <Windows.h>

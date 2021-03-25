@@ -7,7 +7,7 @@ public:
 	virtual void Start() {}
 	virtual void Update() {}
 	virtual void End() {}
-	virtual void Serialize() {}
+	virtual void Serialize(YAML::Emitter& out) {}
 	virtual void Deserialize() {}
 	virtual void Show() {}
 

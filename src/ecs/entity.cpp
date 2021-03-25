@@ -16,9 +16,9 @@ void Entity::End() {
 		comp->End();
 	}
 }
-void Entity::Serialize() {
+void Entity::Serialize(YAML::Emitter& out) {
 	for (auto& comp : m_components) {
-		comp->Serialize();
+		comp->Serialize(out);
 	}
 }
 void Entity::Deserialize() {

@@ -27,4 +27,7 @@ public:
 	void RemoveEntity(std::string name, long long uuid);
 
 	void Clear();
+
+	void Serialize(const std::string& filePath);
+	void Deserialize(const std::string& filePath);
 };

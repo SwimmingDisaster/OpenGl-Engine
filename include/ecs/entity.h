@@ -33,6 +33,14 @@ public:
 		m_components.push_back(comp);
 	}
 
+	template<typename T> std::shared_ptr<T> AddComponentR() {
+		std::shared_ptr<T> comp = std::make_shared<T>();
+		comp->m_parentEntity = shared_from_this();
+		m_components.push_back(comp);
+		return comp;
+	}
+
+
 
 	template<typename T> void RemoveComponent() {
 		for (int i = 0; i < m_components.size(); i++) {

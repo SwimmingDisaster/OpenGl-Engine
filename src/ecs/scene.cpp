@@ -7,6 +7,7 @@ std::shared_ptr<Entity> Scene::GetEntity(std::string name) {
 			return entt;
 		}
 	}
+	return nullptr;
 }
 std::shared_ptr<Entity> Scene::GetEntity(long long uuid) {
 	for (std::shared_ptr<Entity>& entt : m_entities) {
@@ -14,6 +15,7 @@ std::shared_ptr<Entity> Scene::GetEntity(long long uuid) {
 			return entt;
 		}
 	}
+	return nullptr;
 }
 std::shared_ptr<Entity> Scene::GetEntity(std::string name, long long uuid) {
 	for (std::shared_ptr<Entity>& entt : m_entities) {
@@ -21,6 +23,7 @@ std::shared_ptr<Entity> Scene::GetEntity(std::string name, long long uuid) {
 			return entt;
 		}
 	}
+	return nullptr;
 }
 
 void Scene::AddEntity() {
@@ -46,6 +49,36 @@ void Scene::AddEntity(std::string name, long long uuid) {
 	entt->name = name;
 	entt->uuid = uuid;
 	m_entities.push_back(entt);
+}
+
+
+std::shared_ptr<Entity> Scene::AddEntityR() {
+	std::shared_ptr<Entity> entt = std::make_shared<Entity>();
+	entt->name = "New Entity";
+	entt->uuid = Random::Int();
+	m_entities.push_back(entt);
+	return entt;
+}
+std::shared_ptr<Entity> Scene::AddEntityR(std::string name) {
+	std::shared_ptr<Entity> entt = std::make_shared<Entity>();
+	entt->name = name;
+	entt->uuid = Random::Int();
+	m_entities.push_back(entt);
+	return entt;
+}
+std::shared_ptr<Entity> Scene::AddEntityR(long long uuid) {
+	std::shared_ptr<Entity> entt = std::make_shared<Entity>();
+	entt->name = "New Entity";
+	entt->uuid = uuid;
+	m_entities.push_back(entt);
+	return entt;
+}
+std::shared_ptr<Entity> Scene::AddEntityR(std::string name, long long uuid) {
+	std::shared_ptr<Entity> entt = std::make_shared<Entity>();
+	entt->name = name;
+	entt->uuid = uuid;
+	m_entities.push_back(entt);
+	return entt;
 }
 
 

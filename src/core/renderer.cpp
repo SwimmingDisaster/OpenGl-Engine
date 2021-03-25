@@ -15,12 +15,10 @@ int Renderer::InitOpenGL() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	Application::SCREEN_WIDTH = 1920;
-	Application::SCREEN_HEIGHT = 1080;
 	glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 	glfwWindowHint(GLFW_FOCUSED, GLFW_TRUE);
 	glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
-	Application::window = glfwCreateWindow(Application::SCREEN_WIDTH, Application::SCREEN_HEIGHT, "OPENGL4.3 GAME", NULL, NULL);
+	Application::window = glfwCreateWindow(Application::SCREEN_WIDTH, Application::SCREEN_HEIGHT, "ENGINE", NULL, NULL);
 	if (Application::window == nullptr) {
 		Error("Failed to create a GLFW window");
 		glfwTerminate();
@@ -31,7 +29,7 @@ int Renderer::InitOpenGL() {
 	glfwShowWindow(Application::window);
 
 	glfwSetKeyCallback(Application::window, Input::KeyInputCallback);
-	glfwSetFramebufferSizeCallback(Application::window, Application::framebuffer_size_callback);
+	glfwSetFramebufferSizeCallback(Application::window, ResizeCallback);
 	glfwSetCursorPosCallback(Application::window, Input::MouseCallback);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
@@ -41,7 +39,6 @@ int Renderer::InitOpenGL() {
 
 	glViewport(0, 0, Application::SCREEN_WIDTH, Application::SCREEN_HEIGHT);
 	glfwSetInputMode(Application::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-	stbi_set_flip_vertically_on_load(false);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -51,14 +48,13 @@ int Renderer::InitOpenGL() {
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 
-
 	glfwSwapInterval(1);
-	srand (time(NULL));
+	srand(time(NULL));
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
 	return 0;
 }
 
@@ -84,4 +80,17 @@ void Renderer::SetupMatrices() {
 
 void Renderer::ShutdownOpenGL() {
 	glfwTerminate();
+}
+
+
+void Renderer::ResizeCallback(GLFWwindow * window, int width, int height)
+{
+	Application::SCREEN_WIDTH = width;
+	Application::SCREEN_HEIGHT = height;
+
+	float ratio = 1.0f;
+	if (Application::SCREEN_HEIGHT != 0.0f)
+		ratio = (float)Application::SCREEN_WIDTH / (float)Application::SCREEN_HEIGHT;
+	projectionMatrix = glm::perspective(glm::radians(90.0f), ratio, 0.05f, 1000.0f);
+	glViewport(0, 0, Application::SCREEN_WIDTH, Application::SCREEN_HEIGHT);
 }

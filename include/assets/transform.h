@@ -10,9 +10,9 @@ public:
 
 public:
 	virtual void Show()  {
-		ImGui::DragFloat3("position", glm::value_ptr(position));
-		ImGui::DragFloat3("rotation", glm::value_ptr(rotation));
-		ImGui::DragFloat3("scale", glm::value_ptr(scale));
+		ImGui::DragFloat3("position", glm::value_ptr(position), 0.05f);
+		ImGui::DragFloat3("rotation", glm::value_ptr(rotation), 0.05f);
+		ImGui::DragFloat3("scale", glm::value_ptr(scale), 0.01f);
 	}
 
 	~Transform() {

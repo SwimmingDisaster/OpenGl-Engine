@@ -2,6 +2,7 @@
 #include "mypch.h"
 #include "core/texture.h"
 #include "ecs/component.h"
+#include "utils/fileUtils.h"
 
 
 struct Vertex {
@@ -42,6 +43,8 @@ public:
 	}
 
 	Mesh() {}
+
+
 
 	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName) {
 		std::vector<Texture> textures;
@@ -124,9 +127,9 @@ public:
 
 
 
-private:
 	std::string directory;
-	std::string path = "res/robot/nanosuuit.fbx";
+	std::string path = "res/fbx/box.fbx";
+	bool isFlipped = false;
 
 public:
 	Model() {
@@ -143,8 +146,17 @@ public:
 	}
 
 	virtual void Show() {
+		ImGui::Checkbox("Is flipped", &isFlipped);
 
 		ImGui::InputText("File path", &path, ImGuiInputTextFlags_CallbackResize);
+
+		if (ImGui::Button("Browse")) {
+			path = OpenFile("3D model\0*.fbx;*.dae;*.gltf;*.glb;*.blend;*.3ds;*.ase;*.obj;*.ifc;*.xgl;*.zgl;*.ply;*.dxf;*.lwo;*.lws;*.lxo;*.stl;*.x;*.ac;*.ms3d;*.cob;*.scn;*.bvh;*.csm;*.xml;*.irrmesh;*.irr;*.mdl;*.md2;*.md3;*.pk3;*.mdc;*.md5*;*.smd;*.vta;*.ogex;*.3d;*.b3d;*.q3d;*.q3s;*.nff;*.nff;*.off;*.raw;*.ter;*.mdl;*.hmp;*.ndo\0");
+			std::replace( path.begin(), path.end(), '\\', '/');
+		}
+
+		ImGui::SameLine();
+
 		if (ImGui::Button("Reload")) {
 			textures_loaded.clear();
 			meshes.clear();
@@ -155,6 +167,10 @@ public:
 
 	void loadModel(std::string const& path)
 	{
+
+		stbi_set_flip_vertically_on_load(isFlipped);
+
+
 		// read file via ASSIMP
 		Assimp::Importer importer;
 		const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_ImproveCacheLocality | aiProcess_OptimizeMeshes);
@@ -170,7 +186,7 @@ public:
 		processNode(scene->mRootNode, scene);
 	}
 
-	void  processNode(aiNode* node, const aiScene* scene)
+	void  processNode(aiNode * node, const aiScene * scene)
 	{
 		// process each mesh located at the current node
 		for (unsigned int i = 0; i < node->mNumMeshes; i++)
@@ -187,7 +203,7 @@ public:
 		}
 	}
 
-	Mesh processMesh(aiMesh* mesh, const aiScene* scene)
+	Mesh processMesh(aiMesh * mesh, const aiScene * scene)
 	{
 		// data to fill
 		std::vector<Vertex> vertices;
@@ -274,7 +290,7 @@ public:
 		return Mesh(vertices, indices, textures);
 	}
 
-	std::vector<Texture> loadMaterialTextures(aiMaterial* mat, aiTextureType type, std::string typeName)
+	std::vector<Texture> loadMaterialTextures(aiMaterial * mat, aiTextureType type, std::string typeName)
 	{
 		std::vector<Texture> textures;
 		for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
@@ -309,8 +325,40 @@ public:
 
 
 
-struct ModelRenderer {
-	static void DrawModel(Shader& shader, std::shared_ptr<Model> model)
+class ModelRenderer : public Component {
+public:
+	Shader m_shader;
+	std::string shaderName = "res/shaders/color";
+	std::shared_ptr<Model> m_modelComponent;
+
+	glm::vec3 m_color = {1.0f, 1.0f, 1.0f}; //todo this should be in a material component
+
+public:
+
+public:
+	ModelRenderer() {
+		m_name = "ModelRenderer";
+	}
+	~ModelRenderer() {
+		Log("Deleted " << m_name);
+	}
+
+	virtual void Start() {
+		m_shader = Shader::shaderMap[shaderName];
+		m_modelComponent = m_parentEntity->GetComponent<Model>();
+	}
+	virtual void Update() {
+		m_shader.use();
+		m_shader.setVec3("color", m_color);
+		DrawModel(m_shader, m_modelComponent);
+	}
+	virtual void Show() {
+		ImGui::InputInt("Shader id", (int*)&m_shader.ID);
+		ImGui::ColorEdit3("Color", glm::value_ptr(m_color));
+	}
+
+
+	void DrawModel(Shader& shader, std::shared_ptr<Model> model)
 	{
 		glm::mat4 matModel = glm::mat4(1.0f);
 		matModel = glm::translate(matModel, model->transform->position);
@@ -325,7 +373,7 @@ struct ModelRenderer {
 		}
 	}
 
-	static void DrawMesh(Shader& shader, Mesh& mesh)
+	void DrawMesh(Shader& shader, Mesh& mesh)
 	{
 		// bind appropriate textures
 		unsigned int diffuseNr = 1;

@@ -4,6 +4,7 @@
 #include "ecs/entity.h"
 
 #include "assets/transform.h"
+#include "assets/mesh.h"
 
 
 
@@ -11,6 +12,11 @@ const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiT
 
 ImGuiContext* ImGuiManager::imGuiContext;
 std::string ImGuiManager::searchString;
+
+
+float frameCountToDisplay = 0;
+std::string frameImGuiText = "FPS";
+
 
 void ImGuiManager::InitImGui() {
 	IMGUI_CHECKVERSION();
@@ -72,6 +78,8 @@ void ImGuiManager::EndFrame() {
 
 
 std::string sTransfom = "Transform";
+std::string sModel = "Model";
+std::string sModelRenderer = "ModelRenderer";
 
 
 void ImGuiManager::DrawEnity(const std::shared_ptr<Entity>& entityToDraw) {
@@ -162,6 +170,19 @@ void ImGuiManager::DrawEnity(const std::shared_ptr<Entity>& entityToDraw) {
 					showSearch = false;
 				}
 			}
+			if (sModel.rfind(searchString, 0) == 0) {
+				if (ImGui::Button(sModel.c_str())) {
+					entityToDraw->AddComponentR<Model>()->Start();
+					showSearch = false;
+				}
+			}
+			if (sModelRenderer.rfind(searchString, 0) == 0) {
+				if (ImGui::Button(sModelRenderer.c_str())) {
+					entityToDraw->AddComponentR<ModelRenderer>()->Start();
+
+					showSearch = false;
+				}
+			}
 		}
 		ImGui::TreePop();
 	}
@@ -184,8 +205,6 @@ void ImGuiManager::DrawEnity(const std::shared_ptr<Entity>& entityToDraw) {
 		Application::m_curentScene.RemoveEntity(entityToDraw->name, entityToDraw->uuid);
 		Application::m_selectedEntity = nullptr;
 	}
-
-
 }
 
 void ImGuiManager::DrawEnityHierarchy(const std::shared_ptr<Entity>& entt) {
@@ -206,7 +225,108 @@ void ImGuiManager::DrawEnityHierarchy(const std::shared_ptr<Entity>& entt) {
 		ImGui::TreePop();
 	}
 
+	if (ImGui::BeginPopupContextItem()) {
 
+		if (ImGui::MenuItem("Delete Entity")) {
+			Application::m_selectedEntity.reset();
+			Application::m_curentScene.m_entities.erase(std::remove(Application::m_curentScene.m_entities.begin(), Application::m_curentScene.m_entities.end(), entt), Application::m_curentScene.m_entities.end());
+		}
+		ImGui::EndPopup();
+	}
 }
 
+void ShapeMenu(const char* name, const char* fileName) {
+	if (ImGui::MenuItem(name)) {
+		auto ant = Application::m_curentScene.AddEntityR((std::string("New ") + name).c_str());
+		ant->AddComponent<Transform>();
+		auto mod = ant->AddComponentR<Model>();
+		mod->path = fileName;
+		ant->AddComponentR<ModelRenderer>();
+		ant->Start();
+		Application::m_selectedEntity = ant;
+	}
+}
+
+void ImGuiManager::Update() {
+	ImGuiManager::StartFrame();
+
+
+	ImGui::Begin("INFO");
+	frameCountToDisplay += Application::deltaTime;
+	if (frameCountToDisplay >= 1.0f) {
+		frameCountToDisplay = 0.0f;
+		frameImGuiText = std::to_string(1 / Application::deltaTime);
+
+	}
+
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+
+	ImGui::TextColored(ImVec4(1, 1, 0, 1), frameImGuiText.c_str());
+	ImGui::End();//INFO
+
+	ImGui::Begin("Hierarchy");
+
+	for (int i = 0; i < Application::m_curentScene.m_entities.size(); i++)
+		ImGuiManager::DrawEnityHierarchy(Application::m_curentScene.m_entities[i]);
+
+
+	if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered()) {
+		Application::m_selectedEntity.reset();
+	}
+
+	if (ImGui::BeginPopupContextWindow(0, 1, false)) {
+
+		if (ImGui::BeginMenu("Add Entity")) {
+			if (ImGui::MenuItem("Empty object")) {
+				Application::m_curentScene.AddEntity();
+			}
+			if (ImGui::BeginMenu("Model")) {
+				ShapeMenu("Cube", 		"res/fbx/box.fbx");
+				ShapeMenu("Plane", 		"res/fbx/plane.fbx");
+				ShapeMenu("Sphere", 	"res/fbx/sphere.fbx");
+				ShapeMenu("Cone", 		"res/fbx/cone.fbx");
+				ShapeMenu("Torus", 		"res/fbx/torus.fbx");
+				ShapeMenu("Cylinder", 	"res/fbx/cylinder.fbx");
+
+				ImGui::EndMenu();
+			}
+			ImGui::EndMenu();
+		}
+		ImGui::EndPopup();
+	}
+
+	ImGui::End();//Hierarchy
+
+	ImGui::Begin("Properties");
+	ImGuiManager::DrawEnity(Application::m_selectedEntity);
+	ImGui::End();//Properties
+
+	ImGui::Begin("OUTPUT");
+	ImGui::TextColored(ImVec4(1, 1, 0, 1), "OUTPUT");
+	ImGui::BeginChild("Output list");
+	std::string line;
+	std::ifstream myfile ("other/output.txt");
+
+	if (myfile.is_open())
+	{
+		int i = 0;
+		for (int lineCount = 0; lineCount < 100; lineCount++) {
+			if (getline (myfile, line))
+			{
+				ImGui::Text(line.c_str(), i);
+				i++;
+			}
+			else {
+				break;
+			}
+
+		}
+		myfile.close();
+	}
+	ImGui::EndChild();
+	ImGui::End();//OUTPUT
+
+
+	ImGuiManager::EndFrame();
+}
 

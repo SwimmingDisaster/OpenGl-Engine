@@ -3,6 +3,8 @@
 
 
 
+std::unordered_map<std::string, Shader> Shader::shaderMap;
+
 Shader::Shader(const char* vertexPath, const char* fragmentPath) {
 	std::string vertexCode;
 	std::string fragmentCode;
@@ -61,6 +63,13 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
 
 	glDeleteShader(vertexShader);
 	glDeleteShader(fragmentShader);
+
+
+
+	std::string fullname(vertexPath);
+	size_t lastindex = fullname.find_last_of(".");
+	std::string rawname = fullname.substr(0, lastindex);
+	shaderMap[rawname] = *this;
 }
 
 Shader::Shader(const char* computePath) {
@@ -109,6 +118,24 @@ Shader::Shader(const char* computePath) {
 
 Shader::Shader() {}
 
+
+Shader::~Shader() {
+
+	glDeleteProgram(ID);
+	auto itr = shaderMap.begin();
+
+	while ( itr != shaderMap.end() )
+	{
+		if ( (*itr).second == *this )
+			itr = shaderMap.erase( itr );
+		else
+			itr++;
+	}
+}
+
+bool Shader::operator==(Shader &rhs) {
+	return (*this).ID == rhs.ID;
+}
 
 void Shader::use() {
 	glUseProgram(ID);

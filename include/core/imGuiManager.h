@@ -17,4 +17,6 @@ public:
 	static void DrawEnity(const std::shared_ptr<Entity>& entt);
 	static void DrawEnityHierarchy(const std::shared_ptr<Entity>& entt);
 
+	static void Update();
+
 };

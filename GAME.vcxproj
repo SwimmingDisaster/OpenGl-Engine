@@ -132,6 +132,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="src\utils\fileUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\assets\mesh.h">
@@ -2299,7 +2300,13 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="lib\assimp-vc140-mt.lib" />
+    <Library Include="lib\assimp-vc140-mt.lib">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </Library>
+    <Library Include="lib\assimp-vc142-mtd.lib" />
     <Library Include="lib\glfw3.lib" />
     <Library Include="lib\glfw3dll.lib" />
     <Library Include="lib\libglfw3.a" />

@@ -1,22 +1,17 @@
 #pragma once
 
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
+#include "mypch.h"
 
 class Shader {
 public:
+
+	static std::unordered_map<std::string, Shader> shaderMap;
+
 	unsigned int ID;
 	Shader(const char* vertexPath, const char* fragmentPath);
 	Shader(const char* computePath);
 	Shader();
-
+	~Shader();
 
 	void use();
 
@@ -35,4 +30,6 @@ public:
 	void setMat4(const char* name, const glm::mat4 &mat) const;
 
 	void CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage);
+
+	bool operator== (Shader &rhs);
 };

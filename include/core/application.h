@@ -36,7 +36,6 @@ public:
 	void Start();
 	void Run();
 	void Shutdown();
-	void ImGUI();
 
 	static void framebuffer_size_callback(GLFWwindow * window, int width, int height);
 

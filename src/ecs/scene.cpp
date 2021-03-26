@@ -3,6 +3,7 @@
 
 #include "assets/transform.h"
 #include "assets/mesh.h"
+#include "ecs/other/componentFactory.h"
 
 std::shared_ptr<Entity> Scene::GetEntity(std::string name) {
 	for (std::shared_ptr<Entity>& entt : m_entities) {
@@ -148,37 +149,23 @@ void Scene::Deserialize(const std::string& filePath) {
 	YAML::Node data = YAML::Load(strStream.str());
 
 	std::string sceneName = data["Scene"].as<std::string>();
-	auto entities = data["Entities"];
+
+
+	const YAML::Node& entities = data["Entities"];
 	if (entities) {
 		for (auto entity : entities)
 		{
 			std::string name = entity["Entity"].as<std::string>();
 			long long uuid = entity["UUID"].as<long long>();
 
-
 			std::shared_ptr<Entity> newEntity = AddEntityR(name, uuid);
-
-
-			auto transformComponent = entity["Transform"];
-			if (transformComponent) {
-				auto tc = newEntity->AddComponentR<Transform>();
-				tc->position = transformComponent["Position"].as<glm::vec3>();
-				tc->rotation = transformComponent["Rotation"].as<glm::vec3>();
-				tc->scale = transformComponent["Scale"].as<glm::vec3>();
-			}
-
-			auto ModelComponent = entity["Model"];
-			if (ModelComponent) {
-				auto mc = newEntity->AddComponentR<Model>();
-				mc->isFlipped = ModelComponent["Is flipped"].as<bool>();
-				mc->path = ModelComponent["Path"].as<std::string>();
-			}
-
-			auto ModelRendererComponent = entity["ModelRenderer"];
-			if (ModelRendererComponent) {
-				auto mrc = newEntity->AddComponentR<ModelRenderer>();
-				mrc->shaderName = ModelRendererComponent["Shader name"].as<std::string>();
-				mrc->m_color = ModelRendererComponent["Color"].as<glm::vec3>();
+			for (auto it = Factory::get_table().begin(); it != Factory::get_table().end(); ++it)
+			{
+				const YAML::Node& componentData = entity[it->first];
+				if (componentData) {
+					auto mrc = Factory::create(it->first, newEntity);
+					mrc->Deserialize(componentData);
+				}
 			}
 
 			newEntity->Start();

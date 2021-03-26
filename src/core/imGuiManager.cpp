@@ -6,8 +6,6 @@
 #include "assets/transform.h"
 #include "assets/mesh.h"
 
-
-
 const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
 
 ImGuiContext* ImGuiManager::imGuiContext;
@@ -59,8 +57,8 @@ void ImGuiManager::StartFrame() {
 	{
 		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 	}
-
 }
+
 void ImGuiManager::EndFrame() {
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 	io.DisplaySize = ImVec2((float)Application::SCREEN_WIDTH, (float)Application::SCREEN_HEIGHT);
@@ -75,11 +73,6 @@ void ImGuiManager::EndFrame() {
 		glfwMakeContextCurrent(backup_context);
 	}
 }
-
-
-std::string sTransfom = "Transform";
-std::string sModel = "Model";
-std::string sModelRenderer = "ModelRenderer";
 
 
 void ImGuiManager::DrawEnity(const std::shared_ptr<Entity>& entityToDraw) {
@@ -164,42 +157,19 @@ void ImGuiManager::DrawEnity(const std::shared_ptr<Entity>& entityToDraw) {
 		}
 
 		if (showSearch) {
-			if (sTransfom.rfind(searchString, 0) == 0) {
-				if (ImGui::Button(sTransfom.c_str())) {
-					entityToDraw->AddComponent<Transform>();
-					showSearch = false;
+			for (auto it = Factory::get_table().begin(); it != Factory::get_table().end(); ++it)
+			{
+				if (it->first.rfind(searchString, 0) == 0) {
+					if (ImGui::Button(it->first.c_str())) {
+						Factory::create(it->first, (std::shared_ptr<Entity>&)entityToDraw);
+						showSearch = false;
+					}
 				}
 			}
-			if (sModel.rfind(searchString, 0) == 0) {
-				if (ImGui::Button(sModel.c_str())) {
-					entityToDraw->AddComponentR<Model>()->Start();
-					showSearch = false;
-				}
-			}
-			if (sModelRenderer.rfind(searchString, 0) == 0) {
-				if (ImGui::Button(sModelRenderer.c_str())) {
-					entityToDraw->AddComponentR<ModelRenderer>()->Start();
 
-					showSearch = false;
-				}
-			}
 		}
 		ImGui::TreePop();
 	}
-
-
-	/*
-		ImGui::InputText("Search Text", &searchString, ImGuiInputTextFlags_CallbackAlways);*/
-	/*	if (ImGui::Button("Add component")) {
-			ImGui::OpenPopup("AddComponent");
-		}*/
-
-
-
-
-
-
-
 
 	if (entityRemoveComponent) {
 		Application::m_curentScene.RemoveEntity(entityToDraw->name, entityToDraw->uuid);

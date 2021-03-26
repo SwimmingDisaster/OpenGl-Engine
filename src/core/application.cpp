@@ -14,6 +14,8 @@
 #include "assets/transform.h"
 #include "assets/mesh.h"
 
+#include "ecs/other/componentFactory.h"
+
 
 Camera Application::mainCamera;
 
@@ -44,23 +46,24 @@ void Application::Start() {
 	LoadScene("other/save.txt"); //todo this is old code replace this asap
 	Renderer::InitMatrices();
 }
+
+
+
 void Application::Run() {
 	Shader lightingShader1 = Shader("res/shaders/model.vs", "res/shaders/model.fs");
 	lightingShader1.use();
 	Shader colorShader1 = Shader("res/shaders/color.vs", "res/shaders/color.fs");
 	colorShader1.use();
 
-	/*
-		m_curentScene.AddEntity("GOGO PAY");
-		m_curentScene.m_entities[0]->AddComponent<Transform>();
-		m_curentScene.m_entities[0]->AddComponent<Model>();
-		m_curentScene.m_entities[0]->AddComponent<ModelRenderer>();
-		m_curentScene.m_entities[0]->Start();
-
-
-		m_selectedEntity = m_curentScene.GetEntity("GOGO PAY");*/
 
 	m_curentScene.Deserialize("other/savetest.txt");
+
+
+	/*	auto enttiti = m_curentScene.AddEntityR("Email");
+		Factory::create("Transform", enttiti);
+		Factory::create("Model", enttiti);
+		Factory::create("ModelRenderer", enttiti);
+		enttiti->Start();*/
 
 
 	while (!glfwWindowShouldClose(window))

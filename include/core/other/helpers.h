@@ -19,7 +19,6 @@ struct convert<glm::vec3>
 		return node;
 	}
 	static bool decode(const Node& node, glm::vec3& rhs) {
-
 		if (!node.IsSequence() || node.size() != 3)
 			return false;
 

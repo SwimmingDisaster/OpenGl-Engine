@@ -1,4 +1,5 @@
 #include "assets/transform.h"
+#include "core/application.h"
 
 
 REGISTERIMPL(Transform);
@@ -26,10 +27,15 @@ void Transform::Deserialize(const YAML::Node& data) {
 	scale = data["Scale"].as<glm::vec3>();
 }
 
+void Transform::Update() {
+}
 
+
+#ifdef SHOW_DELETED
 Transform::~Transform() {
 	Log("Deleted " << m_name);
 }
+#endif
 Transform::Transform() {
 	m_name = "Transform";
 }

@@ -1,0 +1,125 @@
+Scene: HIIIIIIIIZ
+Entities:
+  - Entity: very cool plane
+    UUID: 1609058211
+    Components: [Transform, Model, ModelRenderer]
+    Transform:
+      Position: [-4.30000019, 5.66200018, 0.75]
+      Rotation: [0, 0, 0]
+      Scale: [25, 1, 25]
+    Model:
+      Is flipped: false
+      Path: res/fbx/plane.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Color: [0.583333373, 0.583327532, 0.583327532]
+  - Entity: Head
+    UUID: -1015873648
+    Components: [Transform, Model, ModelRenderer]
+    Transform:
+      Position: [0, 21.2959995, -17.5]
+      Rotation: [0, 0, 0]
+      Scale: [6, 6, 6]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Color: [1, 1, 1]
+  - Entity: Body
+    UUID: 418484767
+    Components: [Transform, Model, ModelRenderer]
+    Transform:
+      Position: [0, 6.76661158, -17.5]
+      Rotation: [0, 0, 0]
+      Scale: [2, 9.81999969, 2]
+    Model:
+      Is flipped: false
+      Path: res/fbx/cylinder.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Color: [1, 0.559523642, 0]
+  - Entity: Left Eye
+    UUID: -663946169
+    Components: [Transform, Model, ModelRenderer]
+    Transform:
+      Position: [-2.0999999, 22.6168385, -12.5]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Color: [1, 0.0588235259, 0]
+  - Entity: Right eye
+    UUID: -1612867386
+    Components: [Transform, Model, ModelRenderer]
+    Transform:
+      Position: [1.89999998, 24.6670837, -12.5]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Color: [0, 1, 1]
+  - Entity: Arms
+    UUID: 1151974362
+    Components: [Transform, Model, ModelRenderer]
+    Transform:
+      Position: [0, 14.1673126, -17.5]
+      Rotation: [0, 0, 90]
+      Scale: [1, 5.8499999, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/cylinder.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Color: [1, 0, 0]
+  - Entity: Mouth
+    UUID: 244238927
+    Components: [Transform, Model, ModelRenderer]
+    Transform:
+      Position: [0, 18.8675518, -13.75]
+      Rotation: [119.050003, 0, 0]
+      Scale: [3.8599999, 1.75, 1]
+    Model:
+      Is flipped: false
+      Path: C:/Users/mixog/Desktop/3DGAME/ENGINE/res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Color: [1, 0, 0]
+  - Entity: Right hand
+    UUID: 970518937
+    Components: [Transform, Model, ModelRenderer]
+    Transform:
+      Position: [-3.54999995, 31.9710007, -17.5]
+      Rotation: [0, 0, -2.79999995]
+      Scale: [1.25, 1.25, 1.25]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Color: [1, 1, 0]
+  - Entity: New Sphere
+    UUID: -956681385
+    Components: [Transform, Model, ModelRenderer, Camera]
+    Transform:
+      Position: [-3.54999995, 36.1209984, -17.5]
+      Rotation: [0, 0, -2.79999995]
+      Scale: [1.25, 1.25, 1.25]
+    Model:
+      Is flipped: false
+      Path: res/fbx/box.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Color: [1, 1, 0.999989986]
+    Camera:
+      {}
+Editor Camera:
+  - Camera vPos: [-2.14631844, 22.7448444, 4.7736063]
+    Camera vUp: [0.0181124769, 0.976296067, -0.21568042]
+    Camera vRot: [-12.4999981, 274.800354, 0]

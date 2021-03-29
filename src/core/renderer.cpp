@@ -49,7 +49,6 @@ int Renderer::InitOpenGL() {
 	glFrontFace(GL_CCW);
 
 	glfwSwapInterval(1);
-	srand(time(NULL));
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -61,6 +60,7 @@ int Renderer::InitOpenGL() {
 void Renderer::InitMatrices() {
 	projectionMatrix = glm::perspective(glm::radians(90.0f), (float)Application::SCREEN_WIDTH / (float)Application::SCREEN_HEIGHT, 0.1f, 1000.0f);
 
+
 	glGenBuffers(1, &matrixUBO);
 	glBindBuffer(GL_UNIFORM_BUFFER, matrixUBO);
 	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
@@ -69,7 +69,8 @@ void Renderer::InitMatrices() {
 }
 
 void Renderer::SetupMatrices() {
-	viewMatrix = Application::mainCamera.GetViewMatrix();
+	if (!Application::isRunning)
+		viewMatrix = Application::mainCamera.GetViewMatrix();
 	viewProjectionMatrix = projectionMatrix * viewMatrix;
 
 	glBindBuffer(GL_UNIFORM_BUFFER, matrixUBO);

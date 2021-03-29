@@ -5,6 +5,7 @@
 
 #include "assets/transform.h"
 #include "assets/mesh.h"
+#include "assets/camera.h"
 
 const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
 
@@ -30,7 +31,6 @@ void ImGuiManager::InitImGui() {
 		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
 	}
 
-
 	imGuiContext->IO.WantCaptureMouse = (imGuiContext->ActiveId != 0 && !imGuiContext->ActiveIdAllowOverlap) && (imGuiContext->HoveredWindow != NULL);
 
 
@@ -47,7 +47,6 @@ void ImGuiManager::ShutdownImGui() {
 }
 void ImGuiManager::StartFrame() {
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
-
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -75,7 +74,7 @@ void ImGuiManager::EndFrame() {
 }
 
 
-void ImGuiManager::DrawEnity(const std::shared_ptr<Entity>& entityToDraw) {
+void ImGuiManager::DrawEnity(std::shared_ptr<Entity>& entityToDraw) {
 
 	if (entityToDraw == nullptr) {
 		return;
@@ -104,6 +103,7 @@ void ImGuiManager::DrawEnity(const std::shared_ptr<Entity>& entityToDraw) {
 		ImGui::EndPopup();
 	}
 
+
 	if (entityopen)
 	{
 		ImGui::InputText("Name", &entityToDraw->name, ImGuiInputTextFlags_CallbackResize);
@@ -123,8 +123,26 @@ void ImGuiManager::DrawEnity(const std::shared_ptr<Entity>& entityToDraw) {
 			bool removeComponent = false;
 			if (ImGui::BeginPopup("ComponentSettings"))
 			{
-				if (ImGui::MenuItem("Remove Component"))
+				if (ImGui::MenuItem("Remove Component")) {
 					removeComponent = true;
+				}
+				if (ImGui::MenuItem("Move up")) {
+					iter_swap(entityToDraw->m_components.begin() + i, entityToDraw->m_components.begin() + i - 1);
+				}
+				if (ImGui::MenuItem("Move down", "", false, i != entityToDraw->m_components.size() - 1)) {
+					iter_swap(entityToDraw->m_components.begin() + i, entityToDraw->m_components.begin() + i + 1);
+				}
+				if (ImGui::MenuItem("Copy")) {
+					Application::m_copiedComponent = entityToDraw->m_components[i];
+				}
+				if (ImGui::MenuItem("Paste")) {
+					std::string str(typeid(*Application::m_copiedComponent).name());
+					std::string last_element(str.substr(str.rfind(" ") + 1));
+
+					Factory::copy(last_element, entityToDraw, Application::m_copiedComponent);
+					//Application::m_copiedComponent = nullptr;
+					entityToDraw->m_components[i]->Start();
+				}
 
 				ImGui::EndPopup();
 			}
@@ -161,7 +179,7 @@ void ImGuiManager::DrawEnity(const std::shared_ptr<Entity>& entityToDraw) {
 			{
 				if (it->first.rfind(searchString, 0) == 0) {
 					if (ImGui::Button(it->first.c_str())) {
-						Factory::create(it->first, (std::shared_ptr<Entity>&)entityToDraw);
+						Factory::create(it->first, (std::shared_ptr<Entity>&)entityToDraw)->Start();
 						showSearch = false;
 					}
 				}
@@ -207,13 +225,13 @@ void ImGuiManager::DrawEnityHierarchy(const std::shared_ptr<Entity>& entt) {
 
 void ShapeMenu(const char* name, const char* fileName) {
 	if (ImGui::MenuItem(name)) {
-		auto ant = Application::m_curentScene.AddEntityR((std::string("New ") + name).c_str());
-		ant->AddComponent<Transform>();
-		auto mod = ant->AddComponentR<Model>();
-		mod->path = fileName;
-		ant->AddComponentR<ModelRenderer>();
-		ant->Start();
-		Application::m_selectedEntity = ant;
+		auto entity = Application::m_curentScene.AddEntityR((std::string("New ") + name).c_str());
+		entity->AddComponent<Transform>();
+		auto modelComponent = entity->AddComponentR<Model>();
+		modelComponent->path = fileName;
+		entity->AddComponentR<ModelRenderer>();
+		entity->Start();
+		Application::m_selectedEntity = entity;
 	}
 }
 
@@ -232,6 +250,8 @@ void ImGuiManager::Update() {
 	ImGuiIO& io = ImGui::GetIO(); (void)io;
 
 	ImGui::TextColored(ImVec4(1, 1, 0, 1), frameImGuiText.c_str());
+	Application::isRunningLast = Application::isRunning;
+	ImGui::Checkbox("Is running", &Application::isRunning);
 	ImGui::End();//INFO
 
 	ImGui::Begin("Hierarchy");

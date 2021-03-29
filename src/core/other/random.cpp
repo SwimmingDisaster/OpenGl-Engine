@@ -6,7 +6,8 @@ std::uniform_int_distribution<std::mt19937::result_type> Random::s_Distribution;
 
 void Random::Init()
 {
-	s_RandomEngine.seed(std::random_device()());
+	srand(time(NULL));
+	s_RandomEngine.seed((unsigned int)std::random_device()());
 }
 
 

@@ -20,9 +20,10 @@ void Entity::Serialize(YAML::Emitter& out) {
 	for (auto& comp : m_components) {
 		comp->Serialize(out);
 	}
+
 }
-void Entity::Deserialize() {
+void Entity::Deserialize(YAML::Node& data) {
 	for (auto& comp : m_components) {
-		comp->Deserialize();
+		comp->Deserialize(data);
 	}
 }

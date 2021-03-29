@@ -14,7 +14,7 @@ public:
 	static void StartFrame();
 	static void EndFrame();
 
-	static void DrawEnity(const std::shared_ptr<Entity>& entt);
+	static void DrawEnity(std::shared_ptr<Entity>& entityToDraw);
 	static void DrawEnityHierarchy(const std::shared_ptr<Entity>& entt);
 
 	static void Update();

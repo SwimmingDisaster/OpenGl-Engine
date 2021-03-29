@@ -1,20 +1,23 @@
 #pragma once
 #include  "mypch.h"
 
-
 #include "core/shader.h"
-#include "core/other/camera.h"
+#include "core/other/editorCamera.h"
 #include "texture.h"
 
 #include "ecs/entity.h"
 #include "ecs/scene.h"
+
+#include "assets/model.h"
+#include "assets/modelRenderer.h"
+
 
 
 
 class Application {
 public:
 	//---OBJECTS---
-	static Camera mainCamera;
+	static EditorCamera mainCamera;
 
 	//---GLLOBALS---
 	static int SCREEN_WIDTH;
@@ -25,21 +28,17 @@ public:
 	//---CONTROLLERS---
 	static GLFWwindow* window;
 	static std::shared_ptr<Entity> m_selectedEntity;
+	static std::shared_ptr<Component> m_copiedComponent;
 	static Scene m_curentScene;
+
+	static bool isRunning;
+	static bool isRunningLast;
 
 
 public:
-	static void LoadScene(const std::string& fileName);
-	static void SaveScene(const std::string& fileName);
-
 	int Init();
 	void Start();
 	void Run();
 	void Shutdown();
 
-	static void framebuffer_size_callback(GLFWwindow * window, int width, int height);
-
-private:
-	static void LoadCamera(std::ifstream& infile);
-	static void SaveCamera(std::ofstream& outfile);
 };

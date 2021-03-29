@@ -3,9 +3,10 @@
 
 
 
-std::unordered_map<std::string, Shader> Shader::shaderMap;
+std::unordered_map<std::string, std::shared_ptr<Shader> > Shader::shaderMap;
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath) {
+
+void Shader::CreateVertexAndFragment(const char* vertexPath, const char* fragmentPath) {
 	std::string vertexCode;
 	std::string fragmentCode;
 	std::ifstream vShaderFile;
@@ -69,10 +70,9 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
 	std::string fullname(vertexPath);
 	size_t lastindex = fullname.find_last_of(".");
 	std::string rawname = fullname.substr(0, lastindex);
-	shaderMap[rawname] = *this;
+	shaderMap[rawname] = shared_from_this();
 }
-
-Shader::Shader(const char* computePath) {
+void Shader::CreateCompute(const char* computePath) {
 	std::string computeCode;
 	std::ifstream computeFile;
 	computeFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
@@ -116,21 +116,22 @@ Shader::Shader(const char* computePath) {
 	glDeleteShader(computeShader);
 }
 
+
 Shader::Shader() {}
 
 
 Shader::~Shader() {
+	/*	Log("why");
+		glDeleteProgram(ID);
+		auto itr = shaderMap.begin();
 
-	glDeleteProgram(ID);
-	auto itr = shaderMap.begin();
-
-	while ( itr != shaderMap.end() )
-	{
-		if ( (*itr).second == *this )
-			itr = shaderMap.erase( itr );
-		else
-			itr++;
-	}
+		while ( itr != shaderMap.end() )
+		{
+			if ( (*itr).second == *this )
+				itr = shaderMap.erase( itr );
+			else
+				itr++;
+		}*/
 }
 
 bool Shader::operator==(Shader &rhs) {

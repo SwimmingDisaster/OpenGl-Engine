@@ -1,8 +1,6 @@
 #pragma once
+#include "mypch.h"
 #include "component.h"
-#include <string>
-#include <vector>
-#include <memory>
 
 class Entity : public std::enable_shared_from_this<Entity> {
 public:
@@ -15,7 +13,7 @@ public:
 	virtual void Update();
 	virtual void End();
 	virtual void Serialize(YAML::Emitter& out);
-	virtual void Deserialize();
+	virtual void Deserialize(YAML::Node& data);
 
 	template<typename T> std::shared_ptr<T> GetComponent() {
 		for (auto comp : m_components) {
@@ -25,13 +23,9 @@ public:
 			}
 		}
 		return nullptr;
+
 	}
 
-	template<typename T> void AddComponent() {
-		std::shared_ptr<T> comp = std::make_shared<T>();
-		comp->m_parentEntity = shared_from_this();
-		m_components.push_back(comp);
-	}
 
 	template<typename T> std::shared_ptr<T> AddComponentR() {
 		std::shared_ptr<T> comp = std::make_shared<T>();
@@ -40,6 +34,13 @@ public:
 		return comp;
 	}
 
+
+
+	template<typename T> void AddComponent() {
+		std::shared_ptr<T> comp = std::make_shared<T>();
+		comp->m_parentEntity = shared_from_this();
+		m_components.push_back(comp);
+	}
 
 
 	template<typename T> void RemoveComponent() {
@@ -53,7 +54,10 @@ public:
 
 	}
 
+
+#ifdef SHOW_DELETED
 	~Entity() 	{
 		Log("Removed Entity " << name);
 	}
+#endif
 };

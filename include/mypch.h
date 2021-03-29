@@ -1,4 +1,5 @@
 #pragma once
+#pragma warning( disable : 4005 )
 
 #define NOMINMAX
 
@@ -7,9 +8,11 @@
 #include <utility>
 #include <algorithm>
 #include <functional>
+#include <random>
 
 #include <string>
 #include <sstream>
+
 #include <fstream>
 #include <array>
 #include <vector>
@@ -26,6 +29,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include <glm/gtx/string_cast.hpp>
+#include <glm/gtx/rotate_vector.hpp>
 
 #include <ImGUI/imgui.h>
 #include <ImGUI/imgui_impl_glfw.h>
@@ -38,6 +42,8 @@
 #include <assimp/postprocess.h>
 
 #include <yaml-cpp/yaml.h>
+#include <yaml-cpp/node/node.h>
+#include <yaml-cpp/node/detail/node.h>
 
 #include <stb/stb_image.h>
 

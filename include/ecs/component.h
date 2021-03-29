@@ -1,6 +1,10 @@
 #pragma once
 #include "mypch.h"
 
+
+//#define SHOW_DELETED
+
+
 class Entity;
 class Component {
 public:

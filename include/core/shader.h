@@ -2,16 +2,17 @@
 
 #include "mypch.h"
 
-class Shader {
+class Shader: public std::enable_shared_from_this<Shader> {
 public:
-
-	static std::unordered_map<std::string, Shader> shaderMap;
-
+	static std::unordered_map<std::string, std::shared_ptr<Shader>> shaderMap;
 	unsigned int ID;
-	Shader(const char* vertexPath, const char* fragmentPath);
-	Shader(const char* computePath);
+
+public:
 	Shader();
 	~Shader();
+
+	void CreateVertexAndFragment(const char* vertexPath, const char* fragmentPath);
+	void CreateCompute(const char* computePath);
 
 	void use();
 

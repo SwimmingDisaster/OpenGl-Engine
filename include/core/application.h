@@ -28,11 +28,13 @@ public:
 	//---CONTROLLERS---
 	static GLFWwindow* window;
 	static std::shared_ptr<Entity> m_selectedEntity;
+	static std::shared_ptr<Entity> m_copiedEntity;
 	static std::shared_ptr<Component> m_copiedComponent;
 	static Scene m_curentScene;
 
 	static bool isRunning;
 	static bool isRunningLast;
+	static std::string sceneFileName;
 
 
 public:

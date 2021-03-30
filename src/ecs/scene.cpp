@@ -134,13 +134,14 @@ void Scene::Serialize(const std::string & filePath) {
 	fout << out.c_str();
 }
 void Scene::Deserialize(const std::string & filePath) {
+	Clear();
 	std::ifstream stream(filePath);
 	std::stringstream strStream;
 	strStream << stream.rdbuf();
 
 	YAML::Node data = YAML::Load(strStream.str());
 
-	Application::m_curentScene.name = data["Scene"].as<std::string>();
+	name = data["Scene"].as<std::string>();
 
 	/*
 	data["Scene"] = "Me and ju";
@@ -177,9 +178,9 @@ void Scene::Deserialize(const std::string & filePath) {
 	Application::mainCamera.vRot = 	mainCameraData[0]["Camera vRot"].as<glm::vec3>();
 	Application::mainCamera.updateCameraVectors();
 
-	/*
-		std::fstream fout;
-		fout.open(filePath, std::fstream::out);
-		fout << data;
-	*/
+}
+
+
+void Scene::RemoveEntity(const std::shared_ptr<Entity>& entity) {
+	m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), entity), m_entities.end());
 }

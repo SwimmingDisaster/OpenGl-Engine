@@ -1,10 +1,9 @@
 #pragma once
 #include "mypch.h"
-#include "ecs/other/componentCreatorImpl.h"
-#include "ecs/entity.h"
 
-
+class Entity;
 class Creator;
+class Component;
 
 class Factory
 {
@@ -14,12 +13,4 @@ public:
 	static void registerit(const std::string& classname, Creator* creator);
 	static std::unordered_map<std::string, Creator*>& get_table();
 };
-
-#define REGISTER(classname) \
-	private: \
-	static const CreatorImpl<classname> creator
-
-#define REGISTERIMPL(classname) \
-	const CreatorImpl<classname> classname::creator(#classname)
-
 

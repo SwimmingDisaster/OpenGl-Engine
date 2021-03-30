@@ -25,6 +25,7 @@ public:
 	void Serialize(const std::string& filePath);
 	void Deserialize(const std::string& filePath);
 
+	void RemoveEntity(const std::shared_ptr<Entity>& entity);
 
 	~Scene();
 };

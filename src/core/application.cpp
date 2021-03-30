@@ -30,13 +30,14 @@ float Application::lastFrame = 0.0f;
 
 Scene Application::m_curentScene;
 std::shared_ptr<Entity> Application::m_selectedEntity;
+std::shared_ptr<Entity> Application::m_copiedEntity;
 std::shared_ptr<Component> Application::m_copiedComponent;
 
 GLFWwindow* Application::window = nullptr;
 
 bool Application::isRunning = false;
 bool Application::isRunningLast = false;
-
+std::string Application::sceneFileName;
 
 int Application::Init() {
 	Random::Init();
@@ -66,9 +67,7 @@ void Application::Run() {
 	lightingShader1->use();
 	colorShader1->use();
 
-	m_curentScene.Deserialize("other/savetest.txt");
-
-
+	//m_curentScene.Deserialize("other/savetest.txt");
 
 
 	while (!glfwWindowShouldClose(window))
@@ -78,14 +77,11 @@ void Application::Run() {
 			Log(Shader::shaderMap["res/shaders/color"]->ID);
 
 		if (isRunningLast == false && isRunning == true) {
-			m_curentScene.Serialize("other/savetest.txt");
-			m_curentScene.Clear();
-			m_curentScene.Deserialize("other/savetest.txt");
+			m_curentScene.Serialize("other/TEMP.txt");
 		}
 		else if (isRunningLast == true && isRunning == false) {
 			m_selectedEntity = nullptr;
-			m_curentScene.Clear();
-			m_curentScene.Deserialize("other/savetest.txt");
+			m_curentScene.Deserialize("other/TEMP.txt");
 		}
 
 
@@ -150,7 +146,7 @@ void Application::Run() {
 		lastFrame = currentFrame;
 	}
 	if (!isRunning) {
-		m_curentScene.Serialize("other/savetest.txt");
+		m_curentScene.Serialize("other/TEMP.txt");
 	}
 	m_curentScene.Clear();
 }

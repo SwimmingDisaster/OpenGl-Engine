@@ -3,8 +3,8 @@
 #include "mypch.h"
 #include "assets/mesh.h"
 
-
 #include "ecs/other/componentFactory.h"
+#include "ecs/other/componentDefines.h"
 
 
 

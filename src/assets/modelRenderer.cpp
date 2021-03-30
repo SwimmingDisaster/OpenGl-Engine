@@ -1,6 +1,7 @@
 #include "mypch.h"
 
 #include "assets/modelRenderer.h"
+#include "assets/material.h"
 
 REGISTERIMPL(ModelRenderer);
 ModelRenderer::ModelRenderer() {
@@ -16,26 +17,24 @@ void ModelRenderer::Serialize(YAML::Emitter& out) {
 	out << YAML::BeginMap;
 
 	out << YAML::Key << "Shader name" << YAML::Value << shaderName;
-	out << YAML::Key << "Color" << YAML::Value << m_color;
 
 	out << YAML::EndMap;
 }
 void ModelRenderer::Deserialize(const YAML::Node& data) {
 	shaderName = data["Shader name"].as<std::string>();
-	m_color = data["Color"].as<glm::vec3>();
 }
 void ModelRenderer::Start() {
 	m_shader = Shader::shaderMap[shaderName];
 	m_modelComponent = m_parentEntity->GetComponent<Model>();
+	m_materialComponent = m_parentEntity->GetComponent<Material>();
 }
 void ModelRenderer::Update() {
 	m_shader->use();
-	m_shader->setVec3("color", m_color);
+	m_shader->setVec3("color", m_materialComponent->color);
 	DrawModel(m_shader, m_modelComponent);
 }
 void ModelRenderer::Show() {
 	ImGui::InputInt("Shader id", (int*)&m_shader->ID);
-	ImGui::ColorEdit3("Color", glm::value_ptr(m_color));
 }
 
 void ModelRenderer::DrawModel(std::shared_ptr<Shader>& shader, std::shared_ptr<Model> model)

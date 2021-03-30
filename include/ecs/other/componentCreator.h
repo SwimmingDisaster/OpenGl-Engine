@@ -1,8 +1,9 @@
 #pragma once
 #include "mypch.h"
 #include "ecs/component.h"
-#include "ecs/entity.h"
+//#include "ecs/entity.h"
 
+class Entity;
 class Creator
 {
 public:

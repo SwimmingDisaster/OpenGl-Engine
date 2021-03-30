@@ -15,23 +15,15 @@ public:
 	virtual ~CreatorImpl<T>() {}
 
 	virtual std::shared_ptr<Component> create(std::shared_ptr<Entity>& entityRef) {
-		return entityRef->AddComponentR<T>();
+		auto comp = entityRef->GetComponent<T>();
+		if (comp == nullptr)
+			return entityRef->AddComponentR<T>();
+		else
+			return comp;
 	}
 
 	virtual void copy(std::shared_ptr<Entity>& entityRef, std::shared_ptr<Component>& componentRef) {
-		/*		std::shared_ptr<T> ramb = std::make_shared<T>(*std::dynamic_pointer_cast<T>(componentRef));
-				if (ramb != nullptr) {
-					std::shared_ptr<T> a = entityRef->GetComponent<T>();
-					*a = *ramb;
-				}*/
-
-		*entityRef->GetComponent<T>() = *std::make_shared<T>(*std::dynamic_pointer_cast<T>(componentRef));
-		/*
-				auto a = std::make_shared<T>(*std::dynamic_pointer_cast<T>(componentRef));
-				auto b = entityRef->GetComponentR<T>();
-				Log("okay this works");
-				b = a;*/
-
+		*entityRef->GetComponentOrMakeIfNone<T>() = *std::make_shared<T>(*std::dynamic_pointer_cast<T>(componentRef));
 	}
 };
 

@@ -2,6 +2,8 @@
 #include "mypch.h"
 #include "component.h"
 
+#include "ecs/other/componentFactory.h"
+
 class Entity : public std::enable_shared_from_this<Entity> {
 public:
 	std::vector< std::shared_ptr<Component> > m_components;
@@ -15,6 +17,28 @@ public:
 	virtual void Serialize(YAML::Emitter& out);
 	virtual void Deserialize(YAML::Node& data);
 
+	Entity() {}
+
+	void Copy(std::shared_ptr<Entity>& other) {
+		name = other->name;
+		uuid = other->uuid;
+
+		for (auto& component : other->m_components) {
+			std::string str(typeid(*component).name());
+			std::string last_element(str.substr(str.rfind(" ") + 1));
+
+			Factory::copy(last_element, (std::shared_ptr<Entity>&)(shared_from_this()), component);
+		}
+		for (auto& component : m_components) {
+			std::string str(typeid(*component).name());
+			std::string last_element(str.substr(str.rfind(" ") + 1));
+			component->m_name = last_element;
+			component->m_parentEntity = shared_from_this();
+		}
+		Start();
+
+	}
+
 	template<typename T> std::shared_ptr<T> GetComponent() {
 		for (auto comp : m_components) {
 			if ( std::shared_ptr<T> castedComp = std::dynamic_pointer_cast<T>( comp ) )
@@ -23,6 +47,18 @@ public:
 			}
 		}
 		return nullptr;
+
+	}
+
+
+	template<typename T> std::shared_ptr<T> GetComponentOrMakeIfNone() {
+		for (auto comp : m_components) {
+			if ( std::shared_ptr<T> castedComp = std::dynamic_pointer_cast<T>( comp ) )
+			{
+				return castedComp;
+			}
+		}
+		return AddComponentR<T>();
 
 	}
 

@@ -58,5 +58,5 @@ void Camera::updateCameraVectors()
 
 	vRight = glm::normalize(glm::cross(vFront, vWorldUp));
 	vUp    = glm::normalize(glm::cross(vRight, vFront));
-	vUp    = glm::rotate(vUp, glm::radians(transform->rotation.z), {0.0f, 0.0f, 1.0f});
+	vUp    = glm::rotate(vUp, glm::radians(transform->rotation.z), vFront);
 }

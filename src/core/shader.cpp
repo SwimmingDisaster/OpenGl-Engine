@@ -121,17 +121,17 @@ Shader::Shader() {}
 
 
 Shader::~Shader() {
-	/*	Log("why");
-		glDeleteProgram(ID);
-		auto itr = shaderMap.begin();
+	//Log("Deleted shader " << ID);
+	//glDeleteProgram(ID);
+	//auto itr = shaderMap.begin();
 
-		while ( itr != shaderMap.end() )
-		{
-			if ( (*itr).second == *this )
-				itr = shaderMap.erase( itr );
-			else
-				itr++;
-		}*/
+	//while ( itr != shaderMap.end() )
+	//{
+	//	if ( (*itr).second == *this )	
+	//		itr = shaderMap.erase( itr );
+	//	else
+	//		itr++;
+	//}
 }
 
 bool Shader::operator==(Shader &rhs) {
@@ -142,73 +142,71 @@ void Shader::use() {
 	glUseProgram(ID);
 }
 // ------------------------------------------------------------------------
-void Shader::setBool(const char* name, bool value) const
+void Shader::setBool(const char* name, bool value) const noexcept
 {
 	glUniform1i(glGetUniformLocation(ID, name), (int)value);
 }
 // ------------------------------------------------------------------------
-void Shader::setInt(const char* name, int value) const
+void Shader::setInt(const char* name, int value) const noexcept
 {
 	glUniform1i(glGetUniformLocation(ID, name), value);
 }
 // ------------------------------------------------------------------------
-void Shader::setFloat(const char* name, float value) const
+void Shader::setFloat(const char* name, float value) const noexcept
 {
 	glUniform1f(glGetUniformLocation(ID, name), value);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec2(const char* name, const glm::vec2 &value) const
+void Shader::setVec2(const char* name, const glm::vec2 &value) const noexcept
 {
 	glUniform2fv(glGetUniformLocation(ID, name), 1, &value[0]);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec2(const char* name, float x, float y) const
+void Shader::setVec2(const char* name, float x, float y) const noexcept
 {
 	glUniform2f(glGetUniformLocation(ID, name), x, y);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec3(const char* name, const glm::vec3 &value) const
+void Shader::setVec3(const char* name, const glm::vec3 &value) const noexcept
 {
 	glUniform3fv(glGetUniformLocation(ID, name), 1, &value[0]);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec3(const char* name, float x, float y, float z) const
+void Shader::setVec3(const char* name, float x, float y, float z) const noexcept
 {
 	glUniform3f(glGetUniformLocation(ID, name), x, y, z);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec4(const char* name, const glm::vec4 &value) const
+void Shader::setVec4(const char* name, const glm::vec4 &value) const noexcept
 {
 	glUniform4fv(glGetUniformLocation(ID, name), 1, &value[0]);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec4(const char* name, const glm::vec3 &value) const
+void Shader::setVec4(const char* name, const glm::vec3 &value) const noexcept
 {
 	glUniform4fv(glGetUniformLocation(ID, name), 1, &value[0]);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec4(const char* name, float x, float y, float z, float w) const
+void Shader::setVec4(const char* name, float x, float y, float z, float w) const noexcept
 {
 	glUniform4f(glGetUniformLocation(ID, name), x, y, z, w);
 }
 // ------------------------------------------------------------------------
-void Shader::setMat2(const char* name, const glm::mat2 &mat) const
+void Shader::setMat2(const char* name, const glm::mat2 &mat) const noexcept
 {
 	glUniformMatrix2fv(glGetUniformLocation(ID, name), 1, GL_FALSE, &mat[0][0]);
 }
 // ------------------------------------------------------------------------
-void Shader::setMat3(const char* name, const glm::mat3 &mat) const
+void Shader::setMat3(const char* name, const glm::mat3 &mat) const noexcept
 {
 	glUniformMatrix3fv(glGetUniformLocation(ID, name), 1, GL_FALSE, &mat[0][0]);
 }
 // ------------------------------------------------------------------------
-void Shader::setMat4(const char* name, const glm::mat4& mat) const
+void Shader::setMat4(const char* name, const glm::mat4& mat) const noexcept
 {
 	glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE, &mat[0][0]);
 }
 //-------------------------------------------------------------------------
-
-
 
 
 void Shader::CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage)

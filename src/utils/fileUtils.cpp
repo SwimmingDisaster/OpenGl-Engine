@@ -1,4 +1,4 @@
-#include "fileUtils.h"
+#include "utils/fileUtils.h"
 #include "mypch.h"
 #include "core/application.h"
 
@@ -9,7 +9,7 @@
 std::string OpenFile(const char* filter) {
 	OPENFILENAMEA ofn;
 	CHAR szFile[260] = { 0 };
-	CHAR currentDir[256] = { 0 };
+	const CHAR currentDir[256] = { 0 };
 	ZeroMemory(&ofn, sizeof(OPENFILENAME));
 	ofn.lStructSize = sizeof(OPENFILENAME);
 	ofn.hwndOwner = glfwGetWin32Window(Application::window);
@@ -26,7 +26,7 @@ std::string OpenFile(const char* filter) {
 std::string SaveFile(const char* filter) {
 	OPENFILENAMEA ofn;
 	CHAR szFile[260] = { 0 };
-	CHAR currentDir[256] = { 0 };
+	const CHAR currentDir[256] = { 0 };
 	ZeroMemory(&ofn, sizeof(OPENFILENAME));
 	ofn.lStructSize = sizeof(OPENFILENAME);
 	ofn.hwndOwner = glfwGetWin32Window(Application::window);

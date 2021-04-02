@@ -14,7 +14,7 @@ public:
 	CreatorImpl<T>(const std::string& classname) : Creator(classname) {}
 	virtual ~CreatorImpl<T>() {}
 
-	virtual std::shared_ptr<Component> create(std::shared_ptr<Entity>& entityRef) {
+	std::shared_ptr<Component> create(std::shared_ptr<Entity>& entityRef) override {
 		auto comp = entityRef->GetComponent<T>();
 		if (comp == nullptr)
 			return entityRef->AddComponentR<T>();
@@ -22,7 +22,7 @@ public:
 			return comp;
 	}
 
-	virtual void copy(std::shared_ptr<Entity>& entityRef, std::shared_ptr<Component>& componentRef) {
+	void copy(std::shared_ptr<Entity>& entityRef, std::shared_ptr<Component>& componentRef) override {
 		*entityRef->GetComponentOrMakeIfNone<T>() = *std::make_shared<T>(*std::dynamic_pointer_cast<T>(componentRef));
 	}
 };

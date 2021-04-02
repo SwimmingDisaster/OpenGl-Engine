@@ -13,14 +13,18 @@ public:
 
 
 public:
-	virtual void Show();
-	virtual void Update();
-	virtual void Serialize(YAML::Emitter& out);
-	virtual void Deserialize(const YAML::Node& data);
+	void Show() override;
+	void Update() override;
+	void Serialize(YAML::Emitter& out) override;
+	void Deserialize(const YAML::Node& data) override;
 
 	Transform();
 #ifdef SHOW_DELETED
-	~Transform();
+public:
+	virtual ~Transform();
+#else
+public:
+	virtual ~Transform() {};
 #endif
 
 };

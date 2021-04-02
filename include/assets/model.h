@@ -22,20 +22,22 @@ public:
 	bool isFlipped = false;
 
 public:
-	Model();
-
-#ifdef SHOW_DELETED
-	~Model();
-#endif
-
-	virtual void Start();
-	virtual void Serialize(YAML::Emitter& out);
-	virtual void Deserialize(const YAML::Node& data);
-	virtual void Show();
+	void Start() override;
+	void Serialize(YAML::Emitter& out) override;
+	void Deserialize(const YAML::Node& data) override;
+	void Show() override;
 
 	void loadModel(std::string const& path);
 	void  processNode(aiNode * node, const aiScene * scene);
 	Mesh processMesh(aiMesh * mesh, const aiScene * scene);
 	std::vector<Texture> loadMaterialTextures(aiMaterial * mat, aiTextureType type, std::string typeName);
 
+	Model();
+#ifdef SHOW_DELETED
+public:
+	virtual ~Model();
+#else
+public:
+	virtual ~Model() {};
+#endif
 };

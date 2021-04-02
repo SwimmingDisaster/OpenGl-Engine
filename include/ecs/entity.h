@@ -19,7 +19,7 @@ public:
 
 	Entity() {}
 
-	void Copy(std::shared_ptr<Entity>& other) {
+	void Copy(const std::shared_ptr<Entity>& other) {
 		name = other->name;
 		uuid = other->uuid;
 
@@ -39,7 +39,7 @@ public:
 
 	}
 
-	template<typename T> std::shared_ptr<T> GetComponent() {
+	template<typename T> std::shared_ptr<T> GetComponent() const noexcept {
 		for (auto comp : m_components) {
 			if ( std::shared_ptr<T> castedComp = std::dynamic_pointer_cast<T>( comp ) )
 			{
@@ -72,14 +72,14 @@ public:
 
 
 
-	template<typename T> void AddComponent() {
+	template<typename T> void AddComponent()  {
 		std::shared_ptr<T> comp = std::make_shared<T>();
 		comp->m_parentEntity = shared_from_this();
 		m_components.push_back(comp);
 	}
 
 
-	template<typename T> void RemoveComponent() {
+	template<typename T> void RemoveComponent()  {
 		for (int i = 0; i < m_components.size(); i++) {
 			if ( std::shared_ptr<T> castedComp = std::dynamic_pointer_cast<T>( m_components[i] ) )
 			{

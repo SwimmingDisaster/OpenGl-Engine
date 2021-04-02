@@ -1,5 +1,5 @@
-#include "ecs/scene.h"
 #include "mypch.h"
+#include "ecs/scene.h"
 
 #include "assets/transform.h"
 #include "assets/mesh.h"
@@ -11,24 +11,24 @@ Scene::~Scene() {
 	Clear();
 }
 
-std::shared_ptr<Entity> Scene::GetEntity(std::string name) {
-	for (std::shared_ptr<Entity>& entt : m_entities) {
+std::shared_ptr<Entity> Scene::GetEntity(std::string name) const noexcept {
+	for (auto& entt : m_entities) {
 		if (entt->name == name) {
 			return entt;
 		}
 	}
 	return nullptr;
 }
-std::shared_ptr<Entity> Scene::GetEntity(long long uuid) {
-	for (std::shared_ptr<Entity>& entt : m_entities) {
+std::shared_ptr<Entity> Scene::GetEntity(long long uuid)const noexcept {
+	for (auto& entt : m_entities) {
 		if (entt->uuid == uuid) {
 			return entt;
 		}
 	}
 	return nullptr;
 }
-std::shared_ptr<Entity> Scene::GetEntity(std::string name, long long uuid) {
-	for (std::shared_ptr<Entity>& entt : m_entities) {
+std::shared_ptr<Entity> Scene::GetEntity(std::string name, long long uuid)  const noexcept {
+	for (auto& entt : m_entities) {
 		if (entt->name == name && entt->uuid == uuid) {
 			return entt;
 		}
@@ -60,7 +60,7 @@ std::shared_ptr<Entity> Scene::AddEntityR(std::string name, long long uuid) {
 }
 
 
-void Scene::RemoveEntity(std::string name) {
+void Scene::RemoveEntity(std::string name) noexcept {
 	for (int i = 0; i < m_entities.size(); i++) {
 		if (m_entities[i]->name == name) {
 			m_entities[i]->m_components.clear();
@@ -68,7 +68,7 @@ void Scene::RemoveEntity(std::string name) {
 		}
 	}
 }
-void Scene::RemoveEntity(long long uuid) {
+void Scene::RemoveEntity(long long uuid) noexcept {
 	for (int i = 0; i < m_entities.size(); i++) {
 		if (m_entities[i]->uuid == uuid) {
 			m_entities[i]->m_components.clear();
@@ -76,7 +76,7 @@ void Scene::RemoveEntity(long long uuid) {
 		}
 	}
 }
-void Scene::RemoveEntity(std::string name, long long uuid) {
+void Scene::RemoveEntity(std::string name, long long uuid) noexcept {
 	for (int i = 0; i < m_entities.size(); i++) {
 		if (m_entities[i]->name == name && m_entities[i]->uuid == uuid) {
 			m_entities[i]->m_components.clear();
@@ -85,7 +85,7 @@ void Scene::RemoveEntity(std::string name, long long uuid) {
 	}
 }
 
-void Scene::Clear() {
+void Scene::Clear() noexcept {
 	for (int i = 0; i < m_entities.size(); i++) {
 		m_entities[i]->m_components.clear();
 		m_entities.erase(m_entities.begin() + i);
@@ -94,7 +94,21 @@ void Scene::Clear() {
 	m_entities.clear();
 }
 
-void Scene::Serialize(const std::string & filePath) {
+void Scene::Update() const {
+	for (int i = 0; i < m_entities.size(); i++) {
+		m_entities[i]->Update();
+	}
+}
+void Scene::Render() const {
+	for (int i = 0; i < m_entities.size(); i++) {
+		auto modelRendererComponent = m_entities[i]->GetComponent<ModelRenderer>();
+		if (modelRendererComponent != nullptr) {
+			modelRendererComponent->Update();
+		}
+	}
+}
+
+void Scene::Serialize(const std::string & filePath) const {
 	YAML::Emitter out;
 	out << YAML::BeginMap;
 	out << YAML::Key << "Scene" << YAML::Value << Application::m_curentScene.name;

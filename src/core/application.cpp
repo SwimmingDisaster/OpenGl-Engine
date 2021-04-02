@@ -2,22 +2,21 @@
 
 #include "core/shader.h"
 #include "core/application.h"
-#include "core/texture.h"
 #include "core/renderer.h"
 #include "core/imGuiManager.h"
 #include "core/input.h"
+//#include "core/texture.h"
 
-#include "core/other/editorCamera.h"
-#include "core/other/log.h"
+//#include "core/other/editorCamera.h"
+//#include "core/other/log.h"
 
+//#include "assets/transform.h"
+//#include "assets/mesh.h"
+//#include "assets/model.h"
+//#include "assets/modelRenderer.h"
+//#include "assets/camera.h"
 
-#include "assets/transform.h"
-#include "assets/mesh.h"
-#include "assets/model.h"
-#include "assets/modelRenderer.h"
-#include "assets/camera.h"
-
-#include "ecs/other/componentFactory.h"
+//#include "ecs/other/componentFactory.h"
 
 
 EditorCamera Application::mainCamera;
@@ -55,9 +54,7 @@ void Application::Start() {
 }
 
 
-
 void Application::Run() {
-
 	std::shared_ptr<Shader> lightingShader1 = std::make_shared<Shader>();
 	std::shared_ptr<Shader> colorShader1 = std::make_shared<Shader>();
 
@@ -84,9 +81,10 @@ void Application::Run() {
 			m_curentScene.Deserialize("other/TEMP.txt");
 		}
 
-
-		mainCamera.ProcessMouseMovement();
-		mainCamera.ProcessKeyboard(deltaTime);
+		if (!isRunning) {
+			mainCamera.ProcessMouseMovement();
+			mainCamera.ProcessKeyboard(deltaTime);
+		}
 		Renderer::SetupMatrices();
 
 
@@ -116,17 +114,10 @@ void Application::Run() {
 
 		//--------------------------Update--------------------------
 		if (isRunning) {
-			for (int i = 0; i < m_curentScene.m_entities.size(); i++) {
-				m_curentScene.m_entities[i]->Update();
-			}
+			m_curentScene.Update();
 		}
 		else {
-			for (int i = 0; i < m_curentScene.m_entities.size(); i++) {
-				auto modelRendererComponent = m_curentScene.m_entities[i]->GetComponent<ModelRenderer>();
-				if (modelRendererComponent != nullptr) {
-					modelRendererComponent->Update();
-				}
-			}
+			m_curentScene.Render();
 		}
 		//--------------------------Update--------------------------
 

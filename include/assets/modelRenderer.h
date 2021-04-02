@@ -20,19 +20,23 @@ public:
 
 
 public:
-	virtual void Serialize(YAML::Emitter& out);
-	virtual void Deserialize(const YAML::Node& data);
-	virtual void Start();
-	virtual void Update();
-	virtual void Show();
+	void Serialize(YAML::Emitter& out) override;
+	void Deserialize(const YAML::Node& data) override;
+	void Start() override;
+	void Update() override;
+	void Show() override;
 
 	ModelRenderer(const ModelRenderer& other) {}
 
 	ModelRenderer();
 #ifdef SHOW_DELETED
-	~ModelRenderer();
+public:
+	virtual ~ModelRenderer();
+#else
+public:
+	virtual ~ModelRenderer() {}
 #endif
 
-	void DrawModel(std::shared_ptr<Shader>& shader, std::shared_ptr<Model> model);
-	void DrawMesh(std::shared_ptr<Shader>& shader, Mesh& mesh);
+	void DrawModel(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model> model);
+	void DrawMesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh);
 };

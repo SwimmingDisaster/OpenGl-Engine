@@ -1,5 +1,4 @@
 #include "mypch.h"
-
 #include "assets/model.h"
 
 void Model::Start() {
@@ -128,7 +127,7 @@ Mesh Model::processMesh(aiMesh * mesh, const aiScene * scene)
 		vertices.push_back(vertex);
 	}
 	// now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
-	for (GLuint i = 0; i < mesh->mNumFaces; i++)
+	for (unsigned int i = 0; i < mesh->mNumFaces; i++)
 	{
 		aiFace face = mesh->mFaces[i];
 		if (face.mNumIndices < 3) {

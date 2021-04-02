@@ -2,6 +2,7 @@
 #pragma warning( disable : 4005 )
 
 #define NOMINMAX
+//#define SHOW_DELETED
 
 #include <iostream>
 #include <memory>

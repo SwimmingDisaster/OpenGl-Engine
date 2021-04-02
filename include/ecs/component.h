@@ -8,12 +8,15 @@
 class Entity;
 class Component {
 public:
-	virtual void Start() {}
-	virtual void Update() {}
-	virtual void End() {}
+	virtual void Start()  {}
+	virtual void Update()  {}
+	virtual void End()  {}
 	virtual void Serialize(YAML::Emitter& out) {}
-	virtual void Deserialize(const YAML::Node& data) {}
-	virtual void Show() {}
+	virtual void Deserialize(const YAML::Node& data)  {}
+	virtual void Show()  {}
+
+public:
+	virtual ~Component() noexcept {}
 
 
 public:

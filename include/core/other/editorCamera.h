@@ -14,11 +14,11 @@ enum Camera_Movement {
 };
 
 
-const float YAW         = -90.0f;
-const float PITCH       =  0.0f;
-const float SPEED       =  3.5f;
-const float SENSITIVITY =  0.3f;
-const float ZOOM        =  45.0f;
+constexpr float YAW         = -90.0f;
+constexpr float PITCH       =  0.0f;
+constexpr float SPEED       =  3.5f;
+constexpr float SENSITIVITY =  0.3f;
+constexpr float ZOOM        =  45.0f;
 
 
 class EditorCamera

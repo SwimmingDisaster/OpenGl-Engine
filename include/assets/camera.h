@@ -1,3 +1,4 @@
+#pragma once
 #include "mypch.h"
 
 #include "ecs/component.h"
@@ -15,31 +16,36 @@ public:
 	glm::vec3 vRight;
 	glm::vec3 vWorldUp = {0.0f, 1.0f, 0.0f};
 
-	float mouseSensitivity;
 
-	bool isLocked = false;
 	bool isPrimary = false;
+
+	float fov = 90.0f;
+	float fNear = 0.05f;
+	float fFar = 1000.0f;
 
 public:
 	std::shared_ptr<Transform> transform;
 
 public:
-	virtual void Start();
-	virtual void Update();
-	virtual void Show();
-	virtual void Serialize(YAML::Emitter& out);
-	virtual void Deserialize(const YAML::Node& data);
+	void Start() override;
+	void Update() override;
+	void Show() override;
+	void Serialize(YAML::Emitter& out) override;
+	void Deserialize(const YAML::Node& data) override;
 
 
 	Camera();
 #ifdef SHOW_DELETED
-	~Camera();
+public:
+	virtual ~Camera();
+#else
+public:
+	virtual ~Camera() {};
 #endif
 
 	glm::mat4 GetViewMatrix();
+	glm::mat4 GetProjectionMatrix();
 
-	void ProcessKeyboard(float deltaTime);
-	void ProcessMouseMovement(GLboolean constrainPitch = true);
 
 	void updateCameraVectors();
 

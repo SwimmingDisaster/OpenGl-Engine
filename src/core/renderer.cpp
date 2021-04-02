@@ -25,6 +25,8 @@ int Renderer::InitOpenGL() {
 		return -1;
 	}
 
+
+
 	glfwMakeContextCurrent(Application::window);
 	glfwShowWindow(Application::window);
 
@@ -69,8 +71,9 @@ void Renderer::InitMatrices() {
 }
 
 void Renderer::SetupMatrices() {
-	if (!Application::isRunning)
+	if (!Application::isRunning) {
 		viewMatrix = Application::mainCamera.GetViewMatrix();
+	}
 	viewProjectionMatrix = projectionMatrix * viewMatrix;
 
 	glBindBuffer(GL_UNIFORM_BUFFER, matrixUBO);

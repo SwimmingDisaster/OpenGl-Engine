@@ -6,17 +6,20 @@
 
 #include "assets/transform.h"
 #include "assets/mesh.h"
-#include "assets/camera.h"
+//#include "assets/camera.h"
 #include "assets/material.h"
 #include "assets/modelRenderer.h"
+//#include "assets/cameraFPSController.h"
 
 const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
 
-ImGuiContext *ImGuiManager::imGuiContext;
+ImGuiContext* ImGuiManager::imGuiContext;
 std::string ImGuiManager::searchString;
 
 float frameCountToDisplay = 0;
 std::string frameImGuiText = "FPS";
+
+
 
 void ImGuiManager::InitImGui()
 {
@@ -26,7 +29,7 @@ void ImGuiManager::InitImGui()
 	ImGuiIO &io = ImGui::GetIO();
 	(void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable	;
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
 	ImGuiStyle &style = ImGui::GetStyle();
 	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -36,6 +39,8 @@ void ImGuiManager::InitImGui()
 	}
 
 	imGuiContext->IO.WantCaptureMouse = (imGuiContext->ActiveId != 0 && !imGuiContext->ActiveIdAllowOverlap) && (imGuiContext->HoveredWindow != NULL);
+
+	//io.Fonts->AddFontFromFileTTF("res/fonts/OpenSans-Bold.ttf", 15.0f);
 
 	ImGui_ImplGlfw_InitForOpenGL(Application::window, true);
 	ImGui_ImplOpenGL3_Init("#version 430");
@@ -81,7 +86,125 @@ void ImGuiManager::EndFrame()
 	}
 }
 
-void ImGuiManager::DrawEnity(std::shared_ptr<Entity> &entityToDraw)
+bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity>& entityToDraw) {
+	bool entityRemoveComponent = false;
+	if (ImGui::BeginPopup("EntitySettings"))
+	{
+		if (ImGui::MenuItem("Remove Entity"))
+			entityRemoveComponent = true;
+
+		if (ImGui::MenuItem("Paste Component")) {
+			if (Application::m_copiedComponent != nullptr) {
+				std::string str(typeid(*Application::m_copiedComponent).name());
+				std::string last_element(str.substr(str.rfind(" ") + 1));
+
+				Factory::copy(last_element, entityToDraw, Application::m_copiedComponent);
+				Application::m_copiedComponent = nullptr;
+				entityToDraw->Start();
+			}
+			else {
+				Error("Tried to paste a null component");
+			}
+		}
+
+		ImGui::EndPopup();
+	}
+	return entityRemoveComponent;
+}
+
+bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity>& entityToDraw, int i) {
+	bool removeComponent = false;
+	if (ImGui::BeginPopup("ComponentSettings"))
+	{
+		if (ImGui::MenuItem("Remove Component"))
+		{
+			removeComponent = true;
+		}
+		if (ImGui::MenuItem("Move up"))
+		{
+			iter_swap(entityToDraw->m_components.begin() + i, entityToDraw->m_components.begin() + i - 1);
+		}
+		if (ImGui::MenuItem("Move down", "", false, i != entityToDraw->m_components.size() - 1))
+		{
+			iter_swap(entityToDraw->m_components.begin() + i, entityToDraw->m_components.begin() + i + 1);
+		}
+		if (ImGui::MenuItem("Copy"))
+		{
+			Application::m_copiedComponent = entityToDraw->m_components[i];
+		}
+		if (ImGui::MenuItem("Paste"))
+		{
+			if (Application::m_copiedComponent != nullptr) {
+				std::string str(typeid(*Application::m_copiedComponent).name());
+				std::string last_element(str.substr(str.rfind(" ") + 1));
+
+				Factory::copy(last_element, entityToDraw, Application::m_copiedComponent);
+				Application::m_copiedComponent = nullptr;
+				entityToDraw->m_components[i]->Start();
+			}
+			else {
+				Error("Tried to paste a null component");
+			}
+		}
+
+		ImGui::EndPopup();
+	}
+	return removeComponent;
+}
+
+ImVec2 contentRegionAvailable;
+float lineHeight;
+
+bool ShowHeader(const std::string& headerName, const std::string& popupName, const std::string& popupIcon) {
+	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{4, 4});
+	ImGui::Separator();
+	bool open = ImGui::TreeNodeEx((void*)(&headerName), treeNodeFlags, headerName.c_str());
+	ImGui::PopStyleVar();
+	ImGui::SameLine(contentRegionAvailable.x - lineHeight * 0.5f);
+	if (ImGui::Button(popupIcon.c_str(), ImVec2{lineHeight, lineHeight}))
+	{
+		ImGui::OpenPopup(popupName.c_str());
+
+	}
+	return open;
+}
+
+void ShowEntitySearchBar(std::shared_ptr<Entity>& entityToDraw, std::string& searchString) {
+	static bool showSearch = false;
+	if (ImGui::InputText("##Add Component", &searchString, ImGuiInputTextFlags_CallbackAlways))
+	{
+		showSearch = true;
+	}
+
+	if (showSearch)
+	{
+		ImGui::SameLine(contentRegionAvailable.x - lineHeight * 2.0f);
+		if (ImGui::Button("CLOSE"))
+		{
+			showSearch = false;
+			searchString = "";
+		}
+	}
+
+	if (showSearch)
+	{
+		for (auto it = Factory::get_table().begin(); it != Factory::get_table().end(); ++it)
+		{
+			if (it->first.rfind(searchString, 0) == 0)
+			{
+				if (ImGui::Button(it->first.c_str()))
+				{
+					Factory::create(it->first, (std::shared_ptr<Entity> &)entityToDraw)->Start();
+					showSearch = false;
+				}
+			}
+		}
+	}
+	ImGui::TreePop();
+}
+
+
+void ImGuiManager::DrawEnity(std::shared_ptr<Entity>& entityToDraw)
 {
 
 	if (entityToDraw == nullptr)
@@ -89,40 +212,14 @@ void ImGuiManager::DrawEnity(std::shared_ptr<Entity> &entityToDraw)
 		return;
 	}
 
-	ImVec2 contentRegionAvailable = ImGui::GetContentRegionAvail();
-	float lineHeight = ImGuiManager::imGuiContext->Font->FontSize + ImGuiManager::imGuiContext->Style.FramePadding.y * 2.0f;
-
-	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{4, 4});
-	ImGui::Separator();
-	bool entityopen = ImGui::TreeNodeEx(static_cast<void *>(&entityToDraw->name), treeNodeFlags, entityToDraw->name.c_str());
-	ImGui::PopStyleVar();
-	ImGui::SameLine(contentRegionAvailable.x - lineHeight * 0.5f);
-	if (ImGui::Button("-", ImVec2{lineHeight, lineHeight}))
-	{
-		ImGui::OpenPopup("ComponentSettings");
-
-	}
-
-	bool entityRemoveComponent = false;
-	if (ImGui::BeginPopup("ComponentSettings"))
-	{
-		if (ImGui::MenuItem("Remove Entity"))
-			entityRemoveComponent = true;
-
-		if (ImGui::MenuItem("Paste Component")) {
-			std::string str(typeid(*Application::m_copiedComponent).name());
-			std::string last_element(str.substr(str.rfind(" ") + 1));
+	contentRegionAvailable = ImGui::GetContentRegionAvail();
+	lineHeight = ImGuiManager::imGuiContext->Font->FontSize + ImGuiManager::imGuiContext->Style.FramePadding.y * 2.0f;
 
 
+	bool isEntityopen = ShowHeader(entityToDraw->name, "EntitySettings", "-");
+	bool isEntityRemoved = ShowEntityMenuAndReturnTrueIfRemoved(entityToDraw);
 
-			Application::m_copiedComponent = nullptr;
-			entityToDraw->Start();
-		}
-
-		ImGui::EndPopup();
-	}
-
-	if (entityopen)
+	if (isEntityopen)
 	{
 
 		ImGui::InputText("Name", &entityToDraw->name, ImGuiInputTextFlags_CallbackResize);
@@ -130,102 +227,30 @@ void ImGuiManager::DrawEnity(std::shared_ptr<Entity> &entityToDraw)
 		for (int i = 0; i < entityToDraw->m_components.size(); i++)
 		{
 
-			ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{4, 4});
-			ImGui::Separator();
-			bool open = ImGui::TreeNodeEx((void *)i, treeNodeFlags, entityToDraw->m_components[i]->m_name.c_str());
-			ImGui::PopStyleVar();
-			ImGui::SameLine(contentRegionAvailable.x - lineHeight * 0.5f);
-			if (ImGui::Button("*", ImVec2{lineHeight, lineHeight}))
-			{
-				ImGui::OpenPopup("ComponentSettings");
-			}
+			bool isComponentOpen = ShowHeader(entityToDraw->m_components[i]->m_name, "ComponentSettings", "*");
+			bool isComponentRemoved = ShowComponentMenuAndReturnTrueIfRemoved(entityToDraw, i);
 
-
-
-			bool removeComponent = false;
-			if (ImGui::BeginPopup("ComponentSettings"))
-			{
-				if (ImGui::MenuItem("Remove Component"))
-				{
-					removeComponent = true;
-				}
-				if (ImGui::MenuItem("Move up"))
-				{
-					iter_swap(entityToDraw->m_components.begin() + i, entityToDraw->m_components.begin() + i - 1);
-				}
-				if (ImGui::MenuItem("Move down", "", false, i != entityToDraw->m_components.size() - 1))
-				{
-					iter_swap(entityToDraw->m_components.begin() + i, entityToDraw->m_components.begin() + i + 1);
-				}
-				if (ImGui::MenuItem("Copy"))
-				{
-					Application::m_copiedComponent = entityToDraw->m_components[i];
-				}
-				if (ImGui::MenuItem("Paste"))
-				{
-					std::string str(typeid(*Application::m_copiedComponent).name());
-					std::string last_element(str.substr(str.rfind(" ") + 1));
-
-					Factory::copy(last_element, entityToDraw, Application::m_copiedComponent);
-					Application::m_copiedComponent = nullptr;
-					entityToDraw->m_components[i]->Start();
-				}
-
-				ImGui::EndPopup();
-			}
-
-			if (open)
+			if (isComponentOpen)
 			{
 				entityToDraw->m_components[i]->Show();
 				ImGui::TreePop();
 			}
-
-			if (removeComponent)
+			if (isComponentRemoved)
 			{
 				entityToDraw->m_components.erase(entityToDraw->m_components.begin() + i);
 				i--;
 			}
 		}
-
-		static bool showSearch = false;
-		if (ImGui::InputText("##Add Component", &searchString, ImGuiInputTextFlags_CallbackAlways))
-		{
-			showSearch = true;
-		}
-
-		if (showSearch)
-		{
-			ImGui::SameLine(contentRegionAvailable.x - lineHeight * 2.0f);
-			if (ImGui::Button("CLOSE"))
-			{
-				showSearch = false;
-				searchString = "";
-			}
-		}
-
-		if (showSearch)
-		{
-			for (auto it = Factory::get_table().begin(); it != Factory::get_table().end(); ++it)
-			{
-				if (it->first.rfind(searchString, 0) == 0)
-				{
-					if (ImGui::Button(it->first.c_str()))
-					{
-						Factory::create(it->first, (std::shared_ptr<Entity> &)entityToDraw)->Start();
-						showSearch = false;
-					}
-				}
-			}
-		}
-		ImGui::TreePop();
+		ShowEntitySearchBar(entityToDraw, searchString);
 	}
 
-	if (entityRemoveComponent)
+	if (isEntityRemoved)
 	{
 		Application::m_curentScene.RemoveEntity(entityToDraw->name, entityToDraw->uuid);
 		Application::m_selectedEntity = nullptr;
 	}
 }
+
 
 void ImGuiManager::DrawEnityHierarchy(const std::shared_ptr<Entity> &entt)
 {
@@ -335,7 +360,6 @@ void ShowSaveAndOpenMenuItems() {
 		}
 
 	}
-
 }
 
 void ImGuiManager::Update()
@@ -398,10 +422,15 @@ void ImGuiManager::Update()
 			ImGui::EndMenu();
 		}
 		if (ImGui::MenuItem("Paste Entity")) {
-			auto copiedEntity = Application::m_curentScene.AddEntityR();
-			copiedEntity->Copy(Application::m_copiedEntity);
-			copiedEntity->uuid = Random::Int();
-			Application::m_copiedEntity = nullptr;
+			if (Application::m_copiedEntity != nullptr) {
+				auto copiedEntity = Application::m_curentScene.AddEntityR();
+				copiedEntity->Copy(Application::m_copiedEntity);
+				copiedEntity->uuid = Random::Int();
+				Application::m_copiedEntity = nullptr;
+			}
+			else {
+				Error("Tried to paste a null entity");
+			}
 		}
 		ImGui::EndPopup();
 	}

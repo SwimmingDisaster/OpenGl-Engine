@@ -1,5 +1,4 @@
 #include "assets/transform.h"
-#include "core/application.h"
 
 
 REGISTERIMPL(Transform);

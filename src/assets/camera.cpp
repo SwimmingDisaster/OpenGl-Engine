@@ -1,6 +1,6 @@
-
 #include "mypch.h"
 #include "assets/camera.h"
+
 #include "core/application.h"
 #include "core/input.h"
 #include "core/renderer.h"
@@ -26,24 +26,44 @@ void Camera::Start() {
 void Camera::Update() {
 	updateCameraVectors();
 	Renderer::viewMatrix = GetViewMatrix();
+	Renderer::projectionMatrix = GetProjectionMatrix();
+
 }
 void Camera::Show() {
+	ImGui::DragFloat("Fov", &fov, 0.1f);
+	ImGui::DragFloat("fNear", &fNear, 0.001f);
+	ImGui::DragFloat("fFar", &fFar, 0.1f);
 }
 
 void Camera::Serialize(YAML::Emitter& out) {
 	out << YAML::Key << m_name;
 	out << YAML::BeginMap;
+	out << YAML::Key << "Fov" << YAML::Value << fov;
+	out << YAML::Key << "fNear" << YAML::Value << fNear;
+	out << YAML::Key << "fFar" << YAML::Value << fFar;
 	out << YAML::EndMap;
 }
 
 void Camera::Deserialize(const YAML::Node& data) {
-
+	fov = data["Fov"].as<float>();
+	fNear = data["fNear"].as<float>();
+	fFar = data["fFar"].as<float>();
 }
 
 glm::mat4 Camera::GetViewMatrix()
 {
 	return glm::lookAt(transform->position, transform->position + vFront, vUp);
 }
+
+glm::mat4 Camera::GetProjectionMatrix()
+{
+	float ratio = 1.0f;
+	if (Application::SCREEN_HEIGHT != 0.0f)
+		ratio = (float)Application::SCREEN_WIDTH / (float)Application::SCREEN_HEIGHT;
+	return glm::perspective(glm::radians(fov), ratio , fNear, fFar);
+}
+
+
 
 
 void Camera::updateCameraVectors()

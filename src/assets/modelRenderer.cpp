@@ -34,10 +34,10 @@ void ModelRenderer::Update() {
 	DrawModel(m_shader, m_modelComponent);
 }
 void ModelRenderer::Show() {
-	ImGui::InputInt("Shader id", (int*)&m_shader->ID);
+	ImGui::InputInt("Shader id", reinterpret_cast<int*>(&m_shader->ID));
 }
 
-void ModelRenderer::DrawModel(std::shared_ptr<Shader>& shader, std::shared_ptr<Model> model)
+void ModelRenderer::DrawModel(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model> model)
 {
 	glm::mat4 matModel = glm::mat4(1.0f);
 	matModel = glm::translate(matModel, model->transform->position);
@@ -52,7 +52,7 @@ void ModelRenderer::DrawModel(std::shared_ptr<Shader>& shader, std::shared_ptr<M
 		DrawMesh(shader, model->meshes[i]);
 	}
 }
-void ModelRenderer::DrawMesh(std::shared_ptr<Shader>& shader, Mesh& mesh)
+void ModelRenderer::DrawMesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh)
 {
 	// bind appropriate textures
 	unsigned int diffuseNr = 1;

@@ -1,5 +1,4 @@
 #include "mypch.h"
-#include "ecs/other/componentFactory.h"
 #include "assets/material.h"
 
 

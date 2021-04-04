@@ -23,6 +23,8 @@ public:
 	float fNear = 0.05f;
 	float fFar = 1000.0f;
 
+	glm::vec3 backgroundColor = {0.1f, 0.1f, 0.1f};
+
 public:
 	std::shared_ptr<Transform> transform;
 

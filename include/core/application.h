@@ -17,7 +17,7 @@
 class Application {
 public:
 	//---OBJECTS---
-	static EditorCamera mainCamera;
+	static EditorCamera editorCamera;
 
 	//---GLLOBALS---
 	static int SCREEN_WIDTH;

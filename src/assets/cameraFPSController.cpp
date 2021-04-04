@@ -8,8 +8,8 @@ REGISTERIMPL(CameraFPSController);
 
 
 void CameraFPSController::Start() {
-	transform = m_parentEntity->GetComponent<Transform>();
-	camera = m_parentEntity->GetComponent<Camera>();
+	transform = parentEntity->GetComponent<Transform>();
+	camera = parentEntity->GetComponent<Camera>();
 }
 void CameraFPSController::Update() {
 	if (Input::IsKeyPressed(INPUT_KEY_ESCAPE)) {
@@ -33,7 +33,7 @@ void CameraFPSController::Show() {
 	ImGui::Checkbox("Is Locked", &isLocked);
 }
 void CameraFPSController::Serialize(YAML::Emitter& out) {
-	out << YAML::Key << m_name;
+	out << YAML::Key << name;
 	out << YAML::BeginMap;
 
 	out << YAML::Key << "Mouse Sensitivity" << YAML::Value << mouseSensitivity;
@@ -48,11 +48,11 @@ void CameraFPSController::Deserialize(const YAML::Node& data) {
 
 
 CameraFPSController::CameraFPSController() {
-	m_name = "CameraFPSController";
+	name = "CameraFPSController";
 }
 #ifdef SHOW_DELETED
 CameraFPSController::~CameraFPSController() {
-	Log("Deleted " << m_name);
+	Log("Deleted " << name);
 }
 #endif
 

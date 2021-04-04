@@ -2,8 +2,6 @@
 #include "mypch.h"
 
 
-
-
 #define 	INPUT_KEY_UNKNOWN   			-1
 #define 	INPUT_KEY_SPACE   				32
 #define 	INPUT_KEY_APOSTROPHE   			39
@@ -140,8 +138,8 @@ public:
 
 	float xoffset = 0;
 	float yoffset = 0;
-public:
 
+public:
 	static Input& Get();
 	static void Update();
 	static void KeyInputCallback(GLFWwindow * window, int key, int scancode, int action, int mods);

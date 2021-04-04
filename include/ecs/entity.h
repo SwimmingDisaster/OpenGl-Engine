@@ -32,8 +32,8 @@ public:
 		for (auto& component : m_components) {
 			std::string str(typeid(*component).name());
 			std::string last_element(str.substr(str.rfind(" ") + 1));
-			component->m_name = last_element;
-			component->m_parentEntity = shared_from_this();
+			component->name = last_element;
+			component->parentEntity = shared_from_this();
 		}
 		Start();
 
@@ -47,11 +47,10 @@ public:
 			}
 		}
 		return nullptr;
-
 	}
 
 
-	template<typename T> std::shared_ptr<T> GetComponentOrMakeIfNone() {
+	template<typename T> [[nodiscard]] std::shared_ptr<T> GetComponentOrMakeIfNone() {
 		for (auto comp : m_components) {
 			if ( std::shared_ptr<T> castedComp = std::dynamic_pointer_cast<T>( comp ) )
 			{
@@ -63,9 +62,9 @@ public:
 	}
 
 
-	template<typename T> std::shared_ptr<T> AddComponentR() {
+	template<typename T> [[nodiscard]] std::shared_ptr<T> AddComponentR() {
 		std::shared_ptr<T> comp = std::make_shared<T>();
-		comp->m_parentEntity = shared_from_this();
+		comp->parentEntity = shared_from_this();
 		m_components.push_back(comp);
 		return comp;
 	}
@@ -74,7 +73,7 @@ public:
 
 	template<typename T> void AddComponent()  {
 		std::shared_ptr<T> comp = std::make_shared<T>();
-		comp->m_parentEntity = shared_from_this();
+		comp->parentEntity = shared_from_this();
 		m_components.push_back(comp);
 	}
 

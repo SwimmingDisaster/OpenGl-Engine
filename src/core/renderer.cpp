@@ -7,7 +7,7 @@ unsigned int Renderer::matrixUBO;
 glm::mat4 Renderer::projectionMatrix;
 glm::mat4 Renderer::viewMatrix;
 glm::mat4 Renderer::viewProjectionMatrix;
-
+glm::vec3 Renderer::clearColor = {0.1f, 0.1f, 0.1f};
 
 int Renderer::InitOpenGL() {
 	glfwInit();
@@ -24,8 +24,6 @@ int Renderer::InitOpenGL() {
 		glfwTerminate();
 		return -1;
 	}
-
-
 
 	glfwMakeContextCurrent(Application::window);
 	glfwShowWindow(Application::window);
@@ -72,7 +70,7 @@ void Renderer::InitMatrices() {
 
 void Renderer::SetupMatrices() {
 	if (!Application::isRunning) {
-		viewMatrix = Application::mainCamera.GetViewMatrix();
+		viewMatrix = Application::editorCamera.GetViewMatrix();
 	}
 	viewProjectionMatrix = projectionMatrix * viewMatrix;
 

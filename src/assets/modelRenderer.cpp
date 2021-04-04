@@ -5,15 +5,15 @@
 
 REGISTERIMPL(ModelRenderer);
 ModelRenderer::ModelRenderer() {
-	m_name = "ModelRenderer";
+	name = "ModelRenderer";
 }
 #ifdef SHOW_DELETED
 ModelRenderer::~ModelRenderer() {
-	Log("Deleted " << m_name);
+	Log("Deleted " << name);
 }
 #endif
 void ModelRenderer::Serialize(YAML::Emitter& out) {
-	out << YAML::Key << m_name;
+	out << YAML::Key << name;
 	out << YAML::BeginMap;
 
 	out << YAML::Key << "Shader name" << YAML::Value << shaderName;
@@ -25,8 +25,8 @@ void ModelRenderer::Deserialize(const YAML::Node& data) {
 }
 void ModelRenderer::Start() {
 	m_shader = Shader::shaderMap[shaderName];
-	m_modelComponent = m_parentEntity->GetComponent<Model>();
-	m_materialComponent = m_parentEntity->GetComponent<Material>();
+	m_modelComponent = parentEntity->GetComponent<Model>();
+	m_materialComponent = parentEntity->GetComponent<Material>();
 }
 void ModelRenderer::Update() {
 	m_shader->use();

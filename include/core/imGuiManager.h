@@ -4,7 +4,6 @@
 class ImGuiManager
 {
 public:
-	static std::string searchString;
 	static ImGuiContext* imGuiContext;
 
 public:
@@ -14,9 +13,5 @@ public:
 	static void StartFrame();
 	static void EndFrame();
 
-	static void DrawEnity(std::shared_ptr<Entity>& entityToDraw);
-	static void DrawEnityHierarchy(const std::shared_ptr<Entity>& entt);
-
 	static void Update();
-
 };

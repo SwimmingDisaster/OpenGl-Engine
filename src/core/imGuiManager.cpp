@@ -11,14 +11,22 @@
 #include "assets/modelRenderer.h"
 //#include "assets/cameraFPSController.h"
 
-const ImGuiTreeNodeFlags treeNodeFlags = ImGuiTreeNodeFlags_DefaultOpen | ImGuiTreeNodeFlags_Framed | ImGuiTreeNodeFlags_SpanAvailWidth | ImGuiTreeNodeFlags_AllowItemOverlap | ImGuiTreeNodeFlags_FramePadding;
+const ImGuiTreeNodeFlags treeNodeFlags =
+    ImGuiTreeNodeFlags_DefaultOpen |
+    ImGuiTreeNodeFlags_Framed |
+    ImGuiTreeNodeFlags_SpanAvailWidth |
+    ImGuiTreeNodeFlags_AllowItemOverlap |
+    ImGuiTreeNodeFlags_FramePadding;
 
 ImGuiContext* ImGuiManager::imGuiContext;
-std::string ImGuiManager::searchString;
 
 float frameCountToDisplay = 0;
 std::string frameImGuiText = "FPS";
+std::string searchString;
 
+
+ImVec2 contentRegionAvailable;
+float lineHeight;
 
 
 void ImGuiManager::InitImGui()
@@ -27,7 +35,6 @@ void ImGuiManager::InitImGui()
 
 	imGuiContext = ImGui::CreateContext();
 	ImGuiIO &io = ImGui::GetIO();
-	(void)io;
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
@@ -56,7 +63,6 @@ void ImGuiManager::ShutdownImGui()
 void ImGuiManager::StartFrame()
 {
 	ImGuiIO &io = ImGui::GetIO();
-	(void)io;
 
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
@@ -67,11 +73,9 @@ void ImGuiManager::StartFrame()
 		ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
 	}
 }
-
 void ImGuiManager::EndFrame()
 {
 	ImGuiIO &io = ImGui::GetIO();
-	(void)io;
 	io.DisplaySize = ImVec2((float)Application::SCREEN_WIDTH, (float)Application::SCREEN_HEIGHT);
 	io.DeltaTime = Application::deltaTime;
 
@@ -106,12 +110,21 @@ bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity>& entityToDraw)
 				Error("Tried to paste a null component");
 			}
 		}
+		if (ImGui::MenuItem("Copy Entity"))
+		{
+			Application::m_copiedEntity = entityToDraw;
+		}
+		if (ImGui::MenuItem("Paste Entity"))
+		{
+			entityToDraw->Copy(Application::m_copiedEntity);
+			entityToDraw->uuid = Random::Int();
+			Application::m_copiedEntity = nullptr;
+		}
 
 		ImGui::EndPopup();
 	}
 	return entityRemoveComponent;
 }
-
 bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity>& entityToDraw, int i) {
 	bool removeComponent = false;
 	if (ImGui::BeginPopup("ComponentSettings"))
@@ -152,9 +165,6 @@ bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity>& entityToDr
 	return removeComponent;
 }
 
-ImVec2 contentRegionAvailable;
-float lineHeight;
-
 bool ShowHeader(const std::string& headerName, const std::string& popupName, const std::string& popupIcon) {
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{4, 4});
 	ImGui::Separator();
@@ -168,7 +178,6 @@ bool ShowHeader(const std::string& headerName, const std::string& popupName, con
 	}
 	return open;
 }
-
 void ShowEntitySearchBar(std::shared_ptr<Entity>& entityToDraw, std::string& searchString) {
 	static bool showSearch = false;
 	if (ImGui::InputText("##Add Component", &searchString, ImGuiInputTextFlags_CallbackAlways))
@@ -203,8 +212,7 @@ void ShowEntitySearchBar(std::shared_ptr<Entity>& entityToDraw, std::string& sea
 	ImGui::TreePop();
 }
 
-
-void ImGuiManager::DrawEnity(std::shared_ptr<Entity>& entityToDraw)
+void DrawEnity(std::shared_ptr<Entity>& entityToDraw)
 {
 
 	if (entityToDraw == nullptr)
@@ -227,7 +235,7 @@ void ImGuiManager::DrawEnity(std::shared_ptr<Entity>& entityToDraw)
 		for (int i = 0; i < entityToDraw->m_components.size(); i++)
 		{
 
-			bool isComponentOpen = ShowHeader(entityToDraw->m_components[i]->m_name, "ComponentSettings", "*");
+			bool isComponentOpen = ShowHeader(entityToDraw->m_components[i]->name, "ComponentSettings", "*");
 			bool isComponentRemoved = ShowComponentMenuAndReturnTrueIfRemoved(entityToDraw, i);
 
 			if (isComponentOpen)
@@ -250,9 +258,7 @@ void ImGuiManager::DrawEnity(std::shared_ptr<Entity>& entityToDraw)
 		Application::m_selectedEntity = nullptr;
 	}
 }
-
-
-void ImGuiManager::DrawEnityHierarchy(const std::shared_ptr<Entity> &entt)
+void DrawEnityHierarchy(const std::shared_ptr<Entity> &entt)
 {
 	ImGuiTreeNodeFlags flags;
 	if (Application::m_selectedEntity == nullptr)
@@ -286,6 +292,11 @@ void ImGuiManager::DrawEnityHierarchy(const std::shared_ptr<Entity> &entt)
 		if (ImGui::MenuItem("Copy Entity"))
 		{
 			Application::m_copiedEntity = entt;
+		}
+		if (ImGui::MenuItem("Paste Entity"))
+		{
+			entt->Copy(Application::m_copiedEntity);
+			Application::m_copiedEntity = nullptr;
 		}
 		ImGui::EndPopup();
 	}
@@ -355,44 +366,36 @@ void ShowSaveAndOpenMenuItems() {
 		if (Application::sceneFileName != "") {
 			Application::m_curentScene.Serialize(Application::sceneFileName);
 			if (Application::isRunning) {
-				Application::m_curentScene.Serialize("other/TEMP.txt");
+				Application::m_curentScene.Serialize("other/TEMP.scene");
 			}
 		}
 
 	}
 }
-
-void ImGuiManager::Update()
-{
-	ImGuiManager::StartFrame();
-
-	ShowSaveAndOpenMenuItems();
-
-	if (Input::IsKeyPressed(INPUT_KEY_DELETE)) {
-		Application::m_curentScene.RemoveEntity(Application::m_selectedEntity);
-		Application::m_selectedEntity.reset();
-	}
-
+void ShowInfoPanel() {
 	ImGui::Begin("INFO");
+
+	ImGui::InputText("Scene name", &Application::m_curentScene.name, ImGuiInputTextFlags_CallbackAlways);
+
+
 	frameCountToDisplay += Application::deltaTime;
 	if (frameCountToDisplay >= 1.0f)
 	{
 		frameCountToDisplay = 0.0f;
 		frameImGuiText = std::to_string(1 / Application::deltaTime);
 	}
-
-	ImGuiIO &io = ImGui::GetIO();
-	(void)io;
-
 	ImGui::TextColored(ImVec4(1, 1, 0, 1), frameImGuiText.c_str());
+
 	Application::isRunningLast = Application::isRunning;
 	ImGui::Checkbox("Is running", &Application::isRunning);
-	ImGui::End(); //INFO
 
+	ImGui::End(); //INFO
+}
+void ShowHierarchyPanel() {
 	ImGui::Begin("Hierarchy");
 
 	for (int i = 0; i < Application::m_curentScene.m_entities.size(); i++)
-		ImGuiManager::DrawEnityHierarchy(Application::m_curentScene.m_entities[i]);
+		DrawEnityHierarchy(Application::m_curentScene.m_entities[i]);
 
 	if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
 	{
@@ -435,12 +438,41 @@ void ImGuiManager::Update()
 		ImGui::EndPopup();
 	}
 
+	if (Input::IsKeyPressed(INPUT_KEY_DELETE)) {
+		Application::m_curentScene.RemoveEntity(Application::m_selectedEntity);
+		Application::m_selectedEntity.reset();
+	}
+	if (Input::IsKeyHeld(INPUT_KEY_LEFT_CONTROL) && Input::IsKeyPressed(INPUT_KEY_C)) {
+		Application::m_copiedEntity = Application::m_selectedEntity;
+	}
+	if (Input::IsKeyHeld(INPUT_KEY_LEFT_CONTROL) && Input::IsKeyPressed(INPUT_KEY_V)) {
+		if (Application::m_copiedEntity) {
+			if (Application::m_selectedEntity) {
+				Application::m_selectedEntity->Copy(Application::m_copiedEntity);
+				Application::m_selectedEntity->uuid = Random::Int();
+				Application::m_copiedEntity = nullptr;
+			}
+			else {
+				auto copiedEntity = Application::m_curentScene.AddEntityR();
+				copiedEntity->Copy(Application::m_copiedEntity);
+				copiedEntity->uuid = Random::Int();
+				Application::m_copiedEntity = nullptr;
+			}
+		}
+		else {
+			Error("Tried to paste a null entity");
+		}
+	}
+
+
 	ImGui::End(); //Hierarchy
-
+}
+void ShowPropertiesPanel() {
 	ImGui::Begin("Properties");
-	ImGuiManager::DrawEnity(Application::m_selectedEntity);
+	DrawEnity(Application::m_selectedEntity);
 	ImGui::End(); //Properties
-
+}
+void ShowOutputPanel() {
 	ImGui::Begin("OUTPUT");
 	ImGui::TextColored(ImVec4(1, 1, 0, 1), "OUTPUT");
 	ImGui::BeginChild("Output list");
@@ -466,7 +498,18 @@ void ImGuiManager::Update()
 	}
 	ImGui::EndChild();
 	ImGui::End(); //OUTPUT
+}
 
-	ImGuiManager::EndFrame();
+void ImGuiManager::Update()
+{
+	StartFrame();
+
+	ShowSaveAndOpenMenuItems();
+	ShowInfoPanel();
+	ShowHierarchyPanel();
+	ShowPropertiesPanel();
+	ShowOutputPanel();
+
+	EndFrame();
 }
 

@@ -30,9 +30,9 @@ glm::mat4 EditorCamera::GetViewMatrix()
     return glm::lookAt(vPos, vPos + vFront, vUp);
 }
 
-void EditorCamera::ProcessKeyboard(float deltaTime)
+void EditorCamera::ProcessKeyboard()
 {
-    float velocity = movementSpeed * deltaTime;
+    float velocity = movementSpeed * Application::deltaTime;
 
     float speedup = 1.0f;
     if (glfwGetKey(Application::window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
@@ -50,7 +50,6 @@ void EditorCamera::ProcessKeyboard(float deltaTime)
     if (Input::IsKeyHeld(INPUT_KEY_D)) {
         vPos += vRight * velocity * speedup;
     }
-
 }
 
 void EditorCamera::ProcessMouseMovement(GLboolean constrainPitch)
@@ -73,6 +72,31 @@ void EditorCamera::ProcessMouseMovement(GLboolean constrainPitch)
 
         updateCameraVectors();
     }
+}
+
+void EditorCamera::Update() {
+    ProcessMouseMovement();
+    ProcessKeyboard();
+    ShowOrHideMouse();
+}
+void EditorCamera::Serialize(YAML::Emitter& out) {
+
+}
+void EditorCamera::Deserialize(const YAML::Node& data) {
+
+}
+void EditorCamera::ShowOrHideMouse() {
+    if (Input::IsKeyPressed(INPUT_KEY_ESCAPE)) {
+        if (glfwGetInputMode(Application::window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL) {
+            isLocked = false;
+            glfwSetInputMode(Application::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        }
+        else {
+            isLocked = true;
+            glfwSetInputMode(Application::window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+    }
+
 }
 
 

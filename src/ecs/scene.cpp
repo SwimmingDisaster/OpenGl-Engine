@@ -123,7 +123,7 @@ void Scene::Serialize(const std::string & filePath) const {
 		out << YAML::Flow;
 		out << YAML::Key << "Components" << YAML::Flow << YAML::BeginSeq;
 		for (auto component : entity->m_components)
-			out << component->m_name;
+			out << component->name;
 		out << YAML::EndSeq;
 
 		entity->Serialize(out);
@@ -135,9 +135,9 @@ void Scene::Serialize(const std::string & filePath) const {
 
 	out << YAML::Key << "Editor Camera" << YAML::Value << YAML::BeginSeq;
 	out << YAML::BeginMap;
-	out << YAML::Key << "Camera vPos" <<  YAML::Value << Application::mainCamera.vPos;
-	out << YAML::Key << "Camera vUp" <<  YAML::Value << Application::mainCamera.vUp;
-	out << YAML::Key << "Camera vRot" <<  YAML::Value << Application::mainCamera.vRot;
+	out << YAML::Key << "Camera vPos" <<  YAML::Value << Application::editorCamera.vPos;
+	out << YAML::Key << "Camera vUp" <<  YAML::Value << Application::editorCamera.vUp;
+	out << YAML::Key << "Camera vRot" <<  YAML::Value << Application::editorCamera.vRot;
 	out << YAML::EndMap;
 	out << YAML::EndSeq;
 
@@ -187,10 +187,10 @@ void Scene::Deserialize(const std::string & filePath) {
 	}
 
 	const YAML::Node& mainCameraData = data["Editor Camera"];
-	Application::mainCamera.vPos = 	mainCameraData[0]["Camera vPos"].as<glm::vec3>();
-	Application::mainCamera.vUp  = 	mainCameraData[0]["Camera vUp" ].as<glm::vec3>();
-	Application::mainCamera.vRot = 	mainCameraData[0]["Camera vRot"].as<glm::vec3>();
-	Application::mainCamera.updateCameraVectors();
+	Application::editorCamera.vPos = 	mainCameraData[0]["Camera vPos"].as<glm::vec3>();
+	Application::editorCamera.vUp  = 	mainCameraData[0]["Camera vUp" ].as<glm::vec3>();
+	Application::editorCamera.vRot = 	mainCameraData[0]["Camera vRot"].as<glm::vec3>();
+	Application::editorCamera.updateCameraVectors();
 
 }
 

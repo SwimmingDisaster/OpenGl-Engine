@@ -20,6 +20,6 @@ public:
 
 
 public:
-	std::shared_ptr<Entity> m_parentEntity;
-	std::string m_name = "Unnamed Component";
+	std::shared_ptr<Entity> parentEntity;
+	std::string name = "Unnamed Component";
 };

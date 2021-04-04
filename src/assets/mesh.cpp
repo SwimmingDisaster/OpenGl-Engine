@@ -85,11 +85,11 @@ void Mesh::setupMesh()
 
 REGISTERIMPL(Model);
 Model::Model() {
-	m_name = "Model";
+	name = "Model";
 };
 #ifdef SHOW_DELETED
 Model::~Model() {
-	Log("Deleted " << m_name);
+	Log("Deleted " << name);
 };
 #endif
 

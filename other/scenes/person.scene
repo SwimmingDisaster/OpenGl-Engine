@@ -1,4 +1,4 @@
-Scene: HIIIIIIIIZ
+Scene: COOL PERSON
 Entities:
   - Entity: very cool plane
     UUID: 1609058211
@@ -11,7 +11,7 @@ Entities:
       Is flipped: false
       Path: res/fbx/plane.fbx
     Material:
-      Color: [0, 1, 1]
+      Color: [0.411760569, 0.411764681, 0.411764681]
     ModelRenderer:
       Shader name: res/shaders/color
   - Entity: Head
@@ -25,7 +25,7 @@ Entities:
       Is flipped: false
       Path: res/fbx/sphere.fbx
     Material:
-      Color: [0, 1, 1]
+      Color: [1, 0.20588237, 0]
     ModelRenderer:
       Shader name: res/shaders/color
   - Entity: Body
@@ -39,7 +39,7 @@ Entities:
       Is flipped: false
       Path: res/fbx/cylinder.fbx
     Material:
-      Color: [0, 1, 1]
+      Color: [1, 0.529411733, 0]
     ModelRenderer:
       Shader name: res/shaders/color
   - Entity: Left Eye
@@ -81,7 +81,7 @@ Entities:
       Is flipped: false
       Path: res/fbx/cylinder.fbx
     Material:
-      Color: [0, 1, 1]
+      Color: [1, 0.999989986, 0.999989986]
     ModelRenderer:
       Shader name: res/shaders/color
   - Entity: Mouth
@@ -95,44 +95,46 @@ Entities:
       Is flipped: false
       Path: res/fbx/sphere.fbx
     Material:
-      Color: [0, 1, 1]
+      Color: [1, 0.735294104, 0]
     ModelRenderer:
       Shader name: res/shaders/color
   - Entity: Right hand
     UUID: 970518937
-    Components: [Transform, Model, Material, ModelRenderer, Transform]
+    Components: [Transform, Model, Material, ModelRenderer]
     Transform:
-      Position: [-3.54999995, 36.1209984, -17.5]
+      Position: [-0.699999988, 36.1209984, -17.5]
       Rotation: [0, 0, -2.79999995]
       Scale: [1.25, 1.25, 1.25]
     Model:
       Is flipped: false
       Path: res/fbx/sphere.fbx
     Material:
-      Color: [0.941176176, 1, 0]
+      Color: [0.940476179, 1, 0]
     ModelRenderer:
       Shader name: res/shaders/color
-    Transform:
-      Position: [-3.54999995, 36.1209984, -17.5]
-      Rotation: [0, 0, -2.79999995]
-      Scale: [1.25, 1.25, 1.25]
-  - Entity: New Sphere
+  - Entity: Camera
     UUID: -956681385
-    Components: [Transform, Model, Material, ModelRenderer, Camera]
+    Components: [Transform, Model, Material, ModelRenderer, Camera, CameraFPSController]
     Transform:
-      Position: [-13.5, 36.1209984, -17.5]
-      Rotation: [0, 0, -2.79999995]
-      Scale: [1.25, 1.25, 1.25]
+      Position: [-3.9297626, 29.9067783, 6.78300714]
+      Rotation: [-13.1899691, -78.3900681, 0]
+      Scale: [0.5, 0.5, 0.5]
     Model:
       Is flipped: false
       Path: res/fbx/box.fbx
     Material:
-      Color: [0.999989986, 1, 1]
+      Color: [0.970229626, 0, 1]
     ModelRenderer:
       Shader name: res/shaders/color
     Camera:
-      {}
+      Fov: 86.6999969
+      fNear: 0.0860000029
+      fFar: 1000
+      Background Color: [0.94607842, 0.946068943, 0.946068943]
+    CameraFPSController:
+      Mouse Sensitivity: 0.349999994
+      Movement Speed: 5
 Editor Camera:
-  - Camera vPos: [-15.4910946, 21.7418976, 7.10638285]
-    Camera vUp: [0.152587593, 0.981627166, -0.114564776]
-    Camera vRot: [-10.9999971, -36.899704, 0]
+  - Camera vPos: [-5.0037055, 22.6835651, 5.89334297]
+    Camera vUp: [0.0129759535, 0.994150996, -0.107217297]
+    Camera vRot: [-6.2000165, 276.900665, 0]

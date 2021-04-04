@@ -29,11 +29,9 @@ public:
 	glm::vec3 vRot;
 	glm::vec3 vFront;
 
-
 	glm::vec3 vUp;
 	glm::vec3 vRight;
 	glm::vec3 vWorldUp;
-
 
 	float movementSpeed;
 	float mouseSensitivity;
@@ -48,8 +46,13 @@ public:
 
 	glm::mat4 GetViewMatrix();
 
-	void ProcessKeyboard(float deltaTime);
+	void ProcessKeyboard();
 	void ProcessMouseMovement(GLboolean constrainPitch = true);
+
+	void Update();
+	void Serialize(YAML::Emitter& out);
+	void Deserialize(const YAML::Node& data);
+	void ShowOrHideMouse();
 
 	void updateCameraVectors();
 };

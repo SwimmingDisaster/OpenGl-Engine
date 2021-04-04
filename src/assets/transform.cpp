@@ -10,7 +10,7 @@ void Transform::Show()  {
 }
 
 void Transform::Serialize(YAML::Emitter& out) {
-	out << YAML::Key << m_name;
+	out << YAML::Key << name;
 	out << YAML::BeginMap;
 
 	out << YAML::Key << "Position" << YAML::Value << position;
@@ -32,9 +32,9 @@ void Transform::Update() {
 
 #ifdef SHOW_DELETED
 Transform::~Transform() {
-	Log("Deleted " << m_name);
+	Log("Deleted " << name);
 }
 #endif
 Transform::Transform() {
-	m_name = "Transform";
+	name = "Transform";
 }

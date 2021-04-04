@@ -10,7 +10,7 @@ void Material::Show()  {
 }
 
 void Material::Serialize(YAML::Emitter& out) {
-	out << YAML::Key << m_name;
+	out << YAML::Key << name;
 	out << YAML::BeginMap;
 
 	out << YAML::Key << "Color" << YAML::Value << color;
@@ -30,5 +30,5 @@ Material::~Material() {
 }
 #endif
 Material::Material() {
-	m_name = "Material";
+	name = "Material";
 }

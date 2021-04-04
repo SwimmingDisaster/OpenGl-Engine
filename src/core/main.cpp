@@ -2,22 +2,19 @@
 #include "core/application.h"
 
 
-
 int main() {
 	std::freopen("other/output.txt", "w", stdout);
 
 	Application app;
-	int returnValue = app.Init();//Inits opengl and imgui
+	int returnValue = app.Init();
 	if (returnValue != 0) {
-		std::cout << returnValue << std::endl;
+		Error(returnValue);
 		return returnValue;
 	}
 
-	app.Start();//inits game elements
-
-	app.Run(); //runs the game
-
-	app.Shutdown();//cleanup of classes and opengl and imgui shutdown
+	app.Start();
+	app.Run();
+	app.Shutdown();
 
 	return 0;
 }

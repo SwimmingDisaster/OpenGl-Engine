@@ -2,13 +2,13 @@
 #include "assets/model.h"
 
 void Model::Start() {
-	transform = m_parentEntity->GetComponent<Transform>();
+	transform = parentEntity->GetComponent<Transform>();
 	loadModel(path);
 }
 
 
 void Model::Serialize(YAML::Emitter& out) {
-	out << YAML::Key << m_name;
+	out << YAML::Key << name;
 	out << YAML::BeginMap;
 
 	out << YAML::Key << "Is flipped" << YAML::Value << isFlipped;

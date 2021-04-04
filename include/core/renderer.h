@@ -8,7 +8,7 @@ public:
 	static glm::mat4 projectionMatrix;
 	static glm::mat4 viewMatrix;
 	static glm::mat4 viewProjectionMatrix;
-
+	static glm::vec3 clearColor;
 
 public:
 	static int InitOpenGL();

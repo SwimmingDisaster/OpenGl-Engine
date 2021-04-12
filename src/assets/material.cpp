@@ -26,7 +26,7 @@ void Material::Deserialize(const YAML::Node& data) {
 
 #ifdef SHOW_DELETED
 Material::~Material() {
-	Log("Deleted " << m_name);
+	Log("Deleted " << name);
 }
 #endif
 Material::Material() {

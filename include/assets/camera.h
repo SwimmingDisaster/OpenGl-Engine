@@ -7,6 +7,9 @@
 #include "assets/transform.h"
 
 
+#define _ITERATOR_DEBUG_LEVEL 0
+
+
 class Camera : public Component {
 	REGISTER(Camera);
 public:

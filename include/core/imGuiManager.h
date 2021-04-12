@@ -3,6 +3,7 @@
 
 class ImGuiManager
 {
+#ifndef RELEASE_BUILD
 public:
 	static ImGuiContext* imGuiContext;
 
@@ -14,4 +15,5 @@ public:
 	static void EndFrame();
 
 	static void Update();
+#endif
 };

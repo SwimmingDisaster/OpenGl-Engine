@@ -11,6 +11,9 @@
 #include "assets/modelRenderer.h"
 //#include "assets/cameraFPSController.h"
 
+#include "core/renderer.h"
+
+#ifndef RELEASE_BUILD
 const ImGuiTreeNodeFlags treeNodeFlags =
     ImGuiTreeNodeFlags_DefaultOpen |
     ImGuiTreeNodeFlags_Framed |
@@ -67,6 +70,7 @@ void ImGuiManager::StartFrame()
 	ImGui_ImplOpenGL3_NewFrame();
 	ImGui_ImplGlfw_NewFrame();
 	ImGui::NewFrame();
+	ImGuizmo::BeginFrame();
 
 	if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
 	{
@@ -310,8 +314,8 @@ void ShapeMenu(const char *name, const char *fileName)
 		entity->AddComponent<Transform>();
 		auto modelComponent = entity->AddComponentR<Model>();
 		modelComponent->path = fileName;
-		entity->AddComponentR<ModelRenderer>();
-		entity->AddComponentR<Material>();
+		entity->AddComponent<ModelRenderer>();
+		entity->AddComponent<Material>();
 		entity->Start();
 		Application::m_selectedEntity = entity;
 	}
@@ -500,11 +504,73 @@ void ShowOutputPanel() {
 	ImGui::End(); //OUTPUT
 }
 
+
+void ShowImGuizmo() {
+	ImGui::Begin("Scene");
+
+	if (Input::IsKeyPressed(INPUT_KEY_W)) {
+		Application::imguizmoType = ImGuizmo::OPERATION::TRANSLATE;
+	}
+	else if (Input::IsKeyPressed(INPUT_KEY_E)) {
+		Application::imguizmoType = ImGuizmo::OPERATION::SCALE;
+	}
+	else if (Input::IsKeyPressed(INPUT_KEY_R)) {
+		Application::imguizmoType = ImGuizmo::OPERATION::ROTATE;
+	}
+	else if (Input::IsKeyPressed(INPUT_KEY_T)) {
+		Application::imguizmoType = -1;
+	}
+	else if (Input::IsKeyPressed(INPUT_KEY_Q)) {
+		Application::imguizmoType = -2;
+	}
+
+	Renderer::SetWindowSize(Application::window, (int)ImGui::GetContentRegionAvail().x, (int)ImGui::GetContentRegionAvail().y);
+
+	ImVec4 borderColor;
+	if (Application::isRunning) {
+		borderColor = ImVec4(1, 0, 0, 1);
+	}
+	else {
+		borderColor = ImVec4(0, 1, 1, 1);
+	}
+	ImGui::Image((void*)Application::frameBuffer.GetData(), ImVec2(Application::SCREEN_WIDTH - 2.0f, Application::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
+
+
+	if (Application::m_selectedEntity && Application::imguizmoType != -2) {
+		auto tc = Application::m_selectedEntity->GetComponent<Transform>();
+		if (tc) {
+
+			ImGuizmo::SetOrthographic(false);
+			ImGuizmo::SetDrawlist();
+			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
+
+
+			glm::mat4 viewMat = Renderer::viewMatrix;
+			glm::mat4 projMat = Renderer::projectionMatrix;
+			glm::mat4 transformMat = tc->GetTransform();
+
+			ImGuizmo::Manipulate(glm::value_ptr(viewMat), glm::value_ptr(projMat), (ImGuizmo::OPERATION)Application::imguizmoType, ImGuizmo::LOCAL, glm::value_ptr(transformMat));
+
+			if (ImGuizmo::IsUsing()) {
+				glm::vec3 translation, rotation, scale;
+				DecomposeTransform(transformMat, translation, rotation, scale);
+				tc->position = translation;
+				tc->scale = scale;
+
+				glm::vec3 deltaRot = glm::degrees(rotation) - tc->rotation;
+				tc->rotation += deltaRot;
+			}
+		}
+	}
+	ImGui::End();
+}
+
 void ImGuiManager::Update()
 {
 	StartFrame();
 
 	ShowSaveAndOpenMenuItems();
+	ShowImGuizmo();
 	ShowInfoPanel();
 	ShowHierarchyPanel();
 	ShowPropertiesPanel();
@@ -512,4 +578,4 @@ void ImGuiManager::Update()
 
 	EndFrame();
 }
-
+#endif

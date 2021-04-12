@@ -18,6 +18,8 @@ public:
 	void Serialize(YAML::Emitter& out) override;
 	void Deserialize(const YAML::Node& data) override;
 
+	glm::mat4 GetTransform();
+
 	Transform();
 #ifdef SHOW_DELETED
 public:

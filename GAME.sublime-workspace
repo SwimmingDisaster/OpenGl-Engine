@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"trans",
+				"transcomp\tabc"
+			],
+			[
+				"is",
+				"isRunning\tabc"
+			],
+			[
+				"tolern",
+				"tolerance\t(PxPhysics.h)"
+			],
+			[
+				"sce",
+				"sceneDesc\tabc"
+			],
+			[
+				"del",
+				"deltaTime\tabc"
+			],
+			[
+				"Fra",
+				"FragPos\tabc"
+			],
+			[
 				"tex",
 				"TexCoords"
 			],
@@ -208,10 +232,6 @@
 				"end_time"
 			],
 			[
-				"del",
-				"deltaTime"
-			],
-			[
 				"de",
 				"deltaTime"
 			],
@@ -311,15 +331,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "src/main.cpp",
-			"settings":
-			{
-				"buffer_size": 2906,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "Build Debug x64",
 	"build_system_choices":
@@ -433,6 +444,34 @@
 		"selected_items":
 		[
 			[
+				"indent",
+				"Indentation: Convert to Tabs"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"console",
+				"SublimeGDB: Open Console View"
+			],
+			[
+				"markdown pre",
+				"MarkdownLivePreview: Open Preview"
+			],
+			[
+				"markdown",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"markdowin live ",
+				"MarkdownLivePreview: Open Preview"
+			],
+			[
+				"makrdown",
+				"MarkdownLivePreview: Open Preview"
+			],
+			[
 				"instll",
 				"Package Control: Install Package"
 			],
@@ -494,142 +533,146 @@
 	"expanded_folders":
 	[
 		"/C/Users/mixog/Desktop/3DGAME/ENGINE",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/core",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/core/other",
 		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src"
 	],
 	"file_history":
 	[
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/game.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/application.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxMaterial.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/framebuffer.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/core/physics.h",
 		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/mypch.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/model.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/game.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/lights.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/mesh.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/mesh_new.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/mypch.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/particles.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/camera.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/ui.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/texture.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/profiler.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/random.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/shader.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/random.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/main_includes.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/glm/gtx/component_wise.inl",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/AAAAAAAAA.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/log.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/main.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/light.fs",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/model.vs",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/model.fs",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/x64/Debug/particles.obj",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/x64/Debug/GAME.Build.CppClean.log",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/lightManager.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/modelRenderer.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/core/other/log.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/other/log.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/physics.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assimp/Logger.hpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/glm/trigonometric.hpp",
 		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/x64/Debug/other/output.txt",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/mesh_new.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/model.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/shader.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/camera.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/texture.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assimp/mesh.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/aaa.h",
-		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/User/Terminal.sublime-settings",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/lightManager.cpp",
-		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/Terminal/Terminal.sublime-settings",
-		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/Terminal/Default (Windows).sublime-keymap",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/particles.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/compute.cs",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/particle.vs",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/particleUpdate.cs",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/game.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/shaders/particleUpdate.cs",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/shaders/compute.cs",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/bin/x64/Debug/other/output.txt",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/random.h",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/random.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/shaders/particle.vs",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/particles.h",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/game.h",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/other/output.txt",
-		"/C/Users/mixog/Desktop/GAMMEZ/CUBE BOI/main.cpp",
-		"/C/Users/mixog/Desktop/GAMMEZ/StuckInALoop/main.cpp",
-		"/C/Users/mixog/Desktop/GAMMEZ/LUKA DA UCI I TAKO TO/main.cpp",
-		"/C/Users/mixog/Desktop/GAMMEZ/LONEBLOB/main.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/main.cpp",
-		"/C/Users/mixog/Desktop/GAMMEZ/GAME - Copy (2)/main.cpp",
-		"/C/Users/mixog/Desktop/GAMMEZ/GAME - Copy/main.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/ui.h",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/ui.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/shaders/glyph.vs",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/shaders/glyph.fs",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/GLFW/glfw3.h",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/texture.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/model.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/mesh_new.h",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/utImporter.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/lightManager.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/shaders/light.fs",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/ImGUI/imgui_stdlib.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/main_includes.h",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/lights.h",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/imgui.ini",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/ImGUI/imgui_widgets.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/ImGUI/imgui.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/shader.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/texture.h",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/include/profiler.h",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/profiler.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/BOIII.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/mesh.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/src/mesh_new.cpp",
-		"/C/Users/mixog/Desktop/BIG_PROJECT_FOLDER/PROGRAMIRANJE/output.txt",
-		"/C/Users/mixog/Desktop/BIG_PROJECT_FOLDER/PROGRAMIRANJE/input.txt",
-		"/C/Users/mixog/Desktop/BIG_PROJECT_FOLDER/PROGRAMIRANJE/main.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/VISUALOPENGL/res/luka.fbx",
-		"/C/Program Files/Sublime Text 3/Packages/C++.sublime-package",
-		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/User/c++17.sublime-build",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/math.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/math.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/main.o",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/main.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/proj_includes.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/particles.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/particles.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/customRenderer.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/customRenderer.o",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/customRenderer.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/output.txt",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game - Copy/src/main.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/SDL_gpu.cpp",
-		"/C/Users/mixog/Desktop/PROGRAMIRANJE/main.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_RendererImpl.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game - Copy/src/README.md",
-		"/C/Users/mixog/AppData/Local/Temp/Rar$DIa9032.47367/README.md",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/Include.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/Include.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/SDL_gpu_renderer.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/SDL_gpu.o",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/input.txt",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/input.txt",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/stb_image_write.o",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/glew.o",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/glew.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/gl3stub.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/externals/stb_image/stb_image.cpp",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/renderer_OpenGL_1_BASE.o",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/src/renderer_GL_common.inl",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/stb_image.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_version.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_OpenGL_4.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_OpenGL_3.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_OpenGL_2.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_OpenGL_1_BASE.h",
-		"/C/Users/mixog/Desktop/SDL MAIN/SDL_Game/include/SDL_gpu_GLES_3.h"
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/pxshared/foundation/PxTransform.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/pxshared/foundation/PxMat44.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/pxshared/foundation/PxQuat.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/pxshared/foundation/PxMat33.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/transform.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxBoxGeometry.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/renderer.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/math.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxHeightField.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxPhysicsAPI.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/core/math.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/core/renderer.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxRigidDynamic.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxSimpleFactory.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxRigidStatic.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assets/transform.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assets/cameraFPSController.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/cameraFPSController.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxSceneDesc.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxRigidBodyExt.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxPhysics.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/pxshared/foundation/PxPlane.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/ecs/scene.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/ecs/entity.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assimp/scene.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/other/helpers.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/other/random.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxDefaultSimulationFilterShader.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/common/PxTolerancesScale.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxRigidActorExt.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxFiltering.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxExtensionsAPI.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/cooking/PxCooking.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assimp/ObjFileMtlImporter.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxFoundation.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assets/camera.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/camera.cpp",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/pxshared/foundation/PxVec2.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/GAME.vcxproj",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxActor.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxArticulationReducedCoordinate.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxBatchQueryDesc.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxBroadPhase.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxClient.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxConstraintDesc.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxContact.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxContactModifyCallback.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxForceMode.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxLockedData.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxQueryReport.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxSimulationEventCallback.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxSimulationStatistics.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxVisualizationParameter.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/characterkinematic/PxController.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/characterkinematic/PxControllerManager.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/characterkinematic/PxExtended.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/collision/PxCollisionDefs.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/common/PxCoreUtilityTypes.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/common/PxProfileZone.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/common/PxSerializer.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/common/windows/PxWindowsDelayLoadHook.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/cooking/PxBVH33MidphaseDesc.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/cooking/PxBVH34MidphaseDesc.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/cooking/PxBVHStructureDesc.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/cooking/PxConvexMeshDesc.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxConstraintExt.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxD6Joint.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxDefaultAllocator.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxDefaultErrorCallback.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxDefaultStreams.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxJoint.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxJointLimit.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxMassProperties.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxRaycastCCD.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxRepXSimpleType.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxSerialization.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/filebuf/PxFileBuf.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/foundation/PxAssert.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/foundation/PxMathUtils.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxCapsuleGeometry.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxHeightFieldFlag.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxHeightFieldSample.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxMeshScale.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxPlaneGeometry.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxSimpleTriangleMesh.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxTriangle.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxTriangleMesh.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geomutils/GuContactPoint.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/pvd/PxPvd.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/pvd/PxPvdSceneClient.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/pvd/PxPvdTransport.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/solver/PxSolverDefs.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/task/PxTask.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/vehicle/PxVehicleComponents.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/vehicle/PxVehicleShaders.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/vehicle/PxVehicleTireFriction.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/vehicle/PxVehicleUpdate.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/vehicle/PxVehicleUtilSetup.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/vehicle/PxVehicleUtilTelemetry.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/vehicle/PxVehicleWheels.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/pxshared/foundation/unix/PxUnixIntrinsics.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/common/PxMetaData.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/common/PxMetaDataFlags.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/common/PxPhysXCommonConfig.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/cooking/Pxc.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxStringTableExt.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxConvexMesh.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/gpu/PxGpu.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/vehicle/PxVehicleSDK.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/vehicle/PxVehicleUtil.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/pxshared/foundation/PxFlags.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/pxshared/foundation/PxMemory.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/pxshared/foundation/PxProfiler.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/pxshared/foundation/PxStrideIterator.h",
+		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/pxshared/foundation/PxUnionCast.h",
+		"/C/Users/mixog/Desktop/physx/physx/source/foundation/include/PsAllocator.h"
 	],
 	"find":
 	{
-		"height": 31.0
+		"height": 35.0
 	},
 	"find_in_files":
 	{
@@ -646,6 +689,48 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"4",
+			"sleep",
+			"active",
+			"is",
+			"radians",
+			"set",
+			"friction",
+			"getOpenGLMatrix",
+			"api",
+			"PxDefaultSimulationFilterShader",
+			"filterShader",
+			"isValid",
+			"values",
+			"PxTolerancesScale",
+			"PxSceneDesc",
+			"delete",
+			"remove",
+			"scene",
+			"release",
+			"release ",
+			"PxSceneDesc",
+			"accelerate",
+			"0.1",
+			"pose",
+			"createMaterial",
+			"material",
+			"mPhysics",
+			"scene",
+			"PHYSX",
+			"\nclass PxAllocatorCallback\n{\npublic:\n\tvirtual ~PxAllocatorCallback() {}\n\tvirtual void* allocate(size_t size, const char* typeName, const char* filename, int line) = 0;\n\tvirtual void deallocate(void* ptr) = 0;\n};",
+			"include\\",
+			"include",
+			"a",
+			"e.png",
+			"\"pxshared/foundation/PxMathUtils.h\"",
+			"\"pxshared/foundation/PxFoundationConfig.h\"",
+			"\"pxshared/foundation/PxAssert.h\"",
+			"\"foundation",
+			"\"foundation/Px.h\"",
+			"foundation/Px.h",
+			">\n",
+			";\n",
 			">\n",
 			"lightVector",
 			"lightsVector",
@@ -704,6 +789,12 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\"foundation/PxMathUtils.h\"",
+			"\"foundation/PxFoundationConfig.h\"",
+			"\"foundation/PxAssert.h\"",
+			"\"pxshared/foundation",
+			"\"pxshared/foundation/Px.h\"",
+			"pxshared/foundation/Px.h",
 			"line"
 		],
 		"reverse": false,
@@ -715,47 +806,14 @@
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/main.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2906,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								567,
-								567
-							]
-						],
-						"settings":
-						{
-							"bs_sintax": "c++",
-							"buffer_scroll_name": "27f92bec",
-							"spell_check": false,
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
 	"incremental_find":
 	{
-		"height": 31.0
+		"height": 35.0
 	},
 	"input":
 	{
@@ -792,9 +850,13 @@
 	{
 		"height": 0.0
 	},
+	"output.diagnostics":
+	{
+		"height": 0.0
+	},
 	"output.exec":
 	{
-		"height": 244.0
+		"height": 173.0
 	},
 	"output.find_results":
 	{
@@ -804,7 +866,7 @@
 	"project": "GAME.sublime-project",
 	"replace":
 	{
-		"height": 58.0
+		"height": 66.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -814,12 +876,144 @@
 		"selected_items":
 		[
 			[
-				"mypch.h",
+				"mode",
+				"src\\assets\\modelRenderer.cpp"
+			],
+			[
+				"frame",
+				"src\\core\\framebuffer.cpp"
+			],
+			[
+				"modelR",
+				"src\\assets\\modelRenderer.cpp"
+			],
+			[
+				"app",
+				"src\\core\\application.cpp"
+			],
+			[
+				"modelREn",
+				"src\\assets\\modelRenderer.cpp"
+			],
+			[
+				"my",
 				"include\\mypch.h"
 			],
 			[
+				"log.cpp",
+				"src\\core\\other\\log.cpp"
+			],
+			[
 				"log.h",
-				"include\\log.h"
+				"include\\core\\other\\log.h"
+			],
+			[
+				"log",
+				"include\\assimp\\Logger.hpp"
+			],
+			[
+				"render",
+				"include\\core\\renderer.h"
+			],
+			[
+				"phy",
+				"src\\core\\physics.cpp"
+			],
+			[
+				"phys",
+				"include\\core\\physics.h"
+			],
+			[
+				"px.h",
+				"include\\physx\\geometry\\PxHeightField.h"
+			],
+			[
+				"pyapi.h",
+				"include\\physx\\PxPhysicsAPI.h"
+			],
+			[
+				"math.cp",
+				"src\\core\\math.cpp"
+			],
+			[
+				"math",
+				"include\\core\\math.h"
+			],
+			[
+				"ou",
+				"bin\\x64\\Debug\\other\\output.txt"
+			],
+			[
+				"tran",
+				"src\\assets\\transform.cpp"
+			],
+			[
+				"out",
+				"bin\\x64\\Debug\\other\\output.txt"
+			],
+			[
+				"camera",
+				"src\\assets\\cameraFPSController.cpp"
+			],
+			[
+				"scene",
+				"include\\ecs\\scene.h"
+			],
+			[
+				"sce",
+				"include\\assimp\\scene.h"
+			],
+			[
+				"math.cpp",
+				"src\\core\\math.cpp"
+			],
+			[
+				"physxapi.h",
+				"include\\physx\\PxPhysicsAPI.h"
+			],
+			[
+				"PxTolerancesScale",
+				"include\\physx\\common\\PxTolerancesScale.h"
+			],
+			[
+				"pxphy",
+				"include\\physx\\PxPhysics.h"
+			],
+			[
+				"camera.h",
+				"include\\assets\\camera.h"
+			],
+			[
+				"camera.cpp",
+				"src\\assets\\camera.cpp"
+			],
+			[
+				"m",
+				"include\\mypch.h"
+			],
+			[
+				"PxVec2",
+				"include\\pxshared\\foundation\\PxVec2.h"
+			],
+			[
+				"PxPhysicsAPI",
+				"include\\physx\\PxPhysicsAPI.h"
+			],
+			[
+				"PxPhysicsAPI.h",
+				"include\\physx\\PxPhysicsAPI.h"
+			],
+			[
+				"myp",
+				"include\\mypch.h"
+			],
+			[
+				"cameraf",
+				"src\\assets\\cameraFPSController.cpp"
+			],
+			[
+				"mypch.h",
+				"include\\mypch.h"
 			],
 			[
 				"component_wise.inl",
@@ -880,10 +1074,6 @@
 			[
 				"mesh",
 				"src\\mesh.cpp"
-			],
-			[
-				"out",
-				"bin\\x64\\Debug\\other\\output.txt"
 			],
 			[
 				"mesh.h",
@@ -1034,7 +1224,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 248.0,
+	"side_bar_width": 230.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

@@ -10,9 +10,10 @@ class CameraFPSController : public Component {
 public:
 	std::shared_ptr<Transform> transform;
 	std::shared_ptr<Camera> camera;
-	float mouseSensitivity = 0.03f;
-	float movementSpeed = 0.01f;
+	float mouseSensitivity = 0.35f;
+	float movementSpeed = 15.0f;
 	bool isLocked = false;
+	glm::vec3 acceleration = {0.0f, 0.0f, 0.0f};
 public:
 	void Start() override;
 	void Update() override;

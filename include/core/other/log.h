@@ -13,3 +13,4 @@ std::ostream& operator<<(std::ostream& out, const glm::mat4& g);
 #define Log(x) 		std::cout << "Log: " 	<< x << std::endl
 #define Warn(x) 	std::cout << "Warn: " 	<< x << std::endl
 #define Error(x)	std::cout << "Error: " 	<< x << std::endl
+#define ErrorAtPos(x)	std::cout << "Error: " 	<< x << " In file: " << __FILE__ << " on line: " << __LINE__ << std::endl

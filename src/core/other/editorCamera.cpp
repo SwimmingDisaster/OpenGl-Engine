@@ -32,23 +32,25 @@ glm::mat4 EditorCamera::GetViewMatrix()
 
 void EditorCamera::ProcessKeyboard()
 {
-    float velocity = movementSpeed * Application::deltaTime;
+    if (Input::IsMouseButtonPressed(1)) {
+        float velocity = movementSpeed * Application::deltaTime;
 
-    float speedup = 1.0f;
-    if (glfwGetKey(Application::window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
-        speedup = 3.0f;
+        float speedup = 1.0f;
+        if (glfwGetKey(Application::window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+            speedup = 3.0f;
 
-    if (Input::IsKeyHeld(INPUT_KEY_W)) {
-        vPos += vFront * velocity * speedup;
-    }
-    if (Input::IsKeyHeld(INPUT_KEY_S)) {
-        vPos -= vFront * velocity * speedup;
-    }
-    if (Input::IsKeyHeld(INPUT_KEY_A)) {
-        vPos -= vRight * velocity * speedup;
-    }
-    if (Input::IsKeyHeld(INPUT_KEY_D)) {
-        vPos += vRight * velocity * speedup;
+        if (Input::IsKeyHeld(INPUT_KEY_W)) {
+            vPos += vFront * velocity * speedup;
+        }
+        if (Input::IsKeyHeld(INPUT_KEY_S)) {
+            vPos -= vFront * velocity * speedup;
+        }
+        if (Input::IsKeyHeld(INPUT_KEY_A)) {
+            vPos -= vRight * velocity * speedup;
+        }
+        if (Input::IsKeyHeld(INPUT_KEY_D)) {
+            vPos += vRight * velocity * speedup;
+        }
     }
 }
 

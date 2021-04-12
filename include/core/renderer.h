@@ -16,4 +16,5 @@ public:
 	static void InitMatrices();
 	static void ShutdownOpenGL();
 	static void ResizeCallback(GLFWwindow * window, int width, int height);
+	static void SetWindowSize(GLFWwindow * window, int width, int height);
 };

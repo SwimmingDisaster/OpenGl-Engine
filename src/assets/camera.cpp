@@ -5,8 +5,6 @@
 #include "core/input.h"
 #include "core/renderer.h"
 
-
-
 REGISTERIMPL(Camera);
 Camera::Camera() {
 	name = "Camera";

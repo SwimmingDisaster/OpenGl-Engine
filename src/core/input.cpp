@@ -42,3 +42,14 @@ void Input::MouseCallback(GLFWwindow * window, double xpos, double ypos) {
 	m_instance.lastX = (float)xpos;
 	m_instance.lastY = (float)ypos;
 }
+void Input::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods)
+{
+	if (action == GLFW_PRESS)
+		m_instance.m_pressedMouseButton[button] = true;
+	if (action == GLFW_RELEASE)
+		m_instance.m_pressedMouseButton[button] = false;
+}
+
+bool Input::IsMouseButtonPressed(int button) {
+	return m_instance.m_pressedMouseButton[button];
+}

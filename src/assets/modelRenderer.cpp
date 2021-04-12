@@ -39,12 +39,7 @@ void ModelRenderer::Show() {
 
 void ModelRenderer::DrawModel(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model> model)
 {
-	glm::mat4 matModel = glm::mat4(1.0f);
-	matModel = glm::translate(matModel, model->transform->position);
-	matModel = glm::rotate(matModel, glm::radians(model->transform->rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
-	matModel = glm::rotate(matModel, glm::radians(model->transform->rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
-	matModel = glm::rotate(matModel, glm::radians(model->transform->rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
-	matModel = glm::scale(matModel, model->transform->scale);
+	glm::mat4 matModel = model->transform->GetTransform();
 
 
 	shader->setMat4("matModel", matModel);
@@ -88,7 +83,7 @@ void ModelRenderer::DrawMesh(const std::shared_ptr<Shader>& shader, const Mesh& 
 
 	// draw mesh
 	glBindVertexArray(mesh.VAO);
-	glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
+	glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, (const void *)0);
 	glBindVertexArray(0);
 
 	// always good practice to set everything back to defaults once configured.

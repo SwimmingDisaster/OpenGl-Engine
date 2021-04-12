@@ -31,6 +31,7 @@ int Renderer::InitOpenGL() {
 	glfwSetKeyCallback(Application::window, Input::KeyInputCallback);
 	glfwSetFramebufferSizeCallback(Application::window, ResizeCallback);
 	glfwSetCursorPosCallback(Application::window, Input::MouseCallback);
+	glfwSetMouseButtonCallback(Application::window, Input::MouseButtonCallback);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		Error("Failed to initialize GLAD");
@@ -69,9 +70,11 @@ void Renderer::InitMatrices() {
 }
 
 void Renderer::SetupMatrices() {
+#ifndef RELEASE_BUILD
 	if (!Application::isRunning) {
 		viewMatrix = Application::editorCamera.GetViewMatrix();
 	}
+#endif
 	viewProjectionMatrix = projectionMatrix * viewMatrix;
 
 	glBindBuffer(GL_UNIFORM_BUFFER, matrixUBO);
@@ -87,12 +90,25 @@ void Renderer::ShutdownOpenGL() {
 
 void Renderer::ResizeCallback(GLFWwindow * window, int width, int height)
 {
-	Application::SCREEN_WIDTH = width;
-	Application::SCREEN_HEIGHT = height;
+#ifdef RELEASE_BUILD
+	SetWindowSize(window, width, height);
+#endif
 
-	float ratio = 1.0f;
-	if (Application::SCREEN_HEIGHT != 0.0f)
-		ratio = (float)Application::SCREEN_WIDTH / (float)Application::SCREEN_HEIGHT;
-	projectionMatrix = glm::perspective(glm::radians(90.0f), ratio, 0.05f, 1000.0f);
-	glViewport(0, 0, Application::SCREEN_WIDTH, Application::SCREEN_HEIGHT);
+}
+
+void Renderer::SetWindowSize(GLFWwindow * window, int width, int height) {
+	if ((Application::SCREEN_WIDTH != width) || (Application::SCREEN_HEIGHT != height)) {
+		Application::SCREEN_WIDTH = width;
+		Application::SCREEN_HEIGHT = height;
+
+#ifndef RELEASE_BUILD
+		Application::frameBuffer.Resize(width, height);
+#endif
+
+		float ratio = 1.0f;
+		if (Application::SCREEN_HEIGHT != 0.0f)
+			ratio = (float)Application::SCREEN_WIDTH / (float)Application::SCREEN_HEIGHT;
+		projectionMatrix = glm::perspective(glm::radians(90.0f), ratio, 0.05f, 1000.0f);
+		glViewport(0, 0, Application::SCREEN_WIDTH, Application::SCREEN_HEIGHT);
+	}
 }

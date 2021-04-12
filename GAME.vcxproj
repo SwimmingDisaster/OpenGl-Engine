@@ -31,6 +31,13 @@
   <ItemGroup>
     <ClCompile Include="src\assets\camera.cpp" />
     <ClCompile Include="src\assets\cameraFPSController.cpp" />
+    <ClCompile Include="src\core\physics.cpp" />
+    <ClCompile Include="src\imguizmo\\**\*.cpp*">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="src\yaml-cpp\\**\*.cpp*">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
@@ -112,11 +119,14 @@
     <ClCompile Include="src\ecs\other\componentCreatorImpl.cpp" />
     <ClCompile Include="src\ecs\other\componentFactory.cpp" />
     <ClCompile Include="src\core\renderer.cpp" />
+    <ClCompile Include="src\core\math.cpp" />
+    <ClCompile Include="src\core\framebuffer.cpp" />
     <ClCompile Include="src\core\imGuiManager.cpp" />
     <ClCompile Include="src\utils\fileUtils.cpp" />
     <ClCompile Include="src\assets\model.cpp" />
     <ClCompile Include="src\assets\modelRenderer.cpp" />
     <ClCompile Include="src\assets\material.cpp" />
+    <ClCompile Include="src\assets\testComponent.cpp" />
     <ClCompile Include="src\core\other\helpers.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -2285,18 +2295,29 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="lib\assimp-vc140-mt.lib">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </Library>
-    <Library Include="lib\assimp-vc142-mtd.lib" />
-    <Library Include="lib\glfw3.lib" />
-    <Library Include="lib\glfw3dll.lib" />
-    <Library Include="lib\libglfw3.a" />
-    <Library Include="lib\libglfw3dll.a" />
-    <Library Include="lib\freetype.lib" />
+    <Library Include="lib\assimp\assimp-vc142-mtd.lib" />
+    <Library Include="lib\glfw\glfw3.lib" />
+    <Library Include="lib\glfw\glfw3dll.lib" />
+    <Library Include="lib\physx_debug\LowLevelAABB_static_64.lib" />
+    <Library Include="lib\physx_debug\LowLevelDynamics_static_64.lib" />
+    <Library Include="lib\physx_debug\LowLevel_static_64.lib" />
+    <Library Include="lib\physx_debug\PhysXCharacterKinematic_static_64.lib" />
+    <Library Include="lib\physx_debug\PhysXCommon_64.lib" />
+    <Library Include="lib\physx_debug\PhysXCooking_64.lib" />
+    <Library Include="lib\physx_debug\PhysXExtensions_static_64.lib" />
+    <Library Include="lib\physx_debug\PhysXFoundation_64.lib" />
+    <Library Include="lib\physx_debug\PhysXPvdSDK_static_64.lib" />
+    <Library Include="lib\physx_debug\PhysXTask_static_64.lib" />
+    <Library Include="lib\physx_debug\PhysXVehicle_static_64.lib" />
+    <Library Include="lib\physx_debug\PhysX_64.lib" />
+    <Library Include="lib\physx_debug\SampleBase_static_64.lib" />
+    <Library Include="lib\physx_debug\SampleFramework_static_64.lib" />
+    <Library Include="lib\physx_debug\SamplePlatform_static_64.lib" />
+    <Library Include="lib\physx_debug\SamplesToolkit_static_64.lib" />
+    <Library Include="lib\physx_debug\SceneQuery_static_64.lib" />
+    <Library Include="lib\physx_debug\SimulationController_static_64.lib" />
+    <Library Include="lib\physx_debug\SnippetRender_static_64.lib" />
+    <Library Include="lib\physx_debug\SnippetUtils_static_64.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -2408,7 +2429,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;assimp-vc140-mt.lib;legacy_stdio_definitions.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>legacy_stdio_definitions.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)"\lib\*.DLL "$(TargetDir)" /D /K /Y</Command>
@@ -2435,7 +2456,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;assimp-vc140-mt.lib;legacy_stdio_definitions.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>legacy_stdio_definitions.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)"\lib\*.DLL "$(TargetDir)" /D /K /Y</Command>
@@ -2454,11 +2475,13 @@
       <AdditionalIncludeDirectories>C:\Users\mixog\Desktop\3DGAME\ENGINE\include;C:\Boost\boost_1_75_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mypch.h</PrecompiledHeaderFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;assimp-vc140-mt.lib;legacy_stdio_definitions.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>legacy_stdio_definitions.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)"\lib\*.DLL "$(TargetDir)" /D /K /Y</Command>
@@ -2485,7 +2508,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;assimp-vc140-mt.lib;legacy_stdio_definitions.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>legacy_stdio_definitions.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
       <Command>XCOPY "$(SolutionDir)"\lib\*.DLL "$(TargetDir)" /D /K /Y</Command>

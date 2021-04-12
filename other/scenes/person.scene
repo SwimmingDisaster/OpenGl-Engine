@@ -74,9 +74,9 @@ Entities:
     UUID: 1151974362
     Components: [Transform, Model, Material, ModelRenderer]
     Transform:
-      Position: [0, 14.1673126, -17.5]
+      Position: [-1.42495793e-08, 13.9282446, -17.5]
       Rotation: [0, 0, 90]
-      Scale: [1, 5.8499999, 1]
+      Scale: [0.99998939, 5.84991503, 1]
     Model:
       Is flipped: false
       Path: res/fbx/cylinder.fbx
@@ -114,27 +114,20 @@ Entities:
       Shader name: res/shaders/color
   - Entity: Camera
     UUID: -956681385
-    Components: [Transform, Model, Material, ModelRenderer, Camera, CameraFPSController]
+    Components: [Transform, Camera, CameraFPSController]
     Transform:
-      Position: [-3.9297626, 29.9067783, 6.78300714]
-      Rotation: [-13.1899691, -78.3900681, 0]
+      Position: [-31.763361, 36.2391815, 49.1735115]
+      Rotation: [-10.7399731, -70.3398438, 0]
       Scale: [0.5, 0.5, 0.5]
-    Model:
-      Is flipped: false
-      Path: res/fbx/box.fbx
-    Material:
-      Color: [0.970229626, 0, 1]
-    ModelRenderer:
-      Shader name: res/shaders/color
     Camera:
-      Fov: 86.6999969
+      Fov: 120
       fNear: 0.0860000029
       fFar: 1000
-      Background Color: [0.94607842, 0.946068943, 0.946068943]
+      Background Color: [0.730392158, 0.730384827, 0.730384827]
     CameraFPSController:
       Mouse Sensitivity: 0.349999994
-      Movement Speed: 5
+      Movement Speed: 15
 Editor Camera:
-  - Camera vPos: [-5.0037055, 22.6835651, 5.89334297]
-    Camera vUp: [0.0129759535, 0.994150996, -0.107217297]
-    Camera vRot: [-6.2000165, 276.900665, 0]
+  - Camera vPos: [-6.26432657, 21.1377239, -0.323950469]
+    Camera vUp: [-0.0292968936, 0.997915685, 0.0574970767]
+    Camera vRot: [3.69991255, -62.9994736, 0]

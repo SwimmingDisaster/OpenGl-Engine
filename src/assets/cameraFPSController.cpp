@@ -10,6 +10,7 @@ REGISTERIMPL(CameraFPSController);
 void CameraFPSController::Start() {
 	transform = parentEntity->GetComponent<Transform>();
 	camera = parentEntity->GetComponent<Camera>();
+	transform->position.y = 2.0f;
 }
 void CameraFPSController::Update() {
 	if (Input::IsKeyPressed(INPUT_KEY_ESCAPE)) {
@@ -26,6 +27,7 @@ void CameraFPSController::Update() {
 
 	ProcessKeyboard(Application::deltaTime);
 	ProcessMouseMovement(true);
+
 }
 void CameraFPSController::Show() {
 	ImGui::DragFloat("Mouse Sensitivity", &mouseSensitivity, 0.1f);
@@ -57,26 +59,43 @@ CameraFPSController::~CameraFPSController() {
 #endif
 
 
-
 void CameraFPSController::ProcessKeyboard(float deltaTime)
 {
 	float velocity = movementSpeed * deltaTime;
 
+	static bool canjump = false;
 	if (glfwGetKey(Application::window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		velocity *= 3.0f;
+	glm::vec3 velvec3 = glm::vec3(velocity, velocity/*0*/, velocity);
 
 	if (Input::IsKeyHeld(INPUT_KEY_W)) {
-		transform->position += camera->vFront * velocity;
+		transform->position += camera->vFront * velvec3;
 	}
 	if (Input::IsKeyHeld(INPUT_KEY_S)) {
-		transform->position -= camera->vFront * velocity;
+		transform->position -= camera->vFront * velvec3;
 	}
 	if (Input::IsKeyHeld(INPUT_KEY_A)) {
-		transform->position -= camera->vRight * velocity;
+		transform->position -= camera->vRight * velvec3;
 	}
 	if (Input::IsKeyHeld(INPUT_KEY_D)) {
-		transform->position += camera->vRight * velocity;
+		transform->position += camera->vRight * velvec3;
 	}
+	/*	if (Input::IsKeyHeld(INPUT_KEY_SPACE)) {
+			if (canjump) {
+				acceleration.y = 20.0f;
+				canjump = false;
+			}
+		}
+		acceleration.y -= 30.0f * deltaTime;
+		transform->position += acceleration * deltaTime;
+		if (transform->position.y < 2.0f) {
+			transform->position.y = 2.0f;
+			acceleration.y = 0.0f;
+			canjump = true;
+		}*/
+
+	//acceleration.x -= 30.0f * deltaTime, 0;
+	//acceleration.z -=  30.0f * deltaTime, 0;
 }
 
 void CameraFPSController::ProcessMouseMovement(bool constrainPitch)

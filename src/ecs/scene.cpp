@@ -133,6 +133,7 @@ void Scene::Serialize(const std::string & filePath) const {
 
 	out << YAML::EndSeq;
 
+#ifndef RELEASE_BUILD
 	out << YAML::Key << "Editor Camera" << YAML::Value << YAML::BeginSeq;
 	out << YAML::BeginMap;
 	out << YAML::Key << "Camera vPos" <<  YAML::Value << Application::editorCamera.vPos;
@@ -140,6 +141,7 @@ void Scene::Serialize(const std::string & filePath) const {
 	out << YAML::Key << "Camera vRot" <<  YAML::Value << Application::editorCamera.vRot;
 	out << YAML::EndMap;
 	out << YAML::EndSeq;
+#endif
 
 	out << YAML::EndMap;
 
@@ -186,11 +188,13 @@ void Scene::Deserialize(const std::string & filePath) {
 		}
 	}
 
+#ifndef RELEASE_BUILD
 	const YAML::Node& mainCameraData = data["Editor Camera"];
 	Application::editorCamera.vPos = 	mainCameraData[0]["Camera vPos"].as<glm::vec3>();
 	Application::editorCamera.vUp  = 	mainCameraData[0]["Camera vUp" ].as<glm::vec3>();
 	Application::editorCamera.vRot = 	mainCameraData[0]["Camera vRot"].as<glm::vec3>();
 	Application::editorCamera.updateCameraVectors();
+#endif
 
 }
 

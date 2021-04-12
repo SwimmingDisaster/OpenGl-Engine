@@ -48,7 +48,7 @@ Entities:
     Transform:
       Position: [-15, 0, 0]
       Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Scale: [1.00000012, 1.00000012, 1]
     Model:
       Is flipped: false
       Path: res/fbx/cone.fbx
@@ -84,7 +84,22 @@ Entities:
       Shader name: res/shaders/color
     Material:
       Color: [1, 0, 0]
+  - Entity: Camera
+    UUID: 1595950024
+    Components: [Transform, Camera, CameraFPSController]
+    Transform:
+      Position: [2.73748732, 18.8610821, 11.3889294]
+      Rotation: [-50.4899635, -138.419968, 0]
+      Scale: [1, 1, 1]
+    Camera:
+      Fov: 90
+      fNear: 0.0500000007
+      fFar: 1000
+      Background Color: [0.100000001, 0.100000001, 0.100000001]
+    CameraFPSController:
+      Mouse Sensitivity: 0.349999994
+      Movement Speed: 5
 Editor Camera:
-  - Camera vPos: [-3.8242135, 4.70877457, -11.2474785]
-    Camera vUp: [-0.0121770212, 0.998440742, 0.0544771291]
-    Camera vRot: [-3.19999838, 102.599937, 0]
+  - Camera vPos: [-0.87597996, 8.49542046, 12.204196]
+    Camera vUp: [-0.194355473, 0.872068524, -0.449135214]
+    Camera vRot: [-29.3000889, -113.399712, 0]

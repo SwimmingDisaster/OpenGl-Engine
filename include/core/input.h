@@ -132,6 +132,7 @@ private:
 public:
 	std::unordered_map<int, bool> m_pressedKeysNow;
 	std::unordered_map<int, bool> m_pressedKeysLast;
+	std::unordered_map<int, bool> m_pressedMouseButton;
 
 	float lastX = 0;
 	float lastY = 0;
@@ -144,9 +145,11 @@ public:
 	static void Update();
 	static void KeyInputCallback(GLFWwindow * window, int key, int scancode, int action, int mods);
 	static void MouseCallback(GLFWwindow * window, double xpos, double ypos);
+	static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 
 	static bool IsKeyPressed(int keycode);
 	static bool IsKeyHeld(int keycode);
 	static bool IsKeyReleased(int keycode);
 	static void SetKey(int keycode, bool val);
+	static bool IsMouseButtonPressed(int button);
 };

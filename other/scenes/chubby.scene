@@ -1,0 +1,91 @@
+Scene: CHUBBY
+Entities:
+  - Entity: Left foot
+    UUID: -2131577758
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [-0.873918891, 3.02391911, 0]
+      Rotation: [0, 0, -135]
+      Scale: [1.94998443, 1.94998443, 1.94999993]
+    Model:
+      Is flipped: false
+      Path: res/fbx/cone.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [1, 1, 1]
+  - Entity: veri cul plane
+    UUID: 311986918
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [25, 1, 25]
+    Model:
+      Is flipped: false
+      Path: res/fbx/plane.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [0.676470578, 0.676463783, 0.676463783]
+  - Entity: body
+    UUID: 72713571
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [-4, 6.22470379, 0]
+      Rotation: [0, 0, 0]
+      Scale: [5, 5, 5]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [1, 0, 0]
+  - Entity: rIGHT FOOT
+    UUID: 402396601
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [-6.87400007, 3.02391911, 0]
+      Rotation: [0, 0, 135]
+      Scale: [1.94998443, 1.94998443, 1.94999993]
+    Model:
+      Is flipped: false
+      Path: res/fbx/cone.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [1, 1, 1]
+  - Entity: Head
+    UUID: -483940288
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [5.89215946, 1.0000062, 7.13690042]
+      Rotation: [13.7604094, 0.000214724045, 89.9999771]
+      Scale: [1.00000012, 5, 2]
+    Model:
+      Is flipped: false
+      Path: res/fbx/box.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [0.208333373, 1, 0]
+  - Entity: Camera
+    UUID: 836964708
+    Components: [Transform, Camera, CameraFPSController]
+    Transform:
+      Position: [36.2926025, 2, 112.449974]
+      Rotation: [-8.50001526, -104.999893, 0]
+      Scale: [1, 1, 1]
+    Camera:
+      Fov: 90
+      fNear: 0.0500000007
+      fFar: 1000
+      Background Color: [0.100000001, 0.100000001, 0.100000001]
+    CameraFPSController:
+      Mouse Sensitivity: 0.349999994
+      Movement Speed: 15
+Editor Camera:
+  - Camera vPos: [37.9046097, 19.8076153, 27.4248829]
+    Camera vUp: [-0.304851443, 0.919134259, -0.249515608]
+    Camera vRot: [-23.2001743, -140.700272, 0]

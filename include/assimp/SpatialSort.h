@@ -2,7 +2,9 @@
 Open Asset Import Library (assimp)
 ----------------------------------------------------------------------
 
-Copyright (c) 2006-2016, assimp team
+Copyright (c) 2006-2019, assimp team
+
+
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -45,8 +47,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <vector>
 #include <assimp/types.h>
 
-namespace Assimp
-{
+namespace Assimp {
 
 // ------------------------------------------------------------------------------------------------
 /** A little helper class to quickly find all vertices in the epsilon environment of a given
@@ -56,7 +57,7 @@ namespace Assimp
  * time, with O(n) worst case complexity when all vertices lay on the plane. The plane is chosen
  * so that it avoids common planes in usual data sets. */
 // ------------------------------------------------------------------------------------------------
-class SpatialSort
+class ASSIMP_API SpatialSort
 {
 public:
 
@@ -117,7 +118,7 @@ public:
      * @param poResults The container to store the indices of the found positions.
      *   Will be emptied by the call so it may contain anything.
      * @return An iterator to iterate over all vertices in the given area.*/
-    void FindPositions( const aiVector3D& pPosition, float pRadius,
+    void FindPositions( const aiVector3D& pPosition, ai_real pRadius,
         std::vector<unsigned int>& poResults) const;
 
     // ------------------------------------------------------------------------------------
@@ -139,24 +140,27 @@ public:
      *   be counted in.
      *  @return Number of unique vertices (n).  */
     unsigned int GenerateMappingTable(std::vector<unsigned int>& fill,
-        float pRadius) const;
+        ai_real pRadius) const;
 
 protected:
     /** Normal of the sorting plane, normalized. The center is always at (0, 0, 0) */
     aiVector3D mPlaneNormal;
 
     /** An entry in a spatially sorted position array. Consists of a vertex index,
-     * its position and its precalculated distance from the reference plane */
-    struct Entry
-    {
+     * its position and its pre-calculated distance from the reference plane */
+    struct Entry {
         unsigned int mIndex; ///< The vertex referred by this entry
         aiVector3D mPosition; ///< Position
-        float mDistance; ///< Distance of this vertex to the sorting plane
+        ai_real mDistance; ///< Distance of this vertex to the sorting plane
 
-        Entry() { /** intentionally not initialized.*/ }
-        Entry( unsigned int pIndex, const aiVector3D& pPosition, float pDistance)
-            : mIndex( pIndex), mPosition( pPosition), mDistance( pDistance)
-        {   }
+        Entry() AI_NO_EXCEPT
+        : mIndex( 999999999 ), mPosition(), mDistance( 99999. ) {
+            // empty        
+        }
+        Entry( unsigned int pIndex, const aiVector3D& pPosition, ai_real pDistance)
+        : mIndex( pIndex), mPosition( pPosition), mDistance( pDistance) {
+            // empty
+        }
 
         bool operator < (const Entry& e) const { return mDistance < e.mDistance; }
     };

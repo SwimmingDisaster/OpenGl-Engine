@@ -2,7 +2,9 @@
 Open Asset Import Library (assimp)
 ----------------------------------------------------------------------
 
-Copyright (c) 2006-2016, assimp team
+Copyright (c) 2006-2019, assimp team
+
+
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -51,28 +53,26 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <map>
 
 namespace Assimp {
-    namespace Profiling {
+namespace Profiling {
 
-        using namespace Formatter;
-
+using namespace Formatter;
 
 // ------------------------------------------------------------------------------------------------
 /** Simple wrapper around boost::timer to simplify reporting. Timings are automatically
  *  dumped to the log file.
  */
-class Profiler
-{
-
+class Profiler {
 public:
-
-    Profiler() {}
+    Profiler() {
+        // empty
+    }
 
 public:
 
     /** Start a named timer */
     void BeginRegion(const std::string& region) {
         regions[region] = std::chrono::system_clock::now();
-        DefaultLogger::get()->debug((format("START `"),region,"`"));
+        ASSIMP_LOG_DEBUG((format("START `"),region,"`"));
     }
 
 
@@ -83,17 +83,17 @@ public:
             return;
         }
 
-        auto elapsedSeconds = std::chrono::system_clock::now() - regions[region];
-        DefaultLogger::get()->debug((format("END   `"),region,"`, dt= ", elapsedSeconds.count()," s"));
+        std::chrono::duration<double> elapsedSeconds = std::chrono::system_clock::now() - regions[region];
+        ASSIMP_LOG_DEBUG((format("END   `"),region,"`, dt= ", elapsedSeconds.count()," s"));
     }
 
 private:
-
     typedef std::map<std::string,std::chrono::time_point<std::chrono::system_clock>> RegionMap;
     RegionMap regions;
 };
 
-    }
+}
 }
 
 #endif
+

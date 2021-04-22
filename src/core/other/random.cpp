@@ -6,7 +6,7 @@ std::uniform_int_distribution<std::mt19937::result_type> Random::s_Distribution;
 
 void Random::Init()
 {
-	srand(time(NULL));
+	srand((unsigned int)time(NULL));
 	s_RandomEngine.seed((unsigned int)std::random_device()());
 }
 
@@ -20,7 +20,7 @@ int Random::Int(float maxVal) {
 }
 
 int Random::Int(float minVal, float maxVal) {
-	return (int)(Random::Float() * (maxVal - minVal)) + minVal;
+	return round((Random::Float() * (maxVal - minVal)) + minVal);
 }
 
 float Random::Float()

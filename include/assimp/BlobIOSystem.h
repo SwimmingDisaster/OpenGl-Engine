@@ -3,7 +3,9 @@
 Open Asset Import Library (assimp)
 ---------------------------------------------------------------------------
 
-Copyright (c) 2006-2016, assimp team
+Copyright (c) 2006-2019, assimp team
+
+
 
 All rights reserved.
 
@@ -45,10 +47,10 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef AI_BLOBIOSYSTEM_H_INCLUDED
 #define AI_BLOBIOSYSTEM_H_INCLUDED
 
-#include "./../include/assimp/IOStream.hpp"
-#include "./../include/assimp/cexport.h"
-#include "./../include/assimp/IOSystem.hpp"
-#include "./../include/assimp/DefaultLogger.hpp"
+#include <assimp/IOStream.hpp>
+#include <assimp/cexport.h>
+#include <assimp/IOSystem.hpp>
+#include <assimp/DefaultLogger.hpp>
 #include <stdint.h>
 #include <set>
 #include <vector>
@@ -249,7 +251,7 @@ public:
             }
         }
         if (!master) {
-            DefaultLogger::get()->error("BlobIOSystem: no data written or master file was not closed properly.");
+            ASSIMP_LOG_ERROR("BlobIOSystem: no data written or master file was not closed properly.");
             return NULL;
         }
 

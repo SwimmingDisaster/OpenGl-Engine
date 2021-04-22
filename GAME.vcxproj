@@ -125,6 +125,10 @@
     <ClCompile Include="src\utils\fileUtils.cpp" />
     <ClCompile Include="src\assets\model.cpp" />
     <ClCompile Include="src\assets\modelRenderer.cpp" />
+    <ClCompile Include="src\core\engineInfo.cpp" />
+    <ClCompile Include="src\assets\rigidbody.cpp" />
+    <ClCompile Include="src\assets\colliderBase.cpp" />
+    <ClCompile Include="src\assets\colliders.cpp" />
     <ClCompile Include="src\assets\material.cpp" />
     <ClCompile Include="src\assets\testComponent.cpp" />
     <ClCompile Include="src\core\other\helpers.cpp" />
@@ -2298,6 +2302,7 @@
     <Library Include="lib\assimp\assimp-vc142-mtd.lib" />
     <Library Include="lib\glfw\glfw3.lib" />
     <Library Include="lib\glfw\glfw3dll.lib" />
+    <Library Include="lib\nfd\nfd.lib" />
     <Library Include="lib\physx_debug\LowLevelAABB_static_64.lib" />
     <Library Include="lib\physx_debug\LowLevelDynamics_static_64.lib" />
     <Library Include="lib\physx_debug\LowLevel_static_64.lib" />
@@ -2345,6 +2350,7 @@
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
+    <EnableASAN>false</EnableASAN>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -2425,6 +2431,7 @@
       <AdditionalIncludeDirectories>C:\Users\mixog\Desktop\3DGAME\ENGINE\include;C:\Boost\boost_1_75_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mypch.h</PrecompiledHeaderFile>
+      <UseFullPaths>false</UseFullPaths>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -2450,6 +2457,7 @@
       <AdditionalIncludeDirectories>C:\Users\mixog\Desktop\3DGAME\ENGINE\include;C:\Boost\boost_1_75_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mypch.h</PrecompiledHeaderFile>
+      <UseFullPaths>false</UseFullPaths>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -2476,6 +2484,9 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mypch.h</PrecompiledHeaderFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <UseFullPaths>false</UseFullPaths>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -2502,6 +2513,7 @@
       <AdditionalIncludeDirectories>C:\Users\mixog\Desktop\3DGAME\ENGINE\include;C:\Boost\boost_1_75_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>mypch.h</PrecompiledHeaderFile>
+      <UseFullPaths>false</UseFullPaths>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

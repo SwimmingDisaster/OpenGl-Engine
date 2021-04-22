@@ -60,8 +60,8 @@ glm::mat4 Camera::GetViewMatrix()
 glm::mat4 Camera::GetProjectionMatrix()
 {
 	float ratio = 1.0f;
-	if (Application::SCREEN_HEIGHT != 0.0f)
-		ratio = (float)Application::SCREEN_WIDTH / (float)Application::SCREEN_HEIGHT;
+	if (EngineInfo::SCREEN_HEIGHT != 0.0f)
+		ratio = (float)EngineInfo::SCREEN_WIDTH / (float)EngineInfo::SCREEN_HEIGHT;
 	return glm::perspective(glm::radians(fov), ratio , fNear, fFar);
 }
 

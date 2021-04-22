@@ -2,8 +2,7 @@
 "folders":
 	[
 		{
-			"path": "C:/Users/mixog/Desktop/3DGAME/ENGINE",
-			"file_exclude_patterns": ["*.sublime-project"]
+			"path": "/",
 		}
 	],
 "build_systems":
@@ -11,7 +10,7 @@
 		{
 			"name": "Build Debug x64",
 			"working_dir": "${project_path}",
-			"cmd": "MSBuild GAME.sln /p:Configuration=Debug /p:Platform=x64 && cd ${project_path}/bin/x64/Debug && start GAME.exe",
+			"cmd": "MSBuild GAME.sln /v:Normal /p:Configuration=Debug /p:Platform=x64 && cd ${project_path}/bin/x64/Debug && start GAME.exe",
 			"shell": true,
 			"variants":
 			[			 
@@ -34,7 +33,7 @@
 			[			 
 			 {
 				"name": "BUILD",
-				"cmd": "MSBuild GAME.sln /p:Configuration=Release /p:Platform=x64 /entry:mainCRTStartup"
+				"cmd": "MSBuild GAME.sln /v:Normal /p:Configuration=Release /p:Platform=x64 /entry:mainCRTStartup"
 			 },
 			 {
 				"name": "RUN",

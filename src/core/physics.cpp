@@ -1,6 +1,6 @@
 #include "mypch.h"
 #include "core/physics.h"
-
+#include "core/application.h"
 
 PxFoundation* PhysicsManager::mFoundation;
 PxPhysics* PhysicsManager::mPhysics;
@@ -15,18 +15,18 @@ void PhysicsManager::InitPhysx() {
 
 	mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
 	if (!mFoundation)
-		ErrorAtPos("PxCreateFoundation failed! In file: " << __FILE__ << " on line: " << __LINE__);
+		ErrorAtPos("PxCreateFoundation failed!");
 
 
 
 	mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *mFoundation,
 	                           PxTolerancesScale(), true, nullptr);
 	if (!mPhysics)
-		ErrorAtPos("PxCreatePhysics failed! In file: " << __FILE__ << " on line: " << __LINE__);
+		ErrorAtPos("PxCreatePhysics failed!");
 
 	PxTolerancesScale scale;
-	scale.length = 100;        // typical length of an object
-	scale.speed = 981;         // typical speed of an object, gravity*1s is a reasonable choice
+	scale.length = 100;
+	scale.speed = 981;
 
 
 	/*	mCooking = PxCreateCooking(PX_PHYSICS_VERSION, *mFoundation, PxCookingParams(scale));
@@ -35,12 +35,14 @@ void PhysicsManager::InitPhysx() {
 
 
 	if (!PxInitExtensions(*mPhysics, nullptr))
-		ErrorAtPos("PxInitExtensions failed! In file: " << __FILE__ << " on line: " << __LINE__);
+		ErrorAtPos("PxInitExtensions failed!");
 
 
 	PxTolerancesScale tolerance = mPhysics->getTolerancesScale();
 	PxSceneDesc sceneDesc(tolerance);
 	sceneDesc.gravity = PxVec3(0.0f, -9.81f, 0.0f);
+	sceneDesc.broadPhaseType = PxBroadPhaseType::eABP;
+	sceneDesc.flags = PxSceneFlag::eENABLE_ENHANCED_DETERMINISM;
 
 
 	auto gDispatcher = PxDefaultCpuDispatcherCreate(1);
@@ -63,10 +65,16 @@ void PhysicsManager::ShutdownPhysx() {
 	mFoundation->release();
 }
 
-void Start() {
+void PhysicsManager::Start() {
 
 }
 
-void Update() {
-
+void PhysicsManager::Update() {
+#ifndef RELEASE_BUILD //physics manager
+	if (Application::isRunning) {
+#endif
+		Application::advance(EngineInfo::deltaTime);
+#ifndef RELEASE_BUILD
+	}
+#endif
 }

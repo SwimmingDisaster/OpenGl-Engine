@@ -3,7 +3,7 @@
 Open Asset Import Library (assimp)
 ---------------------------------------------------------------------------
 
-Copyright (c) 2006-2018, assimp team
+Copyright (c) 2006-2019, assimp team
 
 
 
@@ -56,27 +56,27 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <assimp/types.h>
 
 namespace Assimp    {
-// =======================================================================
-// Public interface to Assimp
-class Importer;
-class IOStream;
-class IOSystem;
-class ProgressHandler;
+    // =======================================================================
+    // Public interface to Assimp
+    class Importer;
+    class IOStream;
+    class IOSystem;
+    class ProgressHandler;
 
-// =======================================================================
-// Plugin development
-//
-// Include the following headers for the declarations:
-// BaseImporter.h
-// BaseProcess.h
-class BaseImporter;
-class BaseProcess;
-class SharedPostProcessInfo;
-class BatchLoader;
+    // =======================================================================
+    // Plugin development
+    //
+    // Include the following headers for the declarations:
+    // BaseImporter.h
+    // BaseProcess.h
+    class BaseImporter;
+    class BaseProcess;
+    class SharedPostProcessInfo;
+    class BatchLoader;
 
-// =======================================================================
-// Holy stuff, only for members of the high council of the Jedi.
-class ImporterPimpl;
+    // =======================================================================
+    // Holy stuff, only for members of the high council of the Jedi.
+    class ImporterPimpl;
 } //! namespace Assimp
 
 #define AI_PROPERTY_WAS_NOT_EXISTING 0xffffffff
@@ -137,7 +137,8 @@ public:
      * If this Importer owns a scene it won't be copied.
      * Call ReadFile() to start the import process.
      */
-    Importer(const Importer& other);
+    Importer(const Importer& other)=delete;
+
     // -------------------------------------------------------------------
     /** Assignment operator has been deleted
      */
@@ -219,7 +220,7 @@ public:
      * @see SetPropertyInteger()
      */
     bool SetPropertyBool(const char* szName, bool value)    {
-        return SetPropertyInteger(szName, value);
+        return SetPropertyInteger(szName,value);
     }
 
     // -------------------------------------------------------------------
@@ -254,7 +255,7 @@ public:
      *   GetPropertyFloat() to read the property, but it won't be there.
      */
     int GetPropertyInteger(const char* szName,
-                           int iErrorReturn = 0xffffffff) const;
+        int iErrorReturn = 0xffffffff) const;
 
     // -------------------------------------------------------------------
     /** Get a boolean configuration property. Boolean properties
@@ -264,7 +265,7 @@ public:
      * @see GetPropertyInteger()
      */
     bool GetPropertyBool(const char* szName, bool bErrorReturn = false) const {
-        return GetPropertyInteger(szName, bErrorReturn) != 0;
+        return GetPropertyInteger(szName,bErrorReturn)!=0;
     }
 
     // -------------------------------------------------------------------
@@ -272,7 +273,7 @@ public:
      * @see GetPropertyInteger()
      */
     ai_real GetPropertyFloat(const char* szName,
-                             ai_real fErrorReturn = 10e10) const;
+        ai_real fErrorReturn = 10e10) const;
 
     // -------------------------------------------------------------------
     /** Get a string configuration property
@@ -281,7 +282,7 @@ public:
      * @see GetPropertyInteger()
      */
     const std::string GetPropertyString(const char* szName,
-                                        const std::string& sErrorReturn = "") const;
+        const std::string& sErrorReturn = "") const;
 
     // -------------------------------------------------------------------
     /** Get a matrix configuration property
@@ -290,7 +291,7 @@ public:
      * @see GetPropertyInteger()
      */
     const aiMatrix4x4 GetPropertyMatrix(const char* szName,
-                                        const aiMatrix4x4& sErrorReturn = aiMatrix4x4()) const;
+        const aiMatrix4x4& sErrorReturn = aiMatrix4x4()) const;
 
     // -------------------------------------------------------------------
     /** Supplies a custom IO handler to the importer to use to open and
@@ -329,7 +330,7 @@ public:
 
     // -------------------------------------------------------------------
     /** Supplies a custom progress handler to the importer. This
-     *  interface exposes a #Update() callback, which is called
+     *  interface exposes an #Update() callback, which is called
      *  more or less periodically (please don't sue us if it
      *  isn't as periodically as you'd like it to have ...).
      *  This can be used to implement progress bars and loading
@@ -639,8 +640,8 @@ protected:
 // ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------
-AI_FORCE_INLINE const aiScene* Importer::ReadFile( const std::string& pFile, unsigned int pFlags) {
-    return ReadFile(pFile.c_str(), pFlags);
+AI_FORCE_INLINE const aiScene* Importer::ReadFile( const std::string& pFile,unsigned int pFlags){
+    return ReadFile(pFile.c_str(),pFlags);
 }
 // ----------------------------------------------------------------------------
 AI_FORCE_INLINE void Importer::GetExtensionList(std::string& szOut) const   {

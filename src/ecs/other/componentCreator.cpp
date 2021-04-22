@@ -7,5 +7,4 @@ Creator::Creator(const std::string& classname)
 {
 	Factory::registerit(classname, this);
 	int kelp;
-
 }

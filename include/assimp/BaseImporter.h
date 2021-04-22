@@ -2,7 +2,9 @@
 Open Asset Import Library (assimp)
 ----------------------------------------------------------------------
 
-Copyright (c) 2006-2016, assimp team
+Copyright (c) 2006-2019, assimp team
+
+
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -44,14 +46,15 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "Exceptional.h"
 
-#include <string>
-#include <map>
 #include <vector>
 #include <set>
+#include <map>
 #include <assimp/types.h>
 #include <assimp/ProgressHandler.hpp>
+#include <assimp/ai_assert.h>
 
 struct aiScene;
+struct aiImporterDesc;
 
 namespace Assimp    {
 
@@ -61,46 +64,9 @@ class BaseProcess;
 class SharedPostProcessInfo;
 class IOStream;
 
-
 // utility to do char4 to uint32 in a portable manner
 #define AI_MAKE_MAGIC(string) ((uint32_t)((string[0] << 24) + \
     (string[1] << 16) + (string[2] << 8) + string[3]))
-
-// ---------------------------------------------------------------------------
-template <typename T>
-struct ScopeGuard
-{
-    explicit ScopeGuard(T* obj) : obj(obj), mdismiss() {}
-    ~ScopeGuard () throw() {
-        if (!mdismiss) {
-            delete obj;
-        }
-        obj = NULL;
-    }
-
-    T* dismiss() {
-        mdismiss=true;
-        return obj;
-    }
-
-    operator T*() {
-        return obj;
-    }
-
-    T* operator -> () {
-        return obj;
-    }
-
-private:
-    // no copying allowed.
-    ScopeGuard();
-    ScopeGuard( const ScopeGuard & );
-    ScopeGuard &operator = ( const ScopeGuard & );
-
-    T* obj;
-    bool mdismiss;
-};
-
 
 
 // ---------------------------------------------------------------------------
@@ -113,19 +79,21 @@ private:
  * imports the given file. ReadFile is not overridable, it just calls
  * InternReadFile() and catches any ImportErrorException that might occur.
  */
-class ASSIMP_API BaseImporter
-{
+class ASSIMP_API BaseImporter {
     friend class Importer;
+
+private:
+    /* Pushes state into importer for the importer scale */
+    virtual void UpdateImporterScale( Importer* pImp );
 
 public:
 
     /** Constructor to be privately used by #Importer */
-    BaseImporter();
+    BaseImporter() AI_NO_EXCEPT;
 
     /** Destructor, private as well */
     virtual ~BaseImporter();
 
-public:
     // -------------------------------------------------------------------
     /** Returns whether the class can handle the format of the given file.
      *
@@ -170,7 +138,7 @@ public:
      *  a suitable response to the caller.
      */
     aiScene* ReadFile(
-        const Importer* pImp,
+        Importer* pImp,
         const std::string& pFile,
         IOSystem* pIOHandler
         );
@@ -194,13 +162,56 @@ public:
         const Importer* pImp
         );
 
-
     // -------------------------------------------------------------------
     /** Called by #Importer::GetImporterInfo to get a description of
      *  some loader features. Importers must provide this information. */
     virtual const aiImporterDesc* GetInfo() const = 0;
 
+    /**
+     * Will be called only by scale process when scaling is requested.
+     */
+    virtual void SetFileScale(double scale)
+    {
+        fileScale = scale;
+    }
 
+    virtual double GetFileScale() const
+    {
+        return fileScale;
+    }
+
+    enum ImporterUnits {
+        M,
+        MM,
+        CM,
+        INCHES,
+        FEET
+    };
+
+    /**
+     * Assimp Importer
+     * unit conversions available 
+     * if you need another measurment unit add it below.
+     * it's currently defined in assimp that we prefer meters.
+     * */
+    std::map<ImporterUnits, double> importerUnits = {
+        {ImporterUnits::M, 1},
+        {ImporterUnits::CM, 0.01},
+        {ImporterUnits::MM, 0.001},
+        {ImporterUnits::INCHES, 0.0254},
+        {ImporterUnits::FEET, 0.3048}
+    };
+
+    virtual void SetApplicationUnits( const ImporterUnits& unit )
+    {
+        importerScale = importerUnits[unit];
+        applicationUnits = unit;
+    }
+
+    virtual const ImporterUnits& GetApplicationUnits()
+    {
+        return applicationUnits;
+    }
 
     // -------------------------------------------------------------------
     /** Called by #Importer::GetExtensionList for each loaded importer.
@@ -208,8 +219,13 @@ public:
      *  #GetInfo and insert all file extensions into the given set.
      *  @param extension set to collect file extensions in*/
     void GetExtensionList(std::set<std::string>& extensions);
+    
+protected:    
+    ImporterUnits applicationUnits = ImporterUnits::M;
+    double importerScale = 1.0;
+    double fileScale = 1.0;
 
-protected:
+
 
     // -------------------------------------------------------------------
     /** Imports the given file into the given scene structure. The
@@ -283,7 +299,8 @@ public: // static utilities
         const char** tokens,
         unsigned int numTokens,
         unsigned int searchBytes = 200,
-        bool tokensSol = false);
+        bool tokensSol = false,
+        bool noAlphaBeforeTokens = false);
 
     // -------------------------------------------------------------------
     /** @brief Check whether a file has a specific file extension
@@ -317,7 +334,7 @@ public: // static utilities
      *  @param Size of one token, in bytes. Maximally 16 bytes.
      *  @return true if one of the given tokens was found
      *
-     *  @note For convinence, the check is also performed for the
+     *  @note For convenience, the check is also performed for the
      *  byte-swapped variant of all tokens (big endian). Only for
      *  tokens of size 2,4.
      */
@@ -347,7 +364,12 @@ public: // static utilities
     static void ConvertUTF8toISO8859_1(
         std::string& data);
 
-    enum TextFileMode { ALLOW_EMPTY, FORBID_EMPTY };
+    // -------------------------------------------------------------------
+    /// @brief  Enum to define, if empty files are ok or not.
+    enum TextFileMode { 
+        ALLOW_EMPTY,
+        FORBID_EMPTY 
+    };
 
     // -------------------------------------------------------------------
     /** Utility for text file loaders which copies the contents of the
@@ -382,14 +404,10 @@ public: // static utilities
         }
     }
 
-    
-
 protected:
-
-    /** Error description in case there was one. */
+    /// Error description in case there was one.
     std::string m_ErrorText;
-
-    /** Currently set progress handler */
+    /// Currently set progress handler.
     ProgressHandler* m_progress;
 };
 

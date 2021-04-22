@@ -10,7 +10,7 @@ REGISTERIMPL(CameraFPSController);
 void CameraFPSController::Start() {
 	transform = parentEntity->GetComponent<Transform>();
 	camera = parentEntity->GetComponent<Camera>();
-	transform->position.y = 2.0f;
+	//transform->position.y = 2.0f;
 }
 void CameraFPSController::Update() {
 	if (Input::IsKeyPressed(INPUT_KEY_ESCAPE)) {
@@ -25,7 +25,7 @@ void CameraFPSController::Update() {
 	}
 
 
-	ProcessKeyboard(Application::deltaTime);
+	ProcessKeyboard(EngineInfo::deltaTime);
 	ProcessMouseMovement(true);
 
 }

@@ -1,10 +1,10 @@
 #pragma once
-#pragma warning( disable : 4005 )
+#pragma warning(disable : 4005)
 
 #define NOMINMAX
+//#define SHOW_SCENE_SERIALISATION
 //#define SHOW_DELETED
 //#define RELEASE_BUILD
-///aaa
 
 #include <iostream>
 #include <memory>
@@ -58,8 +58,6 @@
 
 #include <stb/stb_image.h>
 
-#include <boost/algorithm/string.hpp>
-
 #include "core/other/log.h"
 #include "core/other/random.h"
 
@@ -67,8 +65,10 @@
 
 #include "core/math.h"
 
+#include <nfd/nfd.hpp>
+
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
-#include <Windows.h>
+//#include <Windows.h>
 #endif
 
 using namespace physx; //all classes are prefixed with Px so its very hard to confuze classes from the namespace physx and no namespace :)

@@ -19,6 +19,7 @@ public:
 	void Deserialize(const YAML::Node& data) override;
 
 	glm::mat4 GetTransform();
+	glm::mat4 GetTransformWithNoScale();
 
 	Transform();
 #ifdef SHOW_DELETED

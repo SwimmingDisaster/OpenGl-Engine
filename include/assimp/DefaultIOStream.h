@@ -2,7 +2,9 @@
 Open Asset Import Library (assimp)
 ----------------------------------------------------------------------
 
-Copyright (c) 2006-2016, assimp team
+Copyright (c) 2006-2019, assimp team
+
+
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -45,7 +47,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include <stdio.h>
 #include <assimp/IOStream.hpp>
 #include <assimp/importerdesc.h>
-#include "Defines.h"
+#include <assimp/Defines.h>
 
 namespace Assimp    {
 
@@ -55,19 +57,19 @@ namespace Assimp    {
 //! @note   An instance of this class can exist without a valid file handle
 //!         attached to it. All calls fail, but the instance can nevertheless be
 //!         used with no restrictions.
-class DefaultIOStream : public IOStream
+class ASSIMP_API DefaultIOStream : public IOStream
 {
     friend class DefaultIOSystem;
 #if __ANDROID__
-#if __ANDROID_API__ > 9
-#if defined(AI_CONFIG_ANDROID_JNI_ASSIMP_MANAGER_SUPPORT)
+# if __ANDROID_API__ > 9
+#  if defined(AI_CONFIG_ANDROID_JNI_ASSIMP_MANAGER_SUPPORT)
     friend class AndroidJNIIOSystem;
-#endif // defined(AI_CONFIG_ANDROID_JNI_ASSIMP_MANAGER_SUPPORT)
-#endif // __ANDROID_API__ > 9
+#  endif // defined(AI_CONFIG_ANDROID_JNI_ASSIMP_MANAGER_SUPPORT)
+# endif // __ANDROID_API__ > 9
 #endif // __ANDROID__
 
 protected:
-    DefaultIOStream();
+    DefaultIOStream() AI_NO_EXCEPT;
     DefaultIOStream(FILE* pFile, const std::string &strFilename);
 
 public:
@@ -105,33 +107,29 @@ public:
     void Flush();
 
 private:
-    //  File datastructure, using clib
+    //  File data-structure, using clib
     FILE* mFile;
     //  Filename
     std::string mFilename;
-
     // Cached file size
-    mutable size_t cachedSize;
+    mutable size_t mCachedSize;
 };
 
-
 // ----------------------------------------------------------------------------------
-inline DefaultIOStream::DefaultIOStream () :
-    mFile       (NULL),
-    mFilename   (""),
-    cachedSize  (SIZE_MAX)
-{
+inline
+DefaultIOStream::DefaultIOStream() AI_NO_EXCEPT
+: mFile(nullptr)
+, mFilename("")
+, mCachedSize(SIZE_MAX) {
     // empty
 }
 
-
 // ----------------------------------------------------------------------------------
-inline DefaultIOStream::DefaultIOStream (FILE* pFile,
-        const std::string &strFilename) :
-    mFile(pFile),
-    mFilename(strFilename),
-    cachedSize  (SIZE_MAX)
-{
+inline
+DefaultIOStream::DefaultIOStream (FILE* pFile, const std::string &strFilename)
+: mFile(pFile)
+, mFilename(strFilename)
+, mCachedSize(SIZE_MAX) {
     // empty
 }
 // ----------------------------------------------------------------------------------

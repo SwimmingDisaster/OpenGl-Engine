@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_RIGIDDYNAMIC
@@ -86,25 +86,25 @@ public:
 	// Runtime modifications
 
 
-/************************************************************************************************/
-/** @name Kinematic Actors
-*/
+	/************************************************************************************************/
+	/** @name Kinematic Actors
+	*/
 
 	/**
 	\brief Moves kinematically controlled dynamic actors through the game world.
 
 	You set a dynamic actor to be kinematic using the PxRigidBodyFlag::eKINEMATIC flag
 	with setRigidBodyFlag().
-	
-	The move command will result in a velocity that will move the body into 
-	the desired pose. After the move is carried out during a single time step, 
-	the velocity is returned to zero. Thus, you must continuously call 
+
+	The move command will result in a velocity that will move the body into
+	the desired pose. After the move is carried out during a single time step,
+	the velocity is returned to zero. Thus, you must continuously call
 	this in every time step for kinematic actors so that they move along a path.
-	
+
 	This function simply stores the move destination until the next simulation
 	step is processed, so consecutive calls will simply overwrite the stored target variable.
 
-	The motion is always fully carried out.	
+	The motion is always fully carried out.
 
 	\note It is invalid to use this method if the actor has not been added to a scene already or if PxActorFlag::eDISABLE_SIMULATION is set.
 
@@ -127,9 +127,9 @@ public:
 	virtual		bool				getKinematicTarget(PxTransform& target)	const	= 0;
 
 
-/************************************************************************************************/
-/** @name Sleeping
-*/
+	/************************************************************************************************/
+	/** @name Sleeping
+	*/
 
 	/**
 	\brief Returns true if this body is sleeping.
@@ -151,12 +151,12 @@ public:
 	\li There is no force update pending.
 
 	When an actor gets inserted into a scene, it will be considered asleep if all the points above hold, else it will be treated as awake.
-	
-	If an actor is asleep after the call to PxScene::fetchResults() returns, it is guaranteed that the pose of the actor 
+
+	If an actor is asleep after the call to PxScene::fetchResults() returns, it is guaranteed that the pose of the actor
 	was not changed. You can use this information to avoid updating the transforms of associated objects.
 
-	\note A kinematic actor is asleep unless a target pose has been set (in which case it will stay awake until the end of the next 
-	simulation step where no target pose has been set anymore). The wake counter will get set to zero or to the reset value 
+	\note A kinematic actor is asleep unless a target pose has been set (in which case it will stay awake until the end of the next
+	simulation step where no target pose has been set anymore). The wake counter will get set to zero or to the reset value
 	#PxSceneDesc::wakeCounterResetValue in the case where a target pose has been set to be consistent with the definitions above.
 
 	\note It is invalid to use this method if the actor has not been added to a scene already.
@@ -168,7 +168,7 @@ public:
 	virtual		bool				isSleeping() const = 0;
 
 
-    /**
+	/**
 	\brief Sets the mass-normalized kinetic energy threshold below which an actor may go to sleep.
 
 	Actors whose kinetic energy divided by their mass is below this threshold will be candidates for sleeping.
@@ -190,7 +190,7 @@ public:
 	*/
 	virtual		PxReal				getSleepThreshold() const = 0;
 
-	 /**
+	/**
 	\brief Sets the mass-normalized kinetic energy threshold below which an actor may participate in stabilization.
 
 	Actors whose kinetic energy divided by their mass is above this threshold will not participate in stabilization.
@@ -208,7 +208,7 @@ public:
 	/**
 	\brief Returns the mass-normalized kinetic energy below which an actor may participate in stabilization.
 
-	Actors whose kinetic energy divided by their mass is above this threshold will not participate in stabilization. 
+	Actors whose kinetic energy divided by their mass is above this threshold will not participate in stabilization.
 
 	\return The energy threshold for participating in stabilization.
 
@@ -243,7 +243,7 @@ public:
 	*/
 	virtual		void				setRigidDynamicLockFlag(PxRigidDynamicLockFlag::Enum flag, bool value) = 0;
 	virtual		void				setRigidDynamicLockFlags(PxRigidDynamicLockFlags flags) = 0;
-	
+
 
 
 	/**
@@ -294,10 +294,10 @@ public:
 	virtual		void				wakeUp() = 0;
 
 	/**
-	\brief Forces the actor to sleep. 
-	
+	\brief Forces the actor to sleep.
+
 	The actor will stay asleep during the next simulation step if not touched by another non-sleeping actor.
-	
+
 	\note Any applied force will be cleared and the velocity and the wake counter of the actor will be set to 0.
 
 	\note It is invalid to use this method if the actor has not been added to a scene already or if PxActorFlag::eDISABLE_SIMULATION is set.
@@ -309,17 +309,17 @@ public:
 	*/
 	virtual		void				putToSleep() = 0;
 
-/************************************************************************************************/
+	/************************************************************************************************/
 
-    /**
-	\brief Sets the solver iteration counts for the body. 
-	
-	The solver iteration count determines how accurately joints and contacts are resolved. 
+	/**
+	\brief Sets the solver iteration counts for the body.
+
+	The solver iteration count determines how accurately joints and contacts are resolved.
 	If you are having trouble with jointed bodies oscillating and behaving erratically, then
 	setting a higher position iteration count may improve their stability.
 
-	If intersecting bodies are being depenetrated too violently, increase the number of velocity 
-	iterations. More velocity iterations will drive the relative exit velocity of the intersecting 
+	If intersecting bodies are being depenetrated too violently, increase the number of velocity
+	iterations. More velocity iterations will drive the relative exit velocity of the intersecting
 	objects closer to the correct value given the restitution.
 
 	<b>Default:</b> 4 position iterations, 1 velocity iteration
@@ -341,15 +341,15 @@ public:
 	/**
 	\brief Retrieves the force threshold for contact reports.
 
-	The contact report threshold is a force threshold. If the force between 
-	two actors exceeds this threshold for either of the two actors, a contact report 
+	The contact report threshold is a force threshold. If the force between
+	two actors exceeds this threshold for either of the two actors, a contact report
 	will be generated according to the contact report threshold flags provided by
 	the filter shader/callback.
 	See #PxPairFlag.
 
-	The threshold used for a collision between a dynamic actor and the static environment is 
-    the threshold of the dynamic actor, and all contacts with static actors are summed to find 
-    the total normal force.
+	The threshold used for a collision between a dynamic actor and the static environment is
+	the threshold of the dynamic actor, and all contacts with static actors are summed to find
+	the total normal force.
 
 	<b>Default:</b> PX_MAX_F32
 

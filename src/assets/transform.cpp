@@ -35,6 +35,12 @@ glm::mat4 Transform::GetTransform() {
 	       * glm::scale(glm::mat4(1.0f), scale);
 }
 
+
+glm::mat4 Transform::GetTransformWithNoScale() {
+	return glm::translate(glm::mat4(1.0f), position)
+	       * glm::toMat4(glm::quat(glm::radians(rotation)));
+}
+
 #ifdef SHOW_DELETED
 Transform::~Transform() {
 	Log("Deleted " << name);

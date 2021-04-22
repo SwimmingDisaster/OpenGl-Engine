@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_GEOMETRY
@@ -72,18 +72,18 @@ about its placement in the world.
 
 \note This is an abstract class.  You cannot create instances directly.  Create an instance of one of the derived classes instead.
 */
-class PxGeometry 
-{ 
+class PxGeometry
+{
 public:
 	/**
 	\brief Returns the type of the geometry.
 	\return The type of the object.
 	*/
-	PX_CUDA_CALLABLE PX_FORCE_INLINE PxGeometryType::Enum getType() const	{ return mType; }	
+	PX_CUDA_CALLABLE PX_FORCE_INLINE PxGeometryType::Enum getType() const	{ return mType; }
 
 protected:
 	PX_CUDA_CALLABLE PX_FORCE_INLINE PxGeometry(PxGeometryType::Enum type) : mType(type) {}
-	PxGeometryType::Enum mType; 
+	PxGeometryType::Enum mType;
 };
 
 #if !PX_DOXYGEN

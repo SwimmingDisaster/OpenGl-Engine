@@ -2,7 +2,9 @@
 Open Asset Import Library (assimp)
 ----------------------------------------------------------------------
 
-Copyright (c) 2006-2016, assimp team
+Copyright (c) 2006-2019, assimp team
+
+
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -46,7 +48,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include <assimp/ai_assert.h>
 #include <assimp/types.h>
-#include "Defines.h"
+#include <assimp/Defines.h>
 #include <stddef.h>
 #include <set>
 #include <list>
@@ -63,6 +65,7 @@ struct aiLight;
 struct aiMetadata;
 struct aiBone;
 struct aiMesh;
+struct aiAnimMesh;
 struct aiAnimation;
 struct aiNodeAnim;
 
@@ -142,7 +145,6 @@ struct NodeAttachmentInfo
  */
 #define AI_INT_MERGE_SCENE_GEN_UNIQUE_NAMES_IF_NECESSARY 0x10
 
-
 typedef std::pair<aiBone*,unsigned int> BoneSrcIndex;
 
 // ---------------------------------------------------------------------------
@@ -151,7 +153,6 @@ typedef std::pair<aiBone*,unsigned int> BoneSrcIndex;
 struct BoneWithHash : public std::pair<uint32_t,aiString*>  {
     std::vector<BoneSrcIndex> pSrcBones;
 };
-
 
 // ---------------------------------------------------------------------------
 /** @brief Utility for SceneCombiner
@@ -198,13 +199,17 @@ struct SceneHelper
  * The class is currently being used by various postprocessing steps
  * and loaders (ie. LWS).
  */
-class SceneCombiner
-{
+class ASSIMP_API SceneCombiner {
     // class cannot be instanced
-    SceneCombiner() {}
+    SceneCombiner() {
+        // empty
+    }
+
+    ~SceneCombiner() {
+        // empty
+    }
 
 public:
-
     // -------------------------------------------------------------------
     /** Merges two or more scenes.
      *
@@ -218,10 +223,9 @@ public:
     static void MergeScenes(aiScene** dest,std::vector<aiScene*>& src,
         unsigned int flags = 0);
 
-
     // -------------------------------------------------------------------
-    /** Merges two or more scenes and attaches all sceenes to a specific
-     *  position in the node graph of the masteer scene.
+    /** Merges two or more scenes and attaches all scenes to a specific
+     *  position in the node graph of the master scene.
      *
      *  @param dest Receives a pointer to the destination scene. If the
      *    pointer doesn't point to NULL when the function is called, the
@@ -236,7 +240,6 @@ public:
     static void MergeScenes(aiScene** dest, aiScene* master,
         std::vector<AttachmentInfo>& src,
         unsigned int flags = 0);
-
 
     // -------------------------------------------------------------------
     /** Merges two or more meshes
@@ -255,7 +258,6 @@ public:
     static void MergeMeshes(aiMesh** dest,unsigned int flags,
         std::vector<aiMesh*>::const_iterator begin,
         std::vector<aiMesh*>::const_iterator end);
-
 
     // -------------------------------------------------------------------
     /** Merges two or more bones
@@ -362,6 +364,7 @@ public:
     static void Copy     (aiMesh** dest, const aiMesh* src);
 
     // similar to Copy():
+    static void Copy  (aiAnimMesh** dest, const aiAnimMesh* src);
     static void Copy  (aiMaterial** dest, const aiMaterial* src);
     static void Copy  (aiTexture** dest, const aiTexture* src);
     static void Copy  (aiAnimation** dest, const aiAnimation* src);

@@ -2,7 +2,9 @@
 Open Asset Import Library (assimp)
 ----------------------------------------------------------------------
 
-Copyright (c) 2006-2016, assimp team
+Copyright (c) 2006-2019, assimp team
+
+
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -44,49 +46,46 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #ifndef INCLUDED_AI_LOGAUX_H
 #define INCLUDED_AI_LOGAUX_H
 
-#include "TinyFormatter.h"
-#include "Exceptional.h"
+#include <assimp/TinyFormatter.h>
+#include <assimp/Exceptional.h>
 #include <assimp/DefaultLogger.hpp>
 
 namespace Assimp {
 
-template <class TDeriving>
-class LogFunctions
-{
-
+template<class TDeriving>
+class LogFunctions {
 public:
-
     // ------------------------------------------------------------------------------------------------
     static void ThrowException(const std::string& msg)
     {
-        throw DeadlyImportError(log_prefix+msg);
+        throw DeadlyImportError(Prefix()+msg);
     }
 
     // ------------------------------------------------------------------------------------------------
     static void LogWarn(const Formatter::format& message)   {
         if (!DefaultLogger::isNullLogger()) {
-            DefaultLogger::get()->warn(log_prefix+(std::string)message);
+            ASSIMP_LOG_WARN(Prefix()+(std::string)message);
         }
     }
 
     // ------------------------------------------------------------------------------------------------
     static void LogError(const Formatter::format& message)  {
         if (!DefaultLogger::isNullLogger()) {
-            DefaultLogger::get()->error(log_prefix+(std::string)message);
+            ASSIMP_LOG_ERROR(Prefix()+(std::string)message);
         }
     }
 
     // ------------------------------------------------------------------------------------------------
     static void LogInfo(const Formatter::format& message)   {
         if (!DefaultLogger::isNullLogger()) {
-            DefaultLogger::get()->info(log_prefix+(std::string)message);
+            ASSIMP_LOG_INFO(Prefix()+(std::string)message);
         }
     }
 
     // ------------------------------------------------------------------------------------------------
     static void LogDebug(const Formatter::format& message)  {
         if (!DefaultLogger::isNullLogger()) {
-            DefaultLogger::get()->debug(log_prefix+(std::string)message);
+            ASSIMP_LOG_DEBUG(Prefix()+(std::string)message);
         }
     }
 
@@ -124,10 +123,9 @@ public:
 #endif
 
 private:
-
-    static const std::string log_prefix;
+    static const char* Prefix();
 
 };
-
 } // ! Assimp
+
 #endif

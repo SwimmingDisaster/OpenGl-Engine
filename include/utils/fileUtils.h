@@ -2,5 +2,5 @@
 #include "mypch.h"
 
 
-std::string OpenFile(const char* filter);
+std::string OpenFile(nfdfilteritem_t filterItem[], int numFilters);
 std::string SaveFile(const char* filter);

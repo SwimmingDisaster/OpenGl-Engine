@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_RIGIDACTOR
@@ -60,7 +60,7 @@ class PxRigidActor : public PxActor
 public:
 	/**
 	\brief Deletes the rigid actor object.
-	
+
 	Also releases any shapes associated with the actor.
 
 	Releasing an actor will affect any objects that are connected to the actor (constraint shaders like joints etc.).
@@ -77,9 +77,9 @@ public:
 	virtual		void			release() = 0;
 
 
-/************************************************************************************************/
-/** @name Global Pose Manipulation
-*/
+	/************************************************************************************************/
+	/** @name Global Pose Manipulation
+	*/
 
 	/**
 	\brief Retrieves the actors world space transform.
@@ -95,19 +95,19 @@ public:
 	/**
 	\brief Method for setting an actor's pose in the world.
 
-	This method instantaneously changes the actor space to world space transformation. 
+	This method instantaneously changes the actor space to world space transformation.
 
-	This method is mainly for dynamic rigid bodies (see #PxRigidDynamic). Calling this method on static actors is 
-	likely to result in a performance penalty, since internal optimization structures for static actors may need to be 
-	recomputed. In addition, moving static actors will not interact correctly with dynamic actors or joints. 
-	
-	To directly control an actor's position and have it correctly interact with dynamic bodies and joints, create a dynamic 
+	This method is mainly for dynamic rigid bodies (see #PxRigidDynamic). Calling this method on static actors is
+	likely to result in a performance penalty, since internal optimization structures for static actors may need to be
+	recomputed. In addition, moving static actors will not interact correctly with dynamic actors or joints.
+
+	To directly control an actor's position and have it correctly interact with dynamic bodies and joints, create a dynamic
 	body with the PxRigidBodyFlag::eKINEMATIC flag, then use the setKinematicTarget() commands to define its path.
 
 	Even when moving dynamic actors, exercise restraint in making use of this method. Where possible, avoid:
-	
+
 	\li moving actors into other actors, thus causing overlap (an invalid physical state)
-	
+
 	\li moving an actor that is connected by a joint to another away from the other (thus causing joint error)
 
 	<b>Sleeping:</b> This call wakes dynamic actors if they are sleeping and the autowake parameter is true (default).
@@ -120,19 +120,19 @@ public:
 	virtual		void			setGlobalPose(const PxTransform& pose, bool autowake = true) = 0;
 
 
-/************************************************************************************************/
-/** @name Shapes
-*/
+	/************************************************************************************************/
+	/** @name Shapes
+	*/
 
-	/** attach a shared shape to an actor 
+	/** attach a shared shape to an actor
 
 	This call will increment the reference count of the shape.
 
-	\note Mass properties of dynamic rigid actors will not automatically be recomputed 
-	to reflect the new mass distribution implied by the shape. Follow this call with a call to 
+	\note Mass properties of dynamic rigid actors will not automatically be recomputed
+	to reflect the new mass distribution implied by the shape. Follow this call with a call to
 	the PhysX extensions method #PxRigidBodyExt::updateMassAndInertia() to do that.
 
-	Attaching a triangle mesh, heightfield or plane geometry shape configured as eSIMULATION_SHAPE is not supported for 
+	Attaching a triangle mesh, heightfield or plane geometry shape configured as eSIMULATION_SHAPE is not supported for
 	non-kinematic PxRigidDynamic instances.
 
 
@@ -145,8 +145,8 @@ public:
 	virtual bool				attachShape(PxShape& shape) = 0;
 
 
-	/** detach a shape from an actor. 
-	
+	/** detach a shape from an actor.
+
 	This will also decrement the reference count of the PxShape, and if the reference count is zero, will cause it to be deleted.
 
 	<b>Sleeping:</b> Does <b>NOT</b> wake the actor up automatically.
@@ -186,12 +186,12 @@ public:
 
 	@see PxShape getNbShapes() PxShape::release()
 	*/
-	virtual		PxU32			getShapes(PxShape** userBuffer, PxU32 bufferSize, PxU32 startIndex=0)			const	= 0;
+	virtual		PxU32			getShapes(PxShape** userBuffer, PxU32 bufferSize, PxU32 startIndex = 0)			const	= 0;
 
 
-/************************************************************************************************/
-/** @name Constraints
-*/
+	/************************************************************************************************/
+	/** @name Constraints
+	*/
 
 	/**
 	\brief Returns the number of constraint shaders attached to the actor.
@@ -219,7 +219,7 @@ public:
 
 	@see PxConstraint getNbConstraints() PxConstraint::release()
 	*/
-	virtual		PxU32			getConstraints(PxConstraint** userBuffer, PxU32 bufferSize, PxU32 startIndex=0)		const	= 0;
+	virtual		PxU32			getConstraints(PxConstraint** userBuffer, PxU32 bufferSize, PxU32 startIndex = 0)		const	= 0;
 
 protected:
 	PX_INLINE					PxRigidActor(PxType concreteType, PxBaseFlags baseFlags) : PxActor(concreteType, baseFlags) {}

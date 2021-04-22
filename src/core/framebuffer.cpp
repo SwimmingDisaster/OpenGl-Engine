@@ -3,10 +3,6 @@
 
 
 
-
-
-
-
 FrameBuffer::FrameBuffer(float width, float height) {
 	glGenFramebuffers(1, &m_framebufferObject);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_framebufferObject);
@@ -25,6 +21,7 @@ FrameBuffer::FrameBuffer(float width, float height) {
 // now that we actually created the framebuffer and added all attachments we want to check if it is actually complete now
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
 		Error("Framebuffer is not complete!");
+		
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 void FrameBuffer::Bind() {

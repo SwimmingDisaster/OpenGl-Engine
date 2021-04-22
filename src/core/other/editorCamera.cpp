@@ -33,7 +33,7 @@ glm::mat4 EditorCamera::GetViewMatrix()
 void EditorCamera::ProcessKeyboard()
 {
     if (Input::IsMouseButtonPressed(1)) {
-        float velocity = movementSpeed * Application::deltaTime;
+        float velocity = movementSpeed * EngineInfo::deltaTime;
 
         float speedup = 1.0f;
         if (glfwGetKey(Application::window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)

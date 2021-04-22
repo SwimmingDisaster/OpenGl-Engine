@@ -16,8 +16,6 @@ public:
 	std::shared_ptr<Model> m_modelComponent;
 	std::shared_ptr<Material> m_materialComponent;
 
-	//glm::vec3 m_color = {1.0f, 1.0f, 1.0f}; //todo this should be in a material componen
-
 public:
 	void Serialize(YAML::Emitter& out) override;
 	void Deserialize(const YAML::Node& data) override;

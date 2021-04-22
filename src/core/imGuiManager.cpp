@@ -6,31 +6,30 @@
 
 #include "assets/transform.h"
 #include "assets/mesh.h"
-//#include "assets/camera.h"
 #include "assets/material.h"
 #include "assets/modelRenderer.h"
-//#include "assets/cameraFPSController.h"
+#include "assets/rigidbody.h"
 
 #include "core/renderer.h"
 
+#include <boost/algorithm/string.hpp>
+
 #ifndef RELEASE_BUILD
 const ImGuiTreeNodeFlags treeNodeFlags =
-    ImGuiTreeNodeFlags_DefaultOpen |
-    ImGuiTreeNodeFlags_Framed |
-    ImGuiTreeNodeFlags_SpanAvailWidth |
-    ImGuiTreeNodeFlags_AllowItemOverlap |
-    ImGuiTreeNodeFlags_FramePadding;
+	ImGuiTreeNodeFlags_DefaultOpen |
+	ImGuiTreeNodeFlags_Framed |
+	ImGuiTreeNodeFlags_SpanAvailWidth |
+	ImGuiTreeNodeFlags_AllowItemOverlap |
+	ImGuiTreeNodeFlags_FramePadding;
 
-ImGuiContext* ImGuiManager::imGuiContext;
+ImGuiContext *ImGuiManager::imGuiContext;
 
 float frameCountToDisplay = 0;
 std::string frameImGuiText = "FPS";
 std::string searchString;
 
-
 ImVec2 contentRegionAvailable;
 float lineHeight;
-
 
 void ImGuiManager::InitImGui()
 {
@@ -80,8 +79,8 @@ void ImGuiManager::StartFrame()
 void ImGuiManager::EndFrame()
 {
 	ImGuiIO &io = ImGui::GetIO();
-	io.DisplaySize = ImVec2((float)Application::SCREEN_WIDTH, (float)Application::SCREEN_HEIGHT);
-	io.DeltaTime = Application::deltaTime;
+	io.DisplaySize = ImVec2((float)EngineInfo::SCREEN_WIDTH, (float)EngineInfo::SCREEN_HEIGHT);
+	io.DeltaTime = EngineInfo::deltaTime;
 
 	ImGui::Render();
 	ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -94,15 +93,18 @@ void ImGuiManager::EndFrame()
 	}
 }
 
-bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity>& entityToDraw) {
+bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDraw)
+{
 	bool entityRemoveComponent = false;
 	if (ImGui::BeginPopup("EntitySettings"))
 	{
 		if (ImGui::MenuItem("Remove Entity"))
 			entityRemoveComponent = true;
 
-		if (ImGui::MenuItem("Paste Component")) {
-			if (Application::m_copiedComponent != nullptr) {
+		if (ImGui::MenuItem("Paste Component"))
+		{
+			if (Application::m_copiedComponent != nullptr)
+			{
 				std::string str(typeid(*Application::m_copiedComponent).name());
 				std::string last_element(str.substr(str.rfind(" ") + 1));
 
@@ -110,7 +112,8 @@ bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity>& entityToDraw)
 				Application::m_copiedComponent = nullptr;
 				entityToDraw->Start();
 			}
-			else {
+			else
+			{
 				Error("Tried to paste a null component");
 			}
 		}
@@ -129,7 +132,8 @@ bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity>& entityToDraw)
 	}
 	return entityRemoveComponent;
 }
-bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity>& entityToDraw, int i) {
+bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDraw, int i)
+{
 	bool removeComponent = false;
 	if (ImGui::BeginPopup("ComponentSettings"))
 	{
@@ -151,7 +155,8 @@ bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity>& entityToDr
 		}
 		if (ImGui::MenuItem("Paste"))
 		{
-			if (Application::m_copiedComponent != nullptr) {
+			if (Application::m_copiedComponent != nullptr)
+			{
 				std::string str(typeid(*Application::m_copiedComponent).name());
 				std::string last_element(str.substr(str.rfind(" ") + 1));
 
@@ -159,7 +164,8 @@ bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity>& entityToDr
 				Application::m_copiedComponent = nullptr;
 				entityToDraw->m_components[i]->Start();
 			}
-			else {
+			else
+			{
 				Error("Tried to paste a null component");
 			}
 		}
@@ -169,20 +175,21 @@ bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity>& entityToDr
 	return removeComponent;
 }
 
-bool ShowHeader(const std::string& headerName, const std::string& popupName, const std::string& popupIcon) {
+bool ShowHeader(const std::string &headerName, const std::string &popupName, const std::string &popupIcon)
+{
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{4, 4});
 	ImGui::Separator();
-	bool open = ImGui::TreeNodeEx((void*)(&headerName), treeNodeFlags, headerName.c_str());
+	bool open = ImGui::TreeNodeEx((void *)(&headerName), treeNodeFlags, headerName.c_str());
 	ImGui::PopStyleVar();
 	ImGui::SameLine(contentRegionAvailable.x - lineHeight * 0.5f);
 	if (ImGui::Button(popupIcon.c_str(), ImVec2{lineHeight, lineHeight}))
 	{
 		ImGui::OpenPopup(popupName.c_str());
-
 	}
 	return open;
 }
-void ShowEntitySearchBar(std::shared_ptr<Entity>& entityToDraw, std::string& searchString) {
+void ShowEntitySearchBar(std::shared_ptr<Entity> &entityToDraw, std::string &searchString)
+{
 	static bool showSearch = false;
 	if (ImGui::InputText("##Add Component", &searchString, ImGuiInputTextFlags_CallbackAlways))
 	{
@@ -203,7 +210,7 @@ void ShowEntitySearchBar(std::shared_ptr<Entity>& entityToDraw, std::string& sea
 	{
 		for (auto it = Factory::get_table().begin(); it != Factory::get_table().end(); ++it)
 		{
-			if (it->first.rfind(searchString, 0) == 0)
+			if (boost::to_lower_copy<std::string>(it->first).rfind(boost::to_lower_copy<std::string>(searchString), 0) == 0)
 			{
 				if (ImGui::Button(it->first.c_str()))
 				{
@@ -216,7 +223,7 @@ void ShowEntitySearchBar(std::shared_ptr<Entity>& entityToDraw, std::string& sea
 	ImGui::TreePop();
 }
 
-void DrawEnity(std::shared_ptr<Entity>& entityToDraw)
+void DrawEnity(std::shared_ptr<Entity> &entityToDraw)
 {
 
 	if (entityToDraw == nullptr)
@@ -226,7 +233,6 @@ void DrawEnity(std::shared_ptr<Entity>& entityToDraw)
 
 	contentRegionAvailable = ImGui::GetContentRegionAvail();
 	lineHeight = ImGuiManager::imGuiContext->Font->FontSize + ImGuiManager::imGuiContext->Style.FramePadding.y * 2.0f;
-
 
 	bool isEntityopen = ShowHeader(entityToDraw->name, "EntitySettings", "-");
 	bool isEntityRemoved = ShowEntityMenuAndReturnTrueIfRemoved(entityToDraw);
@@ -321,12 +327,11 @@ void ShapeMenu(const char *name, const char *fileName)
 	}
 }
 
-
-void ShowSaveAndOpenMenuItems() {
+void ShowSaveAndOpenMenuItems()
+{
 	bool openScene = (Input::IsKeyHeld(INPUT_KEY_LEFT_CONTROL) && Input::IsKeyPressed(INPUT_KEY_O)) && !Application::isRunning;
 	bool save = (Input::IsKeyHeld(INPUT_KEY_LEFT_CONTROL) && Input::IsKeyPressed(INPUT_KEY_S));
 	bool saveas = (Input::IsKeyHeld(INPUT_KEY_LEFT_CONTROL) && Input::IsKeyHeld(INPUT_KEY_LEFT_SHIFT) && Input::IsKeyPressed(INPUT_KEY_S)) && !Application::isRunning;
-
 
 	if (ImGui::BeginMainMenuBar())
 	{
@@ -350,43 +355,43 @@ void ShowSaveAndOpenMenuItems() {
 	}
 	ImGui::EndMainMenuBar();
 
-
 	if (openScene)
 	{
-		Application::sceneFileName = OpenFile("All files\0*.*\0");
-		std::replace( Application::sceneFileName.begin(), Application::sceneFileName.end(), '\\', '/');
+		Application::sceneFileName = OpenFile(NULL, 0);
+		std::replace(Application::sceneFileName.begin(), Application::sceneFileName.end(), '\\', '/');
 		if (Application::sceneFileName != "")
 			Application::m_curentScene.Deserialize(Application::sceneFileName);
 	}
 	else if (saveas)
 	{
 		Application::sceneFileName = SaveFile("All files\0*.*\0");
-		std::replace( Application::sceneFileName.begin(), Application::sceneFileName.end(), '\\', '/');
+		std::replace(Application::sceneFileName.begin(), Application::sceneFileName.end(), '\\', '/');
 		if (Application::sceneFileName != "")
 			Application::m_curentScene.Serialize(Application::sceneFileName);
 	}
 	else if (save)
 	{
-		if (Application::sceneFileName != "") {
+		if (Application::sceneFileName != "")
+		{
 			Application::m_curentScene.Serialize(Application::sceneFileName);
-			if (Application::isRunning) {
+			if (Application::isRunning)
+			{
 				Application::m_curentScene.Serialize("other/TEMP.scene");
 			}
 		}
-
 	}
 }
-void ShowInfoPanel() {
+void ShowInfoPanel()
+{
 	ImGui::Begin("INFO");
 
 	ImGui::InputText("Scene name", &Application::m_curentScene.name, ImGuiInputTextFlags_CallbackAlways);
 
-
-	frameCountToDisplay += Application::deltaTime;
+	frameCountToDisplay += EngineInfo::deltaTime;
 	if (frameCountToDisplay >= 1.0f)
 	{
 		frameCountToDisplay = 0.0f;
-		frameImGuiText = std::to_string(1 / Application::deltaTime);
+		frameImGuiText = std::to_string(1 / EngineInfo::deltaTime);
 	}
 	ImGui::TextColored(ImVec4(1, 1, 0, 1), frameImGuiText.c_str());
 
@@ -395,7 +400,8 @@ void ShowInfoPanel() {
 
 	ImGui::End(); //INFO
 }
-void ShowHierarchyPanel() {
+void ShowHierarchyPanel()
+{
 	ImGui::Begin("Hierarchy");
 
 	for (int i = 0; i < Application::m_curentScene.m_entities.size(); i++)
@@ -428,55 +434,66 @@ void ShowHierarchyPanel() {
 			}
 			ImGui::EndMenu();
 		}
-		if (ImGui::MenuItem("Paste Entity")) {
-			if (Application::m_copiedEntity != nullptr) {
+		if (ImGui::MenuItem("Paste Entity"))
+		{
+			if (Application::m_copiedEntity != nullptr)
+			{
 				auto copiedEntity = Application::m_curentScene.AddEntityR();
 				copiedEntity->Copy(Application::m_copiedEntity);
 				copiedEntity->uuid = Random::Int();
 				Application::m_copiedEntity = nullptr;
 			}
-			else {
+			else
+			{
 				Error("Tried to paste a null entity");
 			}
 		}
 		ImGui::EndPopup();
 	}
 
-	if (Input::IsKeyPressed(INPUT_KEY_DELETE)) {
+	if (Input::IsKeyPressed(INPUT_KEY_DELETE))
+	{
 		Application::m_curentScene.RemoveEntity(Application::m_selectedEntity);
 		Application::m_selectedEntity.reset();
 	}
-	if (Input::IsKeyHeld(INPUT_KEY_LEFT_CONTROL) && Input::IsKeyPressed(INPUT_KEY_C)) {
+	if (Input::IsKeyHeld(INPUT_KEY_LEFT_CONTROL) && Input::IsKeyPressed(INPUT_KEY_C))
+	{
 		Application::m_copiedEntity = Application::m_selectedEntity;
 	}
-	if (Input::IsKeyHeld(INPUT_KEY_LEFT_CONTROL) && Input::IsKeyPressed(INPUT_KEY_V)) {
-		if (Application::m_copiedEntity) {
-			if (Application::m_selectedEntity) {
+	if (Input::IsKeyHeld(INPUT_KEY_LEFT_CONTROL) && Input::IsKeyPressed(INPUT_KEY_V))
+	{
+		if (Application::m_copiedEntity)
+		{
+			if (Application::m_selectedEntity)
+			{
 				Application::m_selectedEntity->Copy(Application::m_copiedEntity);
 				Application::m_selectedEntity->uuid = Random::Int();
 				Application::m_copiedEntity = nullptr;
 			}
-			else {
+			else
+			{
 				auto copiedEntity = Application::m_curentScene.AddEntityR();
 				copiedEntity->Copy(Application::m_copiedEntity);
 				copiedEntity->uuid = Random::Int();
 				Application::m_copiedEntity = nullptr;
 			}
 		}
-		else {
+		else
+		{
 			Error("Tried to paste a null entity");
 		}
 	}
 
-
 	ImGui::End(); //Hierarchy
 }
-void ShowPropertiesPanel() {
+void ShowPropertiesPanel()
+{
 	ImGui::Begin("Properties");
 	DrawEnity(Application::m_selectedEntity);
 	ImGui::End(); //Properties
 }
-void ShowOutputPanel() {
+void ShowOutputPanel()
+{
 	ImGui::Begin("OUTPUT");
 	ImGui::TextColored(ImVec4(1, 1, 0, 1), "OUTPUT");
 	ImGui::BeginChild("Output list");
@@ -503,47 +520,53 @@ void ShowOutputPanel() {
 	ImGui::EndChild();
 	ImGui::End(); //OUTPUT
 }
-
-
-void ShowImGuizmo() {
+void ShowImGuizmo()
+{
 	ImGui::Begin("Scene");
 
-	if (Input::IsKeyPressed(INPUT_KEY_W)) {
+	if (Input::IsKeyPressed(INPUT_KEY_W))
+	{
 		Application::imguizmoType = ImGuizmo::OPERATION::TRANSLATE;
 	}
-	else if (Input::IsKeyPressed(INPUT_KEY_E)) {
+	else if (Input::IsKeyPressed(INPUT_KEY_E))
+	{
 		Application::imguizmoType = ImGuizmo::OPERATION::SCALE;
 	}
-	else if (Input::IsKeyPressed(INPUT_KEY_R)) {
+	else if (Input::IsKeyPressed(INPUT_KEY_R))
+	{
 		Application::imguizmoType = ImGuizmo::OPERATION::ROTATE;
 	}
-	else if (Input::IsKeyPressed(INPUT_KEY_T)) {
+	else if (Input::IsKeyPressed(INPUT_KEY_T))
+	{
 		Application::imguizmoType = -1;
 	}
-	else if (Input::IsKeyPressed(INPUT_KEY_Q)) {
+	else if (Input::IsKeyPressed(INPUT_KEY_Q))
+	{
 		Application::imguizmoType = -2;
 	}
 
 	Renderer::SetWindowSize(Application::window, (int)ImGui::GetContentRegionAvail().x, (int)ImGui::GetContentRegionAvail().y);
 
 	ImVec4 borderColor;
-	if (Application::isRunning) {
+	if (Application::isRunning)
+	{
 		borderColor = ImVec4(1, 0, 0, 1);
 	}
-	else {
+	else
+	{
 		borderColor = ImVec4(0, 1, 1, 1);
 	}
-	ImGui::Image((void*)Application::frameBuffer.GetData(), ImVec2(Application::SCREEN_WIDTH - 2.0f, Application::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
+	ImGui::Image((void *)Renderer::frameBuffer.GetData(), ImVec2(EngineInfo::SCREEN_WIDTH - 2.0f, EngineInfo::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
 
-
-	if (Application::m_selectedEntity && Application::imguizmoType != -2) {
+	if (Application::m_selectedEntity && Application::imguizmoType != -2)
+	{
 		auto tc = Application::m_selectedEntity->GetComponent<Transform>();
-		if (tc) {
+		if (tc)
+		{
 
 			ImGuizmo::SetOrthographic(false);
 			ImGuizmo::SetDrawlist();
 			ImGuizmo::SetRect(ImGui::GetWindowPos().x, ImGui::GetWindowPos().y, ImGui::GetWindowWidth(), ImGui::GetWindowHeight());
-
 
 			glm::mat4 viewMat = Renderer::viewMatrix;
 			glm::mat4 projMat = Renderer::projectionMatrix;
@@ -551,11 +574,17 @@ void ShowImGuizmo() {
 
 			ImGuizmo::Manipulate(glm::value_ptr(viewMat), glm::value_ptr(projMat), (ImGuizmo::OPERATION)Application::imguizmoType, ImGuizmo::LOCAL, glm::value_ptr(transformMat));
 
-			if (ImGuizmo::IsUsing()) {
+			if (ImGuizmo::IsUsing())
+			{
 				glm::vec3 translation, rotation, scale;
 				DecomposeTransform(transformMat, translation, rotation, scale);
 				tc->position = translation;
 				tc->scale = scale;
+				/*
+								auto rc = Application::m_selectedEntity->GetComponent<Rigidbody>();
+								if (rc && Application::isRunning) {
+									rc->aSphereActor->setGlobalPose({tc->position.x, tc->position.y, tc->position.z}, false);
+								}*/
 
 				glm::vec3 deltaRot = glm::degrees(rotation) - tc->rotation;
 				tc->rotation += deltaRot;

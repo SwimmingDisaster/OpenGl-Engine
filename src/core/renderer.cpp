@@ -9,6 +9,11 @@ glm::mat4 Renderer::viewMatrix;
 glm::mat4 Renderer::viewProjectionMatrix;
 glm::vec3 Renderer::clearColor = {0.1f, 0.1f, 0.1f};
 
+
+#ifndef RELEASE_BUILD
+FrameBuffer Renderer::frameBuffer;
+#endif
+
 int Renderer::InitOpenGL() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -18,7 +23,7 @@ int Renderer::InitOpenGL() {
 	glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 	glfwWindowHint(GLFW_FOCUSED, GLFW_TRUE);
 	glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
-	Application::window = glfwCreateWindow(Application::SCREEN_WIDTH, Application::SCREEN_HEIGHT, "ENGINE", NULL, NULL);
+	Application::window = glfwCreateWindow(EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT, "ENGINE", NULL, NULL);
 	if (Application::window == nullptr) {
 		Error("Failed to create a GLFW window");
 		glfwTerminate();
@@ -38,7 +43,7 @@ int Renderer::InitOpenGL() {
 		return -1;
 	}
 
-	glViewport(0, 0, Application::SCREEN_WIDTH, Application::SCREEN_HEIGHT);
+	glViewport(0, 0, EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT);
 	glfwSetInputMode(Application::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	glEnable(GL_DEPTH_TEST);
@@ -58,8 +63,8 @@ int Renderer::InitOpenGL() {
 	return 0;
 }
 
-void Renderer::InitMatrices() {
-	projectionMatrix = glm::perspective(glm::radians(90.0f), (float)Application::SCREEN_WIDTH / (float)Application::SCREEN_HEIGHT, 0.1f, 1000.0f);
+void Renderer::Init() {
+	projectionMatrix = glm::perspective(glm::radians(90.0f), (float)EngineInfo::SCREEN_WIDTH / (float)EngineInfo::SCREEN_HEIGHT, 0.1f, 1000.0f);
 
 
 	glGenBuffers(1, &matrixUBO);
@@ -67,9 +72,14 @@ void Renderer::InitMatrices() {
 	glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), NULL, GL_STATIC_DRAW);
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	glBindBufferBase(GL_UNIFORM_BUFFER, 0, matrixUBO);
+
+#ifndef RELEASE_BUILD
+	frameBuffer = FrameBuffer((float)EngineInfo::SCREEN_WIDTH, (float)EngineInfo::SCREEN_HEIGHT);
+#endif
 }
 
 void Renderer::SetupMatrices() {
+
 #ifndef RELEASE_BUILD
 	if (!Application::isRunning) {
 		viewMatrix = Application::editorCamera.GetViewMatrix();
@@ -97,18 +107,47 @@ void Renderer::ResizeCallback(GLFWwindow * window, int width, int height)
 }
 
 void Renderer::SetWindowSize(GLFWwindow * window, int width, int height) {
-	if ((Application::SCREEN_WIDTH != width) || (Application::SCREEN_HEIGHT != height)) {
-		Application::SCREEN_WIDTH = width;
-		Application::SCREEN_HEIGHT = height;
+	if ((EngineInfo::SCREEN_WIDTH != width) || (EngineInfo::SCREEN_HEIGHT != height)) {
+
+		EngineInfo::Resize(width, height);
 
 #ifndef RELEASE_BUILD
-		Application::frameBuffer.Resize(width, height);
+		frameBuffer.Resize(width, height);
 #endif
 
 		float ratio = 1.0f;
-		if (Application::SCREEN_HEIGHT != 0.0f)
-			ratio = (float)Application::SCREEN_WIDTH / (float)Application::SCREEN_HEIGHT;
+		if (EngineInfo::SCREEN_HEIGHT != 0.0f)
+			ratio = (float)EngineInfo::SCREEN_WIDTH / (float)EngineInfo::SCREEN_HEIGHT;
 		projectionMatrix = glm::perspective(glm::radians(90.0f), ratio, 0.05f, 1000.0f);
-		glViewport(0, 0, Application::SCREEN_WIDTH, Application::SCREEN_HEIGHT);
+		glViewport(0, 0, EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT);
 	}
 }
+
+void Renderer::StartFrame() {
+#ifndef RELEASE_BUILD
+	frameBuffer.Bind();
+#endif
+	//--------------------------Draw--------------------------
+#ifndef RELEASE_BUILD
+	if (Application::isRunning) {
+		glClearColor(clearColor.r, clearColor.g, clearColor.b, 1.0f);
+	}
+	else {
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+	}
+#else
+	glClearColor(clearColor.r, clearColor.g, clearColor.b, 1.0f);
+#endif
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//--------------------------Draw----------------------
+
+}
+
+void Renderer::EndFrame() {
+#ifndef RELEASE_BUILD
+	frameBuffer.Unbind();
+#endif
+}
+
+

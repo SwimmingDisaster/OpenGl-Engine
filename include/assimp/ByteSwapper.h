@@ -2,7 +2,9 @@
 Open Asset Import Library (assimp)
 ----------------------------------------------------------------------
 
-Copyright (c) 2006-2016, assimp team
+Copyright (c) 2006-2019, assimp team
+
+
 All rights reserved.
 
 Redistribution and use of this software in source and binary forms,
@@ -58,9 +60,8 @@ namespace Assimp    {
  * This is required to read big-endian model formats on little-endian machines,
  * and vice versa. Direct use of this class is DEPRECATED. Use #StreamReader instead. */
 // --------------------------------------------------------------------------------------
-class ByteSwap
-{
-    ByteSwap() {}
+class ByteSwap {
+    ByteSwap() AI_NO_EXCEPT {}
 
 public:
 

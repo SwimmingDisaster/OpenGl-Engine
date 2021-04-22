@@ -8,6 +8,7 @@ public:
 	std::vector< std::shared_ptr<Entity> > m_entities;
 	std::string name;
 
+
 public:
 	std::shared_ptr<Entity>  GetEntity(std::string name) const noexcept;
 	std::shared_ptr<Entity>  GetEntity(long long uuid) const noexcept;

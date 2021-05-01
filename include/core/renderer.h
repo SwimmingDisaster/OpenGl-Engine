@@ -1,9 +1,8 @@
 #include "mypch.h"
 #include "frameBuffer.h"
 
-
-
-class Renderer {
+class Renderer
+{
 public:
 	static unsigned int matrixUBO;
 	static glm::mat4 projectionMatrix;
@@ -15,16 +14,14 @@ public:
 	static FrameBuffer frameBuffer;
 #endif
 
-
 public:
 	static int InitOpenGL();
 	static void SetupMatrices();
 	static void Init();
 	static void ShutdownOpenGL();
-	static void ResizeCallback(GLFWwindow * window, int width, int height);
-	static void SetWindowSize(GLFWwindow * window, int width, int height);
+	static void ResizeCallback(GLFWwindow *window, int width, int height);
+	static void SetWindowSize(GLFWwindow *window, int width, int height);
 
 	static void StartFrame();
 	static void EndFrame();
-
 };

@@ -73,6 +73,8 @@ void Renderer::Init() {
 	glBindBuffer(GL_UNIFORM_BUFFER, 0);
 	glBindBufferBase(GL_UNIFORM_BUFFER, 0, matrixUBO);
 
+
+
 #ifndef RELEASE_BUILD
 	frameBuffer = FrameBuffer((float)EngineInfo::SCREEN_WIDTH, (float)EngineInfo::SCREEN_HEIGHT);
 #endif

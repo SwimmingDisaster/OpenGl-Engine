@@ -2,13 +2,16 @@
 #include "core/physics.h"
 #include "core/application.h"
 
-PxFoundation* PhysicsManager::mFoundation;
-PxPhysics* PhysicsManager::mPhysics;
+PxFoundation *PhysicsManager::mFoundation;
+PxPhysics *PhysicsManager::mPhysics;
 //PxCooking* PhysicsManager::mCooking;
-PxScene* PhysicsManager::mScene;
+PxScene *PhysicsManager::mScene;
 
+float PhysicsManager::mAccumulator = 0.0f;
+float PhysicsManager::mStepSize = 1.0f / 60.0f;
 
-void PhysicsManager::InitPhysx() {
+void PhysicsManager::InitPhysx()
+{
 
 	static PxDefaultErrorCallback gDefaultErrorCallback;
 	static PxDefaultAllocator gDefaultAllocatorCallback;
@@ -17,10 +20,8 @@ void PhysicsManager::InitPhysx() {
 	if (!mFoundation)
 		ErrorAtPos("PxCreateFoundation failed!");
 
-
-
 	mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *mFoundation,
-	                           PxTolerancesScale(), true, nullptr);
+							   PxTolerancesScale(), true, nullptr);
 	if (!mPhysics)
 		ErrorAtPos("PxCreatePhysics failed!");
 
@@ -28,22 +29,18 @@ void PhysicsManager::InitPhysx() {
 	scale.length = 100;
 	scale.speed = 981;
 
-
 	/*	mCooking = PxCreateCooking(PX_PHYSICS_VERSION, *mFoundation, PxCookingParams(scale));
 		if (!mCooking)
 			ErrorAtPos("PxCreateCooking failed! In file: " << __FILE__ << " on line: " << __LINE__);*/
 
-
 	if (!PxInitExtensions(*mPhysics, nullptr))
 		ErrorAtPos("PxInitExtensions failed!");
-
 
 	PxTolerancesScale tolerance = mPhysics->getTolerancesScale();
 	PxSceneDesc sceneDesc(tolerance);
 	sceneDesc.gravity = PxVec3(0.0f, -9.81f, 0.0f);
 	sceneDesc.broadPhaseType = PxBroadPhaseType::eABP;
 	sceneDesc.flags = PxSceneFlag::eENABLE_ENHANCED_DETERMINISM;
-
 
 	auto gDispatcher = PxDefaultCpuDispatcherCreate(1);
 	sceneDesc.cpuDispatcher = gDispatcher;
@@ -54,7 +51,8 @@ void PhysicsManager::InitPhysx() {
 		Error("createScene failed!");
 }
 
-void PhysicsManager::ShutdownPhysx() {
+void PhysicsManager::ShutdownPhysx()
+{
 	PxCloseExtensions();
 	if (mScene)
 	{
@@ -65,16 +63,33 @@ void PhysicsManager::ShutdownPhysx() {
 	mFoundation->release();
 }
 
-void PhysicsManager::Start() {
-
+void PhysicsManager::Start()
+{
 }
 
-void PhysicsManager::Update() {
+void PhysicsManager::Update()
+{
 #ifndef RELEASE_BUILD //physics manager
-	if (Application::isRunning) {
+	if (Application::isRunning)
+	{
 #endif
-		Application::advance(EngineInfo::deltaTime);
+		AdvanceSimulation(EngineInfo::deltaTime);
 #ifndef RELEASE_BUILD
 	}
 #endif
+}
+
+void PhysicsManager::AdvanceSimulation(float deltaTime)
+{
+	mAccumulator += deltaTime;
+	if (mAccumulator < mStepSize)
+		return; // false;
+
+	while (mAccumulator >= mStepSize)
+	{
+		mAccumulator -= mStepSize;
+		mScene->simulate(mStepSize);
+		mScene->fetchResults(true);
+	}
+	//return true;
 }

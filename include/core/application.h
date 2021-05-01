@@ -1,5 +1,5 @@
 #pragma once
-#include  "mypch.h"
+#include "mypch.h"
 
 #include "core/shader.h"
 #include "core/other/editorCamera.h"
@@ -17,8 +17,8 @@
 
 #include "core/engineInfo.h"
 
-
-class Application {
+class Application
+{
 public:
 	//---OBJECTS---
 #ifndef RELEASE_BUILD
@@ -29,18 +29,14 @@ public:
 	//static EngineInfo Info;
 
 	//---CONTROLLERS---
-	static GLFWwindow* window;
-
+	static GLFWwindow *window;
 
 	static int imguizmoType;
-	static std::shared_ptr<Entity> m_selectedEntity;
-	static std::shared_ptr<Entity> m_copiedEntity;
-	static std::shared_ptr<Component> m_copiedComponent; // EDITOR MANAGER?
+	static std::shared_ptr<Entity> selectedEntity;
+	static std::shared_ptr<Entity> copiedEntity;
+	static std::shared_ptr<Component> copiedComponent; // EDITOR MANAGER?
 
 	static Scene m_curentScene;
-
-	static float mAccumulator;
-	static float mStepSize;
 
 #ifndef RELEASE_BUILD
 	static bool isRunning;
@@ -53,7 +49,4 @@ public:
 	void Start();
 	void Run();
 	void Shutdown();
-
-	static bool advance(float dt);// TODO PUT THIS IN A BETTER PLACE ASAP
-
 };

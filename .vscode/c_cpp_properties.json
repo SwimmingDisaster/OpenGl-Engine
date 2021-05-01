@@ -1,7 +1,7 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "Win64",
             "includePath": [
                 "${default}"
             ],
@@ -15,6 +15,7 @@
             "cStandard": "c17",
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-msvc-x64",
+            "compileCommands": "${workspaceFolder}/bin/intermediates/x64/Debug/GAME.ClangTidy/compile_commands.json"
         }
     ],
     "version": 4

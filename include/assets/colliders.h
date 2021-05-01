@@ -3,16 +3,18 @@
 #include "assets/colliderBase.h"
 #include "ecs/other/componentDefines.h"
 
-
 //--------------BoxCollider--------------
-class BoxCollider : public ColliderBase {
+class BoxCollider : public ColliderBase
+{
 	REGISTER(BoxCollider);
+
 public:
 	glm::vec3 scale = {1.0f, 1.0f, 1.0f};
+
 public:
 	void Show() override;
-	void Serialize(YAML::Emitter& out) override;
-	void Deserialize(const YAML::Node& data) override;
+	void Serialize(YAML::Emitter &out) override;
+	void Deserialize(const YAML::Node &data) override;
 
 	PxGeometryHolder GetGeometry() override;
 
@@ -22,19 +24,22 @@ public:
 	virtual ~BoxCollider();
 #else
 public:
-	virtual ~BoxCollider() {};
+	virtual ~BoxCollider(){};
 #endif
 };
 //--------------BoxCollider--------------
 
-class SphereCollider: public ColliderBase {
+class SphereCollider : public ColliderBase
+{
 	REGISTER(SphereCollider);
+
 public:
 	float radius = 5.0f;
+
 public:
 	void Show() override;
-	void Serialize(YAML::Emitter& out) override;
-	void Deserialize(const YAML::Node& data) override;
+	void Serialize(YAML::Emitter &out) override;
+	void Deserialize(const YAML::Node &data) override;
 
 	PxGeometryHolder GetGeometry() override;
 
@@ -44,6 +49,6 @@ public:
 	virtual ~SphereCollider();
 #else
 public:
-	virtual ~SphereCollider() {};
+	virtual ~SphereCollider(){};
 #endif
 };

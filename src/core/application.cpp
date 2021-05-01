@@ -9,12 +9,12 @@
 
 #ifndef RELEASE_BUILD
 EditorCamera Application::editorCamera;
-#endif //EngineInfo Application::Info;
+#endif
 
 Scene Application::m_curentScene;
-std::shared_ptr<Entity> Application::m_selectedEntity;
-std::shared_ptr<Entity> Application::m_copiedEntity;
-std::shared_ptr<Component> Application::m_copiedComponent;
+std::shared_ptr<Entity> Application::selectedEntity;
+std::shared_ptr<Entity> Application::copiedEntity;
+std::shared_ptr<Component> Application::copiedComponent;
 
 GLFWwindow *Application::window = nullptr;
 
@@ -26,17 +26,10 @@ std::string Application::sceneFileName = "";
 
 int Application::imguizmoType = -1;
 
-float Application::mAccumulator = 0.0f;
-float Application::mStepSize = 1.0f / 60.0f;
-
 int Application::Init()
 {
 	Random::Init();
-	int exitCode = Renderer::InitOpenGL();
-	if (exitCode != 0)
-	{
-		return exitCode;
-	}
+	ReturnIfNotZero(Renderer::InitOpenGL());
 #ifndef RELEASE_BUILD
 	ImGuiManager::InitImGui();
 #endif
@@ -50,27 +43,11 @@ int Application::Init()
 
 void Application::Start()
 {
-	Log("this is cool");
-}
-
-bool Application::advance(float dt) // TODO PUT THIS IN A BETTER PLACE ASAP
-{
-	mAccumulator += dt;
-	if (mAccumulator < mStepSize)
-		return false;
-
-	while (mAccumulator >= mStepSize)
-	{
-		mAccumulator -= mStepSize;
-		PhysicsManager::mScene->simulate(mStepSize);
-		PhysicsManager::mScene->fetchResults(true);
-	}
-	return true;
 }
 
 void Application::Run()
 {
-
+	//change this so that shaders can be added in the engine and saved in a .project file.
 	std::shared_ptr<Shader> lightingShader1 = std::make_shared<Shader>();
 	std::shared_ptr<Shader> colorShader1 = std::make_shared<Shader>();
 
@@ -78,7 +55,7 @@ void Application::Run()
 	colorShader1->CreateVertexAndFragment("res/shaders/color.vs", "res/shaders/color.fs");
 
 #ifdef RELEASE_BUILD
-	m_curentScene.Deserialize("other/scenes/chubby.scene");
+	m_curentScene.Deserialize("other/scenes/chubby.scene");//change this so that the initial scene is set in a .project file
 #endif
 
 	while (!glfwWindowShouldClose(window))
@@ -87,15 +64,32 @@ void Application::Run()
 #ifndef RELEASE_BUILD
 		if (isRunningLast == false && isRunning == true)
 		{
-			m_selectedEntity = nullptr;
+			selectedEntity = nullptr;
 			m_curentScene.Serialize("other/TEMP.scene");
 		}
 		else if (isRunningLast == true && isRunning == false)
 		{
-			m_selectedEntity = nullptr;
+			selectedEntity = nullptr;
 			m_curentScene.Deserialize("other/TEMP.scene");
 		}
 #endif
+
+		static bool is = false;
+		if (isRunning && !is)
+		{
+			for (int i = 0; i < 4000; i++)
+			{
+				auto ant = m_curentScene.AddEntityR("New Entity " + std::to_string(i));
+				auto aaaaaa = ant->AddComponentR<Transform>();
+				aaaaaa->position = {((int)i % 80) * 3.0f, 50.0f, (int)(i / 80.0f) * 3.0f};
+				ant->AddComponent<Model>();
+				auto mmmmmm = ant->AddComponentR<Material>();
+				mmmmmm->color = {Random::Float(), Random::Float(), Random::Float()};
+				ant->AddComponent<ModelRenderer>();
+				ant->Start();
+			}
+			is = true;
+		}
 
 #ifndef RELEASE_BUILD
 		if (!isRunning)

@@ -7,32 +7,34 @@
 
 REGISTERIMPL(Rigidbody);
 
-
-void Rigidbody::Show()  {
+void Rigidbody::Show()
+{
 	ImGui::Checkbox("Is Static", &isStatic);
 }
 
-void Rigidbody::Serialize(YAML::Emitter& out) {
+void Rigidbody::Serialize(YAML::Emitter &out)
+{
 	out << YAML::Key << name;
 	out << YAML::BeginMap;
 
-	out <<  YAML::Key << "Is Static" << isStatic;
+	out << YAML::Key << "Is Static" << isStatic;
 
 	out << YAML::EndMap;
 }
 
-void Rigidbody::Deserialize(const YAML::Node& data) {
+void Rigidbody::Deserialize(const YAML::Node &data)
+{
 	isStatic = data["Is Static"].as<bool>();
 }
 
-void Rigidbody::Start() {
-
+void Rigidbody::Start()
+{
 
 	tc = parentEntity->GetComponent<Transform>();
 	cc = parentEntity->GetComponent<ColliderBase>();
 	size = tc->scale;
 
-	mMaterial = PhysicsManager::mPhysics->createMaterial(10.0f, 10.0f, 0.1f);    //static friction, dynamic friction, restitution
+	mMaterial = PhysicsManager::mPhysics->createMaterial(10.0f, 10.0f, 0.1f); //static friction, dynamic friction, restitution
 	if (!mMaterial)
 		Error("createMaterial failed!");
 
@@ -49,47 +51,51 @@ void Rigidbody::Start() {
 
 	if (!isStatic)
 		PhysicsManager::mScene->addActor(*aDynamicActor);
-	else {
+	else
+	{
 		PhysicsManager::mScene->addActor(*aStaticActor);
 	}
-
-
-
 }
-void Rigidbody::Update() {
+void Rigidbody::Update()
+{
 	//aSphereActor->setGlobalPose({tc->position.x, tc->position.y, tc->position.z});
-	if (!isStatic) {
-		if (!aDynamicActor->isSleeping()) {
+	if (!isStatic)
+	{
+		if (!aDynamicActor->isSleeping())
+		{
 			PxTransform transform = aDynamicActor->getGlobalPose();
 			PxMat44 transformMat = PxMat44(transform);
 			glm::mat4 newMat;
 
-			glm::vec3 translation; glm::vec3 rotation; glm::vec3 scale;
+			glm::vec3 translation;
+			glm::vec3 rotation;
+			glm::vec3 scale;
 			PhysXMat4ToglmMat4(transformMat, newMat);
 			DecomposeTransform(newMat, translation, rotation, scale);
 
-
 			auto pxvec3Vel = aDynamicActor->getLinearVelocity();
-			tc->position = translation + glm::vec3(pxvec3Vel.x, pxvec3Vel.y, pxvec3Vel.z) * Application::mAccumulator;
+			tc->position = translation + glm::vec3(pxvec3Vel.x, pxvec3Vel.y, pxvec3Vel.z) * PhysicsManager::mAccumulator;
 			tc->rotation = glm::degrees(rotation);
 			tc->scale = scale;
 			tc->scale = size;
 		}
-		else {
+		else
+		{
 			parentEntity->GetComponent<Material>()->color = glm::vec3(0.0f, 255.0f, 0.0f);
 		}
 	}
 }
 
-
 #ifdef SHOW_DELETED
-Rigidbody::~Rigidbody() {
+Rigidbody::~Rigidbody()
+{
 	Log("Deleted " << name);
 	aSphereActor->release();
 	mMaterial->release();
 }
 #else
-Rigidbody::~Rigidbody() {
+Rigidbody::~Rigidbody()
+{
 	if (!isStatic)
 		aDynamicActor->release();
 	else
@@ -97,6 +103,7 @@ Rigidbody::~Rigidbody() {
 	mMaterial->release();
 }
 #endif
-Rigidbody::Rigidbody() {
+Rigidbody::Rigidbody()
+{
 	name = "Rigidbody";
 }

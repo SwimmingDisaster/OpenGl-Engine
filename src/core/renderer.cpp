@@ -9,6 +9,7 @@ glm::mat4 Renderer::viewMatrix;
 glm::mat4 Renderer::viewProjectionMatrix;
 glm::vec3 Renderer::clearColor = {0.1f, 0.1f, 0.1f};
 
+int Renderer::renderID;
 
 #ifndef RELEASE_BUILD
 FrameBuffer Renderer::frameBuffer;

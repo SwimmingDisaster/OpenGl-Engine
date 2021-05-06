@@ -2,6 +2,7 @@
 
 #include "assets/modelRenderer.h"
 #include "assets/material.h"
+#include "core/renderer.h"
 
 REGISTERIMPL(ModelRenderer);
 ModelRenderer::ModelRenderer() {
@@ -30,7 +31,6 @@ void ModelRenderer::Start() {
 }
 void ModelRenderer::Update() {
 	m_shader->use();
-	m_shader->setVec3("color", m_materialComponent->color);
 	DrawModel(m_shader, m_modelComponent);
 }
 void ModelRenderer::Show() {
@@ -41,7 +41,9 @@ void ModelRenderer::DrawModel(const std::shared_ptr<Shader>& shader, const std::
 {
 	glm::mat4 matModel = model->transform->GetTransform();
 
+	Renderer::renderID++;
 
+	shader->setInt("renderID", Renderer::renderID);
 	shader->setMat4("matModel", matModel);
 	for (unsigned int i = 0; i < model->meshes.size(); i++) {
 		DrawMesh(shader, model->meshes[i]);

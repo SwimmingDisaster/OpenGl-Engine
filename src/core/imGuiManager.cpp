@@ -104,7 +104,7 @@ bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDraw)
 		{
 			if (Application::copiedComponent != nullptr)
 			{
-				std::string str(typeid(*Application::copiedComponent).name());
+				std::string str(typeid(Application::copiedComponent.get()).name());
 				std::string last_element(str.substr(str.rfind(" ") + 1));
 
 				Factory::copy(last_element, entityToDraw, Application::copiedComponent);
@@ -156,7 +156,7 @@ bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDr
 		{
 			if (Application::copiedComponent != nullptr)
 			{
-				std::string str(typeid(*Application::copiedComponent).name());
+				std::string str(typeid(Application::copiedComponent.get()).name());
 				std::string last_element(str.substr(str.rfind(" ") + 1));
 
 				Factory::copy(last_element, entityToDraw, Application::copiedComponent);
@@ -180,7 +180,7 @@ bool ShowHeader(const std::string &headerName, const std::string &popupName, con
 {
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{4, 4});
 	ImGui::Separator();
-	bool open = ImGui::TreeNodeEx((void *)(&headerName), treeNodeFlags, headerName.c_str());
+	bool open = ImGui::TreeNodeEx((void *)(&headerName), treeNodeFlags, "%s", headerName.c_str());
 	ImGui::PopStyleVar();
 	ImGui::SameLine(contentRegionAvailable.x - lineHeight * 0.5f);
 	if (ImGui::Button(popupIcon.c_str(), ImVec2{lineHeight, lineHeight}))
@@ -246,7 +246,7 @@ void DrawEnity(std::shared_ptr<Entity> &entityToDraw)
 	{
 
 		ImGui::InputText("Name", &entityToDraw->name, ImGuiInputTextFlags_CallbackResize);
-		ImGui::Text(("UIID: " + std::to_string(entityToDraw->uuid)).c_str());
+		ImGui::TextUnformatted(("UIID: " + std::to_string(entityToDraw->uuid)).c_str());
 		for (int i = 0; i < entityToDraw->m_components.size(); i++)
 		{
 
@@ -285,7 +285,7 @@ void DrawEnityHierarchy(const std::shared_ptr<Entity> &entt)
 		flags = ((Application::selectedEntity->uuid == entt->uuid) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
 	}
 
-	bool opened = ImGui::TreeNodeEx((void *)entt->uuid, flags, entt->name.c_str());
+	bool opened = ImGui::TreeNodeEx((void *)entt->uuid, flags, "%s", entt->name.c_str());
 
 	if (ImGui::IsItemClicked())
 	{
@@ -398,7 +398,7 @@ void ShowInfoPanel()
 		frameCountToDisplay = 0.0f;
 		frameImGuiText = std::to_string(1 / EngineInfo::deltaTime);
 	}
-	ImGui::TextColored(ImVec4(1, 1, 0, 1), frameImGuiText.c_str());
+	ImGui::TextColored(ImVec4(1, 1, 0, 1), "%s", frameImGuiText.c_str());
 
 	Application::isRunningLast = Application::isRunning;
 	ImGui::Checkbox("Is running", &Application::isRunning);
@@ -561,7 +561,7 @@ void ShowImGuizmo()
 	{
 		borderColor = ImVec4(0, 1, 1, 1);
 	}
-	ImGui::Image((void *)Renderer::frameBuffer.GetData(), ImVec2(EngineInfo::SCREEN_WIDTH - 2.0f, EngineInfo::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
+	ImGui::Image((void*)(uintptr_t)Renderer::frameBuffer.GetData(), ImVec2(EngineInfo::SCREEN_WIDTH - 2.0f, EngineInfo::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
 
 	if (Application::selectedEntity && Application::imguizmoType != -2)
 	{

@@ -1,23 +1,31 @@
+rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
+
 SRC_DIR := src
 OBJ_DIR := obj
 BIN_DIR := bin
 
-EXE := bin/release/main
-SRC := $(wildcard $(SRC_DIR)/*.cpp)
+GLAD = obj/GLAD/glad.o
+
+EXE := bin/linux/Debug/main
+SRC := $(call rwildcard,$(SRC_DIR),*.cpp)
+SRC += $(GLAD)
 
 OBJ := $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
-CPPFLAGS := -I include -I C:/SDL2-w64/include -MMD -MP 
-CFLAGS   := -Wall -std=c++17 -g -O3 
+
+CPPFLAGS := -include include/mypch.h -I include -MMD -MP `pkg-config --cflags gtk+-3.0`
+CFLAGS   := -Wall -std=c++20 -g -O3 -Wno-unused-variable -Wno-unused-function
 LDFLAGS  := -Llibg 
-LDLIBS   := -L C:/SDL2-w64/lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image 
+LDLIBS   := -rpath ./lib/linux -Llib/linux -lassimp -lglfw3 -lnfd -lpthread -ldl -lX11 `pkg-config --libs gtk+-3.0` -Llib/linux/physx -lPhysXExtensions_static_64 -lPhysX_static_64 -lPhysXPvdSDK_static_64 -lPhysXVehicle_static_64 -lPhysXCharacterKinematic_static_64 -lPhysXCooking_static_64 -lPhysXCommon_static_64 -lPhysXFoundation_static_64 -lSnippetRender_static_64 -lSnippetUtils_static_64 
+
 
 
 .PHONY: all clean
 
-all: $(EXE)
+all: $(EXE) 
 
 $(EXE): $(OBJ) | $(BIN_DIR)
+	RELEASE IS BROKEN COMPILE PHYSX RELEASE AND PUT FILES IN LIB ALSO FIX PCH
 	@$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
 	$(info $@)
 

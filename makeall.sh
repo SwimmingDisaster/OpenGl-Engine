@@ -1,16 +1,16 @@
 mkdir -p  bin/linux/Debug
 mkdir -p  bin/linux/Relase
 
-mkdir obj
-mkdir obj/assets
-mkdir obj/core
-mkdir obj/GLAD
-mkdir obj/ImGUI
-mkdir obj/utils
-mkdir obj/imguizmo
+mkdir -p obj
+mkdir -p obj/assets
+mkdir -p obj/GLAD
+mkdir -p obj/ImGUI
+mkdir -p obj/utils
+mkdir -p obj/imguizmo
 
 mkdir -p obj/ecs/other
-mkdir -p yaml-cpp/contrib
+mkdir -p obj/yaml-cpp/contrib
+mkdir -p obj/core/other
 
 ./makepch.sh
 ./makeglad.sh

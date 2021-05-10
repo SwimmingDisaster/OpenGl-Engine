@@ -18,6 +18,10 @@ public:
 	virtual void Deserialize(YAML::Node& data);
 
 	Entity() {}
+public:
+	virtual ~Entity(){};
+
+public:
 
 	void Copy(const std::shared_ptr<Entity>& other) {
 		name = other->name;

@@ -7,7 +7,7 @@ BIN_DIR := bin
 
 GLAD = obj/GLAD/glad.o
 
-EXE := bin/debug/main
+EXE := bin/linux/debug/main
 SRC := $(call rwildcard,$(SRC_DIR),*.cpp)
 SRC += $(GLAD)
 

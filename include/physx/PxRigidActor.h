@@ -35,7 +35,7 @@
 */
 
 #include "PxActor.h"
-#include "PxShape.h"
+#include "physx/PxShape.h"
 
 #if !PX_DOXYGEN
 namespace physx

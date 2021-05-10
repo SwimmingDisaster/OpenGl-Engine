@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_VEHICLE_DRIVE_H
 #define PX_VEHICLE_DRIVE_H
@@ -33,8 +33,8 @@
   @{
 */
 
-#include "vehicle/PxVehicleWheels.h"
-#include "vehicle/PxVehicleComponents.h"
+#include "physx/vehicle/PxVehicleWheels.h"
+#include "physx/vehicle/PxVehicleComponents.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -56,8 +56,8 @@ class PxRigidDynamic;
 class PxVehicleDriveSimData
 {
 //= ATTENTION! =====================================================================================
-// Changing the data layout of this class breaks the binary serialization format.  See comments for 
-// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData 
+// Changing the data layout of this class breaks the binary serialization format.  See comments for
+// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData
 // function.  If the modification is made on a custom branch, please change PX_BINARY_SERIAL_VERSION
 // accordingly.
 //==================================================================================================
@@ -68,11 +68,11 @@ public:
 	/**
 	\brief Return the engine data
 	*/
-	PX_FORCE_INLINE const PxVehicleEngineData& getEngineData() const 
+	PX_FORCE_INLINE const PxVehicleEngineData& getEngineData() const
 	{
 		return mEngine;
 	}
-	
+
 	/**
 	\brief Set the engine data
 	\param[in] engine - the data stored in engine is copied to the vehicle's engine.
@@ -82,11 +82,11 @@ public:
 	/**
 	\brief Return the gears data
 	*/
-	PX_FORCE_INLINE const PxVehicleGearsData& getGearsData() const 
+	PX_FORCE_INLINE const PxVehicleGearsData& getGearsData() const
 	{
 		return mGears;
 	}
-	
+
 	/**
 	\brief Set the gears data
 	\param[in] gears - the data stored in gears is copied to the vehicle's gears.
@@ -96,11 +96,11 @@ public:
 	/**
 	\brief Return the clutch data
 	*/
-	PX_FORCE_INLINE const PxVehicleClutchData& getClutchData() const 
+	PX_FORCE_INLINE const PxVehicleClutchData& getClutchData() const
 	{
 		return mClutch;
 	}
-	
+
 	/**
 	\brief Set the clutch data
 	\param[in] clutch - the data stored in clutch is copied to the vehicle's clutch.
@@ -110,7 +110,7 @@ public:
 	/**
 	\brief Return the autobox data
 	*/
-	PX_FORCE_INLINE const PxVehicleAutoBoxData& getAutoBoxData() const 
+	PX_FORCE_INLINE const PxVehicleAutoBoxData& getAutoBoxData() const
 	{
 		return mAutoBox;
 	}
@@ -161,7 +161,7 @@ public:
 	static void getBinaryMetaData(PxOutputStream& stream);
 //~serialization
 };
-PX_COMPILE_TIME_ASSERT(0==(sizeof(PxVehicleDriveSimData) & 15));
+PX_COMPILE_TIME_ASSERT(0 == (sizeof(PxVehicleDriveSimData) & 15));
 
 
 /**
@@ -171,10 +171,10 @@ PX_COMPILE_TIME_ASSERT(0==(sizeof(PxVehicleDriveSimData) & 15));
 class PxVehicleDriveDynData
 {
 public:
-	
+
 	enum
 	{
-		eMAX_NB_ANALOG_INPUTS=16
+		eMAX_NB_ANALOG_INPUTS = 16
 	};
 
 	friend class PxVehicleDrive;
@@ -203,12 +203,12 @@ public:
 	\brief Inform the vehicle that the gear-up button has been pressed.
 
 	\param[in] digitalVal is the state of the gear-up button.
-	
+
 	\note If digitalVal is true the vehicle will attempt to initiate a gear change at the next call to PxVehicleUpdates.
 
 	\note The value of mGearUpPressed is not reset by PxVehicleUpdates
 	*/
-	void setGearUp(const bool digitalVal) 
+	void setGearUp(const bool digitalVal)
 	{
 		mGearUpPressed = digitalVal;
 	}
@@ -222,7 +222,7 @@ public:
 
 	\note The value of mGearDownPressed is not reset by PxVehicleUpdates
 	*/
-	void setGearDown(const bool digitalVal) 
+	void setGearDown(const bool digitalVal)
 	{
 		mGearDownPressed = digitalVal;
 	}
@@ -231,7 +231,7 @@ public:
 	\brief Check if the gear-up button has been pressed
 	\return The state of the gear-up button.
 	*/
-	bool getGearUp() const 
+	bool getGearUp() const
 	{
 		return mGearUpPressed;
 	}
@@ -240,7 +240,7 @@ public:
 	\brief Check if the gear-down button has been pressed
 	\return The state of the gear-down button.
 	*/
-	bool getGearDown() const 
+	bool getGearDown() const
 	{
 		return mGearDownPressed;
 	}
@@ -252,7 +252,7 @@ public:
 	*/
 	PX_FORCE_INLINE void setUseAutoGears(const bool useAutoGears)
 	{
-		mUseAutoGears=useAutoGears;
+		mUseAutoGears = useAutoGears;
 	}
 
 	/**
@@ -268,7 +268,7 @@ public:
 	\brief Toggle the auto-gears flag
 	If useAutoGears is true the auto-box will be active.
 	*/
-	PX_FORCE_INLINE void toggleAutoGears() 
+	PX_FORCE_INLINE void toggleAutoGears()
 	{
 		mUseAutoGears = !mUseAutoGears;
 	}
@@ -278,13 +278,13 @@ public:
 
 	\param[in] currentGear is the vehicle's gear.
 
-	\note If the target gear is different from the current gear the vehicle will 
-	attempt to start a gear change from the current gear that has just been set 
+	\note If the target gear is different from the current gear the vehicle will
+	attempt to start a gear change from the current gear that has just been set
 	towards the target gear at the next call to PxVehicleUpdates.
 
 	@see setTargetGear, PxVehicleGearsData
 	*/
-	PX_FORCE_INLINE void setCurrentGear(PxU32 currentGear) 
+	PX_FORCE_INLINE void setCurrentGear(PxU32 currentGear)
 	{
 		mCurrentGear = currentGear;
 	}
@@ -306,13 +306,13 @@ public:
 
 	\param[in] targetGear is the vehicle's target gear.
 
-	\note If the target gear is different from the current gear the vehicle will 
-	attempt to start a gear change towards the target gear at the next call to 
+	\note If the target gear is different from the current gear the vehicle will
+	attempt to start a gear change towards the target gear at the next call to
 	PxVehicleUpdates.
 
 	@see PxVehicleGearsData
 	*/
-	PX_FORCE_INLINE void setTargetGear(PxU32 targetGear) 
+	PX_FORCE_INLINE void setTargetGear(PxU32 targetGear)
 	{
 		mTargetGear = targetGear;
 	}
@@ -328,10 +328,10 @@ public:
 	{
 		return mTargetGear;
 	}
-	
+
 	/**
-	\brief Start a gear change to a target gear. 
-	
+	\brief Start a gear change to a target gear.
+
 	\param[in] targetGear is the gear the vehicle will begin a transition towards.
 
 	\note The gear change will begin at the next call to PxVehicleUpadates.
@@ -340,7 +340,7 @@ public:
 	*/
 	PX_FORCE_INLINE void startGearChange(const PxU32 targetGear)
 	{
-		mTargetGear=targetGear;
+		mTargetGear = targetGear;
 	}
 
 	/**
@@ -352,8 +352,8 @@ public:
 	*/
 	PX_FORCE_INLINE void forceGearChange(const PxU32 targetGear)
 	{
-		mTargetGear=targetGear;
-		mCurrentGear=targetGear;
+		mTargetGear = targetGear;
+		mCurrentGear = targetGear;
 	}
 
 	/**
@@ -378,8 +378,8 @@ public:
 
 	/**
 	\brief Return the time that has passed since the current gear change was initiated.
-	
-	\return The time that has passed since the current gear change was initiated. 
+
+	\return The time that has passed since the current gear change was initiated.
 
 	\note If no gear change is in process the gear switch time will be zero.
 
@@ -408,7 +408,7 @@ public:
 
 
 	/**
-	\brief Analog control values used by vehicle simulation. 
+	\brief Analog control values used by vehicle simulation.
 	@see setAnalogInput, getAnalogInput, PxVehicleDrive4WControl, PxVehicleDriveNWControl, PxVehicleDriveTankControl
 	*/
 	PxReal mControlAnalogVals[eMAX_NB_ANALOG_INPUTS];
@@ -420,8 +420,8 @@ public:
 	bool mUseAutoGears;
 
 	/**
-	\brief Gear-up digital control value used by vehicle simulation.  
-	
+	\brief Gear-up digital control value used by vehicle simulation.
+
 	\note If true a gear change will be initiated towards currentGear+1 (or to first gear if in reverse).
 
 	@see setDigitalInput, getDigitalInput
@@ -429,8 +429,8 @@ public:
 	bool mGearUpPressed;
 
 	/**
-	\brief Gear-down digital control value used by vehicle simulation.  
-	
+	\brief Gear-down digital control value used by vehicle simulation.
+
 	\note If true a gear change will be initiated towards currentGear-1 (or to reverse if in first).
 
 	@see setDigitalInput, getDigitalInput
@@ -438,13 +438,13 @@ public:
 	bool mGearDownPressed;
 
 	/**
-	\brief Current gear 
+	\brief Current gear
 	@see startGearChange, forceGearChange, getCurrentGear, PxVehicleGearsData
 	*/
 	PxU32 mCurrentGear;
 
 	/**
-	\brief Target gear (different from current gear if a gear change is underway) 
+	\brief Target gear (different from current gear if a gear change is underway)
 	@see startGearChange, forceGearChange, getTargetGear, PxVehicleGearsData
 	*/
 	PxU32 mTargetGear;
@@ -452,7 +452,7 @@ public:
 	/**
 	\brief Rotation speed of engine
 	@see setToRestState, getEngineRotationSpeed
-	*/	
+	*/
 	PxReal mEnginespeed;
 
 	/**
@@ -481,13 +481,13 @@ public:
 	PxVehicleDriveDynData();
 	PxVehicleDriveDynData(const PxEMPTY)  {}
 	PxU32 getNbAnalogInput() const { return eMAX_NB_ANALOG_INPUTS; }
-	PX_FORCE_INLINE void setGearChange(const PxU32 gearChange) { mTargetGear= gearChange; }
+	PX_FORCE_INLINE void setGearChange(const PxU32 gearChange) { mTargetGear = gearChange; }
 	PX_FORCE_INLINE PxU32 getGearChange() const { return mTargetGear; }
 	PX_FORCE_INLINE void setGearSwitchTime(const PxReal switchTime) { mGearSwitchTime = switchTime; }
 	PX_FORCE_INLINE void setAutoBoxSwitchTime(const PxReal autoBoxSwitchTime) { mAutoBoxSwitchTime = autoBoxSwitchTime; }
 //~serialization
 };
-PX_COMPILE_TIME_ASSERT(0==(sizeof(PxVehicleDriveDynData) & 15));
+PX_COMPILE_TIME_ASSERT(0 == (sizeof(PxVehicleDriveDynData) & 15));
 
 /**
 \brief A complete vehicle with instance dynamics data and configuration data for wheels and engine,clutch,gears,autobox.
@@ -496,8 +496,8 @@ PX_COMPILE_TIME_ASSERT(0==(sizeof(PxVehicleDriveDynData) & 15));
 class PxVehicleDrive : public PxVehicleWheels
 {
 //= ATTENTION! =====================================================================================
-// Changing the data layout of this class breaks the binary serialization format.  See comments for 
-// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData 
+// Changing the data layout of this class breaks the binary serialization format.  See comments for
+// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData
 // function.  If the modification is made on a custom branch, please change PX_BINARY_SERIAL_VERSION
 // accordingly.
 //==================================================================================================
@@ -512,7 +512,7 @@ public:
 	PxVehicleDriveDynData mDriveDynData;
 
 protected:
-	
+
 	/**
 	\brief Test that all instanced dynamics data and configuration data have legal values.
 	*/
@@ -540,9 +540,9 @@ protected:
 	@see PxVehicleDrive4W::setup, PxVehicleDriveTank::setup
 	*/
 	void setup
-		(PxPhysics* physics, PxRigidDynamic* vehActor, 
-		 const PxVehicleWheelsSimData& wheelsData,
-		 const PxU32 nbDrivenWheels, const PxU32 nbNonDrivenWheels);
+	(PxPhysics* physics, PxRigidDynamic* vehActor,
+	 const PxVehicleWheelsSimData& wheelsData,
+	 const PxU32 nbDrivenWheels, const PxU32 nbNonDrivenWheels);
 
 //serialization
 public:
@@ -550,12 +550,12 @@ public:
 	PxVehicleDrive(PxBaseFlags baseFlags) : PxVehicleWheels(baseFlags), mDriveDynData(PxEmpty) {}
 	virtual const char* getConcreteTypeName() const { return "PxVehicleDrive"; }
 protected:
-	PxVehicleDrive(PxType concreteType, PxBaseFlags baseFlags) : PxVehicleWheels(concreteType, baseFlags) {}	
+	PxVehicleDrive(PxType concreteType, PxBaseFlags baseFlags) : PxVehicleWheels(concreteType, baseFlags) {}
 	~PxVehicleDrive() {}
 	virtual bool isKindOf(const char* name)	const { return !::strcmp("PxVehicleDrive", name) || PxBase::isKindOf(name); }
 //~serialization
 };
-PX_COMPILE_TIME_ASSERT(0==(sizeof(PxVehicleDrive) & 15));
+PX_COMPILE_TIME_ASSERT(0 == (sizeof(PxVehicleDrive) & 15));
 
 #if !PX_DOXYGEN
 } // namespace physx

@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_VEHICLE_NO_DRIVE_H
 #define PX_VEHICLE_NO_DRIVE_H
@@ -33,8 +33,8 @@
   @{
 */
 
-#include "vehicle/PxVehicleWheels.h"
-#include "vehicle/PxVehicleComponents.h"
+#include "physx/vehicle/PxVehicleWheels.h"
+#include "physx/vehicle/PxVehicleComponents.h"
 
 
 #if !PX_DOXYGEN
@@ -56,8 +56,8 @@ class PxRigidDynamic;
 class PxVehicleNoDrive : public PxVehicleWheels
 {
 //= ATTENTION! =====================================================================================
-// Changing the data layout of this class breaks the binary serialization format.  See comments for 
-// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData 
+// Changing the data layout of this class breaks the binary serialization format.  See comments for
+// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData
 // function.  If the modification is made on a custom branch, please change PX_BINARY_SERIAL_VERSION
 // accordingly.
 //==================================================================================================
@@ -91,7 +91,7 @@ public:
 	@see allocate, free, setToRestState, PxVehicleWheels::setWheelShapeMapping
 	*/
 	void setup
-		(PxPhysics* physics, PxRigidDynamic* vehActor, const PxVehicleWheelsSimData& wheelsData);
+	(PxPhysics* physics, PxRigidDynamic* vehActor, const PxVehicleWheelsSimData& wheelsData);
 
 	/**
 	\brief Allocate and set up a vehicle using simulation data for the wheels.
@@ -103,22 +103,22 @@ public:
 	@see allocate, free, setToRestState, PxVehicleWheels::setWheelShapeMapping
 	*/
 	static PxVehicleNoDrive* create
-		(PxPhysics* physics, PxRigidDynamic* vehActor, const PxVehicleWheelsSimData& wheelsData);
+	(PxPhysics* physics, PxRigidDynamic* vehActor, const PxVehicleWheelsSimData& wheelsData);
 
 	/**
-	\brief Set a vehicle to its rest state.  Aside from the rigid body transform, this will set the vehicle and rigid body 
+	\brief Set a vehicle to its rest state.  Aside from the rigid body transform, this will set the vehicle and rigid body
 	to the state they were in immediately after setup or create.
 	\note Calling setToRestState invalidates the cached raycast hit planes under each wheel meaning that suspension line
-	raycasts need to be performed at least once with PxVehicleSuspensionRaycasts before calling PxVehicleUpdates. 
+	raycasts need to be performed at least once with PxVehicleSuspensionRaycasts before calling PxVehicleUpdates.
 	@see setup, create, PxVehicleSuspensionRaycasts, PxVehicleUpdates
 	*/
 	void setToRestState();
 
 	/**
 	\brief Set the brake torque to be applied to a specific wheel
-	
+
 	\note The applied brakeTorque persists until the next call to setBrakeTorque
-	
+
 	\note The brake torque is specified in Newton metres.
 
 	\param[in] id is the wheel being given the brake torque
@@ -140,9 +140,9 @@ public:
 
 	/**
 	\brief Set the steer angle to be applied to a specific wheel
-	
+
 	\note The applied steerAngle persists until the next call to setSteerAngle
-	
+
 	\note The steer angle is specified in radians.
 
 	\param[in] id is the wheel being given the steer angle
@@ -159,7 +159,7 @@ public:
 
 	/**
 	\brief Get the drive torque that has been applied to a specific wheel
-	\param[in] id is the wheel being queried for its drive torque 
+	\param[in] id is the wheel being queried for its drive torque
 	\return The drive torque applied to the queried wheel.
 	*/
 	PxReal getDriveTorque(const PxU32 id) const;
@@ -170,7 +170,7 @@ public:
 	\return The steer angle (in radians) applied to the queried wheel.
 	*/
 	PxReal getSteerAngle(const PxU32 id) const;
-		
+
 private:
 
 	PxReal* mSteerAngles;
@@ -179,7 +179,7 @@ private:
 
 #if PX_P64_FAMILY
 	PxU32 mPad[2];
-#else 
+#else
 	PxU32 mPad[1];
 #endif
 
@@ -191,22 +191,22 @@ private:
 
 //serialization
 public:
-									PxVehicleNoDrive(PxBaseFlags baseFlags) : PxVehicleWheels(baseFlags) {}	
+	PxVehicleNoDrive(PxBaseFlags baseFlags) : PxVehicleWheels(baseFlags) {}
 	virtual		void				exportExtraData(PxSerializationContext&);
-				void				importExtraData(PxDeserializationContext&);
+	void				importExtraData(PxDeserializationContext&);
 	static		PxVehicleNoDrive*	createObject(PxU8*& address, PxDeserializationContext& context);
 	static		void				getBinaryMetaData(PxOutputStream& stream);
 	virtual		const char*			getConcreteTypeName() const			{ return "PxVehicleNoDrive";	}
 	virtual		bool				isKindOf(const char* name)	const	{ return !::strcmp("PxVehicleNoDrive", name) || PxBase::isKindOf(name); }
-				PxU32				getNbSteerAngle() const { return mWheelsSimData.getNbWheels();	}
-				PxU32				getNbDriveTorque() const	{ return mWheelsSimData.getNbWheels();	}
-				PxU32				getNbBrakeTorque() const	{ return mWheelsSimData.getNbWheels();	}
+	PxU32				getNbSteerAngle() const { return mWheelsSimData.getNbWheels();	}
+	PxU32				getNbDriveTorque() const	{ return mWheelsSimData.getNbWheels();	}
+	PxU32				getNbBrakeTorque() const	{ return mWheelsSimData.getNbWheels();	}
 protected:
-									PxVehicleNoDrive();
-									~PxVehicleNoDrive() {}
+	PxVehicleNoDrive();
+	~PxVehicleNoDrive() {}
 //~serialization
 };
-PX_COMPILE_TIME_ASSERT(0==(sizeof(PxVehicleNoDrive) & 15));
+PX_COMPILE_TIME_ASSERT(0 == (sizeof(PxVehicleNoDrive) & 15));
 
 #if !PX_DOXYGEN
 } // namespace physx

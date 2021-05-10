@@ -36,8 +36,8 @@
 #include "pxshared/foundation/PxSimpleTypes.h"
 #include "pxshared/foundation/PxErrorCallback.h"
 #include "pxshared/foundation/PxFlags.h"
-#include "task/PxTaskDefine.h"
-#include "cudamanager/PxCudaMemoryManager.h"
+#include "physx/task/PxTaskDefine.h"
+#include "physx/cudamanager/PxCudaMemoryManager.h"
 
 /* Forward decl to avoid inclusion of cuda.h */
 typedef struct CUctx_st *CUcontext;
@@ -45,35 +45,35 @@ typedef struct CUgraphicsResource_st *CUgraphicsResource;
 typedef int CUdevice;
 
 namespace physx
-{ 
-	
+{
+
 /** \brief Possible graphic/CUDA interoperability modes for context */
 struct PxCudaInteropMode
 {
     /**
      * \brief Possible graphic/CUDA interoperability modes for context
      */
-	enum Enum
-	{
-		NO_INTEROP = 0,
-		D3D10_INTEROP,
-		D3D11_INTEROP,
-		OGL_INTEROP,
+    enum Enum
+    {
+        NO_INTEROP = 0,
+        D3D10_INTEROP,
+        D3D11_INTEROP,
+        OGL_INTEROP,
 
-		COUNT
-	};
+        COUNT
+    };
 };
 
 struct PxCudaInteropRegisterFlag
 {
-	enum Enum
-	{
-		eNONE           = 0x00,
-		eREAD_ONLY      = 0x01,
-		eWRITE_DISCARD  = 0x02,
-		eSURFACE_LDST   = 0x04,
-		eTEXTURE_GATHER = 0x08
-	};
+    enum Enum
+    {
+        eNONE           = 0x00,
+        eREAD_ONLY      = 0x01,
+        eWRITE_DISCARD  = 0x02,
+        eSURFACE_LDST   = 0x04,
+        eTEXTURE_GATHER = 0x08
+    };
 };
 
 /**
@@ -109,7 +109,7 @@ public:
      * the context outside the scope of the PxCudaMemoryManager, so long as you
      * manage its eventual cleanup.
      */
-	CUcontext            *ctx;
+    CUcontext            *ctx;
 
     /**
      * \brief D3D device pointer or OpenGl context handle
@@ -118,17 +118,17 @@ public:
      * created.  In that case, the created context will be bound to this
      * graphics device.
      */
-	void	             *graphicsDevice;
+    void                 *graphicsDevice;
 
 #if PX_SUPPORT_GPU_PHYSX
-	/**
-	  * \brief Application-specific GUID
-	  *
-	  * If your application employs PhysX modules that use CUDA you need to use a GUID 
-	  * so that patches for new architectures can be released for your game.You can obtain a GUID for your 
-	  * application from Nvidia.
-	  */
-	const char*			 appGUID;
+    /**
+      * \brief Application-specific GUID
+      *
+      * If your application employs PhysX modules that use CUDA you need to use a GUID
+      * so that patches for new architectures can be released for your game.You can obtain a GUID for your
+      * application from Nvidia.
+      */
+    const char*          appGUID;
 #endif
     /**
      * \brief The CUDA/Graphics interop mode of this context
@@ -137,7 +137,7 @@ public:
      * pointer provided by the user.  Else it describes the nature of the
      * context provided by the user.
      */
-	PxCudaInteropMode::Enum interopMode;
+    PxCudaInteropMode::Enum interopMode;
 
 
     /**
@@ -152,10 +152,10 @@ public:
      * this initial base memory size to closely approximate the amount of
      * memory your application will consume.
 
-	 Note: This is currently not used by PxSceneFlag::eENABLE_GPU_DYNAMICS. Memory allocation properties are configured
-	 for GPU rigid bodies using PxSceneDesc::gpuDynamicsConfig.
+     Note: This is currently not used by PxSceneFlag::eENABLE_GPU_DYNAMICS. Memory allocation properties are configured
+     for GPU rigid bodies using PxSceneDesc::gpuDynamicsConfig.
      */
-	uint32_t	memoryBaseSize[PxCudaBufferMemorySpace::COUNT];
+    uint32_t    memoryBaseSize[PxCudaBufferMemorySpace::COUNT];
 
     /**
      * \brief Size of memory pages
@@ -163,34 +163,34 @@ public:
      * The memory manager will dynamically grow and shrink in blocks multiple of
      * this page size. Size has to be power of two and bigger than 0.
 
-	Note: This is currently not used by PxSceneFlag::eENABLE_GPU_DYNAMICS. Memory allocation properties are configured
-	for GPU rigid bodies using PxSceneDesc::gpuDynamicsConfig.
+    Note: This is currently not used by PxSceneFlag::eENABLE_GPU_DYNAMICS. Memory allocation properties are configured
+    for GPU rigid bodies using PxSceneDesc::gpuDynamicsConfig.
      */
-	uint32_t	memoryPageSize[PxCudaBufferMemorySpace::COUNT];
+    uint32_t    memoryPageSize[PxCudaBufferMemorySpace::COUNT];
 
     /**
      * \brief Maximum size of memory that the memory manager will allocate
 
-	 Note: This is currently not used by PxSceneFlag::eENABLE_GPU_DYNAMICS. Memory allocation properties are configured
-	 for GPU rigid bodies using PxSceneDesc::gpuDynamicsConfig.
+     Note: This is currently not used by PxSceneFlag::eENABLE_GPU_DYNAMICS. Memory allocation properties are configured
+     for GPU rigid bodies using PxSceneDesc::gpuDynamicsConfig.
      */
-	uint32_t	maxMemorySize[PxCudaBufferMemorySpace::COUNT];
+    uint32_t    maxMemorySize[PxCudaBufferMemorySpace::COUNT];
 
-	PX_INLINE PxCudaContextManagerDesc()
-	{
-		ctx = NULL;
-		interopMode = PxCudaInteropMode::NO_INTEROP;
-		graphicsDevice = 0;
+    PX_INLINE PxCudaContextManagerDesc()
+    {
+        ctx = NULL;
+        interopMode = PxCudaInteropMode::NO_INTEROP;
+        graphicsDevice = 0;
 #if PX_SUPPORT_GPU_PHYSX
-		appGUID  = NULL;
+        appGUID  = NULL;
 #endif
-		for(uint32_t i = 0; i < PxCudaBufferMemorySpace::COUNT; i++)
-		{
-			memoryBaseSize[i] = 0;
-			memoryPageSize[i] = 2 * 1024*1024;
-			maxMemorySize[i] = UINT32_MAX;
-		}
-	}
+        for (uint32_t i = 0; i < PxCudaBufferMemorySpace::COUNT; i++)
+        {
+            memoryBaseSize[i] = 0;
+            memoryPageSize[i] = 2 * 1024 * 1024;
+            maxMemorySize[i] = UINT32_MAX;
+        }
+    }
 };
 
 
@@ -227,18 +227,18 @@ public:
      */
     virtual void releaseContext() = 0;
 
-	/**
-	* \brief Return the CUcontext
-	*/
-	virtual CUcontext getContext() = 0;
+    /**
+    * \brief Return the CUcontext
+    */
+    virtual CUcontext getContext() = 0;
 
     /**
      * \brief Return the PxCudaMemoryManager instance associated with this
      * CUDA context
-	 * Note: This is currently not used by PxSceneFlag::eENABLE_GPU_DYNAMICS. Memory allocation properties are configured
-	 * for GPU rigid bodies using PxSceneDesc::gpuDynamicsConfig.
+     * Note: This is currently not used by PxSceneFlag::eENABLE_GPU_DYNAMICS. Memory allocation properties are configured
+     * for GPU rigid bodies using PxSceneDesc::gpuDynamicsConfig.
      */
-	virtual PxCudaMemoryManager *getMemoryManager() = 0;
+    virtual PxCudaMemoryManager *getMemoryManager() = 0;
 
     /**
      * \brief Context manager has a valid CUDA context
@@ -249,7 +249,7 @@ public:
      */
     virtual bool contextIsValid() const = 0;
 
-	/* Query CUDA context and device properties, without acquiring context */
+    /* Query CUDA context and device properties, without acquiring context */
 
     virtual bool supportsArchSM10() const = 0;  //!< G80
     virtual bool supportsArchSM11() const = 0;  //!< G92
@@ -257,25 +257,25 @@ public:
     virtual bool supportsArchSM13() const = 0;  //!< GT260
     virtual bool supportsArchSM20() const = 0;  //!< GF100
     virtual bool supportsArchSM30() const = 0;  //!< GK100
-	virtual bool supportsArchSM35() const = 0;  //!< GK110
-	virtual bool supportsArchSM50() const = 0;  //!< GM100
-	virtual bool supportsArchSM52() const = 0;  //!< GM200
-	virtual bool supportsArchSM60() const = 0;  //!< GP100
-	virtual bool isIntegrated() const = 0;      //!< true if GPU is an integrated (MCP) part
-	virtual bool canMapHostMemory() const = 0;  //!< true if GPU map host memory to GPU (0-copy)
-	virtual int  getDriverVersion() const = 0;  //!< returns cached value of cuGetDriverVersion()
-	virtual size_t getDeviceTotalMemBytes() const = 0; //!< returns cached value of device memory size
-	virtual int	getMultiprocessorCount() const = 0; //!< returns cache value of SM unit count
+    virtual bool supportsArchSM35() const = 0;  //!< GK110
+    virtual bool supportsArchSM50() const = 0;  //!< GM100
+    virtual bool supportsArchSM52() const = 0;  //!< GM200
+    virtual bool supportsArchSM60() const = 0;  //!< GP100
+    virtual bool isIntegrated() const = 0;      //!< true if GPU is an integrated (MCP) part
+    virtual bool canMapHostMemory() const = 0;  //!< true if GPU map host memory to GPU (0-copy)
+    virtual int  getDriverVersion() const = 0;  //!< returns cached value of cuGetDriverVersion()
+    virtual size_t getDeviceTotalMemBytes() const = 0; //!< returns cached value of device memory size
+    virtual int getMultiprocessorCount() const = 0; //!< returns cache value of SM unit count
     virtual unsigned int getClockRate() const = 0; //!< returns cached value of SM clock frequency
     virtual int  getSharedMemPerBlock() const = 0; //!< returns total amount of shared memory available per block in bytes
-	virtual int  getSharedMemPerMultiprocessor() const = 0; //!< returns total amount of shared memory available per multiprocessor in bytes
-	virtual unsigned int getMaxThreadsPerBlock() const = 0; //!< returns the maximum number of threads per block
+    virtual int  getSharedMemPerMultiprocessor() const = 0; //!< returns total amount of shared memory available per multiprocessor in bytes
+    virtual unsigned int getMaxThreadsPerBlock() const = 0; //!< returns the maximum number of threads per block
     virtual const char *getDeviceName() const = 0; //!< returns device name retrieved from driver
-	virtual CUdevice getDevice() const = 0; //!< returns device handle retrieved from driver
-	virtual PxCudaInteropMode::Enum getInteropMode() const = 0; //!< interop mode the context was created with
+    virtual CUdevice getDevice() const = 0; //!< returns device handle retrieved from driver
+    virtual PxCudaInteropMode::Enum getInteropMode() const = 0; //!< interop mode the context was created with
 
-	virtual void setUsingConcurrentStreams(bool) = 0; //!< turn on/off using concurrent streams for GPU work
-	virtual bool getUsingConcurrentStreams() const = 0; //!< true if GPU work can run in concurrent streams
+    virtual void setUsingConcurrentStreams(bool) = 0; //!< turn on/off using concurrent streams for GPU work
+    virtual bool getUsingConcurrentStreams() const = 0; //!< true if GPU work can run in concurrent streams
     /* End query methods that don't require context to be acquired */
 
     /**
@@ -300,26 +300,26 @@ public:
      */
     virtual bool registerResourceInCudaGL(CUgraphicsResource &resource, uint32_t buffer, PxCudaInteropRegisterFlags flags = PxCudaInteropRegisterFlags()) = 0;
 
-     /**
-     * \brief Register a rendering resource with CUDA
-     *
-     * This function is called to register render resources (allocated
-     * from Direct3D) with CUDA so that the memory may be shared
-     * between the two systems.  This is only required for render
-     * resources that are designed for interop use.  In APEX, each
-     * render resource descriptor that could support interop has a
-     * 'registerInCUDA' boolean variable.
-     *
-     * The function must be called again any time your graphics device
-     * is reset, to re-register the resource.
-     *
-     * Returns true if the registration succeeded.  A registered
-     * resource must be unregistered before it can be released.
-     *
-     * \param resource [OUT] the handle to the resource that can be used with CUDA
-     * \param resourcePointer [IN] A pointer to either IDirect3DResource9, or ID3D10Device, or ID3D11Resource to be registered.
-     * \param flags [IN] cuda interop registration flags
-     */
+    /**
+    * \brief Register a rendering resource with CUDA
+    *
+    * This function is called to register render resources (allocated
+    * from Direct3D) with CUDA so that the memory may be shared
+    * between the two systems.  This is only required for render
+    * resources that are designed for interop use.  In APEX, each
+    * render resource descriptor that could support interop has a
+    * 'registerInCUDA' boolean variable.
+    *
+    * The function must be called again any time your graphics device
+    * is reset, to re-register the resource.
+    *
+    * Returns true if the registration succeeded.  A registered
+    * resource must be unregistered before it can be released.
+    *
+    * \param resource [OUT] the handle to the resource that can be used with CUDA
+    * \param resourcePointer [IN] A pointer to either IDirect3DResource9, or ID3D10Device, or ID3D11Resource to be registered.
+    * \param flags [IN] cuda interop registration flags
+    */
     virtual bool registerResourceInCudaD3D(CUgraphicsResource &resource, void *resourcePointer, PxCudaInteropRegisterFlags flags = PxCudaInteropRegisterFlags()) = 0;
 
     /**
@@ -331,29 +331,29 @@ public:
      */
     virtual bool unregisterResourceInCuda(CUgraphicsResource resource) = 0;
 
-	/**
-	 * \brief Determine if the user has configured a dedicated PhysX GPU in the NV Control Panel
-	 * \note If using CUDA Interop, this will always return false
-	 * \returns	1 if there is a dedicated GPU
-	 *			0 if there is NOT a dedicated GPU
-	 *			-1 if the routine is not implemented
-	*/
-	virtual int	usingDedicatedGPU() const = 0;
+    /**
+     * \brief Determine if the user has configured a dedicated PhysX GPU in the NV Control Panel
+     * \note If using CUDA Interop, this will always return false
+     * \returns 1 if there is a dedicated GPU
+     *          0 if there is NOT a dedicated GPU
+     *          -1 if the routine is not implemented
+    */
+    virtual int usingDedicatedGPU() const = 0;
 
     /**
      * \brief Release the PxCudaContextManager
      *
      * When the manager instance is released, it also releases its
-     * PxCudaMemoryManager.  Before the memory manager is released, it 
-	 * frees all allocated memory pages.  If the PxCudaContextManager 
-	 * created the CUDA context it was responsible for, it also frees 
-	 * that context.
+     * PxCudaMemoryManager.  Before the memory manager is released, it
+     * frees all allocated memory pages.  If the PxCudaContextManager
+     * created the CUDA context it was responsible for, it also frees
+     * that context.
      *
      * Do not release the PxCudaContextManager if there are any scenes
      * using it.  Those scenes must be released first.
      *
      */
-	virtual void release() = 0;
+    virtual void release() = 0;
 
 protected:
 
@@ -372,18 +372,18 @@ public:
     /**
      * \brief ScopedCudaLock constructor
      */
-	PxScopedCudaLock(PxCudaContextManager& ctx) : mCtx(&ctx)
-	{
-		mCtx->acquireContext();
-	}
+    PxScopedCudaLock(PxCudaContextManager& ctx) : mCtx(&ctx)
+    {
+        mCtx->acquireContext();
+    }
 
     /**
      * \brief ScopedCudaLock destructor
      */
-	~PxScopedCudaLock()
-	{
-		mCtx->releaseContext();
-	}
+    ~PxScopedCudaLock()
+    {
+        mCtx->releaseContext();
+    }
 
 protected:
 

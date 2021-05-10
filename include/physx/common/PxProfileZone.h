@@ -29,7 +29,7 @@
 #define PXFOUNDATION_PXPROFILEZONE_H
 
 #include "pxshared/foundation/PxProfiler.h"
-#include "PxFoundation.h"
+#include "physx/PxFoundation.h"
 
 #if PX_DEBUG || PX_CHECKED || PX_PROFILE
 #define PX_PROFILE_ZONE(x, y)										\

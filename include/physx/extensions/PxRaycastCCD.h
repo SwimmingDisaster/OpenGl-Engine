@@ -33,7 +33,7 @@
 @{
 */
 
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 #include "pxshared/foundation/PxVec3.h"
 
 #if !PX_DOXYGEN

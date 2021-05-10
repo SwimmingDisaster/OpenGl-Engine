@@ -32,13 +32,13 @@ Index of this file:
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include "ImGui/imgui.h"
+#include "ImGUI/imgui.h"
 #ifndef IMGUI_DISABLE
 
 #ifndef IMGUI_DEFINE_MATH_OPERATORS
 #define IMGUI_DEFINE_MATH_OPERATORS
 #endif
-#include "ImGui/imgui_internal.h"
+#include "ImGUI/imgui_internal.h"
 
 // System includes
 #include <ctype.h>      // toupper
@@ -3636,7 +3636,7 @@ static bool STB_TEXTEDIT_INSERTCHARS(STB_TEXTEDIT_STRING* obj, int pos, const Im
 #define STB_TEXTEDIT_K_SHIFT        0x400000
 
 #define STB_TEXTEDIT_IMPLEMENTATION
-#include "ImGui/imstb_textedit.h"
+#include "ImGUI/imstb_textedit.h"
 
 // stb_textedit internally allows for a single undo record to do addition and deletion, but somehow, calling
 // the stb_textedit_paste() function creates two separate records, so we perform it manually. (FIXME: Report to nothings/stb?)

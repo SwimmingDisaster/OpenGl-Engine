@@ -35,9 +35,9 @@
 
 #include "pxshared/foundation/PxMemory.h"
 #include "pxshared/foundation/PxVec3.h"
-#include "common/PxCoreUtilityTypes.h"
-#include "vehicle/PxVehicleSDK.h"
-#include "common/PxTypeInfo.h"
+#include "physx/common/PxCoreUtilityTypes.h"
+#include "physx/vehicle/PxVehicleSDK.h"
+#include "physx/common/PxTypeInfo.h"
 
 #if !PX_DOXYGEN
 namespace physx

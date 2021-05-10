@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_BINARY_CONVERTER_H
@@ -34,7 +34,7 @@
 @{
 */
 
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -55,10 +55,10 @@ struct PxConverterReportMode
 /**
 \brief Binary converter for serialized streams.
 
-The binary converter class is targeted at converting binary streams from authoring platforms, 
-such as windows, osx or linux to any game runtime platform supported by PhysX. Particularly 
-it is currently not supported to run the converter on a platforms that has an endian mismatch 
-with the platform corresponding to the source binary file and source meta data. 
+The binary converter class is targeted at converting binary streams from authoring platforms,
+such as windows, osx or linux to any game runtime platform supported by PhysX. Particularly
+it is currently not supported to run the converter on a platforms that has an endian mismatch
+with the platform corresponding to the source binary file and source meta data.
 
 If you want to use multiple threads for batch conversions, please create one instance
 of this class for each thread.
@@ -109,7 +109,7 @@ public:
 	/**
 	\brief Converts binary stream from source platform to target platform
 
-	The converter needs to be configured with source and destination meta data before calling the conversion method. 
+	The converter needs to be configured with source and destination meta data before calling the conversion method.
 	The source meta data needs to correspond to the same platform as the source binary data.
 
 	\param[in] srcStream	Source stream
@@ -122,7 +122,7 @@ public:
 
 
 protected:
-						PxBinaryConverter()		{}
+	PxBinaryConverter()		{}
 	virtual				~PxBinaryConverter()	{}
 };
 

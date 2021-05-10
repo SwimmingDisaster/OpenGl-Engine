@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_EXTENSIONS_DEFAULT_CPU_DISPATCHER_H
@@ -34,8 +34,8 @@
   @{
 */
 
-#include "common/PxPhysXCommonConfig.h"
-#include "task/PxCpuDispatcher.h"
+#include "physx/common/PxPhysXCommonConfig.h"
+#include "physx/task/PxCpuDispatcher.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -52,7 +52,7 @@ class PxDefaultCpuDispatcher: public PxCpuDispatcher
 public:
 	/**
 	\brief Deletes the dispatcher.
-	
+
 	Do not keep a reference to the deleted instance.
 
 	@see PxDefaultCpuDispatcherCreate()
@@ -63,7 +63,7 @@ public:
 	\brief Enables profiling at task level.
 
 	\note By default enabled only in profiling builds.
-	
+
 	\param[in] runProfiled True if tasks should be profiled.
 	*/
 	virtual void setRunProfiled(bool runProfiled) = 0;

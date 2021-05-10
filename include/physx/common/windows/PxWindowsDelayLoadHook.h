@@ -32,7 +32,7 @@
 #define PX_PHYSICS_DELAY_LOAD_HOOK
 
 #include "pxshared/foundation/PxPreprocessor.h"
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 
 /** \addtogroup foundation
 @{

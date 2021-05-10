@@ -24,13 +24,13 @@ public:
 		uuid = other->uuid;
 
 		for (auto& component : other->m_components) {
-			std::string str(typeid(*component).name());
+			std::string str(typeid(component.get()).name());
 			std::string last_element(str.substr(str.rfind(" ") + 1));
 
-			Factory::copy(last_element, (std::shared_ptr<Entity>&)(shared_from_this()), component);
+			Factory::copy(last_element, shared_from_this(), component);
 		}
 		for (auto& component : m_components) {
-			std::string str(typeid(*component).name());
+			std::string str(typeid(component.get()).name());
 			std::string last_element(str.substr(str.rfind(" ") + 1));
 			component->name = last_element;
 			component->parentEntity = shared_from_this();

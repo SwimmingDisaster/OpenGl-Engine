@@ -15,6 +15,11 @@ int Renderer::renderID;
 FrameBuffer Renderer::frameBuffer;
 #endif
 
+
+void Renderer::GlfwErrorCallback(int error_code, const char* error_message){
+	Error("Error Number: " << error_code << " Error Message: " << error_message);
+}
+
 int Renderer::InitOpenGL() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
@@ -24,6 +29,8 @@ int Renderer::InitOpenGL() {
 	glfwWindowHint(GLFW_MAXIMIZED, GLFW_TRUE);
 	glfwWindowHint(GLFW_FOCUSED, GLFW_TRUE);
 	glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
+	glfwSetErrorCallback(GlfwErrorCallback);
+
 	Application::window = glfwCreateWindow(EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT, "ENGINE", NULL, NULL);
 	if (Application::window == nullptr) {
 		Error("Failed to create a GLFW window");

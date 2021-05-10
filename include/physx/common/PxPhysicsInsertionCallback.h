@@ -25,13 +25,13 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_PX_PHYSICS_INSERTION_CALLBACK
 #define PX_PHYSICS_PX_PHYSICS_INSERTION_CALLBACK
 
-#include "common/PxBase.h"
+#include "physx/common/PxBase.h"
 
 /** \addtogroup common
 @{
@@ -42,38 +42,38 @@ namespace physx
 {
 #endif
 
+/**
+
+\brief Callback interface that permits PxCooking to insert a
+TriangleMesh, HeightfieldMesh or ConvexMesh directly into PxPhysics without the need to store
+the cooking results into a stream.
+
+
+Using this is advised only if real-time cooking is required; using "offline" cooking and
+streams is otherwise preferred.
+
+The default PxPhysicsInsertionCallback implementation must be used. The PxPhysics
+default callback can be obtained using the PxPhysics::getPhysicsInsertionCallback().
+
+@see PxCooking PxPhysics
+*/
+class PxPhysicsInsertionCallback
+{
+public:
+	PxPhysicsInsertionCallback()				{}
+
 	/**
+	\brief Builds object (TriangleMesh, HeightfieldMesh or ConvexMesh) from given data in PxPhysics.
 
-	\brief Callback interface that permits PxCooking to insert a
-	TriangleMesh, HeightfieldMesh or ConvexMesh directly into PxPhysics without the need to store
-	the cooking results into a stream.
-
-
-	Using this is advised only if real-time cooking is required; using "offline" cooking and
-	streams is otherwise preferred.
-
-	The default PxPhysicsInsertionCallback implementation must be used. The PxPhysics
-	default callback can be obtained using the PxPhysics::getPhysicsInsertionCallback().
-
-	@see PxCooking PxPhysics
+	\param type Object type to build.
+	\param data Object data
+	\return PxBase Created object in PxPhysics.
 	*/
-	class PxPhysicsInsertionCallback
-	{
-	public:
-		PxPhysicsInsertionCallback()				{}		
+	virtual PxBase* buildObjectFromData(PxConcreteType::Enum type, void* data) = 0;
 
-		/**
-		\brief Builds object (TriangleMesh, HeightfieldMesh or ConvexMesh) from given data in PxPhysics.		
-
-		\param type Object type to build.
-		\param data Object data
-		\return PxBase Created object in PxPhysics.
-		*/
-		virtual PxBase* buildObjectFromData(PxConcreteType::Enum type, void* data) = 0;
-
-	protected:
-		virtual ~PxPhysicsInsertionCallback()		{}
-	};
+protected:
+	virtual ~PxPhysicsInsertionCallback()		{}
+};
 
 
 #if !PX_DOXYGEN

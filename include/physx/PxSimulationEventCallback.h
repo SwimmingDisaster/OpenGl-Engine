@@ -37,8 +37,8 @@
 #include "pxshared/foundation/PxVec3.h"
 #include "pxshared/foundation/PxTransform.h"
 #include "pxshared/foundation/PxMemory.h"
-#include "PxPhysXConfig.h"
-#include "PxFiltering.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/PxFiltering.h"
 #include "PxContact.h"
 
 #if !PX_DOXYGEN

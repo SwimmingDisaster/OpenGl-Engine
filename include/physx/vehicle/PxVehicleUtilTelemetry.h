@@ -33,7 +33,7 @@
   @{
 */
 
-#include "vehicle/PxVehicleSDK.h"
+#include "physx/vehicle/PxVehicleSDK.h"
 #include "pxshared/foundation/PxSimpleTypes.h"
 #include "pxshared/foundation/PxVec3.h"
 

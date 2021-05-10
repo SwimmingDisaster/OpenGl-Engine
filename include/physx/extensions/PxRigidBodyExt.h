@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_EXTENSIONS_RIGIDBODY_H
@@ -34,11 +34,11 @@
   @{
 */
 
-#include "PxPhysXConfig.h"
-#include "PxRigidBody.h"
-#include "PxQueryReport.h"
-#include "PxQueryFiltering.h"
-#include "extensions/PxMassProperties.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/PxRigidBody.h"
+#include "physx/PxQueryReport.h"
+#include "physx/PxQueryFiltering.h"
+#include "physx/extensions/PxMassProperties.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -61,11 +61,11 @@ public:
 	/**
 	\brief Computation of mass properties for a rigid body actor
 
-	To simulate a dynamic rigid actor, the SDK needs a mass and an inertia tensor. 
+	To simulate a dynamic rigid actor, the SDK needs a mass and an inertia tensor.
 
 	This method offers functionality to compute the necessary mass and inertia properties based on the shapes declared in
-	the PxRigidBody descriptor and some additionally specified parameters. For each shape, the shape geometry, 
-	the shape positioning within the actor and the specified shape density are used to compute the body's mass and 
+	the PxRigidBody descriptor and some additionally specified parameters. For each shape, the shape geometry,
+	the shape positioning within the actor and the specified shape density are used to compute the body's mass and
 	inertia properties.
 
 	<ul>
@@ -73,11 +73,11 @@ public:
 	<li>Shapes with plane, triangle mesh or heightfield geometry and PxShapeFlag::eSIMULATION_SHAPE set are not allowed for PxRigidBody collision.</li>
 	</ul>
 
-	This method will set the mass, center of mass, and inertia tensor 
+	This method will set the mass, center of mass, and inertia tensor
 
 	if no collision shapes are found, the inertia tensor is set to (1,1,1) and the mass to 1
 
-	if massLocalPose is non-NULL, the rigid body's center of mass parameter  will be set 
+	if massLocalPose is non-NULL, the rigid body's center of mass parameter  will be set
 	to the user provided value (massLocalPose) and the inertia tensor will be resolved at that point.
 
 	\note If all shapes of the actor have the same density then the overloaded method updateMassAndInertia() with a single density parameter can be used instead.
@@ -100,7 +100,7 @@ public:
 	See previous method for details.
 
 	\param[in,out] body The rigid body.
-	\param[in] density The density of the body. Used to compute the mass of the body. The density must be greater than 0. 
+	\param[in] density The density of the body. Used to compute the mass of the body. The density must be greater than 0.
 	\param[in] massLocalPose The center of mass relative to the actor frame.  If set to null then (0,0,0) is assumed.
 	\param[in] includeNonSimShapes True if all kind of shapes (PxShapeFlag::eSCENE_QUERY_SHAPE, PxShapeFlag::eTRIGGER_SHAPE) should be taken into account.
 	\return Boolean. True on success else false.
@@ -108,7 +108,7 @@ public:
 	@see PxRigidBody::setMassLocalPose PxRigidBody::setMassSpaceInertiaTensor PxRigidBody::setMass
 	*/
 	static		bool			updateMassAndInertia(PxRigidBody& body, PxReal density, const PxVec3* massLocalPose = NULL, bool includeNonSimShapes = false);
-	
+
 
 	/**
 	\brief Computation of mass properties for a rigid body actor
@@ -165,20 +165,20 @@ public:
 	@see PxRigidBody::setCMassLocalPose PxRigidBody::setMassSpaceInertiaTensor PxRigidBody::setMass
 	*/
 	static		PxMassProperties	computeMassPropertiesFromShapes(const PxShape* const* shapes, PxU32 shapeCount);
-	
+
 
 	/**
-	\brief Applies a force (or impulse) defined in the global coordinate frame, acting at a particular 
-	point in global coordinates, to the actor. 
+	\brief Applies a force (or impulse) defined in the global coordinate frame, acting at a particular
+	point in global coordinates, to the actor.
 
 	Note that if the force does not act along the center of mass of the actor, this
-	will also add the corresponding torque. Because forces are reset at the end of every timestep, 
+	will also add the corresponding torque. Because forces are reset at the end of every timestep,
 	you can maintain a total external force on an object by calling this once every frame.
 
 	\note if this call is used to apply a force or impulse to an articulation link, only the link is updated, not the entire
 	articulation
 
-	::PxForceMode determines if the force is to be conventional or impulsive. Only eFORCE and eIMPULSE are supported, as the 
+	::PxForceMode determines if the force is to be conventional or impulsive. Only eFORCE and eIMPULSE are supported, as the
 	force required to produce a given velocity change or acceleration is underdetermined given only the desired change at a
 	given point.
 
@@ -187,17 +187,17 @@ public:
 	\param[in] body The rigid body to apply the force to.
 	\param[in] force Force/impulse to add, defined in the global frame. <b>Range:</b> force vector
 	\param[in] pos Position in the global frame to add the force at. <b>Range:</b> position vector
-	\param[in] mode The mode to use when applying the force/impulse(see #PxForceMode). 
+	\param[in] mode The mode to use when applying the force/impulse(see #PxForceMode).
 	\param[in] wakeup Specify if the call should wake up the actor.
 
-	@see PxForceMode 
+	@see PxForceMode
 	@see addForceAtLocalPos() addLocalForceAtPos() addLocalForceAtLocalPos()
 	*/
 	static		void			addForceAtPos(PxRigidBody& body, const PxVec3& force, const PxVec3& pos, PxForceMode::Enum mode = PxForceMode::eFORCE, bool wakeup = true);
 
 	/**
-	\brief Applies a force (or impulse) defined in the global coordinate frame, acting at a particular 
-	point in local coordinates, to the actor. 
+	\brief Applies a force (or impulse) defined in the global coordinate frame, acting at a particular
+	point in local coordinates, to the actor.
 
 	Note that if the force does not act along the center of mass of the actor, this
 	will also add the corresponding torque. Because forces are reset at the end of every timestep, you can maintain a
@@ -206,7 +206,7 @@ public:
 	\note if this call is used to apply a force or impulse to an articulation link, only the link is updated, not the entire
 	articulation
 
-	::PxForceMode determines if the force is to be conventional or impulsive. Only eFORCE and eIMPULSE are supported, as the 
+	::PxForceMode determines if the force is to be conventional or impulsive. Only eFORCE and eIMPULSE are supported, as the
 	force required to produce a given velocity change or acceleration is underdetermined given only the desired change at a
 	given point.
 
@@ -215,17 +215,17 @@ public:
 	\param[in] body The rigid body to apply the force to.
 	\param[in] force Force/impulse to add, defined in the global frame. <b>Range:</b> force vector
 	\param[in] pos Position in the local frame to add the force at. <b>Range:</b> position vector
-	\param[in] mode The mode to use when applying the force/impulse(see #PxForceMode). 
+	\param[in] mode The mode to use when applying the force/impulse(see #PxForceMode).
 	\param[in] wakeup Specify if the call should wake up the actor.
 
-	@see PxForceMode 
+	@see PxForceMode
 	@see addForceAtPos() addLocalForceAtPos() addLocalForceAtLocalPos()
 	*/
 	static		void			addForceAtLocalPos(PxRigidBody& body, const PxVec3& force, const PxVec3& pos, PxForceMode::Enum mode = PxForceMode::eFORCE, bool wakeup = true);
 
 	/**
-	\brief Applies a force (or impulse) defined in the actor local coordinate frame, acting at a 
-	particular point in global coordinates, to the actor. 
+	\brief Applies a force (or impulse) defined in the actor local coordinate frame, acting at a
+	particular point in global coordinates, to the actor.
 
 	Note that if the force does not act along the center of mass of the actor, this
 	will also add the corresponding torque. Because forces are reset at the end of every timestep, you can maintain a
@@ -234,7 +234,7 @@ public:
 	\note if this call is used to apply a force or impulse to an articulation link, only the link is updated, not the entire
 	articulation
 
-	::PxForceMode determines if the force is to be conventional or impulsive. Only eFORCE and eIMPULSE are supported, as the 
+	::PxForceMode determines if the force is to be conventional or impulsive. Only eFORCE and eIMPULSE are supported, as the
 	force required to produce a given velocity change or acceleration is underdetermined given only the desired change at a
 	given point.
 
@@ -243,17 +243,17 @@ public:
 	\param[in] body The rigid body to apply the force to.
 	\param[in] force Force/impulse to add, defined in the local frame. <b>Range:</b> force vector
 	\param[in] pos Position in the global frame to add the force at. <b>Range:</b> position vector
-	\param[in] mode The mode to use when applying the force/impulse(see #PxForceMode). 
+	\param[in] mode The mode to use when applying the force/impulse(see #PxForceMode).
 	\param[in] wakeup Specify if the call should wake up the actor.
 
-	@see PxForceMode 
+	@see PxForceMode
 	@see addForceAtPos() addForceAtLocalPos() addLocalForceAtLocalPos()
 	*/
 	static		void			addLocalForceAtPos(PxRigidBody& body, const PxVec3& force, const PxVec3& pos, PxForceMode::Enum mode = PxForceMode::eFORCE, bool wakeup = true);
 
 	/**
-	\brief Applies a force (or impulse) defined in the actor local coordinate frame, acting at a 
-	particular point in local coordinates, to the actor. 
+	\brief Applies a force (or impulse) defined in the actor local coordinate frame, acting at a
+	particular point in local coordinates, to the actor.
 
 	Note that if the force does not act along the center of mass of the actor, this
 	will also add the corresponding torque. Because forces are reset at the end of every timestep, you can maintain a
@@ -262,7 +262,7 @@ public:
 	\note if this call is used to apply a force or impulse to an articulation link, only the link is updated, not the entire
 	articulation
 
-	::PxForceMode determines if the force is to be conventional or impulsive. Only eFORCE and eIMPULSE are supported, as the 
+	::PxForceMode determines if the force is to be conventional or impulsive. Only eFORCE and eIMPULSE are supported, as the
 	force required to produce a given velocity change or acceleration is underdetermined given only the desired change at a
 	given point.
 
@@ -271,16 +271,16 @@ public:
 	\param[in] body The rigid body to apply the force to.
 	\param[in] force Force/impulse to add, defined in the local frame. <b>Range:</b> force vector
 	\param[in] pos Position in the local frame to add the force at. <b>Range:</b> position vector
-	\param[in] mode The mode to use when applying the force/impulse(see #PxForceMode). 
+	\param[in] mode The mode to use when applying the force/impulse(see #PxForceMode).
 	\param[in] wakeup Specify if the call should wake up the actor.
 
-	@see PxForceMode 
+	@see PxForceMode
 	@see addForceAtPos() addForceAtLocalPos() addLocalForceAtPos()
 	*/
 	static		void			addLocalForceAtLocalPos(PxRigidBody& body, const PxVec3& force, const PxVec3& pos, PxForceMode::Enum mode = PxForceMode::eFORCE, bool wakeup = true);
 
 	/**
-	\brief Computes the velocity of a point given in world coordinates if it were attached to the 
+	\brief Computes the velocity of a point given in world coordinates if it were attached to the
 	specified body and moving with it.
 
 	\param[in] body The rigid body the point is attached to.
@@ -292,7 +292,7 @@ public:
 	static		PxVec3			getVelocityAtPos(const PxRigidBody& body, const PxVec3& pos);
 
 	/**
-	\brief Computes the velocity of a point given in local coordinates if it were attached to the 
+	\brief Computes the velocity of a point given in local coordinates if it were attached to the
 	specified body and moving with it.
 
 	\param[in] body The rigid body the point is attached to.
@@ -304,7 +304,7 @@ public:
 	static		PxVec3			getLocalVelocityAtLocalPos(const PxRigidBody& body, const PxVec3& pos);
 
 	/**
-	\brief Computes the velocity of a point (offset from the origin of the body) given in world coordinates if it were attached to the 
+	\brief Computes the velocity of a point (offset from the origin of the body) given in world coordinates if it were attached to the
 	specified body and moving with it.
 
 	\param[in] body The rigid body the point is attached to.
@@ -345,13 +345,13 @@ public:
 	@see PxScene PxQueryFlags PxFilterData PxBatchQueryPreFilterShader PxBatchQueryPostFilterShader PxSweepHit
 	*/
 	static		bool			linearSweepSingle(
-									PxRigidBody& body, PxScene& scene, const PxVec3& unitDir, const PxReal distance,
-									PxHitFlags outputFlags,
-									PxSweepHit& closestHit, PxU32& shapeIndex,
-									const PxQueryFilterData& filterData = PxQueryFilterData(),
-									PxQueryFilterCallback* filterCall = NULL,
-									const PxQueryCache* cache = NULL,
-									const PxReal inflation=0.0f);
+	    PxRigidBody& body, PxScene& scene, const PxVec3& unitDir, const PxReal distance,
+	    PxHitFlags outputFlags,
+	    PxSweepHit& closestHit, PxU32& shapeIndex,
+	    const PxQueryFilterData& filterData = PxQueryFilterData(),
+	    PxQueryFilterCallback* filterCall = NULL,
+	    const PxQueryCache* cache = NULL,
+	    const PxReal inflation = 0.0f);
 
 	/**
 	\brief Performs a linear sweep through space with the body's geometry objects, returning all overlaps.
@@ -386,23 +386,23 @@ public:
 	@see PxScene PxQueryFlags PxFilterData PxBatchQueryPreFilterShader PxBatchQueryPostFilterShader PxSweepHit
 	*/
 	static		PxU32			linearSweepMultiple(
-									PxRigidBody& body, PxScene& scene, const PxVec3& unitDir, const PxReal distance,
-									PxHitFlags outputFlags,
-									PxSweepHit* touchHitBuffer, PxU32* touchHitShapeIndices, PxU32 touchHitBufferSize,
-									PxSweepHit& block, PxI32& blockingShapeIndex, bool& overflow,
-									const PxQueryFilterData& filterData = PxQueryFilterData(),
-									PxQueryFilterCallback* filterCall = NULL,
-									const PxQueryCache* cache = NULL, const PxReal inflation = 0.0f);
+	    PxRigidBody& body, PxScene& scene, const PxVec3& unitDir, const PxReal distance,
+	    PxHitFlags outputFlags,
+	    PxSweepHit* touchHitBuffer, PxU32* touchHitShapeIndices, PxU32 touchHitBufferSize,
+	    PxSweepHit& block, PxI32& blockingShapeIndex, bool& overflow,
+	    const PxQueryFilterData& filterData = PxQueryFilterData(),
+	    PxQueryFilterCallback* filterCall = NULL,
+	    const PxQueryCache* cache = NULL, const PxReal inflation = 0.0f);
 
 
 	/**
-	\brief Compute the change to linear and angular velocity that would occur if an impulsive force and torque were to be applied to a specified rigid body. 
-	
+	\brief Compute the change to linear and angular velocity that would occur if an impulsive force and torque were to be applied to a specified rigid body.
+
 	The rigid body is left unaffected unless a subsequent independent call is executed that actually applies the computed changes to velocity and angular velocity.
 
 	\note if this call is used to determine the velocity delta for an articulation link, only the mass properties of the link are taken into account.
 
-	@see PxRigidBody::getLinearVelocity, PxRigidBody::setLinearVelocity,  PxRigidBody::getAngularVelocity, PxRigidBody::setAngularVelocity 
+	@see PxRigidBody::getLinearVelocity, PxRigidBody::setLinearVelocity,  PxRigidBody::getAngularVelocity, PxRigidBody::setAngularVelocity
 
 	\param[in] body The body under consideration.
 	\param[in] impulsiveForce The impulsive force that would be applied to the specified rigid body.
@@ -429,8 +429,8 @@ public:
 	\param[out] deltaAngularVelocity The angular velocity change
 	*/
 
-	static void					computeVelocityDeltaFromImpulse(const PxRigidBody& body, const PxTransform& globalPose, const PxVec3& point, const PxVec3& impulse, const PxReal invMassScale, 
-														const PxReal invInertiaScale, PxVec3& deltaLinearVelocity, PxVec3& deltaAngularVelocity);
+	static void					computeVelocityDeltaFromImpulse(const PxRigidBody& body, const PxTransform& globalPose, const PxVec3& point, const PxVec3& impulse, const PxReal invMassScale,
+	        const PxReal invInertiaScale, PxVec3& deltaLinearVelocity, PxVec3& deltaAngularVelocity);
 
 	/**
 	\brief Computes the linear and angular impulse vectors for a given impulse at a world space position taking a mass and inertia scale into account
@@ -446,8 +446,8 @@ public:
 	\param[out] linearImpulse The linear impulse
 	\param[out] angularImpulse The angular impulse
 	*/
-	static void					computeLinearAngularImpulse(const PxRigidBody& body, const PxTransform& globalPose, const PxVec3& point, const PxVec3& impulse, const PxReal invMassScale, 
-														const PxReal invInertiaScale, PxVec3& linearImpulse, PxVec3& angularImpulse);
+	static void					computeLinearAngularImpulse(const PxRigidBody& body, const PxTransform& globalPose, const PxVec3& point, const PxVec3& impulse, const PxReal invMassScale,
+	        const PxReal invInertiaScale, PxVec3& linearImpulse, PxVec3& angularImpulse);
 
 
 };

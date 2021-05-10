@@ -3,8 +3,8 @@
 #endif
 
 #include "imguizmo/ImSequencer.h"
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_internal.h"
+#include "ImGUI/imgui.h"
+#include "ImGUI/imgui_internal.h"
 #include <cstdlib>
 
 namespace ImSequencer

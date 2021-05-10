@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_SPHERICALJOINT_H
 #define PX_SPHERICALJOINT_H
@@ -33,8 +33,8 @@
   @{
 */
 
-#include "extensions/PxJoint.h"
-#include "extensions/PxJointLimit.h"
+#include "physx/extensions/PxJoint.h"
+#include "physx/extensions/PxJointLimit.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -50,7 +50,7 @@ class PxSphericalJoint;
  \param[in] actor0		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
  \param[in] localFrame0	The position and orientation of the joint relative to actor0
  \param[in] actor1		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
- \param[in] localFrame1	The position and orientation of the joint relative to actor1 
+ \param[in] localFrame1	The position and orientation of the joint relative to actor1
 
 @see PxSphericalJoint
 */
@@ -66,7 +66,7 @@ struct PxSphericalJointFlag
 {
 	enum Enum
 	{
-		eLIMIT_ENABLED	= 1<<1	//!< the cone limit for the spherical joint is enabled
+		eLIMIT_ENABLED	= 1 << 1	//!< the cone limit for the spherical joint is enabled
 	};
 };
 typedef PxFlags<PxSphericalJointFlag::Enum, PxU16> PxSphericalJointFlags;
@@ -78,10 +78,10 @@ PX_FLAGS_OPERATORS(PxSphericalJointFlag::Enum, PxU16)
  A spherical joint removes all linear degrees of freedom from two objects.
 
  The position of the joint on each actor is specified by the origin of the body's joint frame.
- 
+
  A spherical joint may have a cone limit, to restrict the motion to within a certain range. In
  addition, the bodies may be projected together if the distance between them exceeds a given threshold.
- 
+
  Projection, drive and limits are activated by setting the appropriate flags on the joint.
 
  @see PxRevoluteJointCreate() PxJoint
@@ -89,7 +89,7 @@ PX_FLAGS_OPERATORS(PxSphericalJointFlag::Enum, PxU16)
 class PxSphericalJoint : public PxJoint
 {
 public:
-	
+
 	/**
 	\brief Set the limit cone.
 
@@ -98,7 +98,7 @@ public:
 
 	\return the limit cone
 
-	@see PxJointLimitCone setLimit() 
+	@see PxJointLimitCone setLimit()
 	*/
 	virtual PxJointLimitCone	getLimitCone()	const	= 0;
 
@@ -107,7 +107,7 @@ public:
 
 	\param[in] limit the limit cone
 
-	@see PxJointLimitCone getLimit() 
+	@see PxJointLimitCone getLimit()
 	*/
 	virtual void				setLimitCone(const PxJointLimitCone& limit)	= 0;
 
@@ -155,7 +155,7 @@ public:
 	\brief Set the linear tolerance threshold for projection. Projection is enabled if PxConstraintFlag::ePROJECTION
 	is set for the joint.
 
-	If the joint separates by more than this distance along its locked degrees of freedom, the solver 
+	If the joint separates by more than this distance along its locked degrees of freedom, the solver
 	will move the bodies to close the distance.
 
 	Setting a very small tolerance may result in simulation jitter or other artifacts.

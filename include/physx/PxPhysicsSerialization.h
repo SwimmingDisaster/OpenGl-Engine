@@ -25,14 +25,14 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_PX_PHYSICS_SERIALIZATION
 #define PX_PHYSICS_PX_PHYSICS_SERIALIZATION
 
-#include "common/PxSerialFramework.h"
-#include "PxPhysXConfig.h"
+#include "physx/common/PxSerialFramework.h"
+#include "physx/PxPhysXConfig.h"
 
 #if !PX_DOXYGEN
 /**
@@ -61,7 +61,7 @@ PX_C_EXPORT PX_PHYSX_CORE_API void PX_CALL_CONV PxUnregisterPhysicsSerializers(p
 \brief Adds collected objects to PxPhysics.
 
 This function adds all objects contained in the input collection to the PxPhysics instance. This is used after deserializing
-the collection, to populate the physics with inplace deserialized objects. This function is used in the implementation of 
+the collection, to populate the physics with inplace deserialized objects. This function is used in the implementation of
 PxSerialization.createCollectionFromBinary and is not intended to be needed otherwise.
 \param[in] collection Objects to add to the PxPhysics instance.
 

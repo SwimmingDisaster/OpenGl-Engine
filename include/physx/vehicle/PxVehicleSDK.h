@@ -34,7 +34,7 @@
 */
 
 #include "pxshared/foundation/Px.h"
-#include "common/PxTypeInfo.h"
+#include "physx/common/PxTypeInfo.h"
 
 #if !PX_DOXYGEN
 namespace physx

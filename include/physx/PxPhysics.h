@@ -34,10 +34,10 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
+#include "physx/PxPhysXConfig.h"
 #include "PxDeletionListener.h"
 #include "pxshared/foundation/PxTransform.h"
-#include "PxShape.h"
+#include "physx/PxShape.h"
 
 #if !PX_DOXYGEN
 namespace physx

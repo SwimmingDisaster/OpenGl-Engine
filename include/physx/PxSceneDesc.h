@@ -34,13 +34,13 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
+#include "physx/PxPhysXConfig.h"
 #include "pxshared/foundation/PxFlags.h"
 #include "pxshared/foundation/PxBounds3.h"
-#include "PxFiltering.h"
+#include "physx/PxFiltering.h"
 #include "PxBroadPhase.h"
-#include "common/PxTolerancesScale.h"
-#include "task/PxTask.h"
+#include "physx/common/PxTolerancesScale.h"
+#include "physx/task/PxTask.h"
 
 #if !PX_DOXYGEN
 namespace physx

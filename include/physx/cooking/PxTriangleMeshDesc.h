@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_COLLISION_NXTRIANGLEMESHDESC
@@ -34,8 +34,8 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
-#include "geometry/PxSimpleTriangleMesh.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/geometry/PxSimpleTriangleMesh.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -61,11 +61,11 @@ public:
 
 	When a triangle mesh collides with another object, a material is required at the collision point.
 	If materialIndices is NULL, then the material of the PxShape instance is used.
-	Otherwise, if the point of contact is on a triangle with index i, then the material index is determined as: 
+	Otherwise, if the point of contact is on a triangle with index i, then the material index is determined as:
 	PxMaterialTableIndex	index = *(PxMaterialTableIndex *)(((PxU8*)materialIndices) + materialIndexStride * i);
 
 	If the contact point falls on a vertex or an edge, a triangle adjacent to the vertex or edge is selected, and its index
-	used to look up a material. The selection is arbitrary but consistent over time. 
+	used to look up a material. The selection is arbitrary but consistent over time.
 
 	<b>Default:</b> NULL
 
@@ -76,10 +76,10 @@ public:
 	/**
 	\brief Constructor sets to default.
 	*/
-	PX_INLINE PxTriangleMeshDesc();	
+	PX_INLINE PxTriangleMeshDesc();
 
 	/**
-	\brief (re)sets the structure to the default.	
+	\brief (re)sets the structure to the default.
 	*/
 	PX_INLINE void setToDefault();
 
@@ -92,7 +92,7 @@ public:
 
 PX_INLINE PxTriangleMeshDesc::PxTriangleMeshDesc()	//constructor sets to default
 {
-	PxSimpleTriangleMesh::setToDefault();	
+	PxSimpleTriangleMesh::setToDefault();
 }
 
 PX_INLINE void PxTriangleMeshDesc::setToDefault()
@@ -102,9 +102,9 @@ PX_INLINE void PxTriangleMeshDesc::setToDefault()
 
 PX_INLINE bool PxTriangleMeshDesc::isValid() const
 {
-	if(points.count < 3) 	//at least 1 trig's worth of points
+	if (points.count < 3) 	//at least 1 trig's worth of points
 		return false;
-	if ((!triangles.data) && (points.count%3))		// Non-indexed mesh => we must ensure the geometry defines an implicit number of triangles // i.e. numVertices can't be divided by 3
+	if ((!triangles.data) && (points.count % 3))		// Non-indexed mesh => we must ensure the geometry defines an implicit number of triangles // i.e. numVertices can't be divided by 3
 		return false;
 	//add more validity checks here
 	if (materialIndices.data && materialIndices.stride < sizeof(PxMaterialTableIndex))

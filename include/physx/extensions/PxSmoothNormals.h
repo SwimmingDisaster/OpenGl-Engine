@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_EXTENSIONS_SMOOTH_NORMALS_H
@@ -34,7 +34,7 @@
   @{
 */
 
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 
 /**
 \brief Builds smooth vertex normals over a mesh.
@@ -42,7 +42,7 @@
 - "smooth" because smoothing groups are not supported here
 - takes angles into account for correct cube normals computation
 
-To use 32bit indices pass a pointer in dFaces and set wFaces to zero. Alternatively pass a pointer to 
+To use 32bit indices pass a pointer in dFaces and set wFaces to zero. Alternatively pass a pointer to
 wFaces and set dFaces to zero.
 
 \param[in] nbTris Number of triangles
@@ -55,7 +55,7 @@ wFaces and set dFaces to zero.
 \return True on success.
 */
 PX_C_EXPORT bool PX_CALL_CONV PxBuildSmoothNormals(physx::PxU32 nbTris, physx::PxU32 nbVerts, const physx::PxVec3* verts,
-												   const physx::PxU32* dFaces, const physx::PxU16* wFaces, physx::PxVec3* normals, bool flip);
+        const physx::PxU32* dFaces, const physx::PxU16* wFaces, physx::PxVec3* normals, bool flip);
 
 /** @} */
 #endif

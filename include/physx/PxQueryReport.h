@@ -35,8 +35,8 @@
 */
 #include "pxshared/foundation/PxVec3.h"
 #include "pxshared/foundation/PxFlags.h"
-#include "foundation/PxAssert.h"
-#include "PxPhysXConfig.h"
+#include "physx/foundation/PxAssert.h"
+#include "physx/PxPhysXConfig.h"
 
 #if !PX_DOXYGEN
 namespace physx

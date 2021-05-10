@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_SPHERE_GEOMETRY
@@ -33,7 +33,7 @@
 /** \addtogroup geomutils
 @{
 */
-#include "geometry/PxGeometry.h"
+#include "physx/geometry/PxGeometry.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -46,7 +46,7 @@ namespace physx
 Spheres are defined by their radius.
 \note The scaling of the sphere is expected to be baked into this value, there is no additional scaling parameter.
 */
-class PxSphereGeometry : public PxGeometry 
+class PxSphereGeometry : public PxGeometry
 {
 public:
 	PX_INLINE PxSphereGeometry() :							PxGeometry(PxGeometryType::eSPHERE), radius(0) {}
@@ -57,7 +57,7 @@ public:
 
 	\return True if the current settings are valid
 
-	\note A valid sphere has radius > 0.  
+	\note A valid sphere has radius > 0.
 	It is illegal to call PxRigidActor::createShape and PxPhysics::createShape with a sphere that has zero radius.
 
 	@see PxRigidActor::createShape, PxPhysics::createShape
@@ -69,7 +69,7 @@ public:
 	/**
 	\brief The radius of the sphere.
 	*/
-	PxReal radius;	
+	PxReal radius;
 };
 
 

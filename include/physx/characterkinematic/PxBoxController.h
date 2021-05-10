@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_CCT_BOX_CONTROLLER
@@ -34,7 +34,7 @@
   @{
 */
 
-#include "characterkinematic/PxController.h"
+#include "physx/characterkinematic/PxController.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -136,11 +136,11 @@ PX_INLINE void PxBoxControllerDesc::setToDefault()
 
 PX_INLINE bool PxBoxControllerDesc::isValid() const
 {
-	if(!PxControllerDesc::isValid())	return false;
-	if(halfHeight<=0.0f)				return false;
-	if(halfSideExtent<=0.0f)			return false;
-	if(halfForwardExtent<=0.0f)			return false;
-	if(stepOffset>2.0f*halfHeight)		return false;	// Prevents obvious mistakes
+	if (!PxControllerDesc::isValid())	return false;
+	if (halfHeight <= 0.0f)				return false;
+	if (halfSideExtent <= 0.0f)			return false;
+	if (halfForwardExtent <= 0.0f)			return false;
+	if (stepOffset > 2.0f * halfHeight)		return false;	// Prevents obvious mistakes
 	return true;
 }
 

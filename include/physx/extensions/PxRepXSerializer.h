@@ -25,81 +25,81 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 #ifndef PX_REPX_SERIALIZER_H
 #define PX_REPX_SERIALIZER_H
 /** \addtogroup Serializers
   @{
 */
 
-#include "common/PxBase.h"
-#include "extensions/PxRepXSimpleType.h"
+#include "physx/common/PxBase.h"
+#include "physx/extensions/PxRepXSimpleType.h"
 
 #if !PX_DOXYGEN
 namespace physx
 {
 #endif
-	
-	class XmlMemoryAllocator;
-	class XmlWriter;
-	class XmlReader;
-	class MemoryBuffer;
+
+class XmlMemoryAllocator;
+class XmlWriter;
+class XmlReader;
+class MemoryBuffer;
+
+/**
+\brief Serializer interface for RepX (Xml) serialization.
+
+In order to serialize a class to RepX both a PxSerializer and
+a PxRepXSerializer implementation are needed.
+
+A repx Serializer provides the ability to capture a live
+object to a descriptor or static state and the ability to
+write that state out to a file.  Objects allocated
+by the Serializer using the allocator are freed when the
+collection itself is freed.
+SnRepXCoreSerializers.cpp implements a set of Serializers
+for the core PhysX types.
+
+\note Implementing a PxRepXSerializer is currently not practical without including the internal PhysXExtension header "SnRepXSerializerImpl.h".
+
+@see PxSerializer, PX_NEW_REPX_SERIALIZER, PxSerializationRegistry::registerRepXSerializer
+*/
+class PxRepXSerializer
+{
+protected:
+	virtual ~PxRepXSerializer() {}
+public:
 
 	/**
-	\brief Serializer interface for RepX (Xml) serialization.
-
-	In order to serialize a class to RepX both a PxSerializer and
-	a PxRepXSerializer implementation are needed. 
-
-	A repx Serializer provides the ability to capture a live
-	object to a descriptor or static state and the ability to
-	write that state out to a file.  Objects allocated
-	by the Serializer using the allocator are freed when the
-	collection itself is freed.
-	SnRepXCoreSerializers.cpp implements a set of Serializers
-	for the core PhysX types.
-
-	\note Implementing a PxRepXSerializer is currently not practical without including the internal PhysXExtension header "SnRepXSerializerImpl.h". 
-
-	@see PxSerializer, PX_NEW_REPX_SERIALIZER, PxSerializationRegistry::registerRepXSerializer
+	\brief The type this Serializer is meant to operate on.
+	@see PxRepXObject::typeName
 	*/
-	class PxRepXSerializer
-	{
-	protected:
-		virtual ~PxRepXSerializer(){}
-	public:
-		
-		/**
-		\brief The type this Serializer is meant to operate on.
-		@see PxRepXObject::typeName
-		*/
-		virtual const char* getTypeName() = 0;
+	virtual const char* getTypeName() = 0;
 
-		/**
-		\brief Convert from a RepX object to a key-value pair hierarchy
-		
-		\param[in] inLiveObject The object to convert to the passed in descriptor.
-		\param[in] inCollection The collection to use to find ids of references of this object.
-		\param[in] inWriter Interface to write data to.
-		\param[in] inTempBuffer used to for temporary allocations.
-		\param[in] inArgs The arguments used in create resources and objects.
-		*/
-		virtual void objectToFile( const PxRepXObject& inLiveObject, PxCollection* inCollection, XmlWriter& inWriter, MemoryBuffer& inTempBuffer, PxRepXInstantiationArgs& inArgs ) = 0;
+	/**
+	\brief Convert from a RepX object to a key-value pair hierarchy
 
-		/**
-		\brief Convert from a descriptor to a live object.  Must be an object of this Serializer type.
-		
-		\param[in] inReader The inverse of the writer, a key-value pair database.
-		\param[in] inAllocator An allocator to use for temporary allocations.  These will be freed after instantiation completes.
-		\param[in] inArgs The arguments used in create resources and objects.
-		\param[in] inCollection The collection used to find references.
-		
-		\return The new live object.  It can be an invalid object if the instantiation cannot take place.
-		*/
-		virtual PxRepXObject fileToObject( XmlReader& inReader, XmlMemoryAllocator& inAllocator, PxRepXInstantiationArgs& inArgs, PxCollection* inCollection ) = 0;
+	\param[in] inLiveObject The object to convert to the passed in descriptor.
+	\param[in] inCollection The collection to use to find ids of references of this object.
+	\param[in] inWriter Interface to write data to.
+	\param[in] inTempBuffer used to for temporary allocations.
+	\param[in] inArgs The arguments used in create resources and objects.
+	*/
+	virtual void objectToFile( const PxRepXObject& inLiveObject, PxCollection* inCollection, XmlWriter& inWriter, MemoryBuffer& inTempBuffer, PxRepXInstantiationArgs& inArgs ) = 0;
 
-	};
-	
+	/**
+	\brief Convert from a descriptor to a live object.  Must be an object of this Serializer type.
+
+	\param[in] inReader The inverse of the writer, a key-value pair database.
+	\param[in] inAllocator An allocator to use for temporary allocations.  These will be freed after instantiation completes.
+	\param[in] inArgs The arguments used in create resources and objects.
+	\param[in] inCollection The collection used to find references.
+
+	\return The new live object.  It can be an invalid object if the instantiation cannot take place.
+	*/
+	virtual PxRepXObject fileToObject( XmlReader& inReader, XmlMemoryAllocator& inAllocator, PxRepXInstantiationArgs& inArgs, PxCollection* inCollection ) = 0;
+
+};
+
 #if !PX_DOXYGEN
 } // namespace physx
 #endif

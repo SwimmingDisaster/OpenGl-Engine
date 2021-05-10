@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_EXTENSIONS_SCENE_QUERY_H
@@ -34,9 +34,9 @@
   @{
 */
 
-#include "PxPhysXConfig.h"
+#include "physx/PxPhysXConfig.h"
 
-#include "PxScene.h"
+#include "physx/PxScene.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -65,7 +65,7 @@ public:
 
 	/**
 	\brief Raycast returning any blocking hit, not necessarily the closest.
-	
+
 	Returns whether any rigid actor is hit along the ray.
 
 	\note Shooting a ray from within an object leads to different results depending on the shape type. Please check the details in article SceneQuery. User can ignore such objects by using one of the provided filter mechanisms.
@@ -85,13 +85,13 @@ public:
 	@see PxSceneQueryFilterData PxSceneQueryFilterCallback PxSceneQueryCache PxSceneQueryHit
 	*/
 	static bool raycastAny(	const PxScene& scene,
-							const PxVec3& origin, const PxVec3& unitDir, const PxReal distance,
-							PxSceneQueryHit& hit, const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
-							PxSceneQueryFilterCallback* filterCall = NULL, const PxSceneQueryCache* cache = NULL);
+	                        const PxVec3& origin, const PxVec3& unitDir, const PxReal distance,
+	                        PxSceneQueryHit& hit, const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
+	                        PxSceneQueryFilterCallback* filterCall = NULL, const PxSceneQueryCache* cache = NULL);
 
 	/**
 	\brief Raycast returning a single result.
-	
+
 	Returns the first rigid actor that is hit along the ray. Data for a blocking hit will be returned as specified by the outputFlags field. Touching hits will be ignored.
 
 	\note Shooting a ray from within an object leads to different results depending on the shape type. Please check the details in article SceneQuery. User can ignore such objects by using one of the provided filter mechanisms.
@@ -112,14 +112,14 @@ public:
 	@see PxSceneQueryFlags PxRaycastHit PxSceneQueryFilterData PxSceneQueryFilterCallback PxSceneQueryCache
 	*/
 	static bool raycastSingle(	const PxScene& scene,
-								const PxVec3& origin, const PxVec3& unitDir, const PxReal distance,
-								PxSceneQueryFlags outputFlags, PxRaycastHit& hit,
-								const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
-								PxSceneQueryFilterCallback* filterCall = NULL, const PxSceneQueryCache* cache = NULL);
+	                            const PxVec3& origin, const PxVec3& unitDir, const PxReal distance,
+	                            PxSceneQueryFlags outputFlags, PxRaycastHit& hit,
+	                            const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
+	                            PxSceneQueryFilterCallback* filterCall = NULL, const PxSceneQueryCache* cache = NULL);
 
 	/**
 	\brief Raycast returning multiple results.
-	
+
 	Find all rigid actors that get hit along the ray. Each result contains data as specified by the outputFlags field.
 
 	\note Touching hits are not ordered.
@@ -145,15 +145,15 @@ public:
 	@see PxSceneQueryFlags PxRaycastHit PxSceneQueryFilterData PxSceneQueryFilterCallback PxSceneQueryCache
 	*/
 	static PxI32 raycastMultiple(	const PxScene& scene,
-									const PxVec3& origin, const PxVec3& unitDir, const PxReal distance,
-									PxSceneQueryFlags outputFlags,
-									PxRaycastHit* hitBuffer, PxU32 hitBufferSize, bool& blockingHit,
-									const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
-									PxSceneQueryFilterCallback* filterCall = NULL, const PxSceneQueryCache* cache = NULL);
+	                                const PxVec3& origin, const PxVec3& unitDir, const PxReal distance,
+	                                PxSceneQueryFlags outputFlags,
+	                                PxRaycastHit* hitBuffer, PxU32 hitBufferSize, bool& blockingHit,
+	                                const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
+	                                PxSceneQueryFilterCallback* filterCall = NULL, const PxSceneQueryCache* cache = NULL);
 
 	/**
 	\brief Sweep returning any blocking hit, not necessarily the closest.
-	
+
 	Returns whether any rigid actor is hit along the sweep path.
 
 	\note If a shape from the scene is already overlapping with the query shape in its starting position, behavior is controlled by the PxSceneQueryFlag::eINITIAL_OVERLAP flag.
@@ -176,17 +176,17 @@ public:
 	@see PxSceneQueryFilterData PxSceneQueryFilterCallback PxSceneQueryHit PxSceneQueryCache
 	*/
 	static bool sweepAny(	const PxScene& scene,
-							const PxGeometry& geometry, const PxTransform& pose, const PxVec3& unitDir, const PxReal distance,
-							PxSceneQueryFlags queryFlags,
-							PxSceneQueryHit& hit,
-							const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
-							PxSceneQueryFilterCallback* filterCall = NULL,
-							const PxSceneQueryCache* cache = NULL,
-							PxReal inflation = 0.0f);
+	                        const PxGeometry& geometry, const PxTransform& pose, const PxVec3& unitDir, const PxReal distance,
+	                        PxSceneQueryFlags queryFlags,
+	                        PxSceneQueryHit& hit,
+	                        const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
+	                        PxSceneQueryFilterCallback* filterCall = NULL,
+	                        const PxSceneQueryCache* cache = NULL,
+	                        PxReal inflation = 0.0f);
 
 	/**
 	\brief Sweep returning a single result.
-	
+
 	Returns the first rigid actor that is hit along the ray. Data for a blocking hit will be returned as specified by the outputFlags field. Touching hits will be ignored.
 
 	\note If a shape from the scene is already overlapping with the query shape in its starting position, behavior is controlled by the PxSceneQueryFlag::eINITIAL_OVERLAP flag.
@@ -209,17 +209,17 @@ public:
 	@see PxSceneQueryFlags PxSweepHit PxSceneQueryFilterData PxSceneQueryFilterCallback PxSceneQueryCache
 	*/
 	static bool sweepSingle(const PxScene& scene,
-							const PxGeometry& geometry, const PxTransform& pose, const PxVec3& unitDir, const PxReal distance,
-							PxSceneQueryFlags outputFlags,
-							PxSweepHit& hit,
-							const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
-							PxSceneQueryFilterCallback* filterCall = NULL,
-							const PxSceneQueryCache* cache = NULL,
-							PxReal inflation=0.0f);
+	                        const PxGeometry& geometry, const PxTransform& pose, const PxVec3& unitDir, const PxReal distance,
+	                        PxSceneQueryFlags outputFlags,
+	                        PxSweepHit& hit,
+	                        const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
+	                        PxSceneQueryFilterCallback* filterCall = NULL,
+	                        const PxSceneQueryCache* cache = NULL,
+	                        PxReal inflation = 0.0f);
 
 	/**
 	\brief Sweep returning multiple results.
-	
+
 	Find all rigid actors that get hit along the sweep. Each result contains data as specified by the outputFlags field.
 
 	\note Touching hits are not ordered.
@@ -247,15 +247,15 @@ public:
 	@see PxSceneQueryFlags PxSweepHit PxSceneQueryFilterData PxSceneQueryFilterCallback PxSceneQueryCache
 	*/
 	static PxI32 sweepMultiple(	const PxScene& scene,
-								const PxGeometry& geometry, const PxTransform& pose, const PxVec3& unitDir, const PxReal distance,
-								PxSceneQueryFlags outputFlags, PxSweepHit* hitBuffer, PxU32 hitBufferSize, bool& blockingHit,
-								const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
-								PxSceneQueryFilterCallback* filterCall = NULL, const PxSceneQueryCache* cache = NULL,
-								PxReal inflation = 0.0f);
+	                            const PxGeometry& geometry, const PxTransform& pose, const PxVec3& unitDir, const PxReal distance,
+	                            PxSceneQueryFlags outputFlags, PxSweepHit* hitBuffer, PxU32 hitBufferSize, bool& blockingHit,
+	                            const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
+	                            PxSceneQueryFilterCallback* filterCall = NULL, const PxSceneQueryCache* cache = NULL,
+	                            PxReal inflation = 0.0f);
 
 	/**
 	\brief Test overlap between a geometry and objects in the scene.
-	
+
 	\note Filtering: Overlap tests do not distinguish between touching and blocking hit types. Both get written to the hit buffer.
 
 	\note PxHitFlag::eMESH_MULTIPLE and PxHitFlag::eMESH_BOTH_SIDES have no effect in this case
@@ -264,7 +264,7 @@ public:
 	\param[in] geometry			Geometry of object to check for overlap (supported types are: box, sphere, capsule, convex).
 	\param[in] pose				Pose of the object.
 	\param[out] hitBuffer		Buffer to store the overlapping objects to. If the buffer overflows, an arbitrary subset of overlapping objects is stored (typically the query should be restarted with a larger buffer).
-	\param[in] hitBufferSize	Size of the hit buffer. 
+	\param[in] hitBufferSize	Size of the hit buffer.
 	\param[in] filterData		Filtering data and simple logic.
 	\param[in] filterCall		Custom filtering logic (optional). Only used if the corresponding #PxHitFlag flags are set. If NULL, all hits are assumed to overlap.
 	\return Number of hits in the buffer, or -1 if the buffer overflowed.
@@ -272,18 +272,18 @@ public:
 	@see PxSceneQueryFlags PxSceneQueryFilterData PxSceneQueryFilterCallback
 	*/
 	static PxI32 overlapMultiple(	const PxScene& scene,
-									const PxGeometry& geometry, const PxTransform& pose,
-									PxOverlapHit* hitBuffer, PxU32 hitBufferSize,
-									const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
-									PxSceneQueryFilterCallback* filterCall = NULL);
+	                                const PxGeometry& geometry, const PxTransform& pose,
+	                                PxOverlapHit* hitBuffer, PxU32 hitBufferSize,
+	                                const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
+	                                PxSceneQueryFilterCallback* filterCall = NULL);
 
 	/**
 	\brief Test returning, for a given geometry, any overlapping object in the scene.
-	
+
 	\note Filtering: Overlap tests do not distinguish between touching and blocking hit types. Both trigger a hit.
 
 	\note PxHitFlag::eMESH_MULTIPLE and PxHitFlag::eMESH_BOTH_SIDES have no effect in this case
-	
+
 	\param[in] scene			The scene
 	\param[in] geometry			Geometry of object to check for overlap (supported types are: box, sphere, capsule, convex).
 	\param[in] pose				Pose of the object.
@@ -295,10 +295,10 @@ public:
 	@see PxSceneQueryFlags PxSceneQueryFilterData PxSceneQueryFilterCallback
 	*/
 	static bool	overlapAny(	const PxScene& scene,
-							const PxGeometry& geometry, const PxTransform& pose,
-							PxOverlapHit& hit,
-							const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
-							PxSceneQueryFilterCallback* filterCall = NULL);
+	                        const PxGeometry& geometry, const PxTransform& pose,
+	                        PxOverlapHit& hit,
+	                        const PxSceneQueryFilterData& filterData = PxSceneQueryFilterData(),
+	                        PxSceneQueryFilterCallback* filterCall = NULL);
 };
 
 #if !PX_DOXYGEN

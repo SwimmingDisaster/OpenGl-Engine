@@ -34,9 +34,9 @@
 */
 
 #include "pxshared/foundation/PxMath.h"
-#include "common/PxTolerancesScale.h"
-#include "extensions/PxJoint.h"
-#include "PxPhysXConfig.h"
+#include "physx/common/PxTolerancesScale.h"
+#include "physx/extensions/PxJoint.h"
+#include "physx/PxPhysXConfig.h"
 
 #if !PX_DOXYGEN
 namespace physx

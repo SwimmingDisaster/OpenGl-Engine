@@ -25,13 +25,13 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef GU_CONTACTBUFFER_H
 #define GU_CONTACTBUFFER_H
 
-#include "geomutils/GuContactPoint.h"
-#include "PxPhysXConfig.h"
+#include "physx/geomutils/GuContactPoint.h"
+#include "physx/PxPhysXConfig.h"
 #include "PxContact.h"
 
 namespace physx
@@ -39,17 +39,17 @@ namespace physx
 namespace Gu
 {
 
-	struct NarrowPhaseParams
-	{
-		PX_FORCE_INLINE	NarrowPhaseParams(PxReal contactDistance, PxReal meshContactMargin, PxReal toleranceLength) :
-				mContactDistance(contactDistance),
-				mMeshContactMargin(meshContactMargin),
-				mToleranceLength(toleranceLength)	{}
+struct NarrowPhaseParams
+{
+	PX_FORCE_INLINE	NarrowPhaseParams(PxReal contactDistance, PxReal meshContactMargin, PxReal toleranceLength) :
+		mContactDistance(contactDistance),
+		mMeshContactMargin(meshContactMargin),
+		mToleranceLength(toleranceLength)	{}
 
-		PxReal	mContactDistance;
-		PxReal	mMeshContactMargin;	// PT: Margin used to generate mesh contacts. Temp & unclear, should be removed once GJK is default path.
-		PxReal	mToleranceLength;	// PT: copy of PxTolerancesScale::length
-	};
+	PxReal	mContactDistance;
+	PxReal	mMeshContactMargin;	// PT: Margin used to generate mesh contacts. Temp & unclear, should be removed once GJK is default path.
+	PxReal	mToleranceLength;	// PT: copy of PxTolerancesScale::length
+};
 
 //sizeof(SavedContactData)/sizeof(PxU32) = 17, 1088/17 = 64 triangles in the local array
 #define LOCAL_CONTACTS_SIZE		1088
@@ -69,33 +69,33 @@ public:
 		count = 0;
 	}
 
-	PX_FORCE_INLINE bool contact(const PxVec3& worldPoint, 
-				 const PxVec3& worldNormalIn, 
-				 PxReal separation, 
-				 PxU32 faceIndex1 = PXC_CONTACT_NO_FACE_INDEX
-				 )
+	PX_FORCE_INLINE bool contact(const PxVec3& worldPoint,
+	                             const PxVec3& worldNormalIn,
+	                             PxReal separation,
+	                             PxU32 faceIndex1 = PXC_CONTACT_NO_FACE_INDEX
+	                            )
 	{
-		PX_ASSERT(PxAbs(worldNormalIn.magnitude()-1)<1e-3f);
+		PX_ASSERT(PxAbs(worldNormalIn.magnitude() - 1) < 1e-3f);
 
-		if(count>=MAX_CONTACTS)
+		if (count >= MAX_CONTACTS)
 			return false;
 
 		Gu::ContactPoint& p	= contacts[count++];
 		p.normal			= worldNormalIn;
 		p.point				= worldPoint;
 		p.separation		= separation;
-		p.internalFaceIndex1= faceIndex1;
+		p.internalFaceIndex1 = faceIndex1;
 		return true;
 	}
 
 	PX_FORCE_INLINE bool contact(const PxVec3& worldPoint,
-		const PxVec3& worldNormalIn,
-		PxReal separation,
-		PxU16 internalUsage,
-		PxU32 faceIndex1 = PXC_CONTACT_NO_FACE_INDEX
-		)
+	                             const PxVec3& worldNormalIn,
+	                             PxReal separation,
+	                             PxU16 internalUsage,
+	                             PxU32 faceIndex1 = PXC_CONTACT_NO_FACE_INDEX
+	                            )
 	{
-		PX_ASSERT(PxAbs(worldNormalIn.magnitude() - 1)<1e-3f);
+		PX_ASSERT(PxAbs(worldNormalIn.magnitude() - 1) < 1e-3f);
 
 		if (count >= MAX_CONTACTS)
 			return false;
@@ -111,7 +111,7 @@ public:
 
 	PX_FORCE_INLINE bool contact(const Gu::ContactPoint & pt)
 	{
-		if(count>=MAX_CONTACTS)
+		if (count >= MAX_CONTACTS)
 			return false;
 		contacts[count++] = pt;
 		return true;
@@ -119,7 +119,7 @@ public:
 
 	PX_FORCE_INLINE Gu::ContactPoint* contact()
 	{
-		if(count>=MAX_CONTACTS)
+		if (count >= MAX_CONTACTS)
 			return NULL;
 		return &contacts[count++];
 	}

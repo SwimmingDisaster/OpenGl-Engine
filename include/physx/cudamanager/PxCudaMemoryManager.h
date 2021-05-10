@@ -32,7 +32,7 @@
 
 #if PX_SUPPORT_GPU_PHYSX
 
-#include "task/PxTaskDefine.h"
+#include "physx/task/PxTaskDefine.h"
 
 // some macros to keep the source code more readable
 #define PX_ALLOC_INFO(name, ID) __FILE__, __LINE__, name, physx::PxAllocId::ID
@@ -56,9 +56,9 @@ PX_PUSH_PACK_DEFAULT
  */
 struct PxAllocId
 {
-    /**
-     * \brief ID of the Feature which owns/allocated memory from the heap
-     */
+	/**
+	 * \brief ID of the Feature which owns/allocated memory from the heap
+	 */
 	enum Enum
 	{
 		UNASSIGNED,		//!< default
@@ -73,9 +73,9 @@ struct PxAllocId
 /// \brief memory type managed by a heap
 struct PxCudaBufferMemorySpace
 {
-    /**
-     * \brief memory type managed by a heap
-     */
+	/**
+	 * \brief memory type managed by a heap
+	 */
 	enum Enum
 	{
 		T_GPU,
@@ -90,14 +90,14 @@ struct PxCudaBufferMemorySpace
 class PxAllocInfo
 {
 public:
-    /**
-     * \brief AllocInfo default constructor
-     */
+	/**
+	 * \brief AllocInfo default constructor
+	 */
 	PxAllocInfo() {}
 
-    /**
-     * \brief AllocInfo constructor that initializes all of the members
-     */
+	/**
+	 * \brief AllocInfo constructor that initializes all of the members
+	 */
 	PxAllocInfo(const char* file, int line, const char* allocName, PxAllocId::Enum allocId)
 		: mFileName(file)
 		, mLine(line)
@@ -180,14 +180,14 @@ struct PxCudaBufferType
 		: memorySpace(t.memorySpace)
 		, flags(t.flags)
 	{}
-	
+
 	/// \brief PxCudaBufferType constructor to explicitely assign members
 	PX_INLINE PxCudaBufferType(PxCudaBufferMemorySpace::Enum _memSpace, PxCudaBufferFlags::Enum _flags)
 		: memorySpace(_memSpace)
 		, flags(_flags)
 	{}
 
-	PxCudaBufferMemorySpace::Enum	memorySpace; 	//!< specifies which memory space for the buffer 
+	PxCudaBufferMemorySpace::Enum	memorySpace; 	//!< specifies which memory space for the buffer
 	PxCudaBufferFlags::Enum			flags;			//!< specifies the usage flags for the buffer
 };
 
@@ -218,8 +218,8 @@ public:
 	virtual	size_t						getSize() const = 0;
 
 protected:
-    /// \brief protected destructor
-    virtual ~PxCudaBuffer() {}
+	/// \brief protected destructor
+	virtual ~PxCudaBuffer() {}
 };
 
 
@@ -268,8 +268,8 @@ public:
 	virtual PxCudaBufferPtr				getMappedPinnedPtr(PxCudaBufferPtr hostPtr) = 0;
 
 protected:
-    /// \brief protected destructor
-    virtual ~PxCudaMemoryManager() {}
+	/// \brief protected destructor
+	virtual ~PxCudaMemoryManager() {}
 };
 
 PX_POP_PACK

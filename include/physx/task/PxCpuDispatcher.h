@@ -28,7 +28,7 @@
 #ifndef PXTASK_PXCPUDISPATCHER_H
 #define PXTASK_PXCPUDISPATCHER_H
 
-#include "task/PxTaskDefine.h"
+#include "physx/task/PxTaskDefine.h"
 #include "pxshared/foundation/PxSimpleTypes.h"
 
 namespace physx
@@ -36,7 +36,7 @@ namespace physx
 
 class PxBaseTask;
 
-/** 
+/**
  \brief A CpuDispatcher is responsible for scheduling the execution of tasks passed to it by the SDK.
 
  A typical implementation would for example use a thread pool with the dispatcher
@@ -51,7 +51,7 @@ class PxCpuDispatcher
 public:
 	/**
 	\brief Called by the TaskManager when a task is to be queued for execution.
-	
+
 	Upon receiving a task, the dispatcher should schedule the task
 	to run when resource is available.  After the task has been run,
 	it should call the release() method and discard it's pointer.
@@ -60,11 +60,11 @@ public:
 
 	@see PxBaseTask
 	*/
-    virtual void submitTask( PxBaseTask& task ) = 0;
+	virtual void submitTask( PxBaseTask& task ) = 0;
 
 	/**
 	\brief Returns the number of available worker threads for this dispatcher.
-	
+
 	The SDK will use this count to control how many tasks are submitted. By
 	matching the number of tasks with the number of execution units task
 	overhead can be reduced.

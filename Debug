@@ -1,0 +1,41 @@
+
+rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
+
+SRC_DIR := src
+OBJ_DIR := obj
+BIN_DIR := bin
+
+GLAD = obj/GLAD/glad.o
+
+EXE := bin/debug/main
+SRC := $(call rwildcard,$(SRC_DIR),*.cpp)
+SRC += $(GLAD)
+
+OBJ := $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+
+CPPFLAGS := -include include/mypch.h -I include -MMD -MP `pkg-config --cflags gtk+-3.0`
+CFLAGS   := -Wall -std=c++20 -g
+LDFLAGS  := -Llibg 
+LDLIBS   := -rpath ./lib/linux -Llib/linux -lassimp -lglfw3 -lnfd -lpthread -ldl -lX11 `pkg-config --libs gtk+-3.0` -Llib/linux/physx -lPhysXExtensions_static_64 -lPhysX_static_64 -lPhysXPvdSDK_static_64 -lPhysXVehicle_static_64 -lPhysXCharacterKinematic_static_64 -lPhysXCooking_static_64 -lPhysXCommon_static_64 -lPhysXFoundation_static_64 -lSnippetRender_static_64 -lSnippetUtils_static_64 
+
+#-lPhysXGpu_64 
+
+
+
+.PHONY: all clean
+
+all: $(EXE)
+
+$(EXE): $(OBJ) | $(BIN_DIR)
+	@$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
+	$(info $@)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
+	@$(CXX) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+	$(info $@)
+
+clean:
+	@$(RM) -rv $(BIN_DIR) $(OBJ_DIR)
+
+
+-include $(OBJ:.o=.d)

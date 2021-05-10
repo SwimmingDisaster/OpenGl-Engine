@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_GEOMUTILS_PX_MESH_QUERY
@@ -35,8 +35,8 @@
   @{
 */
 
-#include "common/PxPhysXCommonConfig.h"
-#include "PxQueryReport.h"
+#include "physx/common/PxPhysXCommonConfig.h"
+#include "physx/PxQueryReport.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -70,7 +70,7 @@ public:
 
 	@see PxTriangle PxTriangleFlags PxTriangleID findOverlapTriangleMesh()
 	*/
-	PX_PHYSX_COMMON_API static void getTriangle(const PxTriangleMeshGeometry& triGeom, const PxTransform& transform, PxTriangleID triangleIndex, PxTriangle& triangle, PxU32* vertexIndices=NULL, PxU32* adjacencyIndices=NULL);
+	PX_PHYSX_COMMON_API static void getTriangle(const PxTriangleMeshGeometry& triGeom, const PxTransform& transform, PxTriangleID triangleIndex, PxTriangle& triangle, PxU32* vertexIndices = NULL, PxU32* adjacencyIndices = NULL);
 
 
 	/**
@@ -93,15 +93,15 @@ public:
 				for (PxU32 col = 0; col < (nbCols - 1); col++)
 				{
 					for (PxU32 k = 0; k < 2; k++)
-					{ 
-						const PxU32 triIndex = 2 * (row*nbCols + col) + k; 
+					{
+						const PxU32 triIndex = 2 * (row*nbCols + col) + k;
 						....
 					}
 				}
 			}
 	@see PxTriangle PxTriangleFlags PxTriangleID findOverlapHeightField()
 	*/
-	PX_PHYSX_COMMON_API static void getTriangle(const PxHeightFieldGeometry& hfGeom, const PxTransform& transform, PxTriangleID triangleIndex, PxTriangle& triangle, PxU32* vertexIndices=NULL, PxU32* adjacencyIndices=NULL);
+	PX_PHYSX_COMMON_API static void getTriangle(const PxHeightFieldGeometry& hfGeom, const PxTransform& transform, PxTriangleID triangleIndex, PxTriangle& triangle, PxU32* vertexIndices = NULL, PxU32* adjacencyIndices = NULL);
 
 
 	/**
@@ -122,8 +122,8 @@ public:
 	@see PxTriangleMeshGeometry getTriangle()
 	*/
 	PX_PHYSX_COMMON_API static PxU32 findOverlapTriangleMesh(	const PxGeometry& geom, const PxTransform& geomPose,
-																const PxTriangleMeshGeometry& meshGeom, const PxTransform& meshPose,
-																PxU32* results, PxU32 maxResults, PxU32 startIndex, bool& overflow);
+	        const PxTriangleMeshGeometry& meshGeom, const PxTransform& meshPose,
+	        PxU32* results, PxU32 maxResults, PxU32 startIndex, bool& overflow);
 
 	/**
 	\brief Find the height field triangles which touch the specified geometry object.
@@ -143,8 +143,8 @@ public:
 	@see PxHeightFieldGeometry getTriangle()
 	*/
 	PX_PHYSX_COMMON_API static PxU32 findOverlapHeightField(const PxGeometry& geom, const PxTransform& geomPose,
-															const PxHeightFieldGeometry& hfGeom, const PxTransform& hfPose,
-															PxU32* results, PxU32 maxResults, PxU32 startIndex, bool& overflow);
+	        const PxHeightFieldGeometry& hfGeom, const PxTransform& hfPose,
+	        PxU32* results, PxU32 maxResults, PxU32 startIndex, bool& overflow);
 
 
 	/**
@@ -180,16 +180,16 @@ public:
 	@see PxTriangle PxSweepHit PxGeometry PxTransform
 	*/
 	PX_PHYSX_COMMON_API static bool sweep(const PxVec3& unitDir,
-							const PxReal distance,
-							const PxGeometry& geom,
-							const PxTransform& pose,
-							PxU32 triangleCount,
-							const PxTriangle* triangles,
-							PxSweepHit& sweepHit,
-							PxHitFlags hitFlags = PxHitFlag::eDEFAULT,
-							const PxU32* cachedIndex = NULL,
-							const PxReal inflation = 0.0f,
-							bool doubleSided = false);
+	                                      const PxReal distance,
+	                                      const PxGeometry& geom,
+	                                      const PxTransform& pose,
+	                                      PxU32 triangleCount,
+	                                      const PxTriangle* triangles,
+	                                      PxSweepHit& sweepHit,
+	                                      PxHitFlags hitFlags = PxHitFlag::eDEFAULT,
+	                                      const PxU32* cachedIndex = NULL,
+	                                      const PxReal inflation = 0.0f,
+	                                      bool doubleSided = false);
 };
 
 

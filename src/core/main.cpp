@@ -2,8 +2,10 @@
 #include "core/application.h"
 
 
-int main() {
+int main(int argc, char *argv[]) {
+#if !__linux__
 	std::freopen("other/output.txt", "w", stdout);
+#endif
 
 	Application app;
 

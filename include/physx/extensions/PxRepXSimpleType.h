@@ -37,9 +37,9 @@
 */
 
 #include "pxshared/foundation/PxSimpleTypes.h"
-#include "cooking/PxCooking.h"
-#include "common/PxStringTable.h"
-#include "common/PxSerialFramework.h"
+#include "physx/cooking/PxCooking.h"
+#include "physx/common/PxStringTable.h"
+#include "physx/common/PxSerialFramework.h"
 
 #if !PX_DOXYGEN
 namespace physx

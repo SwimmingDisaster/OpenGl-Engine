@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_EXTENSIONS_TRIANGLE_MESH_H
@@ -34,8 +34,8 @@
   @{
 */
 
-#include "PxPhysXConfig.h"
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -46,23 +46,23 @@ class PxGeometry;
 class PxTriangleMeshGeometry;
 class PxHeightFieldGeometry;
 
-	/**
-	\brief Utility class to find mesh triangles touched by a specified geometry object.
+/**
+\brief Utility class to find mesh triangles touched by a specified geometry object.
 
-	This class is a helper calling PxMeshQuery::findOverlapTriangleMesh or PxMeshQuery::findOverlapHeightField under the hood,
-	while taking care of necessary memory management issues.
+This class is a helper calling PxMeshQuery::findOverlapTriangleMesh or PxMeshQuery::findOverlapHeightField under the hood,
+while taking care of necessary memory management issues.
 
-	PxMeshQuery::findOverlapTriangleMesh and PxMeshQuery::findOverlapHeightField are the "raw" functions operating on user-provided fixed-size
-	buffers. These functions abort with an error code in case of buffer overflow. PxMeshOverlapUtil is a convenient helper function checking
-	this error code, and resizing buffers appropriately, until the desired call succeeds.
-	
-	Returned triangle indices are stored within the class, and can be used with PxMeshQuery::getTriangle() to retrieve the triangle properties.
-	*/
-	class PxMeshOverlapUtil
-	{
-		public:
-										PxMeshOverlapUtil();
-										~PxMeshOverlapUtil();
+PxMeshQuery::findOverlapTriangleMesh and PxMeshQuery::findOverlapHeightField are the "raw" functions operating on user-provided fixed-size
+buffers. These functions abort with an error code in case of buffer overflow. PxMeshOverlapUtil is a convenient helper function checking
+this error code, and resizing buffers appropriately, until the desired call succeeds.
+
+Returned triangle indices are stored within the class, and can be used with PxMeshQuery::getTriangle() to retrieve the triangle properties.
+*/
+class PxMeshOverlapUtil
+{
+public:
+	PxMeshOverlapUtil();
+	~PxMeshOverlapUtil();
 	/**
 	\brief Find the mesh triangles which touch the specified geometry object.
 
@@ -74,7 +74,7 @@ class PxHeightFieldGeometry;
 
 	@see PxGeometry PxTransform PxTriangleMeshGeometry PxMeshQuery::findOverlapTriangleMesh
 	*/
-						PxU32			findOverlap(const PxGeometry& geom, const PxTransform& geomPose, const PxTriangleMeshGeometry& meshGeom, const PxTransform& meshPose);
+	PxU32			findOverlap(const PxGeometry& geom, const PxTransform& geomPose, const PxTriangleMeshGeometry& meshGeom, const PxTransform& meshPose);
 
 	/**
 	\brief Find the height field triangles which touch the specified geometry object.
@@ -87,98 +87,98 @@ class PxHeightFieldGeometry;
 
 	@see PxGeometry PxTransform PxHeightFieldGeometry PxMeshQuery::findOverlapHeightField
 	*/
-						PxU32			findOverlap(const PxGeometry& geom, const PxTransform& geomPose, const PxHeightFieldGeometry& hfGeom, const PxTransform& hfPose);
+	PxU32			findOverlap(const PxGeometry& geom, const PxTransform& geomPose, const PxHeightFieldGeometry& hfGeom, const PxTransform& hfPose);
 
 	/**
 	\brief Retrieves array of triangle indices after a findOverlap call.
 	\return Indices of touched triangles
 	*/
-		PX_FORCE_INLINE	const PxU32*	getResults()	const	{ return mResultsMemory;	}
+	PX_FORCE_INLINE	const PxU32*	getResults()	const	{ return mResultsMemory;	}
 
 	/**
 	\brief Retrieves number of triangle indices after a findOverlap call.
 	\return Number of touched triangles
 	*/
-		PX_FORCE_INLINE	PxU32			getNbResults()	const	{ return mNbResults;		}
+	PX_FORCE_INLINE	PxU32			getNbResults()	const	{ return mNbResults;		}
 
-		private:
-						PxU32*			mResultsMemory;
-						PxU32			mResults[256];
-						PxU32			mNbResults;
-						PxU32			mMaxNbResults;
-	};
+private:
+	PxU32*			mResultsMemory;
+	PxU32			mResults[256];
+	PxU32			mNbResults;
+	PxU32			mMaxNbResults;
+};
 
-	/**
-	\brief Computes an approximate minimum translational distance (MTD) between a geometry object and a mesh.
+/**
+\brief Computes an approximate minimum translational distance (MTD) between a geometry object and a mesh.
 
-	This iterative function computes an approximate vector that can be used to depenetrate a geom object
-	from a triangle mesh. Returned depenetration vector should be applied to 'geom', to get out of the mesh.
+This iterative function computes an approximate vector that can be used to depenetrate a geom object
+from a triangle mesh. Returned depenetration vector should be applied to 'geom', to get out of the mesh.
 
-	The function works best when the amount of overlap between the geom object and the mesh is small. If the
-	geom object's center goes inside the mesh, backface culling usually kicks in, no overlap is detected,
-	and the function does not compute an MTD vector.
+The function works best when the amount of overlap between the geom object and the mesh is small. If the
+geom object's center goes inside the mesh, backface culling usually kicks in, no overlap is detected,
+and the function does not compute an MTD vector.
 
-	The function early exits if no overlap is detected after a depenetration attempt. This means that if
-	maxIter = N, the code will attempt at most N iterations but it might exit earlier if depenetration has
-	been successful. Usually N = 4 gives good results.
+The function early exits if no overlap is detected after a depenetration attempt. This means that if
+maxIter = N, the code will attempt at most N iterations but it might exit earlier if depenetration has
+been successful. Usually N = 4 gives good results.
 
-	\param[out] direction Computed MTD unit direction
-	\param[out] depth Penetration depth. Always positive or zero.
-	\param[in] geom The geometry object
-	\param[in] geomPose Pose for the geometry object
-	\param[in] meshGeom The mesh geometry
-	\param[in] meshPose Pose for the mesh
-	\param[in] maxIter Max number of iterations before returning.
-	\param[out] usedIter Number of depenetrations attempts performed during the call. Will not be returned if the pointer is NULL.
+\param[out] direction Computed MTD unit direction
+\param[out] depth Penetration depth. Always positive or zero.
+\param[in] geom The geometry object
+\param[in] geomPose Pose for the geometry object
+\param[in] meshGeom The mesh geometry
+\param[in] meshPose Pose for the mesh
+\param[in] maxIter Max number of iterations before returning.
+\param[out] usedIter Number of depenetrations attempts performed during the call. Will not be returned if the pointer is NULL.
 
-	\return True if the MTD has successfully been computed, i.e. if objects do overlap.
+\return True if the MTD has successfully been computed, i.e. if objects do overlap.
 
-	@see PxGeometry PxTransform PxTriangleMeshGeometry
-	*/
-	bool PxComputeTriangleMeshPenetration(PxVec3& direction, 
-										  PxReal& depth,
-										  const PxGeometry& geom, 
-										  const PxTransform& geomPose, 
-										  const PxTriangleMeshGeometry& meshGeom, 
-										  const PxTransform& meshPose, 
-										  PxU32 maxIter,
-										  PxU32* usedIter = NULL);
+@see PxGeometry PxTransform PxTriangleMeshGeometry
+*/
+bool PxComputeTriangleMeshPenetration(PxVec3& direction,
+                                      PxReal& depth,
+                                      const PxGeometry& geom,
+                                      const PxTransform& geomPose,
+                                      const PxTriangleMeshGeometry& meshGeom,
+                                      const PxTransform& meshPose,
+                                      PxU32 maxIter,
+                                      PxU32* usedIter = NULL);
 
-	/**
-	\brief Computes an approximate minimum translational distance (MTD) between a geometry object and a heightfield.
+/**
+\brief Computes an approximate minimum translational distance (MTD) between a geometry object and a heightfield.
 
-	This iterative function computes an approximate vector that can be used to depenetrate a geom object
-	from a heightfield. Returned depenetration vector should be applied to 'geom', to get out of the heightfield.
+This iterative function computes an approximate vector that can be used to depenetrate a geom object
+from a heightfield. Returned depenetration vector should be applied to 'geom', to get out of the heightfield.
 
-	The function works best when the amount of overlap between the geom object and the mesh is small. If the
-	geom object's center goes inside the heightfield, backface culling usually kicks in, no overlap is detected,
-	and the function does not compute an MTD vector.
+The function works best when the amount of overlap between the geom object and the mesh is small. If the
+geom object's center goes inside the heightfield, backface culling usually kicks in, no overlap is detected,
+and the function does not compute an MTD vector.
 
-	The function early exits if no overlap is detected after a depenetration attempt. This means that if
-	maxIter = N, the code will attempt at most N iterations but it might exit earlier if depenetration has
-	been successful. Usually N = 4 gives good results.
+The function early exits if no overlap is detected after a depenetration attempt. This means that if
+maxIter = N, the code will attempt at most N iterations but it might exit earlier if depenetration has
+been successful. Usually N = 4 gives good results.
 
-	\param[out] direction Computed MTD unit direction
-	\param[out] depth Penetration depth. Always positive or zero.
-	\param[in] geom The geometry object
-	\param[in] geomPose Pose for the geometry object
-	\param[in] heightFieldGeom The heightfield geometry
-	\param[in] heightFieldPose Pose for the heightfield
-	\param[in] maxIter Max number of iterations before returning.
-	\param[out] usedIter Number of depenetrations attempts performed during the call. Will not be returned if the pointer is NULL.
+\param[out] direction Computed MTD unit direction
+\param[out] depth Penetration depth. Always positive or zero.
+\param[in] geom The geometry object
+\param[in] geomPose Pose for the geometry object
+\param[in] heightFieldGeom The heightfield geometry
+\param[in] heightFieldPose Pose for the heightfield
+\param[in] maxIter Max number of iterations before returning.
+\param[out] usedIter Number of depenetrations attempts performed during the call. Will not be returned if the pointer is NULL.
 
-	\return True if the MTD has successfully been computed, i.e. if objects do overlap.
+\return True if the MTD has successfully been computed, i.e. if objects do overlap.
 
-	@see PxGeometry PxTransform PxHeightFieldGeometry
-	*/
-	bool PxComputeHeightFieldPenetration(PxVec3& direction, 
-										 PxReal& depth,
-										 const PxGeometry& geom, 
-									     const PxTransform& geomPose, 
-										 const PxHeightFieldGeometry& heightFieldGeom, 
-										 const PxTransform& heightFieldPose,
-										 PxU32 maxIter, 
-										 PxU32* usedIter = NULL);
+@see PxGeometry PxTransform PxHeightFieldGeometry
+*/
+bool PxComputeHeightFieldPenetration(PxVec3& direction,
+                                     PxReal& depth,
+                                     const PxGeometry& geom,
+                                     const PxTransform& geomPose,
+                                     const PxHeightFieldGeometry& heightFieldGeom,
+                                     const PxTransform& heightFieldPose,
+                                     PxU32 maxIter,
+                                     PxU32* usedIter = NULL);
 
 #if !PX_DOXYGEN
 } // namespace physx

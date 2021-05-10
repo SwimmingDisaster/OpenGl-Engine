@@ -25,13 +25,13 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_PX_COLLECTION
 #define PX_PHYSICS_PX_COLLECTION
 
-#include "common/PxSerialFramework.h"
+#include "physx/common/PxSerialFramework.h"
 
 /** \addtogroup common
 @{
@@ -48,7 +48,7 @@ class PxBase;
 \brief Collection class for serialization.
 
 A collection is a set of PxBase objects. PxBase objects can be added to the collection
-regardless of other objects they depend on. Objects may be named using PxSerialObjectId values in order 
+regardless of other objects they depend on. Objects may be named using PxSerialObjectId values in order
 to resolve dependencies between objects of different collections.
 
 Serialization and deserialization only work through collections.
@@ -68,7 +68,7 @@ For example the code may look like this:
 	PxPhysics* physics; // The physics
 	PxScene* scene;		// The physics scene
 	SerialStream s;		// The user-defined stream doing the actual write to disk
-	
+
 	PxSerializationRegistry* registry = PxSerialization::createSerializationRegistry(*physics);	// step 1)
 	PxCollection* collection = PxSerialization::createCollection(*scene);						// step 2)
 	PxSerialization::complete(*collection, *registry);											// step 3)
@@ -92,7 +92,7 @@ For example the code may look like this:
 	PxPhysics* physics; // The physics
 	PxScene* scene;		// The physics scene
 	void* memory128;	// a 128-byte aligned buffer previously loaded from disk by the user	- step 1)
-	
+
 	PxSerializationRegistry* registry = PxSerialization::createSerializationRegistry(*physics);		// step 2)
 	PxCollection* collection = PxSerialization::createCollectionFromBinary(memory128, *registry);	// step 3)
 	scene->addCollection(*collection);																// step 4)
@@ -104,13 +104,13 @@ For example the code may look like this:
 */
 class PxCollection
 {
-public:	
+public:
 
 	/**
 	\brief Adds a PxBase object to the collection.
 
 	Adds a PxBase object to the collection. Optionally a PxSerialObjectId can be provided
-	in order to resolve dependencies between collections. A PxSerialObjectId value of PX_SERIAL_OBJECT_ID_INVALID 
+	in order to resolve dependencies between collections. A PxSerialObjectId value of PX_SERIAL_OBJECT_ID_INVALID
 	means the object remains without id. Objects can be added regardless of other objects they require. If the object
 	is already in the collection, the ID will be set if it was PX_SERIAL_OBJECT_ID_INVALID previously, otherwise the
 	operation fails.
@@ -129,7 +129,7 @@ public:
 	\param[in] object PxBase object to be removed
 	*/
 	virtual	void						remove(PxBase& object) = 0;
-			
+
 	/**
 	\brief Returns whether the collection contains a certain PxBase object.
 
@@ -142,9 +142,9 @@ public:
 	\brief Adds an id to a member PxBase object.
 
 	If the object is already associated with an id within the collection, the id is replaced.
-	May only be called for objects that are members of the collection. The id needs to be unique 
+	May only be called for objects that are members of the collection. The id needs to be unique
 	within the collection.
-	
+
 	\param[in] object Member PxBase object
 	\param[in] id PxSerialObjectId id to be given to the object
 	*/
@@ -154,17 +154,17 @@ public:
 	\brief Removes id from a contained PxBase object.
 
 	May only be called for ids that are associated with an object in the collection.
-	
+
 	\param[in] id PxSerialObjectId value
 	*/
 	virtual void						removeId(PxSerialObjectId id) = 0;
-	
+
 	/**
 	\brief Adds all PxBase objects and their ids of collection to this collection.
 
-	PxBase objects already in this collection are ignored. Object ids need to be conflict 
+	PxBase objects already in this collection are ignored. Object ids need to be conflict
 	free, i.e. the same object may not have two different ids within the two collections.
-	
+
 	\param[in] collection Collection to be added
 	*/
 	virtual void						add(PxCollection& collection) = 0;
@@ -172,7 +172,7 @@ public:
 	/**
 	\brief Removes all PxBase objects of collection from this collection.
 
-	PxBase objects not present in this collection are ignored. Ids of objects 
+	PxBase objects not present in this collection are ignored. Ids of objects
 	which are removed are also removed.
 
 	\param[in] collection Collection to be removed
@@ -181,7 +181,7 @@ public:
 
 	/**
 	\brief Gets number of PxBase objects in this collection.
-	
+
 	\return Number of objects in this collection
 	*/
 	virtual	PxU32						getNbObjects() const = 0;
@@ -200,9 +200,9 @@ public:
 	\param[out] userBuffer Array of PxBase pointers
 	\param[in] bufferSize Capacity of userBuffer
 	\param[in] startIndex Offset into list of member PxBase objects
-	\return number of members PxBase objects that have been written to the userBuffer 
+	\return number of members PxBase objects that have been written to the userBuffer
 	*/
-	virtual	PxU32						getObjects(PxBase** userBuffer, PxU32 bufferSize, PxU32 startIndex=0) const = 0;
+	virtual	PxU32						getObjects(PxBase** userBuffer, PxU32 bufferSize, PxU32 startIndex = 0) const = 0;
 
 	/**
 	\brief Looks for a PxBase object given a PxSerialObjectId value.
@@ -213,10 +213,10 @@ public:
 	\return PxBase object with the given id value or NULL
 	*/
 	virtual PxBase*						find(PxSerialObjectId id) const = 0;
-	
+
 	/**
 	\brief Gets number of PxSerialObjectId names in this collection.
-	
+
 	\return Number of PxSerialObjectId names in this collection
 	*/
 	virtual PxU32						getNbIds() const = 0;
@@ -227,9 +227,9 @@ public:
 	\param[out] userBuffer Array of PxSerialObjectId values
 	\param[in] bufferSize Capacity of userBuffer
 	\param[in] startIndex Offset into list of member PxSerialObjectId values
-	\return number of members PxSerialObjectId values that have been written to the userBuffer 
+	\return number of members PxSerialObjectId values that have been written to the userBuffer
 	*/
-	virtual	PxU32						getIds(PxSerialObjectId* userBuffer, PxU32 bufferSize, PxU32 startIndex=0) const = 0;
+	virtual	PxU32						getIds(PxSerialObjectId* userBuffer, PxU32 bufferSize, PxU32 startIndex = 0) const = 0;
 
 	/**
 	\brief Gets the PxSerialObjectId name of a PxBase object within the collection.
@@ -239,7 +239,7 @@ public:
 	\param[in] object PxBase object to get id for
 	\return PxSerialObjectId name of the object or PX_SERIAL_OBJECT_ID_INVALID if the object is unnamed
 	*/
-	virtual PxSerialObjectId			getId(const PxBase& object) const = 0;	
+	virtual PxSerialObjectId			getId(const PxBase& object) const = 0;
 
 	/**
 	\brief Deletes a collection object.
@@ -247,16 +247,16 @@ public:
 	This function only deletes the collection object, i.e. the container class. It doesn't delete objects
 	that are part of the collection.
 
-	@see PxCreateCollection() 
+	@see PxCreateCollection()
 	*/
 
 	virtual void						release() = 0;
 
 protected:
-										PxCollection()	{}
+	PxCollection()	{}
 	virtual								~PxCollection()	{}
 };
-    
+
 #if !PX_DOXYGEN
 } // namespace physx
 #endif

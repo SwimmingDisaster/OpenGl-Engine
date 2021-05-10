@@ -34,8 +34,8 @@
 @{
 */
 
-#include "common/PxCoreUtilityTypes.h"
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/common/PxCoreUtilityTypes.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 #include "pxshared/foundation/PxTransform.h"
 #include "pxshared/foundation/PxBounds3.h"
 

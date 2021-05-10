@@ -34,9 +34,9 @@
   @{
 */
 
-#include "geometry/PxHeightFieldFlag.h"
-#include "geometry/PxHeightFieldSample.h"
-#include "common/PxBase.h"
+#include "physx/geometry/PxHeightFieldFlag.h"
+#include "physx/geometry/PxHeightFieldSample.h"
+#include "physx/common/PxBase.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -84,7 +84,7 @@ once you have released all of its PxHeightFiedShape instances.
 
 class PxHeightField	: public PxBase
 {
-	public:
+public:
 	/**
 	\brief Decrements the reference count of a height field and releases it if the new reference count is zero.
 
@@ -93,7 +93,7 @@ class PxHeightField	: public PxBase
 	PX_PHYSX_COMMON_API virtual		void						release() = 0;
 
 	/**
-    \brief Writes out the sample data array.
+	\brief Writes out the sample data array.
 
 	The user provides destBufferSize bytes storage at destBuffer.
 	The data is formatted and arranged as PxHeightFieldDesc.samples.
@@ -104,10 +104,10 @@ class PxHeightField	: public PxBase
 
 	@see PxHeightFieldDesc.samples
 	*/
-    PX_PHYSX_COMMON_API virtual		PxU32						saveCells(void* destBuffer, PxU32 destBufferSize) const = 0;
+	PX_PHYSX_COMMON_API virtual		PxU32						saveCells(void* destBuffer, PxU32 destBufferSize) const = 0;
 
 	/**
-    \brief Replaces a rectangular subfield in the sample data array.
+	\brief Replaces a rectangular subfield in the sample data array.
 
 	The user provides the description of a rectangular subfield in subfieldDesc.
 	The data is formatted and arranged as PxHeightFieldDesc.samples.
@@ -227,7 +227,7 @@ class PxHeightField	: public PxBase
 	PX_PHYSX_COMMON_API virtual	PxVec3					getTriangleNormal(PxTriangleID triangleIndex) const = 0;
 
 	/**
-	\brief Returns heightfield sample of given row and column	
+	\brief Returns heightfield sample of given row and column
 
 	\param[in] row Given heightfield row
 	\param[in] column Given heightfield column
@@ -237,10 +237,10 @@ class PxHeightField	: public PxBase
 
 	/**
 	\brief Returns the number of times the heightfield data has been modified
-	
+
 	This method returns the number of times modifySamples has been called on this heightfield, so that code that has
 	retained state that depends on the heightfield can efficiently determine whether it has been modified.
-	
+
 	\return the number of times the heightfield sample data has been modified.
 	*/
 	PX_PHYSX_COMMON_API virtual		PxU32						getTimestamp()			const	= 0;
@@ -248,8 +248,8 @@ class PxHeightField	: public PxBase
 	PX_PHYSX_COMMON_API virtual	const char*				getConcreteTypeName() const { return "PxHeightField"; }
 
 protected:
-						PX_INLINE						PxHeightField(PxType concreteType, PxBaseFlags baseFlags) : PxBase(concreteType, baseFlags) {}
-						PX_INLINE						PxHeightField(PxBaseFlags baseFlags) : PxBase(baseFlags) {}
+	PX_INLINE						PxHeightField(PxType concreteType, PxBaseFlags baseFlags) : PxBase(concreteType, baseFlags) {}
+	PX_INLINE						PxHeightField(PxBaseFlags baseFlags) : PxBase(baseFlags) {}
 	PX_PHYSX_COMMON_API virtual							~PxHeightField() {}
 	PX_PHYSX_COMMON_API virtual	bool					isKindOf(const char* name) const { return !::strcmp("PxHeightField", name) || PxBase::isKindOf(name); }
 };

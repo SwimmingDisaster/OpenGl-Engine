@@ -22,7 +22,7 @@ public:
 			return comp;
 	}
 
-	void copy(std::shared_ptr<Entity>& entityRef, std::shared_ptr<Component>& componentRef) override {
+	void copy(const std::shared_ptr<Entity>& entityRef, std::shared_ptr<Component>& componentRef) override {
 		*entityRef->GetComponentOrMakeIfNone<T>() = *std::make_shared<T>(*std::dynamic_pointer_cast<T>(componentRef));
 	}
 };

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "common.h"
+#include "physx/common.h"
 
 #if GLM_ARCH & GLM_ARCH_SSE2_BIT
 
@@ -27,38 +27,38 @@ GLM_FUNC_QUALIFIER glm_vec4 glm_vec4_distance(glm_vec4 p0, glm_vec4 p1)
 GLM_FUNC_QUALIFIER glm_vec4 glm_vec4_dot(glm_vec4 v1, glm_vec4 v2)
 {
 #	if GLM_ARCH & GLM_ARCH_AVX_BIT
-		return _mm_dp_ps(v1, v2, 0xff);
+	return _mm_dp_ps(v1, v2, 0xff);
 #	elif GLM_ARCH & GLM_ARCH_SSE3_BIT
-		glm_vec4 const mul0 = _mm_mul_ps(v1, v2);
-		glm_vec4 const hadd0 = _mm_hadd_ps(mul0, mul0);
-		glm_vec4 const hadd1 = _mm_hadd_ps(hadd0, hadd0);
-		return hadd1;
+	glm_vec4 const mul0 = _mm_mul_ps(v1, v2);
+	glm_vec4 const hadd0 = _mm_hadd_ps(mul0, mul0);
+	glm_vec4 const hadd1 = _mm_hadd_ps(hadd0, hadd0);
+	return hadd1;
 #	else
-		glm_vec4 const mul0 = _mm_mul_ps(v1, v2);
-		glm_vec4 const swp0 = _mm_shuffle_ps(mul0, mul0, _MM_SHUFFLE(2, 3, 0, 1));
-		glm_vec4 const add0 = _mm_add_ps(mul0, swp0);
-		glm_vec4 const swp1 = _mm_shuffle_ps(add0, add0, _MM_SHUFFLE(0, 1, 2, 3));
-		glm_vec4 const add1 = _mm_add_ps(add0, swp1);
-		return add1;
+	glm_vec4 const mul0 = _mm_mul_ps(v1, v2);
+	glm_vec4 const swp0 = _mm_shuffle_ps(mul0, mul0, _MM_SHUFFLE(2, 3, 0, 1));
+	glm_vec4 const add0 = _mm_add_ps(mul0, swp0);
+	glm_vec4 const swp1 = _mm_shuffle_ps(add0, add0, _MM_SHUFFLE(0, 1, 2, 3));
+	glm_vec4 const add1 = _mm_add_ps(add0, swp1);
+	return add1;
 #	endif
 }
 
 GLM_FUNC_QUALIFIER glm_vec4 glm_vec1_dot(glm_vec4 v1, glm_vec4 v2)
 {
 #	if GLM_ARCH & GLM_ARCH_AVX_BIT
-		return _mm_dp_ps(v1, v2, 0xff);
+	return _mm_dp_ps(v1, v2, 0xff);
 #	elif GLM_ARCH & GLM_ARCH_SSE3_BIT
-		glm_vec4 const mul0 = _mm_mul_ps(v1, v2);
-		glm_vec4 const had0 = _mm_hadd_ps(mul0, mul0);
-		glm_vec4 const had1 = _mm_hadd_ps(had0, had0);
-		return had1;
+	glm_vec4 const mul0 = _mm_mul_ps(v1, v2);
+	glm_vec4 const had0 = _mm_hadd_ps(mul0, mul0);
+	glm_vec4 const had1 = _mm_hadd_ps(had0, had0);
+	return had1;
 #	else
-		glm_vec4 const mul0 = _mm_mul_ps(v1, v2);
-		glm_vec4 const mov0 = _mm_movehl_ps(mul0, mul0);
-		glm_vec4 const add0 = _mm_add_ps(mov0, mul0);
-		glm_vec4 const swp1 = _mm_shuffle_ps(add0, add0, 1);
-		glm_vec4 const add1 = _mm_add_ss(add0, swp1);
-		return add1;
+	glm_vec4 const mul0 = _mm_mul_ps(v1, v2);
+	glm_vec4 const mov0 = _mm_movehl_ps(mul0, mul0);
+	glm_vec4 const add0 = _mm_add_ps(mov0, mul0);
+	glm_vec4 const swp1 = _mm_shuffle_ps(add0, add0, 1);
+	glm_vec4 const add1 = _mm_add_ss(add0, swp1);
+	return add1;
 #	endif
 }
 
@@ -109,7 +109,7 @@ GLM_FUNC_QUALIFIER __m128 glm_vec4_refract(glm_vec4 I, glm_vec4 N, glm_vec4 eta)
 	glm_vec4 const sub1 = _mm_sub_ps(_mm_set1_ps(1.0f), mul1);
 	glm_vec4 const mul2 = _mm_mul_ps(sub0, sub1);
 
-	if(_mm_movemask_ps(_mm_cmplt_ss(mul2, _mm_set1_ps(0.0f))) == 0)
+	if (_mm_movemask_ps(_mm_cmplt_ss(mul2, _mm_set1_ps(0.0f))) == 0)
 		return _mm_set1_ps(0.0f);
 
 	glm_vec4 const sqt0 = _mm_sqrt_ps(mul2);

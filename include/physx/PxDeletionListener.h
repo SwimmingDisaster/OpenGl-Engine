@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_DELETIONLISTENER
@@ -34,15 +34,15 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
-#include "common/PxBase.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/common/PxBase.h"
 
 #if !PX_DOXYGEN
 namespace physx
 {
 #endif
 
-	
+
 /**
 \brief Flags specifying deletion event types.
 
@@ -52,8 +52,8 @@ struct PxDeletionEventFlag
 {
 	enum Enum
 	{
-		eUSER_RELEASE					= (1<<0),	//!< The user has called release on an object.
-		eMEMORY_RELEASE					= (1<<1)	//!< The destructor of an object has been called and the memory has been released.
+		eUSER_RELEASE					= (1 << 0),	//!< The user has called release on an object.
+		eMEMORY_RELEASE					= (1 << 1)	//!< The destructor of an object has been called and the memory has been released.
 	};
 };
 
@@ -62,8 +62,8 @@ struct PxDeletionEventFlag
 
 @see PxDeletionEventFlag
 */
-typedef PxFlags<PxDeletionEventFlag::Enum,PxU8> PxDeletionEventFlags;
-PX_FLAGS_OPERATORS(PxDeletionEventFlag::Enum,PxU8)
+typedef PxFlags<PxDeletionEventFlag::Enum, PxU8> PxDeletionEventFlags;
+PX_FLAGS_OPERATORS(PxDeletionEventFlag::Enum, PxU8)
 
 
 /**
@@ -77,7 +77,7 @@ public:
 	\brief Notification if an object or its memory gets released
 
 	If release() gets called on a PxBase object, an eUSER_RELEASE event will get fired immediately. The object state can be queried in the callback but
-	it is not allowed to change the state. Furthermore, when reading from the object it is the user's responsibility to make sure that no other thread 
+	it is not allowed to change the state. Furthermore, when reading from the object it is the user's responsibility to make sure that no other thread
 	is writing at the same time to the object (this includes the simulation itself, i.e., #PxScene::fetchResults() must not get called at the same time).
 
 	Calling release() on a PxBase object does not necessarily trigger its destructor immediately. For example, the object can be shared and might still

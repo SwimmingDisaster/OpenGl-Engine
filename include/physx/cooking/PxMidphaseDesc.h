@@ -34,9 +34,9 @@
 @{
 */
 
-#include "geometry/PxTriangleMesh.h"
-#include "cooking/PxBVH33MidphaseDesc.h"
-#include "cooking/PxBVH34MidphaseDesc.h"
+#include "physx/geometry/PxTriangleMesh.h"
+#include "physx/cooking/PxBVH33MidphaseDesc.h"
+#include "physx/cooking/PxBVH34MidphaseDesc.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -56,7 +56,7 @@ public:
 
 	/**
 	\brief	Returns type of midphase mesh structure.
-	\return	PxMeshMidPhase::Enum 
+	\return	PxMeshMidPhase::Enum
 
 	@see PxMeshMidPhase::Enum
 	*/
@@ -67,10 +67,10 @@ public:
 
 	@see PxBV33MidphaseDesc, PxBV34MidphaseDesc
 	*/
-	union {		
+	union {
 		PxBVH33MidphaseDesc  mBVH33Desc;
 		PxBVH34MidphaseDesc  mBVH34Desc;
-    };
+	};
 
 	/**
 	\brief	Initialize the midphase mesh structure descriptor
@@ -81,9 +81,9 @@ public:
 	void setToDefault(PxMeshMidPhase::Enum type)
 	{
 		mType = type;
-		if(type==PxMeshMidPhase::eBVH33)
+		if (type == PxMeshMidPhase::eBVH33)
 			mBVH33Desc.setToDefault();
-		else if(type==PxMeshMidPhase::eBVH34)
+		else if (type == PxMeshMidPhase::eBVH34)
 			mBVH34Desc.setToDefault();
 	}
 
@@ -92,21 +92,21 @@ public:
 	\return true if the current settings are valid.
 	*/
 	bool isValid() const
-	{		
-		if(mType==PxMeshMidPhase::eBVH33)
+	{
+		if (mType == PxMeshMidPhase::eBVH33)
 			return mBVH33Desc.isValid();
-		else if(mType==PxMeshMidPhase::eBVH34)
+		else if (mType == PxMeshMidPhase::eBVH34)
 			return mBVH34Desc.isValid();
 		return false;
 	}
 
-	PX_FORCE_INLINE PxMidphaseDesc&		operator=(PxMeshMidPhase::Enum descType) 
-	{ 
+	PX_FORCE_INLINE PxMidphaseDesc&		operator=(PxMeshMidPhase::Enum descType)
+	{
 		setToDefault(descType);
-		return *this; 
+		return *this;
 	}
 
-protected:	
+protected:
 	PxMeshMidPhase::Enum	mType;
 };
 
@@ -115,5 +115,5 @@ protected:
 #endif
 
 
-  /** @} */
+/** @} */
 #endif // PX_MIDPHASE_DESC_UNION_H

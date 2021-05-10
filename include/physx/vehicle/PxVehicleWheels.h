@@ -35,10 +35,10 @@
 */
 
 #include "pxshared/foundation/PxSimpleTypes.h"
-#include "vehicle/PxVehicleShaders.h"
-#include "vehicle/PxVehicleComponents.h"
-#include "common/PxBase.h"
-#include "PxRigidDynamic.h"
+#include "physx/vehicle/PxVehicleShaders.h"
+#include "physx/vehicle/PxVehicleComponents.h"
+#include "physx/common/PxBase.h"
+#include "physx/PxRigidDynamic.h"
 
 #if !PX_DOXYGEN
 namespace physx

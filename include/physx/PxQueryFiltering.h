@@ -34,9 +34,9 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
-#include "PxFiltering.h"
-#include "PxQueryReport.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/PxFiltering.h"
+#include "physx/PxQueryReport.h"
 #include "PxClient.h"
 
 #if !PX_DOXYGEN
@@ -58,32 +58,32 @@ struct PxQueryFlag
 {
 	enum Enum
 	{
-		eSTATIC				= (1<<0),	//!< Traverse static shapes
+		eSTATIC				= (1 << 0),	//!< Traverse static shapes
 
-		eDYNAMIC			= (1<<1),	//!< Traverse dynamic shapes
+		eDYNAMIC			= (1 << 1),	//!< Traverse dynamic shapes
 
-		ePREFILTER			= (1<<2),	//!< Run the pre-intersection-test filter (see #PxQueryFilterCallback::preFilter())
+		ePREFILTER			= (1 << 2),	//!< Run the pre-intersection-test filter (see #PxQueryFilterCallback::preFilter())
 
-		ePOSTFILTER			= (1<<3),	//!< Run the post-intersection-test filter (see #PxQueryFilterCallback::postFilter())
+		ePOSTFILTER			= (1 << 3),	//!< Run the post-intersection-test filter (see #PxQueryFilterCallback::postFilter())
 
-		eANY_HIT			= (1<<4),	//!< Abort traversal as soon as any hit is found and return it via callback.block.
-										//!< Helps query performance. Both eTOUCH and eBLOCK hitTypes are considered hits with this flag.
+		eANY_HIT			= (1 << 4),	//!< Abort traversal as soon as any hit is found and return it via callback.block.
+		//!< Helps query performance. Both eTOUCH and eBLOCK hitTypes are considered hits with this flag.
 
-		eNO_BLOCK			= (1<<5),	//!< All hits are reported as touching. Overrides eBLOCK returned from user filters with eTOUCH.
-										//!< This is also an optimization hint that may improve query performance.
+		eNO_BLOCK			= (1 << 5),	//!< All hits are reported as touching. Overrides eBLOCK returned from user filters with eTOUCH.
+		//!< This is also an optimization hint that may improve query performance.
 
-		eRESERVED			= (1<<15)	//!< Reserved for internal use
+		eRESERVED			= (1 << 15)	//!< Reserved for internal use
 	};
 };
-PX_COMPILE_TIME_ASSERT(PxQueryFlag::eSTATIC==(1<<0));
-PX_COMPILE_TIME_ASSERT(PxQueryFlag::eDYNAMIC==(1<<1));
+PX_COMPILE_TIME_ASSERT(PxQueryFlag::eSTATIC == (1 << 0));
+PX_COMPILE_TIME_ASSERT(PxQueryFlag::eDYNAMIC == (1 << 1));
 
 /**
 \brief Flags typedef for the set of bits defined in PxQueryFlag.
 
 */
-typedef PxFlags<PxQueryFlag::Enum,PxU16> PxQueryFlags;
-PX_FLAGS_OPERATORS(PxQueryFlag::Enum,PxU16)
+typedef PxFlags<PxQueryFlag::Enum, PxU16> PxQueryFlags;
+PX_FLAGS_OPERATORS(PxQueryFlag::Enum, PxU16)
 
 /**
 \brief Classification of scene query hits (intersections).
@@ -180,7 +180,7 @@ public:
 	\return the updated type for this hit  (see #PxQueryHitType)
 	*/
 	virtual PxQueryHitType::Enum preFilter(
-		const PxFilterData& filterData, const PxShape* shape, const PxRigidActor* actor, PxHitFlags& queryFlags) = 0;
+	    const PxFilterData& filterData, const PxShape* shape, const PxRigidActor* actor, PxHitFlags& queryFlags) = 0;
 
 	/**
 	\brief This filter callback is executed if the exact intersection test returned true and PxQueryFlag::ePOSTFILTER flag was set.
@@ -231,9 +231,9 @@ Filtering calls are not guaranteed to be sorted along the ray or sweep direction
 @see PxBatchQueryPostFilterShader
 */
 typedef PX_DEPRECATED PxQueryHitType::Enum (*PxBatchQueryPreFilterShader)(
-	PxFilterData queryFilterData, PxFilterData objectFilterData,
-	const void* constantBlock, PxU32 constantBlockSize,
-	PxHitFlags& hitFlags);
+    PxFilterData queryFilterData, PxFilterData objectFilterData,
+    const void* constantBlock, PxU32 constantBlockSize,
+    PxHitFlags& hitFlags);
 
 /**
 \brief Batched query post-filter shader.
@@ -264,9 +264,9 @@ candidate shapes for testing are found by PhysX' scene traversal algorithms.
 */
 
 typedef PX_DEPRECATED PxQueryHitType::Enum (*PxBatchQueryPostFilterShader)(
-	PxFilterData queryFilterData, PxFilterData objectFilterData,
-	const void* constantBlock, PxU32 constantBlockSize,
-	const PxQueryHit& hit);
+    PxFilterData queryFilterData, PxFilterData objectFilterData,
+    const void* constantBlock, PxU32 constantBlockSize,
+    const PxQueryHit& hit);
 
 #if !PX_DOXYGEN
 } // namespace physx

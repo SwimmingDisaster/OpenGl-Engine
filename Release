@@ -1,0 +1,32 @@
+SRC_DIR := src
+OBJ_DIR := obj
+BIN_DIR := bin
+
+EXE := bin/release/main
+SRC := $(wildcard $(SRC_DIR)/*.cpp)
+
+OBJ := $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
+
+CPPFLAGS := -I include -I C:/SDL2-w64/include -MMD -MP 
+CFLAGS   := -Wall -std=c++17 -g -O3 
+LDFLAGS  := -Llibg 
+LDLIBS   := -L C:/SDL2-w64/lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image 
+
+
+.PHONY: all clean
+
+all: $(EXE)
+
+$(EXE): $(OBJ) | $(BIN_DIR)
+	@$(CXX) $(LDFLAGS) $^ $(LDLIBS) -o $@
+	$(info $@)
+
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp | $(OBJ_DIR)
+	@$(CXX) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
+	$(info $@)
+
+clean:
+	@$(RM) -rv $(BIN_DIR) $(OBJ_DIR)
+
+
+-include $(OBJ:.o=.d)

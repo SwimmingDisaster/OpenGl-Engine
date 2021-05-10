@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX
@@ -37,7 +37,7 @@
 @{
 */
 
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 
 #if !PX_DOXYGEN
 namespace physx

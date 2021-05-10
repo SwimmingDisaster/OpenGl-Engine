@@ -33,11 +33,11 @@
 /** \addtogroup physics
 @{ */
 
-#include "PxPhysXConfig.h"
+#include "physx/PxPhysXConfig.h"
 #include "PxClient.h"
-#include "PxFiltering.h"
-#include "PxQueryFiltering.h"
-#include "foundation/PxAssert.h"
+#include "physx/PxFiltering.h"
+#include "physx/PxQueryFiltering.h"
+#include "physx/foundation/PxAssert.h"
 
 #if !PX_DOXYGEN
 namespace physx

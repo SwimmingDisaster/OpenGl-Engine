@@ -63,7 +63,7 @@ void CameraFPSController::ProcessKeyboard(float deltaTime)
 {
 	float velocity = movementSpeed * deltaTime;
 
-	static bool canjump = false;
+	//static bool canjump = false;
 	if (glfwGetKey(Application::window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		velocity *= 3.0f;
 	glm::vec3 velvec3 = glm::vec3(velocity, velocity/*0*/, velocity);

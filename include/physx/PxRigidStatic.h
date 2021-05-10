@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_RIGIDSTATIC
@@ -34,8 +34,8 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
-#include "PxRigidActor.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/PxRigidActor.h"
 
 #if !PX_DOXYGEN
 namespace physx

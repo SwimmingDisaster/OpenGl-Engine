@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_SCENELOCK
@@ -34,8 +34,8 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
-#include "PxScene.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/PxScene.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -45,7 +45,7 @@ namespace physx
 /**
 \brief RAII wrapper for the PxScene read lock.
 
-Use this class as follows to lock the scene for reading by the current thread 
+Use this class as follows to lock the scene for reading by the current thread
 for the duration of the enclosing scope:
 
 	PxSceneReadLock lock(sceneRef);
@@ -58,14 +58,14 @@ class PxSceneReadLock
 	PxSceneReadLock& operator=(const PxSceneReadLock&);
 
 public:
-	
+
 	/**
 	\brief Constructor
 	\param scene The scene to lock for reading
 	\param file Optional string for debugging purposes
 	\param line Optional line number for debugging purposes
 	*/
-	PxSceneReadLock(PxScene& scene, const char* file=NULL, PxU32 line=0)
+	PxSceneReadLock(PxScene& scene, const char* file = NULL, PxU32 line = 0)
 		: mScene(scene)
 	{
 		mScene.lockRead(file, line);
@@ -84,7 +84,7 @@ private:
 /**
 \brief RAII wrapper for the PxScene write lock.
 
-Use this class as follows to lock the scene for writing by the current thread 
+Use this class as follows to lock the scene for writing by the current thread
 for the duration of the enclosing scope:
 
 	PxSceneWriteLock lock(sceneRef);
@@ -104,7 +104,7 @@ public:
 	\param file Optional string for debugging purposes
 	\param line Optional line number for debugging purposes
 	*/
-	PxSceneWriteLock(PxScene& scene, const char* file=NULL, PxU32 line=0)
+	PxSceneWriteLock(PxScene& scene, const char* file = NULL, PxU32 line = 0)
 		: mScene(scene)
 	{
 		mScene.lockWrite(file, line);

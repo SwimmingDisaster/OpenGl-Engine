@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_PRISMATICJOINT_H
 #define PX_PRISMATICJOINT_H
@@ -33,8 +33,8 @@
   @{
 */
 
-#include "extensions/PxJoint.h"
-#include "extensions/PxJointLimit.h"
+#include "physx/extensions/PxJoint.h"
+#include "physx/extensions/PxJointLimit.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -50,7 +50,7 @@ class PxPrismaticJoint;
  \param[in] actor0		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
  \param[in] localFrame0	The position and orientation of the joint relative to actor0
  \param[in] actor1		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
- \param[in] localFrame1	The position and orientation of the joint relative to actor1 
+ \param[in] localFrame1	The position and orientation of the joint relative to actor1
 
 @see PxPrismaticJoint
 */
@@ -66,7 +66,7 @@ struct PxPrismaticJointFlag
 {
 	enum Enum
 	{
-		eLIMIT_ENABLED	= 1<<1
+		eLIMIT_ENABLED	= 1 << 1
 	};
 };
 
@@ -87,13 +87,13 @@ PX_FLAGS_OPERATORS(PxPrismaticJointFlag::Enum, PxU16)
 class PxPrismaticJoint : public PxJoint
 {
 public:
-	
-	/** 
+
+	/**
 	\brief returns the displacement of the joint along its axis.
 	*/
 	virtual PxReal			getPosition()	const	= 0;
 
-	/** 
+	/**
 	\brief returns the velocity of the joint along its axis
 	*/
 	virtual PxReal			getVelocity()	const	= 0;
@@ -148,8 +148,8 @@ public:
 	/**
 	\brief Set the linear tolerance threshold for projection.
 
-	If the joint separates by more than this distance along its locked degrees of freedom, the solver 
-	will move the bodies to close the distance. 
+	If the joint separates by more than this distance along its locked degrees of freedom, the solver
+	will move the bodies to close the distance.
 
 	Setting a very small tolerance may result in simulation jitter or other artifacts.
 
@@ -179,7 +179,7 @@ public:
 	\brief Set the angular tolerance threshold for projection. Projection is enabled if PxConstraintFlag::ePROJECTION
 	is set for the joint.
 
-	If the joint separates by more than this distance along its locked degrees of freedom, the solver 
+	If the joint separates by more than this distance along its locked degrees of freedom, the solver
 	will move the bodies to close the distance.
 
 	Setting a very small tolerance may result in simulation jitter or other artifacts.
@@ -209,7 +209,7 @@ public:
 
 protected:
 	//serialization
-	
+
 	/**
 	\brief Constructor
 	*/
@@ -217,14 +217,14 @@ protected:
 
 	/**
 	\brief Deserialization constructor
-	*/		
+	*/
 	PX_INLINE				PxPrismaticJoint(PxBaseFlags baseFlags) : PxJoint(baseFlags) {}
-	
+
 	/**
 	\brief Returns whether a given type name matches with the type of this instance
 	*/
 	virtual	bool			isKindOf(const char* name) const {	return !::strcmp("PxPrismaticJoint", name) || PxJoint::isKindOf(name); }
-	
+
 	//~serialization
 };
 

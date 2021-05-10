@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_EXTENSIONS_SHAPE_H
@@ -34,11 +34,11 @@
   @{
 */
 
-#include "PxPhysXConfig.h"
+#include "physx/PxPhysXConfig.h"
 
-#include "PxShape.h"
-#include "PxRigidActor.h"
-#include "geometry/PxGeometryQuery.h"
+#include "physx/PxShape.h"
+#include "physx/PxRigidActor.h"
+#include "physx/geometry/PxGeometryQuery.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -82,12 +82,12 @@ public:
 
 	@see PxRaycastHit PxTransform
 	*/
-	static PX_INLINE PxU32				raycast(const PxShape& shape, const PxRigidActor& actor, 
-												const PxVec3& rayOrigin, const PxVec3& rayDir, PxReal maxDist, PxHitFlags hitFlags,
-												PxU32 maxHits, PxRaycastHit* rayHits)
+	static PX_INLINE PxU32				raycast(const PxShape& shape, const PxRigidActor& actor,
+	        const PxVec3& rayOrigin, const PxVec3& rayDir, PxReal maxDist, PxHitFlags hitFlags,
+	        PxU32 maxHits, PxRaycastHit* rayHits)
 	{
 		return PxGeometryQuery::raycast(
-			rayOrigin, rayDir, shape.getGeometry().any(), getGlobalPose(shape, actor), maxDist, hitFlags, maxHits, rayHits);
+		           rayOrigin, rayDir, shape.getGeometry().any(), getGlobalPose(shape, actor), maxDist, hitFlags, maxHits, rayHits);
 	}
 
 	/**
@@ -101,8 +101,8 @@ public:
 
 	@see PxGeometry PxTransform
 	*/
-	static PX_INLINE bool				overlap(const PxShape& shape, const PxRigidActor& actor, 
-												const PxGeometry& otherGeom, const PxTransform& otherGeomPose)
+	static PX_INLINE bool				overlap(const PxShape& shape, const PxRigidActor& actor,
+	        const PxGeometry& otherGeom, const PxTransform& otherGeomPose)
 	{
 		return PxGeometryQuery::overlap(shape.getGeometry().any(), getGlobalPose(shape, actor), otherGeom, otherGeomPose);
 	}
@@ -124,9 +124,9 @@ public:
 
 	@see PxGeometry PxTransform PxSweepHit
 	*/
-	static PX_INLINE bool			sweep(const PxShape& shape, const PxRigidActor& actor, 
-										  const PxVec3& unitDir, const PxReal distance, const PxGeometry& otherGeom, const PxTransform& otherGeomPose,
-										  PxSweepHit& sweepHit, PxHitFlags hitFlags)
+	static PX_INLINE bool			sweep(const PxShape& shape, const PxRigidActor& actor,
+	                                      const PxVec3& unitDir, const PxReal distance, const PxGeometry& otherGeom, const PxTransform& otherGeomPose,
+	                                      PxSweepHit& sweepHit, PxHitFlags hitFlags)
 	{
 		return PxGeometryQuery::sweep(unitDir, distance, otherGeom, otherGeomPose, shape.getGeometry().any(), getGlobalPose(shape, actor), sweepHit, hitFlags);
 	}
@@ -143,7 +143,7 @@ public:
 
 	@see PxBounds3
 	*/
-	static PX_INLINE PxBounds3		getWorldBounds(const PxShape& shape, const PxRigidActor& actor, float inflation=1.01f)
+	static PX_INLINE PxBounds3		getWorldBounds(const PxShape& shape, const PxRigidActor& actor, float inflation = 1.01f)
 	{
 		return PxGeometryQuery::getWorldBounds(shape.getGeometry().any(), getGlobalPose(shape, actor), inflation);
 	}

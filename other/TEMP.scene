@@ -3,5 +3,5 @@ Entities:
   []
 Editor Camera:
   - Camera vPos: [0, 0, -10]
-    Camera vUp: [-0.966820836, 0.250380218, 0.0506690256]
-    Camera vRot: [-75.4999924, 177, 0]
+    Camera vUp: [0, 1, 0]
+    Camera vRot: [0, -90, 0]

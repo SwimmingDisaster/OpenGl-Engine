@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_PRUNING_STRUCTURE
@@ -33,8 +33,8 @@
 /** \addtogroup physics
 @{ */
 
-#include "PxPhysXConfig.h"
-#include "common/PxBase.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/common/PxBase.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -54,11 +54,11 @@ doing queries against the newly added actors. This applies to both static and dy
 
 \note PxPruningStructure must be released before its rigid actors.
 \note PxRigidBody objects can be in one PxPruningStructure only.
-\note Changing the bounds of PxRigidBody objects assigned to a pruning structure that has not been added to a scene yet will 
+\note Changing the bounds of PxRigidBody objects assigned to a pruning structure that has not been added to a scene yet will
 invalidate the pruning structure. Same happens if shape scene query flags change or shape gets removed from an actor.
 
 @see PxScene::addActors PxCollection
-*/	
+*/
 class PxPruningStructure : public PxBase
 {
 public:
@@ -79,7 +79,7 @@ public:
 
 	@see PxRigidActor
 	*/
-	virtual PxU32				getRigidActors(PxRigidActor** userBuffer, PxU32 bufferSize, PxU32 startIndex=0) const = 0;
+	virtual PxU32				getRigidActors(PxRigidActor** userBuffer, PxU32 bufferSize, PxU32 startIndex = 0) const = 0;
 
 	/**
 	\brief Returns the number of rigid actors in the pruning structure.
@@ -105,5 +105,5 @@ protected:
 } // namespace physx
 #endif
 
-/** @} */ 
+/** @} */
 #endif // PX_PHYSICS_NX_PRUNING_STRUCTURE

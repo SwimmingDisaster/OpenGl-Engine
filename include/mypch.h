@@ -1,12 +1,14 @@
 #pragma once
-#pragma warning(disable : 4005)
+//#pragma warning(disable : 4005)
 
 #define NOMINMAX
+#define _DEBUG
 //#define SHOW_SCENE_SERIALISATION
 //#define SHOW_DELETED
 //#define RELEASE_BUILD
 
 #include <iostream>
+#include <float.h>
 #include <memory>
 #include <utility>
 #include <algorithm>
@@ -28,6 +30,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
+
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -40,6 +43,8 @@
 //#define PX_SUPPORT_GPU_PHYSX 1
 #include "physx/PxPhysicsAPI.h"
 
+#define IMGUI_DEFINE_PLACEMENT_NEW
+#define IMGUI_DEFINE_MATH_OPERATORS
 #include <ImGUI/imgui.h>
 #include <ImGUI/imgui_impl_glfw.h>
 #include <ImGUI/imgui_impl_opengl3.h>

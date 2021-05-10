@@ -387,68 +387,6 @@
 	},
 	"buffers":
 	[
-		{
-			"file": "src/core/renderer.cpp",
-			"settings":
-			{
-				"buffer_size": 4281,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "include/core/renderer.h",
-			"settings":
-			{
-				"buffer_size": 639,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/core/application.cpp",
-			"settings":
-			{
-				"buffer_size": 3616,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "src/assets/modelRenderer.cpp",
-			"settings":
-			{
-				"buffer_size": 2871,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/mixog/.bash/themes/git_bash_windows_powerline/theme.bash",
-			"settings":
-			{
-				"buffer_size": 8164,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "res/shaders/color.fs",
-			"settings":
-			{
-				"buffer_size": 438,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "res/shaders/model.vs",
-			"settings":
-			{
-				"buffer_size": 481,
-				"line_ending": "Windows"
-			}
-		}
 	],
 	"build_system": "Build Debug x64",
 	"build_system_choices":
@@ -562,6 +500,10 @@
 		"selected_items":
 		[
 			[
+				"console",
+				"SublimeGDB: Open Console View"
+			],
+			[
 				"markdown ",
 				"Markdown Preview: Preview in Browser"
 			],
@@ -588,10 +530,6 @@
 			[
 				"python",
 				"Set Syntax: Python"
-			],
-			[
-				"console",
-				"SublimeGDB: Open Console View"
 			],
 			[
 				"markdown pre",
@@ -650,7 +588,7 @@
 	},
 	"console":
 	{
-		"height": 0.0,
+		"height": 218.0,
 		"history":
 		[
 		]
@@ -667,138 +605,141 @@
 	"expanded_folders":
 	[
 		"/C/Users/mixog/Desktop/ENGINE/",
+		"/C/Users/mixog/Desktop/ENGINE//include",
+		"/C/Users/mixog/Desktop/ENGINE//include/ecs",
+		"/C/Users/mixog/Desktop/ENGINE//include/ecs/other",
 		"/C/Users/mixog/Desktop/ENGINE//src"
 	],
 	"file_history":
 	[
-		"/C/Users/mixog/Downloads/CascadiaCodePL.ttf",
-		"/C/Users/mixog/.bash/themes/git_bash_windows_powerline/README.md",
-		"/C/ProgramData/Microsoft/Windows/AppxProvisioning.xml",
-		"/C/Users/mixog/Desktop/ENGINE/src/assets/modelRenderer.cpp",
-		"/C/Users/mixog/Desktop/ENGINE/src/ecs/scene.cpp",
-		"/C/Users/mixog/Desktop/ENGINE/src/ecs/entity.cpp",
-		"/C/Users/mixog/Desktop/ENGINE/src/core/shader.cpp",
-		"/C/Users/mixog/Desktop/ENGINE/include/core/shader.h",
-		"/C/Users/mixog/Desktop/ENGINE/other/output.txt",
-		"/C/Users/mixog/Desktop/PHYSX/physx/buildtools/presets/public/vc16win64.xml",
-		"/C/Users/mixog/Desktop/PhysX-4.0.0/physx/buildtools/presets/public/vc16win64.xml",
-		"/C/Users/mixog/Desktop/ENGINE/bin/x64/Debug/other/output.txt",
-		"/C/Users/mixog/Desktop/ENGINE/GAME.vcxproj",
-		"/C/Users/mixog/Desktop/glfw-3.3.4/src/glfw_config.h",
-		"/C/Users/mixog/Desktop/glfw-3.3.4/src/cocoa_platform.h",
-		"/C/Users/mixog/Desktop/ENGINE/src/core/application.cpp",
-		"/C/Users/mixog/Desktop/ENGINE/src/assets/transform.cpp",
-		"/C/Users/mixog/Desktop/ENGINE/include/core/application.h",
-		"/C/Users/mixog/Desktop/ENGINE/src/core/main.cpp",
-		"/C/Users/mixog/Desktop/ENGINE/include/core/other/log.h",
 		"/C/Users/mixog/Desktop/ENGINE/src/core/imGuiManager.cpp",
-		"/C/Users/mixog/Desktop/ENGINE/src/core/renderer.cpp",
-		"/C/Users/mixog/Desktop/PhysX-ae80dede0546d652040ae6260a810e53e20a06fa/physx/buildtools/presets/public/vc16win64.xml",
-		"/C/Users/mixog/Desktop/ENGINE/include/assets/material.h",
-		"/C/Users/mixog/Desktop/ENGINE/include/assets/mesh.h",
-		"/C/Users/mixog/Desktop/ENGINE/include/assets/modelRenderer.h",
-		"/C/Users/mixog/Desktop/ENGINE/src/core/other/random.cpp",
-		"/C/Users/mixog/Desktop/ENGINE/include/assets/transform.h",
-		"/C/Users/mixog/Desktop/ENGINE/res/shaders/color.vs",
-		"/C/Users/mixog/Desktop/ENGINE/res/shaders/model.fs",
-		"/C/Users/mixog/Downloads/blockydash_adrevenue_date_20190202_20190208_all",
-		"/C/Users/mixog/Downloads/26898918-src.cpp",
-		"/C/Users/mixog/Downloads/code991734.cpp",
+		"/C/Boost/boost_1_75_0/boost/algorithm/string.hpp",
+		"/C/Boost/boost_1_75_0/boost/algorithm/string/case_conv.hpp",
+		"//wsl$/Ubuntu/home/ognjen/LINUXENGINE/include/ecs/other/componentCreator.h",
+		"//wsl$/Ubuntu/home/ognjen/LINUXENGINE/include/ecs/other/componentDefines.h",
+		"//wsl$/Ubuntu/home/ognjen/LINUXENGINE/include/ecs/other/componentFactory.h",
+		"//wsl$/Ubuntu/home/ognjen/LINUXENGINE/include/ecs/other/componentCreatorImpl.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/ecs/other/componentCreator.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/ecs/other/componentFactory.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/ecs/other/componentCreatorImpl.h",
+		"/C/Users/mixog/Desktop/ENGINE/bin/x64/Debug/include/ecs/other/componentCreator.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/ecs/other/componentDefines.h",
+		"/C/Users/mixog/Desktop/ENGINE/src/core/application.cpp",
+		"/C/Users/mixog/Desktop/ENGINE/include/ecs/entity.h",
+		"/C/Users/mixog/Desktop/ENGINE/src/ecs/other/componentFactory.cpp",
+		"/C/Users/mixog/Desktop/ENGINE/src/ecs/other/componentCreator.cpp",
+		"/C/Users/mixog/Desktop/ENGINE/src/core/main.cpp",
 		"/C/Users/mixog/Desktop/ENGINE/include/mypch.h",
-		"/C/Users/mixog/Desktop/ENGINE/include/utils/fileUtils.h",
-		"/C/Users/mixog/Desktop/ENGINE/other/scenes/person.scene",
-		"/C/Users/mixog/Desktop/ENGINE/other/scenes/shapes.scene",
-		"/C/Users/mixog/Desktop/ENGINE/src/assets/model.cpp",
-		"/C/Users/mixog/Desktop/ENGINE/src/utils/fileUtils.cpp",
-		"/C/Users/mixog/AppData/Local/Temp/Rar$DIa10392.25323/README.md",
-		"/C/Users/mixog/Desktop/3DGAME/BENCHMARK/src/main.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/BENCHMARK/include/animation.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/x64/Debug/other/output.txt",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/nfd/nfd.hpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/nfd/nfd.h",
-		"/C/Users/mixog/Desktop/nativefiledialog-extended-master/src/nfd_win.cpp",
-		"/C/Users/mixog/Desktop/nativefiledialog-extended-master/src/include/nfd.hpp",
-		"/C/Users/mixog/Desktop/nativefiledialog-extended-master/src/nfd_gtk.cpp",
-		"/C/Users/mixog/Desktop/CPU-20210420T175706.425Z.cpuprofile.txt",
-		"/C/Users/mixog/Desktop/CPU-20210420T175706.425Z.cpuprofile",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/imgui.ini",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/GAME.vcxproj.user",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/GAME.sln",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/GLFW/glfw3native.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/core/application.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/utils/fileUtils.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/mypch.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/utils/fileUtils.h",
-		"/C/Users/mixog/Desktop/OKE/biologija.md",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/modelRenderer.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/model.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/core/other/log.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assimp/material.inl",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assimp/material.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/texture.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/ecs/scene.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/application.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/physics.cpp",
-		"/C/Users/mixog/Desktop/OKE/kopija.md",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/other/scenes/PhysicsTest.scene",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assets/modelRenderer.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/model.vs",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/res/shaders/model.fs",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/rigidbody.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/imGuiManager.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/renderer.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assets/rigidbody.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxRigidActor.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxScene.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/ecs/entity.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxActor.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxRigidBody.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxRigidDynamic.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxRigidStatic.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxSimpleFactory.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxSceneDesc.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/core/imGuiManager.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxShapeExt.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/extensions/PxJoint.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxPhysicsAPI.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/core/engineInfo.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/core/engineInfo.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/GAME.vcxproj",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/x64/Debug/camera.obj",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/x64/Debug/GAME.log",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/x64/Debug/vc142.pdb",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/camera.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/cameraFPSController.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/ecs/scene.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/core/renderer.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/core/physics.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/Win32/Debug/application.obj",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/Win32/Debug/camera.obj",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/Win32/Debug/imGuiManager.obj",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/Win32/Debug/renderer.obj",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/x64/Debug/application.obj",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/x64/Debug/imGuiManager.obj",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/intermediates/x64/Debug/renderer.obj",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/x64/Debug/GAME.pdb",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/bin/x64/Release/GAME.iobj",
-		"/C/Users/mixog/Desktop/UNITY/Unity-Projects/BIG GAMES/Kviz/Assets/Scenes/main.unity",
-		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/Material Theme/schemes/Material-Theme-Palenight.tmTheme",
-		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Packages/zzz A File Icon zzz/patches/specific/Material Theme/multi/Material-Theme-Palenight.sublime-theme",
-		"/C/Users/mixog/AppData/Roaming/Sublime Text 3/Installed Packages/Material Theme.sublime-package",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/transform.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assets/colliders.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/colliders.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxSphereGeometry.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assets/colliderBase.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/other/scenes/chubby.scene",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/yaml-cpp/contrib/graphbuilder.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/geometry/PxGeometry.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/assets/transform.h",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/colliderBase.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/other/scenes/person.scene",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/src/assets/mesh.cpp",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/GAME.vcxproj.filters",
-		"/C/Users/mixog/Desktop/3DGAME/ENGINE/include/physx/PxMaterial.h"
+		"/C/Users/mixog/Desktop/glfw-3.3.4/build/src/glfw_config.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/nfd/nfd.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxConvexMesh.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/pxshared/foundation/windows/PxWindowsIntrinsics.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/math_win32.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxScene.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/pvd/PxPvdTransport.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxBatchQuery.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/vehicle/PxVehicleUpdate.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/vehicle/PxVehicleWheels.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/vehicle/PxVehicleComponents.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/vehicle/PxVehicleDrive.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/vehicle/PxVehicleDrive4W.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/vehicle/PxVehicleDriveNW.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/vehicle/PxVehicleDriveTank.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/vehicle/PxVehicleNoDrive.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/vehicle/PxVehicleUtilControl.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/vehicle/PxVehicleUtilSetup.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/vehicle/PxVehicleUtilTelemetry.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxSceneLock.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxSceneQueryExt.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxContactModifyCallback.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxPhysics.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxRigidActor.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxShapeExt.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxArticulationLink.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxRigidDynamic.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxRigidBodyExt.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxRigidActorExt.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxJoint.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxRigidBody.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxRigidStatic.h",
+		"/C/Users/mixog/Desktop/ENGINE/GAME.vcxproj",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxContactJoint.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxD6Joint.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxDistanceJoint.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxExtensionsAPI.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxFixedJoint.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxJointLimit.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxPrismaticJoint.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxRepXSerializer.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxRevoluteJoint.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxSphericalJoint.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/cooking/PxCooking.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/cooking/PxMidphaseDesc.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxRepXSimpleType.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxSerialization.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxBatchQueryDesc.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxQueryFiltering.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxSceneDesc.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxSimulationEventCallback.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/characterkinematic/PxControllerBehavior.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxDefaultSimulationFilterShader.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/characterkinematic/PxController.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/characterkinematic/PxBoxController.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/characterkinematic/PxCapsuleController.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/characterkinematic/PxControllerObstacles.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/collision/PxCollisionDefs.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geomutils/GuContactBuffer.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/solver/PxSolverDefs.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxConstraint.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxGeometryQuery.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxMeshQuery.h",
+		"/C/Users/mixog/Desktop/ENGINE/bin/x64/Debug/res/fbx/untitled.fbx",
+		"/C/Users/mixog/Desktop/ENGINE/bin/x64/Release/res/fbx/untitled.fbx",
+		"/C/Users/mixog/Desktop/ENGINE/include/assimp/OgreBinarySerializer.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxShape.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxSimulationStatistics.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/cooking/PxConvexMeshDesc.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/cooking/PxTriangleMeshDesc.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxMassProperties.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxBoxGeometry.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxCapsuleGeometry.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxConvexMeshGeometry.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxGeometryHelpers.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxHeightField.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxHeightFieldDesc.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxHeightFieldGeometry.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxPlaneGeometry.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxSphereGeometry.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/geometry/PxTriangleMeshGeometry.h",
+		"/C/Users/mixog/Desktop/ENGINE/res/fbx/untitled.fbx",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/cudamanager/PxCudaContextManager.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/gpu/PxGpu.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxActor.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxAggregate.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxArticulationBase.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxArticulationJoint.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxArticulationJointReducedCoordinate.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxBroadPhase.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxConstraintDesc.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxDeletionListener.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxFiltering.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxImmediateMode.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxLockedData.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxMaterial.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxPhysicsSerialization.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxPruningStructure.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/PxQueryReport.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/characterkinematic/PxControllerManager.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/characterkinematic/PxExtended.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxBroadPhaseExt.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxCollectionExt.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxConvexMeshExt.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxDefaultErrorCallback.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxTriangleMeshExt.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/cudamanager/PxCudaMemoryManager.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/extensions/PxDefaultCpuDispatcher.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/task/PxCpuDispatcher.h",
+		"/C/Users/mixog/Desktop/ENGINE/include/physx/task/PxTask.h"
 	],
 	"find":
 	{
@@ -809,6 +750,7 @@
 		"height": 156.0,
 		"where_history":
 		[
+			"",
 			"<current file>",
 			"",
 			"ui.cpp",
@@ -820,6 +762,34 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"boost",
+			"(),",
+			"\"pvd",
+			"\"PxBatchQueryDesc.h\"",
+			"\"PxRigidDynamic.h\"",
+			"\"vehicle",
+			"\"PxScene.h\"",
+			"\"PxShape.h\"",
+			"\"PxRigidBody.h\"",
+			"\"PxPhysics.h\"",
+			"\"PxConstraint.h\"",
+			"\"PxRigidActor.h\"",
+			"\"extensions",
+			"\"cooking",
+			"\"PxFiltering.h\"",
+			"\"PxQueryFiltering.h\"",
+			"\"characterkinematic",
+			"\"geomutils",
+			"\"PxConstraintDesc.h\"",
+			"\"PxQueryReport.h\"",
+			"\"geometry",
+			"\"cudamanager",
+			"\"PxPhysXConfig.h\"",
+			"\"task",
+			"\"PxFoundation.h\"",
+			"\"physx/common.hpp\"",
+			"\"common",
+			"\"foundation",
 			";\n",
 			"comment",
 			"}\\\n",
@@ -919,34 +889,7 @@
 			"angle",
 			"glm",
 			" \"Miroc\" , \"Veliki greben\" , \"Deli jovan\" , \"Sarida\" , \"Mali krs\" , \"Veliki krs\" , \"Homoljske\" , \"Beljanica\" , \"Kucajske\" , \"Rtanj\" , \"Ozren\", \"Devica\", \"Tupiznjica\", \"Tresibaba\", \"Svrljiste\", \"Suva planina\", \"Stara planina\"",
-			"img.",
-			"{\n",
-			"SCREEN_WIDTH",
-			"getTime",
-			"cout",
-			"Log",
-			"projection",
-			"imgui",
-			");\n",
-			".front()",
-			"front",
-			"uniqueIndex",
-			"ImGUI",
-			"blend",
-			"spaceWidth",
-			"32",
-			"token_compress_on ",
-			"Ui_Text",
-			"imgui",
-			"linemaxWidth",
-			"glm",
-			"3",
-			");\n",
-			"token_compress_on",
-			"junk",
-			"window",
-			"game",
-			"();\n"
+			"img."
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -954,6 +897,32 @@
 		"regex": false,
 		"replace_history":
 		[
+			"\"physx/pvd",
+			"\"physx/PxBatchQueryDesc.h\"",
+			"\"physx/PxRigidDynamic.h\"",
+			"\"physx/vehicle",
+			"\"physx/PxScene.h\"",
+			"\"physx/PxShape.h\"",
+			"\"physx/PxRigidBody.h\"",
+			"\"physx/PxPhysics.h\"",
+			"\"physx/PxConstraint.h\"",
+			"\"physx/PxRigidActor.h\"",
+			"\"physx/extensions",
+			"\"physx/cooking",
+			"\"physx/PxFiltering.h\"",
+			"\"physx/PxQueryFiltering.h\"",
+			"\"physx/characterkinematic",
+			"\"physx/geomutils",
+			"\"physx/PxConstraintDesc.h\"",
+			"\"physx/PxQueryReport.h\"",
+			"\"physx/geometry",
+			"\"physx/cudamanager",
+			"\"physx/PxPhysXConfig.h\"",
+			"\"physx/task",
+			"\"physx/PxFoundation.h\"",
+			"\"common.hpp\"",
+			"\"physx/common",
+			"\"physx/foundation",
 			"copiedEntity",
 			"selectedEntity",
 			"copiedComponent",
@@ -976,808 +945,8 @@
 	"groups":
 	[
 		{
-			"selected": 4,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "src/core/renderer.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4281,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								304,
-								304
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
-							],
-							"bs_sintax": "c++",
-							"buffer_scroll_name": "42380929",
-							"spell_check": false,
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 66.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "include/core/renderer.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 639,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								388,
-								388
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										637,
-										638
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/curly_bracket.png",
-										"region.purplish"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										60,
-										61
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
-							],
-							"bs_sintax": "c++",
-							"buffer_scroll_name": "83ee3d40",
-							"spell_check": false,
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/core/application.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3616,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1656,
-								1656
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										1666,
-										1667
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/round_bracket.png",
-										"region.yellowish"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										1622,
-										1623
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
-							],
-							"bs_sintax": "c++",
-							"buffer_scroll_name": "086ba5b5",
-							"spell_check": false,
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1474.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "src/assets/modelRenderer.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2871,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								340,
-								340
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										481,
-										482
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/curly_bracket.png",
-										"region.purplish"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										339,
-										340
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content"
-							],
-							"bs_sintax": "c++",
-							"buffer_scroll_name": "155a11e2",
-							"spell_check": false,
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "/C/Users/mixog/.bash/themes/git_bash_windows_powerline/theme.bash",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8164,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								7687,
-								7687
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-									"1":
-									[
-										8058,
-										8062
-									]
-								},
-								"icon":
-								{
-									"1":
-									[
-										"Packages/BracketHighlighter/icons/dot.png",
-										"region.yellowish brackethighlighter.default"
-									]
-								},
-								"open":
-								{
-									"1":
-									[
-										7583,
-										7586
-									]
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
-							],
-							"bs_sintax": "bash",
-							"buffer_scroll_name": "3b870874",
-							"spell_check": false,
-							"syntax": "Packages/ShellScript/Bash.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 5940.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "res/shaders/color.fs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 438,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								221,
-								221
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
-							],
-							"bs_sintax": "glsl",
-							"buffer_scroll_name": "ef4ab0fd",
-							"spell_check": false,
-							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "res/shaders/model.vs",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 481,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								217,
-								217
-							]
-						],
-						"settings":
-						{
-							"bracket_highlighter.busy": false,
-							"bracket_highlighter.locations":
-							{
-								"close":
-								{
-								},
-								"icon":
-								{
-								},
-								"open":
-								{
-								},
-								"unmatched":
-								{
-								}
-							},
-							"bracket_highlighter.regions":
-							[
-								"bh_regex",
-								"bh_regex_center",
-								"bh_regex_open",
-								"bh_regex_close",
-								"bh_regex_content",
-								"bh_double_quote",
-								"bh_double_quote_center",
-								"bh_double_quote_open",
-								"bh_double_quote_close",
-								"bh_double_quote_content",
-								"bh_square",
-								"bh_square_center",
-								"bh_square_open",
-								"bh_square_close",
-								"bh_square_content",
-								"bh_angle",
-								"bh_angle_center",
-								"bh_angle_open",
-								"bh_angle_close",
-								"bh_angle_content",
-								"bh_curly",
-								"bh_curly_center",
-								"bh_curly_open",
-								"bh_curly_close",
-								"bh_curly_content",
-								"bh_c_define",
-								"bh_c_define_center",
-								"bh_c_define_open",
-								"bh_c_define_close",
-								"bh_c_define_content",
-								"bh_default",
-								"bh_default_center",
-								"bh_default_open",
-								"bh_default_close",
-								"bh_default_content",
-								"bh_tag",
-								"bh_tag_center",
-								"bh_tag_open",
-								"bh_tag_close",
-								"bh_tag_content",
-								"bh_round",
-								"bh_round_center",
-								"bh_round_open",
-								"bh_round_close",
-								"bh_round_content",
-								"bh_unmatched",
-								"bh_unmatched_center",
-								"bh_unmatched_open",
-								"bh_unmatched_close",
-								"bh_unmatched_content",
-								"bh_single_quote",
-								"bh_single_quote_center",
-								"bh_single_quote_open",
-								"bh_single_quote_close",
-								"bh_single_quote_content"
-							],
-							"bs_sintax": "glsl",
-							"buffer_scroll_name": "3468b00f",
-							"spell_check": false,
-							"syntax": "Packages/OpenGL Shading Language (GLSL)/GLSL.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				}
 			]
 		}
 	],
@@ -1826,7 +995,7 @@
 	},
 	"output.exec":
 	{
-		"height": 173.0
+		"height": 240.0
 	},
 	"output.find_results":
 	{
@@ -1849,6 +1018,58 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"componenCrea",
+				"src\\ecs\\other\\componentCreator.cpp"
+			],
+			[
+				"componenFa",
+				"src\\ecs\\other\\componentFactory.cpp"
+			],
+			[
+				"",
+				"C:\\Users\\mixog\\Desktop\\ENGINE\\include\\ecs\\other\\componentFactory.h"
+			],
+			[
+				"componen",
+				"include\\ecs\\other\\componentFactory.h"
+			],
+			[
+				"enti",
+				"include\\ecs\\entity.h"
+			],
+			[
+				"main.p",
+				"src\\core\\main.cpp"
+			],
+			[
+				"appl",
+				"src\\core\\application.cpp"
+			],
+			[
+				"PxConvexMesh",
+				"include\\physx\\geometry\\PxConvexMesh.h"
+			],
+			[
+				"PxWindowsIntrinsics",
+				"include\\pxshared\\foundation\\windows\\PxWindowsIntrinsics.h"
+			],
+			[
+				"m",
+				"include\\mypch.h"
+			],
+			[
+				"pxcoreu",
+				"include\\physx\\common\\PxCoreUtilityTypes.h"
+			],
+			[
+				"pxmathut",
+				"include\\physx\\foundation\\PxMathUtils.h"
+			],
+			[
+				"pxasse",
+				"include\\physx\\foundation\\PxAssert.h"
+			],
 			[
 				"model",
 				"src\\assets\\modelRenderer.cpp"
@@ -2226,10 +1447,6 @@
 				"src\\assets\\camera.cpp"
 			],
 			[
-				"m",
-				"include\\mypch.h"
-			],
-			[
 				"PxVec2",
 				"include\\pxshared\\foundation\\PxVec2.h"
 			],
@@ -2312,54 +1529,6 @@
 			[
 				"particle",
 				"res\\shaders\\particleUpdate.cs"
-			],
-			[
-				"part",
-				"src\\particles.cpp"
-			],
-			[
-				"par",
-				"res\\shaders\\particle.vs"
-			],
-			[
-				"output.",
-				"other\\output.txt"
-			],
-			[
-				"particle.h",
-				"include\\particles.h"
-			],
-			[
-				"particle.vs",
-				"res\\shaders\\particle.vs"
-			],
-			[
-				"gyph",
-				"res\\shaders\\glyph.fs"
-			],
-			[
-				"glyph.vs",
-				"res\\shaders\\glyph.vs"
-			],
-			[
-				"texture.cpp",
-				"src\\texture.cpp"
-			],
-			[
-				"glyp",
-				"res\\shaders\\glyph.fs"
-			],
-			[
-				"ui.h",
-				"include\\ui.h"
-			],
-			[
-				"ligh",
-				"src\\lightManager.cpp"
-			],
-			[
-				"lights.h",
-				"include\\lights.h"
 			]
 		],
 		"width": 0.0

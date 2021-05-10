@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_CCT_CAPSULE_CONTROLLER
@@ -34,7 +34,7 @@
   @{
 */
 
-#include "characterkinematic/PxController.h"
+#include "physx/characterkinematic/PxController.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -113,7 +113,7 @@ public:
 	@see PxCapsuleController
 	*/
 	PxCapsuleClimbingMode::Enum		climbingMode;
-	
+
 protected:
 	PX_INLINE void								copy(const PxCapsuleControllerDesc&);
 };
@@ -150,10 +150,10 @@ PX_INLINE void PxCapsuleControllerDesc::setToDefault()
 
 PX_INLINE bool PxCapsuleControllerDesc::isValid() const
 {
-	if(!PxControllerDesc::isValid())	return false;
-	if(radius<=0.0f)					return false;
-	if(height<=0.0f)					return false;
-	if(stepOffset>height+radius*2.0f)	return false;	// Prevents obvious mistakes
+	if (!PxControllerDesc::isValid())	return false;
+	if (radius <= 0.0f)					return false;
+	if (height <= 0.0f)					return false;
+	if (stepOffset > height + radius * 2.0f)	return false;	// Prevents obvious mistakes
 	return true;
 }
 /**
@@ -236,7 +236,7 @@ public:
 	@see PxCapsuleControllerDesc.climbingMode getClimbingMode()
 	*/
 	virtual		bool			setClimbingMode(PxCapsuleClimbingMode::Enum mode)	= 0;
-	
+
 protected:
 	PX_INLINE					PxCapsuleController()	{}
 	virtual						~PxCapsuleController()	{}

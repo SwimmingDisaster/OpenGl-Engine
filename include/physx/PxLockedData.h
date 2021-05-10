@@ -34,7 +34,7 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
+#include "physx/PxPhysXConfig.h"
 #include "pxshared/foundation/PxFlags.h"
 
 #if !PX_DOXYGEN

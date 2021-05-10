@@ -31,7 +31,7 @@
 #define PX_PHYSICS_EXTENSIONS_DEFAULT_ERROR_CALLBACK_H
 
 #include "pxshared/foundation/PxErrorCallback.h"
-#include "PxPhysXConfig.h"
+#include "physx/PxPhysXConfig.h"
 
 #if !PX_DOXYGEN
 namespace physx

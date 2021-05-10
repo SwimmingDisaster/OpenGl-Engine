@@ -34,7 +34,7 @@
 @{
 */
 
-#include "common/PxBase.h"
+#include "physx/common/PxBase.h"
 #include "pxshared/foundation/PxTransform.h"
 #include "pxshared/foundation/PxBounds3.h"
 
@@ -46,9 +46,9 @@ namespace physx
 /**
 \brief Class representing the bounding volume hierarchy structure.
 
-PxBVHStructure can be  provided to PxScene::addActor. In this case the scene query 
-pruning structure inside PhysX SDK will store/update one bound per actor. 
-The scene queries against such an actor will query actor bounds and then 
+PxBVHStructure can be  provided to PxScene::addActor. In this case the scene query
+pruning structure inside PhysX SDK will store/update one bound per actor.
+The scene queries against such an actor will query actor bounds and then
 make a local space query against the provided BVH structure, which is in
 actor's local space.
 
@@ -65,14 +65,14 @@ public:
 	\param[in] unitDir		Normalized direction of the ray.
 	\param[in] maxDist		Maximum ray length, has to be in the [0, inf) range
 	\param[in] maxHits		Max number of returned hits = size of 'rayHits' buffer
-	\param[out] rayHits		Raycast hits information, bounds indices 
-	\return Number of hits  
+	\param[out] rayHits		Raycast hits information, bounds indices
+	\return Number of hits
 	*/
 	virtual PxU32					raycast(const PxVec3& origin,
-										const PxVec3& unitDir,
-										PxReal maxDist,
-										PxU32 maxHits,
-										PxU32* PX_RESTRICT rayHits) const = 0;
+	                                        const PxVec3& unitDir,
+	                                        PxReal maxDist,
+	                                        PxU32 maxHits,
+	                                        PxU32* PX_RESTRICT rayHits) const = 0;
 
 	/**
 	\brief Sweep test against a BVH structure.
@@ -81,26 +81,26 @@ public:
 	\param[in] unitDir		Normalized direction of the sweep.
 	\param[in] maxDist		Maximum sweep length, has to be in the [0, inf) range
 	\param[in] maxHits		Max number of returned hits = size of 'sweepHits' buffer
-	\param[out] sweepHits	Sweep hits information, bounds indices 
-	\return Number of hits 
+	\param[out] sweepHits	Sweep hits information, bounds indices
+	\return Number of hits
 	*/
-	virtual PxU32					sweep(const PxBounds3& aabb, 
-										const PxVec3& unitDir,
-										PxReal maxDist,
-										PxU32 maxHits,
-										PxU32* PX_RESTRICT sweepHits) const = 0;
+	virtual PxU32					sweep(const PxBounds3& aabb,
+	                                      const PxVec3& unitDir,
+	                                      PxReal maxDist,
+	                                      PxU32 maxHits,
+	                                      PxU32* PX_RESTRICT sweepHits) const = 0;
 
 	/**
 	\brief AABB overlap test against a BVH structure.
 
-	\param[in] aabb			The axis aligned bounding box		
+	\param[in] aabb			The axis aligned bounding box
 	\param[in] maxHits		Max number of returned hits = size of 'overlapHits' buffer
-	\param[out] overlapHits	Overlap hits information, bounds indices 
-	\return Number of hits 
+	\param[out] overlapHits	Overlap hits information, bounds indices
+	\return Number of hits
 	*/
-	virtual PxU32					overlap(const PxBounds3& aabb, 
-										PxU32 maxHits,
-										PxU32* PX_RESTRICT overlapHits) const = 0;
+	virtual PxU32					overlap(const PxBounds3& aabb,
+	                                        PxU32 maxHits,
+	                                        PxU32* PX_RESTRICT overlapHits) const = 0;
 
 	/**
 	\brief Retrieve the bounds in the BVH.
@@ -118,7 +118,7 @@ public:
 
 	*/
 	virtual PxU32					getNbBounds() const = 0;
-	
+
 	virtual	const char*				getConcreteTypeName() const	{ return "PxBVHStructure";	}
 protected:
 	PX_INLINE						PxBVHStructure(PxType concreteType, PxBaseFlags baseFlags) : PxBase(concreteType, baseFlags)	{}

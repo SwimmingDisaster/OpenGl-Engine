@@ -34,9 +34,9 @@
 @{
 */
 
-#include "foundation/PxAssert.h"
-#include "PxPhysXConfig.h"
-#include "geometry/PxGeometry.h"
+#include "physx/foundation/PxAssert.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/geometry/PxGeometry.h"
 
 #if !PX_DOXYGEN
 namespace physx

@@ -34,8 +34,8 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
-#include "PxShape.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/PxShape.h"
 #include "PxContact.h"
 #include "pxshared/foundation/PxTransform.h"
 

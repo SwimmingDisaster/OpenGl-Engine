@@ -33,12 +33,12 @@
   @{
 */
 
-#include "vehicle/PxVehicleSDK.h"
-#include "vehicle/PxVehicleTireFriction.h"
+#include "physx/vehicle/PxVehicleSDK.h"
+#include "physx/vehicle/PxVehicleTireFriction.h"
 #include "pxshared/foundation/PxSimpleTypes.h"
 #include "pxshared/foundation/PxMemory.h"
 #include "pxshared/foundation/PxTransform.h"
-#include "PxBatchQueryDesc.h"
+#include "physx/PxBatchQueryDesc.h"
 
 #if !PX_DOXYGEN
 namespace physx

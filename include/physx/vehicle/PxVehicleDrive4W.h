@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_VEHICLE_4WDRIVE_H
 #define PX_VEHICLE_4WDRIVE_H
@@ -33,9 +33,9 @@
   @{
 */
 
-#include "vehicle/PxVehicleDrive.h"
-#include "vehicle/PxVehicleWheels.h"
-#include "vehicle/PxVehicleComponents.h"
+#include "physx/vehicle/PxVehicleDrive.h"
+#include "physx/vehicle/PxVehicleWheels.h"
+#include "physx/vehicle/PxVehicleComponents.h"
 
 
 #if !PX_DOXYGEN
@@ -59,8 +59,8 @@ The drive model incorporates engine, clutch, gears, autobox, differential, and A
 class PxVehicleDriveSimData4W : public PxVehicleDriveSimData
 {
 //= ATTENTION! =====================================================================================
-// Changing the data layout of this class breaks the binary serialization format.  See comments for 
-// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData 
+// Changing the data layout of this class breaks the binary serialization format.  See comments for
+// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData
 // function.  If the modification is made on a custom branch, please change PX_BINARY_SERIAL_VERSION
 // accordingly.
 //==================================================================================================
@@ -68,7 +68,7 @@ public:
 
 	friend class PxVehicleDrive4W;
 
-	PxVehicleDriveSimData4W() 
+	PxVehicleDriveSimData4W()
 		: PxVehicleDriveSimData()
 	{
 	}
@@ -77,7 +77,7 @@ public:
 	\brief Return the data describing the differential.
 	@see PxVehicleDifferential4WData
 	*/
-	PX_FORCE_INLINE const PxVehicleDifferential4WData& getDiffData() const 
+	PX_FORCE_INLINE const PxVehicleDifferential4WData& getDiffData() const
 	{
 		return mDiff;
 	}
@@ -86,7 +86,7 @@ public:
 	\brief Return the data describing the Ackermann steer-correction.
 	@see PxVehicleAckermannGeometryData
 	*/
-	PX_FORCE_INLINE const PxVehicleAckermannGeometryData& getAckermannGeometryData() const 
+	PX_FORCE_INLINE const PxVehicleAckermannGeometryData& getAckermannGeometryData() const
 	{
 		return mAckermannGeometry;
 	}
@@ -120,7 +120,7 @@ private:
 	/**
 	\brief Test if the 4W-drive simulation data has been setup with legal data.
 	\note Call only after setting all components.
-	@see setEnginedata, setClutchData, setGearsData, setAutoboxData, setDiffData, setAckermannGeometryData 
+	@see setEnginedata, setClutchData, setGearsData, setAutoboxData, setDiffData, setAckermannGeometryData
 	*/
 	bool isValid() const;
 
@@ -130,7 +130,7 @@ public:
 	static void getBinaryMetaData(PxOutputStream& stream);
 //~serialization
 };
-PX_COMPILE_TIME_ASSERT(0==(sizeof(PxVehicleDriveSimData4W) & 15));
+PX_COMPILE_TIME_ASSERT(0 == (sizeof(PxVehicleDriveSimData4W) & 15));
 
 
 
@@ -144,7 +144,7 @@ struct PxVehicleDrive4WWheelOrder
 {
 	enum Enum
 	{
-		eFRONT_LEFT=0,
+		eFRONT_LEFT = 0,
 		eFRONT_RIGHT,
 		eREAR_LEFT,
 		eREAR_RIGHT
@@ -161,11 +161,11 @@ struct PxVehicleDrive4WControl
 {
 	enum Enum
 	{
-		eANALOG_INPUT_ACCEL=0,
-		eANALOG_INPUT_BRAKE,		
-		eANALOG_INPUT_HANDBRAKE,	
-		eANALOG_INPUT_STEER_LEFT,	
-		eANALOG_INPUT_STEER_RIGHT,	
+		eANALOG_INPUT_ACCEL = 0,
+		eANALOG_INPUT_BRAKE,
+		eANALOG_INPUT_HANDBRAKE,
+		eANALOG_INPUT_STEER_LEFT,
+		eANALOG_INPUT_STEER_RIGHT,
 		eMAX_NB_DRIVE4W_ANALOG_INPUTS
 	};
 };
@@ -176,14 +176,14 @@ struct PxVehicleDrive4WControl
 class PxVehicleDrive4W : public PxVehicleDrive
 {
 //= ATTENTION! =====================================================================================
-// Changing the data layout of this class breaks the binary serialization format.  See comments for 
-// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData 
+// Changing the data layout of this class breaks the binary serialization format.  See comments for
+// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData
 // function.  If the modification is made on a custom branch, please change PX_BINARY_SERIAL_VERSION
 // accordingly.
 //==================================================================================================
 public:
 	friend class PxVehicleUpdate;
-		
+
 	/**
 	\brief Allocate a PxVehicleDrive4W instance for a 4WDrive vehicle with nbWheels (= 4 + number of un-driven wheels)
 
@@ -213,9 +213,9 @@ public:
 	@see allocate, free, setToRestState, PxVehicleWheelsSimData::setWheelShapeMapping
 	*/
 	void setup
-		(PxPhysics* physics, PxRigidDynamic* vehActor,
-		 const PxVehicleWheelsSimData& wheelsData, const PxVehicleDriveSimData4W& driveData,
-		 const PxU32 nbNonDrivenWheels);
+	(PxPhysics* physics, PxRigidDynamic* vehActor,
+	 const PxVehicleWheelsSimData& wheelsData, const PxVehicleDriveSimData4W& driveData,
+	 const PxU32 nbNonDrivenWheels);
 
 	/**
 	\brief Allocate and set up a vehicle using simulation data for the wheels and drive model.
@@ -230,15 +230,15 @@ public:
 	@see allocate, free, setToRestState, PxVehicleWheelsSimData::setWheelShapeMapping
 	*/
 	static PxVehicleDrive4W* create
-		(PxPhysics* physics, PxRigidDynamic* vehActor,
-		 const PxVehicleWheelsSimData& wheelsData, const PxVehicleDriveSimData4W& driveData,
-		 const PxU32 nbNonDrivenWheels);
+	(PxPhysics* physics, PxRigidDynamic* vehActor,
+	 const PxVehicleWheelsSimData& wheelsData, const PxVehicleDriveSimData4W& driveData,
+	 const PxU32 nbNonDrivenWheels);
 
 	/**
-	\brief Set a vehicle to its rest state.  Aside from the rigid body transform, this will set the vehicle and rigid body 
+	\brief Set a vehicle to its rest state.  Aside from the rigid body transform, this will set the vehicle and rigid body
 	to the state they were in immediately after setup or create.
 	\note Calling setToRestState invalidates the cached raycast hit planes under each wheel meaning that suspension line
-	raycasts need to be performed at least once with PxVehicleSuspensionRaycasts before calling PxVehicleUpdates. 
+	raycasts need to be performed at least once with PxVehicleSuspensionRaycasts before calling PxVehicleUpdates.
 	@see setup, create, PxVehicleSuspensionRaycasts, PxVehicleUpdates
 	*/
 	void setToRestState();
@@ -254,21 +254,21 @@ private:
 	/**
 	\brief Test if the instanced dynamics and configuration data has legal values.
 	*/
-	bool isValid() const;	
+	bool isValid() const;
 
 //serialization
 protected:
-									PxVehicleDrive4W();
-									~PxVehicleDrive4W(){}
+	PxVehicleDrive4W();
+	~PxVehicleDrive4W() {}
 	virtual		bool				isKindOf(const char* name)	const	{ return !::strcmp("PxVehicleDrive4W", name) || PxBase::isKindOf(name); }
 public:
 	static		PxVehicleDrive4W*	createObject(PxU8*& address, PxDeserializationContext& context);
 	static		void				getBinaryMetaData(PxOutputStream& stream);
-									PxVehicleDrive4W(PxBaseFlags baseFlags) : PxVehicleDrive(baseFlags), mDriveSimData(PxEmpty)	{}
+	PxVehicleDrive4W(PxBaseFlags baseFlags) : PxVehicleDrive(baseFlags), mDriveSimData(PxEmpty)	{}
 	virtual		const char*			getConcreteTypeName() const			{ return "PxVehicleDrive4W";	}
-//~serialization	
+//~serialization
 };
-PX_COMPILE_TIME_ASSERT(0==(sizeof(PxVehicleDrive4W) & 15));
+PX_COMPILE_TIME_ASSERT(0 == (sizeof(PxVehicleDrive4W) & 15));
 
 #if !PX_DOXYGEN
 } // namespace physx

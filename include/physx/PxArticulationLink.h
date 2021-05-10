@@ -25,24 +25,24 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_ARTICULATION_LINK
 #define PX_PHYSICS_NX_ARTICULATION_LINK
-/** \addtogroup physics 
+/** \addtogroup physics
 @{ */
 
-#include "PxPhysXConfig.h"
+#include "physx/PxPhysXConfig.h"
 #include "PxArticulationJoint.h"
-#include "PxRigidBody.h"
+#include "physx/PxRigidBody.h"
 
 #if !PX_DOXYGEN
 namespace physx
 {
 #endif
 
-	class PxArticulationBase;
+class PxArticulationBase;
 
 /**
 \brief a component of an articulation that represents a rigid body
@@ -59,9 +59,9 @@ class PxArticulationLink : public PxRigidBody
 public:
 	/**
 	\brief Deletes the articulation link.
-	
+
 	\note Only a leaf articulation link can be released
-	
+
 	Do not keep a reference to the deleted instance.
 
 	@see PxArticulation::createLink()
@@ -78,7 +78,7 @@ public:
 
 	/**
 	\brief Get the joint which connects this link to its parent.
-	
+
 	\return The joint connecting the link to the parent. NULL for the root link.
 
 	@see PxArticulationJoint
@@ -104,7 +104,7 @@ public:
 	virtual		PxU32						getNbChildren() const = 0;
 
 	/**
-	\brief Get low-level link index 
+	\brief Get low-level link index
 
 	\return low-level index
 	*/
@@ -120,7 +120,7 @@ public:
 
 	@see getNbChildren()
 	*/
-	virtual		PxU32						getChildren(PxArticulationLink** userBuffer, PxU32 bufferSize, PxU32 startIndex=0) const = 0;
+	virtual		PxU32						getChildren(PxArticulationLink** userBuffer, PxU32 bufferSize, PxU32 startIndex = 0) const = 0;
 
 	virtual		const char*					getConcreteTypeName()		const		{ return "PxArticulationLink";	}
 

@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_REVOLUTEJOINT_H
 #define PX_REVOLUTEJOINT_H
@@ -33,8 +33,8 @@
   @{
 */
 
-#include "extensions/PxJoint.h"
-#include "extensions/PxJointLimit.h"
+#include "physx/extensions/PxJoint.h"
+#include "physx/extensions/PxJointLimit.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -50,7 +50,7 @@ class PxRevoluteJoint;
  \param[in] actor0		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
  \param[in] localFrame0	The position and orientation of the joint relative to actor0
  \param[in] actor1		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
- \param[in] localFrame1	The position and orientation of the joint relative to actor1 
+ \param[in] localFrame1	The position and orientation of the joint relative to actor1
 
 @see PxRevoluteJoint
 */
@@ -65,9 +65,9 @@ struct PxRevoluteJointFlag
 {
 	enum Enum
 	{
-		eLIMIT_ENABLED	= 1<<0,	//!< enable the limit
-		eDRIVE_ENABLED	= 1<<1,	//!< enable the drive
-		eDRIVE_FREESPIN	= 1<<2	//!< if the existing velocity is beyond the drive velocity, do not add force
+		eLIMIT_ENABLED	= 1 << 0,	//!< enable the limit
+		eDRIVE_ENABLED	= 1 << 1,	//!< enable the drive
+		eDRIVE_FREESPIN	= 1 << 2	//!< if the existing velocity is beyond the drive velocity, do not add force
 	};
 };
 
@@ -84,14 +84,14 @@ PX_FLAGS_OPERATORS(PxRevoluteJointFlag::Enum, PxU16)
 
  The position of the hinge on each body is specified by the origin of the body's joint frame.
  The axis of the hinge is specified as the direction of the x-axis in the body's joint frame.
- 
+
  \image html revoluteJoint.png
 
  A revolute joint can be given a motor, so that it can apply a force to rotate the attached actors.
  It may also be given a limit, to restrict the revolute motion to within a certain range. In
  addition, the bodies may be projected together if the distance or angle between them exceeds
  a given threshold.
- 
+
  Projection, drive and limits are activated by setting the appropriate flags on the joint.
 
  @see PxRevoluteJointCreate() PxJoint
@@ -111,13 +111,13 @@ public:
 	virtual PxReal getVelocity()	const	= 0;
 
 	/**
-	\brief set the joint limit parameters. 
+	\brief set the joint limit parameters.
 
 	The limit is activated using the flag PxRevoluteJointFlag::eLIMIT_ENABLED
 
 	The limit angle range is (-2*Pi, 2*Pi).
 
-	\param[in] limits The joint limit parameters. 
+	\param[in] limits The joint limit parameters.
 
 	@see PxJointAngularLimitPair getLimit()
 	*/
@@ -139,7 +139,7 @@ public:
 	If the joint is spinning faster than this velocity, the motor will actually try to brake
 	(see PxRevoluteJointFlag::eDRIVE_FREESPIN.)
 
-	If you set this to infinity then the motor will keep speeding up, unless there is some sort 
+	If you set this to infinity then the motor will keep speeding up, unless there is some sort
 	of resistance on the attached bodies. The sign of this variable determines the rotation direction,
 	with positive values going the same way as positive joint angles.
 
@@ -164,7 +164,7 @@ public:
 
 	/**
 	\brief sets the maximum torque the drive can exert.
-	
+
 	Setting this to a very large value if velTarget is also very large may cause unexpected results.
 
 	The value set here may be used either as an impulse limit or a force limit, depending on the flag PxConstraintFlag::eDRIVE_LIMITS_ARE_FORCES
@@ -178,7 +178,7 @@ public:
 
 	/**
 	\brief gets the maximum torque the drive can exert.
-	
+
 	\return the torque limit
 
 	@see setDriveVelocity()
@@ -187,7 +187,7 @@ public:
 
 	/**
 	\brief sets the gear ratio for the drive.
-	
+
 	When setting up the drive constraint, the velocity of the first actor is scaled by this value, and its response to drive torque is scaled down.
 	So if the drive target velocity is zero, the second actor will be driven to the velocity of the first scaled by the gear ratio
 
@@ -202,7 +202,7 @@ public:
 
 	/**
 	\brief gets the gear ratio.
-	
+
 	\return the drive gear ratio
 
 	@see setDriveGearRatio()
@@ -243,7 +243,7 @@ public:
 	\brief Set the linear tolerance threshold for projection. Projection is enabled if PxConstraintFlag::ePROJECTION
 	is set for the joint.
 
-	If the joint separates by more than this distance along its locked degrees of freedom, the solver 
+	If the joint separates by more than this distance along its locked degrees of freedom, the solver
 	will move the bodies to close the distance.
 
 	Setting a very small tolerance may result in simulation jitter or other artifacts.
@@ -269,12 +269,12 @@ public:
 	virtual PxReal				getProjectionLinearTolerance()	const	= 0;
 
 	/**
-	\brief Set the angular tolerance threshold for projection. Projection is enabled if 
+	\brief Set the angular tolerance threshold for projection. Projection is enabled if
 	PxConstraintFlag::ePROJECTION is set for the joint.
 
-	If the joint deviates by more than this angle around its locked angular degrees of freedom, 
+	If the joint deviates by more than this angle around its locked angular degrees of freedom,
 	the solver will move the bodies to close the angle.
-	
+
 	Setting a very small tolerance may result in simulation jitter or other artifacts.
 
 	Sometimes it is not possible to project (for example when the joints form a cycle).
@@ -320,7 +320,7 @@ protected:
 	\brief Returns whether a given type name matches with the type of this instance
 	*/
 	virtual	bool				isKindOf(const char* name) const { return !::strcmp("PxRevoluteJoint", name) || PxJoint::isKindOf(name); }
-	
+
 	//~serialization
 };
 

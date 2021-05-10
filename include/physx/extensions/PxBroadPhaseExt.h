@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_EXTENSIONS_BROAD_PHASE_H
@@ -34,8 +34,8 @@
   @{
 */
 
-#include "PxPhysXConfig.h"
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -64,7 +64,7 @@ public:
 
 	@see PxSceneDesc PxBroadPhaseType
 	*/
-	static	PxU32	createRegionsFromWorldBounds(PxBounds3* regions, const PxBounds3& globalBounds, PxU32 nbSubdiv, PxU32 upAxis=1);
+	static	PxU32	createRegionsFromWorldBounds(PxBounds3* regions, const PxBounds3& globalBounds, PxU32 nbSubdiv, PxU32 upAxis = 1);
 };
 
 #if !PX_DOXYGEN

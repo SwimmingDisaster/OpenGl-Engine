@@ -55,7 +55,7 @@ Alternatively, one can instead directly #include a subset of the below files.
 #include "pxshared/foundation/PxMat33.h"
 #include "pxshared/foundation/PxMat44.h"
 #include "pxshared/foundation/PxMath.h"
-#include "foundation/PxMathUtils.h"
+#include "physx/foundation/PxMathUtils.h"
 #include "pxshared/foundation/PxPlane.h"
 #include "pxshared/foundation/PxPreprocessor.h"
 #include "pxshared/foundation/PxQuat.h"

@@ -78,8 +78,8 @@
 #define _CRT_SECURE_NO_WARNINGS
 #endif
 
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_impl_opengl3.h"
+#include "ImGUI/imgui.h"
+#include "ImGUI/imgui_impl_opengl3.h"
 #include <stdio.h>
 #if defined(_MSC_VER) && _MSC_VER <= 1500 // MSVC 2008 or earlier
 #include <stddef.h>     // intptr_t
@@ -178,7 +178,7 @@ bool    ImGui_ImplOpenGL3_Init(const char* glsl_version)
 
     // Setup backend capabilities flags
     ImGuiIO& io = ImGui::GetIO();
-    io.BackendRendererName = "imgui_impl_opengl3";
+    io.BackendRendererName = "ImGUI_impl_opengl3";
 #ifdef IMGUI_IMPL_OPENGL_MAY_HAVE_VTX_OFFSET
     if (g_GlVersion >= 320)
         io.BackendFlags |= ImGuiBackendFlags_RendererHasVtxOffset;  // We can honor the ImDrawCmd::VtxOffset field, allowing for large meshes.
@@ -291,10 +291,10 @@ static void ImGui_ImplOpenGL3_SetupRenderState(ImDrawData* draw_data, int fb_wid
 #endif
     const float ortho_projection[4][4] =
     {
-        { 2.0f/(R-L),   0.0f,         0.0f,   0.0f },
-        { 0.0f,         2.0f/(T-B),   0.0f,   0.0f },
+        { 2.0f / (R - L),   0.0f,         0.0f,   0.0f },
+        { 0.0f,         2.0f / (T - B),   0.0f,   0.0f },
         { 0.0f,         0.0f,        -1.0f,   0.0f },
-        { (R+L)/(L-R),  (T+B)/(B-T),  0.0f,   1.0f },
+        { (R + L) / (L - R),  (T + B) / (B - T),  0.0f,   1.0f },
     };
     glUseProgram(g_ShaderHandle);
     glUniform1i(g_AttribLocationTex, 0);
@@ -419,7 +419,7 @@ void    ImGui_ImplOpenGL3_RenderDrawData(ImDrawData* draw_data)
                         glDrawElementsBaseVertex(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, (void*)(intptr_t)(pcmd->IdxOffset * sizeof(ImDrawIdx)), (GLint)pcmd->VtxOffset);
                     else
 #endif
-                    glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, (void*)(intptr_t)(pcmd->IdxOffset * sizeof(ImDrawIdx)));
+                        glDrawElements(GL_TRIANGLES, (GLsizei)pcmd->ElemCount, sizeof(ImDrawIdx) == 2 ? GL_UNSIGNED_SHORT : GL_UNSIGNED_INT, (void*)(intptr_t)(pcmd->IdxOffset * sizeof(ImDrawIdx)));
                 }
             }
         }

@@ -34,7 +34,7 @@
   @{
 */
 
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 #include "pxshared/foundation/PxTransform.h"
 #include "pxshared/foundation/PxPlane.h"
 

@@ -34,9 +34,9 @@
 @{
 */
 
-#include "common/PxPhysXCommonConfig.h"
-#include "geometry/PxHeightFieldFlag.h"
-#include "common/PxCoreUtilityTypes.h"
+#include "physx/common/PxPhysXCommonConfig.h"
+#include "physx/geometry/PxHeightFieldFlag.h"
+#include "physx/common/PxCoreUtilityTypes.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -168,7 +168,7 @@ PX_INLINE bool PxHeightFieldDesc::isValid() const
 		return false;
 	if (nbRows < 2)
 		return false;
-	if(format != PxHeightFieldFormat::eS16_TM)
+	if (format != PxHeightFieldFormat::eS16_TM)
 		return false;
 	if (samples.stride < 4)
 		return false;

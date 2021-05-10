@@ -28,7 +28,7 @@
 #ifndef PXTASK_PXTASKMANAGER_H
 #define PXTASK_PXTASKMANAGER_H
 
-#include "task/PxTaskDefine.h"
+#include "physx/task/PxTaskDefine.h"
 #include "pxshared/foundation/PxSimpleTypes.h"
 #include "pxshared/foundation/PxErrorCallback.h"
 
@@ -64,16 +64,16 @@ struct PxTaskType
 
 class PxCpuDispatcher;
 
-/** 
+/**
  \brief The PxTaskManager interface
- 
+
  A PxTaskManager instance holds references to user-provided dispatcher objects, when tasks are
- submitted the PxTaskManager routes them to the appropriate dispatcher and handles task profiling if enabled. 
+ submitted the PxTaskManager routes them to the appropriate dispatcher and handles task profiling if enabled.
  Users should not implement the PxTaskManager interface, the SDK creates its own concrete PxTaskManager object
  per-scene which users can configure by passing dispatcher objects into the PxSceneDesc.
 
  @see CpuDispatcher
- 
+
 */
 class PxTaskManager
 {
@@ -105,7 +105,7 @@ public:
 	@see PxTask
 	*/
 	virtual void	resetDependencies() = 0;
-	
+
 	/**
 	\brief Called by the owning scene to start the task graph.
 
@@ -173,7 +173,7 @@ public:
 	\brief Construct a new PxTaskManager instance with the given [optional] dispatchers
 	*/
 	static PxTaskManager* createTaskManager(PxErrorCallback& errorCallback, PxCpuDispatcher* = 0);
-	
+
 protected:
 	virtual ~PxTaskManager() {}
 

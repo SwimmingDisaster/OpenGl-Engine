@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_PHYSICS_NX_CONSTRAINT
 #define PX_PHYSICS_NX_CONSTRAINT
@@ -34,9 +34,9 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
-#include "PxConstraintDesc.h"
-#include "common/PxBase.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/PxConstraintDesc.h"
+#include "physx/common/PxBase.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -63,17 +63,17 @@ struct PxConstraintFlag
 {
 	enum Enum
 	{
-		eBROKEN						= 1<<0,			//!< whether the constraint is broken
-		ePROJECT_TO_ACTOR0			= 1<<1,			//!< whether actor1 should get projected to actor0 for this constraint (note: projection of a static/kinematic actor to a dynamic actor will be ignored)
-		ePROJECT_TO_ACTOR1			= 1<<2,			//!< whether actor0 should get projected to actor1 for this constraint (note: projection of a static/kinematic actor to a dynamic actor will be ignored)
+		eBROKEN						= 1 << 0,			//!< whether the constraint is broken
+		ePROJECT_TO_ACTOR0			= 1 << 1,			//!< whether actor1 should get projected to actor0 for this constraint (note: projection of a static/kinematic actor to a dynamic actor will be ignored)
+		ePROJECT_TO_ACTOR1			= 1 << 2,			//!< whether actor0 should get projected to actor1 for this constraint (note: projection of a static/kinematic actor to a dynamic actor will be ignored)
 		ePROJECTION					= ePROJECT_TO_ACTOR0 | ePROJECT_TO_ACTOR1,	//!< whether the actors should get projected for this constraint (the direction will be chosen by PhysX)
-		eCOLLISION_ENABLED			= 1<<3,			//!< whether contacts should be generated between the objects this constraint constrains
-		eVISUALIZATION				= 1<<4,			//!< whether this constraint should be visualized, if constraint visualization is turned on
-		eDRIVE_LIMITS_ARE_FORCES	= 1<<5,			//!< limits for drive strength are forces rather than impulses
-		eIMPROVED_SLERP				= 1<<7,			//!< perform preprocessing for improved accuracy on D6 Slerp Drive (this flag will be removed in a future release when preprocessing is no longer required)
-		eDISABLE_PREPROCESSING		= 1<<8,			//!< suppress constraint preprocessing, intended for use with rowResponseThreshold. May result in worse solver accuracy for ill-conditioned constraints.
-		eENABLE_EXTENDED_LIMITS		= 1<<9,			//!< enables extended limit ranges for angular limits (e.g. limit values > PxPi or < -PxPi)
-		eGPU_COMPATIBLE				= 1<<10			//!< the constraint type is supported by gpu dynamic
+		eCOLLISION_ENABLED			= 1 << 3,			//!< whether contacts should be generated between the objects this constraint constrains
+		eVISUALIZATION				= 1 << 4,			//!< whether this constraint should be visualized, if constraint visualization is turned on
+		eDRIVE_LIMITS_ARE_FORCES	= 1 << 5,			//!< limits for drive strength are forces rather than impulses
+		eIMPROVED_SLERP				= 1 << 7,			//!< perform preprocessing for improved accuracy on D6 Slerp Drive (this flag will be removed in a future release when preprocessing is no longer required)
+		eDISABLE_PREPROCESSING		= 1 << 8,			//!< suppress constraint preprocessing, intended for use with rowResponseThreshold. May result in worse solver accuracy for ill-conditioned constraints.
+		eENABLE_EXTENDED_LIMITS		= 1 << 9,			//!< enables extended limit ranges for angular limits (e.g. limit values > PxPi or < -PxPi)
+		eGPU_COMPATIBLE				= 1 << 10			//!< the constraint type is supported by gpu dynamic
 	};
 };
 
@@ -89,7 +89,7 @@ struct PxConstraintShaderTable
 {
 	enum
 	{
-		eMAX_SOLVERPRPEP_DATASIZE=400
+		eMAX_SOLVERPRPEP_DATASIZE = 400
 	};
 
 	PxConstraintSolverPrep			solverPrep;					//!< solver constraint generation function
@@ -183,15 +183,15 @@ public:
 
 	/**
 	\brief Retrieve the constraint force most recently applied to maintain this constraint.
-	
+
 	\param[out] linear the constraint force
 	\param[out] angular the constraint torque
 	*/
 	virtual void				getForce(PxVec3& linear, PxVec3& angular)				const	= 0;
 
 	/**
-	\brief whether the constraint is valid. 
-	
+	\brief whether the constraint is valid.
+
 	A constraint is valid if it has at least one dynamic rigid body or articulation link. A constraint that
 	is not valid may not be inserted into a scene, and therefore a static actor to which an invalid constraint
 	is attached may not be inserted into a scene.
@@ -201,8 +201,8 @@ public:
 	virtual bool				isValid() const													= 0;
 
 	/**
-	\brief Set the break force and torque thresholds for this constraint. 
-	
+	\brief Set the break force and torque thresholds for this constraint.
+
 	If either the force or torque measured at the constraint exceed these thresholds the constraint will break.
 
 	\param[in] linear the linear break threshold
@@ -212,18 +212,18 @@ public:
 
 	/**
 	\brief Retrieve the constraint break force and torque thresholds
-	
+
 	\param[out] linear the linear break threshold
 	\param[out] angular the angular break threshold
 	*/
 	virtual	void				getBreakForce(PxReal& linear, PxReal& angular)		const	= 0;
 
 	/**
-	\brief Set the minimum response threshold for a constraint row 
-	
-	When using mass modification for a joint or infinite inertia for a jointed body, very stiff solver constraints can be generated which 
-	can destabilize simulation. Setting this value to a small positive value (e.g. 1e-8) will cause constraint rows to be ignored if very 
-	large changes in impulses will generate only small changes in velocity. When setting this value, also set 
+	\brief Set the minimum response threshold for a constraint row
+
+	When using mass modification for a joint or infinite inertia for a jointed body, very stiff solver constraints can be generated which
+	can destabilize simulation. Setting this value to a small positive value (e.g. 1e-8) will cause constraint rows to be ignored if very
+	large changes in impulses will generate only small changes in velocity. When setting this value, also set
 	PxConstraintFlag::eDISABLE_PREPROCESSING. The solver accuracy for this joint may be reduced.
 
 	\param[in] threshold the minimum response threshold
@@ -241,7 +241,7 @@ public:
 
 	/**
 	\brief Fetch external owner of the constraint.
-	
+
 	Provides a reference to the external owner of a constraint and a unique owner type ID.
 
 	\param[out] typeID Unique type identifier of the external object.
@@ -253,14 +253,14 @@ public:
 
 	/**
 	\brief Set the constraint functions for this constraint
-	
+
 	\param[in] connector the constraint connector object by which the SDK communicates with the constraint.
 	\param[in] shaders the shader table for the constraint
- 
+
 	@see PxConstraintConnector PxConstraintSolverPrep PxConstraintProject PxConstraintVisualize
 	*/
 	virtual	void				setConstraintFunctions(PxConstraintConnector& connector,
-													   const PxConstraintShaderTable& shaders)		= 0;
+	        const PxConstraintShaderTable& shaders)		= 0;
 
 	virtual	const char*			getConcreteTypeName() const { return "PxConstraint"; }
 

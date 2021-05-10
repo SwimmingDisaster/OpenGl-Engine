@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_PHYSICS_NX_SHAPE
 #define PX_PHYSICS_NX_SHAPE
@@ -33,10 +33,10 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
-#include "common/PxBase.h"
-#include "geometry/PxGeometry.h"
-#include "geometry/PxGeometryHelpers.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/common/PxBase.h"
+#include "physx/geometry/PxGeometry.h"
+#include "physx/geometry/PxGeometryHelpers.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -68,20 +68,20 @@ struct PxShapeFlag
 		\brief The shape will partake in collision in the physical simulation.
 
 		\note It is illegal to raise the eSIMULATION_SHAPE and eTRIGGER_SHAPE flags.
-		In the event that one of these flags is already raised the sdk will reject any 
-		attempt to raise the other.  To raise the eSIMULATION_SHAPE first ensure that 
+		In the event that one of these flags is already raised the sdk will reject any
+		attempt to raise the other.  To raise the eSIMULATION_SHAPE first ensure that
 		eTRIGGER_SHAPE is already lowered.
 
 		\note This flag has no effect if simulation is disabled for the corresponding actor (see #PxActorFlag::eDISABLE_SIMULATION).
 
 		@see PxSimulationEventCallback.onContact() PxScene.setSimulationEventCallback() PxShape.setFlag(), PxShape.setFlags()
 		*/
-		eSIMULATION_SHAPE				= (1<<0),
+		eSIMULATION_SHAPE				= (1 << 0),
 
 		/**
 		\brief The shape will partake in scene queries (ray casts, overlap tests, sweeps, ...).
 		*/
-		eSCENE_QUERY_SHAPE				= (1<<1),
+		eSCENE_QUERY_SHAPE				= (1 << 1),
 
 		/**
 		\brief The shape is a trigger which can send reports whenever other shapes enter/leave its volume.
@@ -89,28 +89,28 @@ struct PxShapeFlag
 		\note Triangle meshes and heightfields can not be triggers. Shape creation will fail in these cases.
 
 		\note Shapes marked as triggers do not collide with other objects. If an object should act both
-		as a trigger shape and a collision shape then create a rigid body with two shapes, one being a 
-		trigger shape and the other a collision shape. 	It is illegal to raise the eTRIGGER_SHAPE and 
-		eSIMULATION_SHAPE flags on a single PxShape instance.  In the event that one of these flags is already 
-		raised the sdk will reject any attempt to raise the other.  To raise the eTRIGGER_SHAPE flag first 
+		as a trigger shape and a collision shape then create a rigid body with two shapes, one being a
+		trigger shape and the other a collision shape. 	It is illegal to raise the eTRIGGER_SHAPE and
+		eSIMULATION_SHAPE flags on a single PxShape instance.  In the event that one of these flags is already
+		raised the sdk will reject any attempt to raise the other.  To raise the eTRIGGER_SHAPE flag first
 		ensure that eSIMULATION_SHAPE flag is already lowered.
 
 		\note Trigger shapes will no longer send notification events for interactions with other trigger shapes.
 
-		\note Shapes marked as triggers are allowed to participate in scene queries, provided the eSCENE_QUERY_SHAPE flag is set. 
+		\note Shapes marked as triggers are allowed to participate in scene queries, provided the eSCENE_QUERY_SHAPE flag is set.
 
 		\note This flag has no effect if simulation is disabled for the corresponding actor (see #PxActorFlag::eDISABLE_SIMULATION).
 
 		@see PxSimulationEventCallback.onTrigger() PxScene.setSimulationEventCallback() PxShape.setFlag(), PxShape.setFlags()
 		*/
-		eTRIGGER_SHAPE					= (1<<2),
+		eTRIGGER_SHAPE					= (1 << 2),
 
 		/**
 		\brief Enable debug renderer for this shape
 
 		@see PxScene.getRenderBuffer() PxRenderBuffer PxVisualizationParameter
 		*/
-		eVISUALIZATION					= (1<<3)
+		eVISUALIZATION					= (1 << 3)
 	};
 };
 
@@ -119,8 +119,8 @@ struct PxShapeFlag
 
 @see PxShapeFlag
 */
-typedef PxFlags<PxShapeFlag::Enum,PxU8> PxShapeFlags;
-PX_FLAGS_OPERATORS(PxShapeFlag::Enum,PxU8)
+typedef PxFlags<PxShapeFlag::Enum, PxU8> PxShapeFlags;
+PX_FLAGS_OPERATORS(PxShapeFlag::Enum, PxU8)
 
 
 /**
@@ -146,10 +146,10 @@ public:
 	/**
 	\brief Decrements the reference count of a shape and releases it if the new reference count is zero.
 
-	Note that in releases prior to PhysX 3.3 this method did not have reference counting semantics and was used to destroy a shape 
+	Note that in releases prior to PhysX 3.3 this method did not have reference counting semantics and was used to destroy a shape
 	created with PxActor::createShape(). In PhysX 3.3 and above, this usage is deprecated, instead, use PxRigidActor::detachShape() to detach
 	a shape from an actor. If the shape to be detached was created with PxActor::createShape(), the actor holds the only counted reference,
-	and so when the shape is detached it will also be destroyed. 
+	and so when the shape is detached it will also be destroyed.
 
 	@see PxRigidActor::createShape() PxPhysics::createShape() PxRigidActor::attachShape() PxRigidActor::detachShape()
 	*/
@@ -199,7 +199,7 @@ public:
 	\brief Retrieve the geometry from the shape in a PxGeometryHolder wrapper class.
 
 	\return a PxGeometryHolder object containing the geometry;
-	
+
 	@see PxGeometry PxGeometryType getGeometryType() setGeometry()
 	*/
 
@@ -308,15 +308,15 @@ public:
 	virtual		PxRigidActor*			getActor() const = 0;
 
 
-/************************************************************************************************/
+	/************************************************************************************************/
 
-/** @name Pose Manipulation
-*/
+	/** @name Pose Manipulation
+	*/
 //@{
 
 	/**
 	\brief Sets the pose of the shape in actor space, i.e. relative to the actors to which they are attached.
-	
+
 	This transformation is identity by default.
 
 	The local pose is an attribute of the shape, and so will apply to all actors to which the shape is attached.
@@ -330,7 +330,7 @@ public:
 
 	\param[in] pose	The new transform from the actor frame to the shape frame. <b>Range:</b> rigid body transform
 
-	@see getLocalPose() 
+	@see getLocalPose()
 	*/
 	virtual		void					setLocalPose(const PxTransform& pose)		= 0;
 
@@ -341,33 +341,33 @@ public:
 
 	\return Pose of shape relative to the actor's frame.
 
-	@see setLocalPose() 
+	@see setLocalPose()
 	*/
 	virtual		PxTransform				getLocalPose()					const	= 0;
 
 //@}
-/************************************************************************************************/
+	/************************************************************************************************/
 
-/** @name Collision Filtering
-*/
+	/** @name Collision Filtering
+	*/
 //@{
 
 	/**
 	\brief Sets the user definable collision filter data.
-	
+
 	<b>Sleeping:</b> Does wake up the actor if the filter data change causes a formerly suppressed
 	collision pair to be enabled.
 
 	<b>Default:</b> (0,0,0,0)
 
-	@see getSimulationFilterData() 
+	@see getSimulationFilterData()
 	*/
 	virtual		void					setSimulationFilterData(const PxFilterData& data)	= 0;
 
 	/**
 	\brief Retrieves the shape's collision filter data.
 
-	@see setSimulationFilterData() 
+	@see setSimulationFilterData()
 	*/
 	virtual		PxFilterData			getSimulationFilterData()					const	= 0;
 
@@ -376,29 +376,29 @@ public:
 
 	<b>Default:</b> (0,0,0,0)
 
-	@see getQueryFilterData() 
+	@see getQueryFilterData()
 	*/
 	virtual		void					setQueryFilterData(const PxFilterData& data)	= 0;
 
 	/**
 	\brief Retrieves the shape's Query filter data.
 
-	@see setQueryFilterData() 
+	@see setQueryFilterData()
 	*/
 	virtual		PxFilterData			getQueryFilterData()					const	= 0;
 
 //@}
-/************************************************************************************************/
+	/************************************************************************************************/
 
 	/**
 	\brief Assigns material(s) to the shape.
-	
+
 	<b>Sleeping:</b> Does <b>NOT</b> wake the associated actor up automatically.
 
 	\param[in] materials List of material pointers to assign to the shape. See #PxMaterial
 	\param[in] materialCount The number of materials provided.
 
-	@see PxPhysics.createMaterial() getMaterials() 
+	@see PxPhysics.createMaterial() getMaterials()
 	*/
 	virtual		void					setMaterials(PxMaterial*const* materials, PxU16 materialCount)	= 0;
 
@@ -427,14 +427,14 @@ public:
 
 	@see PxMaterial getNbMaterials() PxMaterial::release()
 	*/
-	virtual		PxU32					getMaterials(PxMaterial** userBuffer, PxU32 bufferSize, PxU32 startIndex=0) const	= 0;
-	
+	virtual		PxU32					getMaterials(PxMaterial** userBuffer, PxU32 bufferSize, PxU32 startIndex = 0) const	= 0;
+
 	/**
 	\brief Retrieve material from given triangle index.
 
 	The input index is the internal triangle index as used inside the SDK. This is the index
 	returned to users by various SDK functions such as raycasts.
-	
+
 	This function is only useful for triangle meshes or heightfields, which have per-triangle
 	materials. For other shapes the function returns the single material associated with the
 	shape, regardless of the index.
@@ -468,7 +468,7 @@ public:
 	virtual		void					setContactOffset(PxReal contactOffset)	= 0;
 
 	/**
-	\brief Retrieves the contact offset. 
+	\brief Retrieves the contact offset.
 
 	\return The contact offset of the shape.
 
@@ -477,10 +477,10 @@ public:
 	virtual		PxReal					getContactOffset() const	= 0;
 
 	/**
-	\brief Sets the rest offset. 
+	\brief Sets the rest offset.
 
-	Two shapes will come to rest at a distance equal to the sum of their restOffset values. If the restOffset is 0, they should converge to touching 
-	exactly.  Having a restOffset greater than zero is useful to have objects slide smoothly, so that they do not get hung up on irregularities of 
+	Two shapes will come to rest at a distance equal to the sum of their restOffset values. If the restOffset is 0, they should converge to touching
+	exactly.  Having a restOffset greater than zero is useful to have objects slide smoothly, so that they do not get hung up on irregularities of
 	each others' surfaces.
 
 	<b>Default:</b> 0.0f
@@ -494,7 +494,7 @@ public:
 	virtual		void					setRestOffset(PxReal restOffset)	= 0;
 
 	/**
-	\brief Retrieves the rest offset. 
+	\brief Retrieves the rest offset.
 
 	\return The rest offset of the shape.
 
@@ -505,10 +505,10 @@ public:
 
 	/**
 	\brief Sets torsional patch radius.
-	
+
 	This defines the radius of the contact patch used to apply torsional friction. If the radius is 0, no torsional friction
 	will be applied. If the radius is > 0, some torsional friction will be applied. This is proportional to the penetration depth
-	so, if the shapes are separated or penetration is zero, no torsional friction will be applied. It is used to approximate 
+	so, if the shapes are separated or penetration is zero, no torsional friction will be applied. It is used to approximate
 	rotational friction introduced by the compression of contacting surfaces.
 
 	\param[in] radius	<b>Range:</b> (0, PX_MAX_F32)
@@ -532,8 +532,8 @@ public:
 	\brief Sets minimum torsional patch radius.
 
 	This defines the minimum radius of the contact patch used to apply torsional friction. If the radius is 0, the amount of torsional friction
-	that will be applied will be entirely dependent on the value of torsionalPatchRadius. 
-	
+	that will be applied will be entirely dependent on the value of torsionalPatchRadius.
+
 	If the radius is > 0, some torsional friction will be applied regardless of the value of torsionalPatchRadius or the amount of penetration.
 
 	\param[in] radius	<b>Range:</b> (0, PX_MAX_F32)
@@ -545,8 +545,8 @@ public:
 	\brief Gets minimum torsional patch radius.
 
 	This defines the minimum radius of the contact patch used to apply torsional friction. If the radius is 0, the amount of torsional friction
-	that will be applied will be entirely dependent on the value of torsionalPatchRadius. 
-	
+	that will be applied will be entirely dependent on the value of torsionalPatchRadius.
+
 	If the radius is > 0, some torsional friction will be applied regardless of the value of torsionalPatchRadius or the amount of penetration.
 
 	\return The minimum torsional patch radius of the shape.
@@ -554,7 +554,7 @@ public:
 	virtual			PxReal						getMinTorsionalPatchRadius() const = 0;
 
 
-/************************************************************************************************/
+	/************************************************************************************************/
 
 	/**
 	\brief Sets shape flags
@@ -588,19 +588,19 @@ public:
 
 	/**
 	\brief Returns true if the shape is exclusive to an actor.
-	
+
 	@see PxPhysics::createShape()
 	*/
 	virtual		bool					isExclusive() const	= 0;
 
 	/**
 	\brief Sets a name string for the object that can be retrieved with #getName().
-	
+
 	This is for debugging and is not used by the SDK.
 	The string is not copied by the SDK, only the pointer is stored.
 
 	<b>Default:</b> NULL
-	
+
 	\param[in] name The name string to set the objects name to.
 
 	@see getName()
@@ -619,9 +619,9 @@ public:
 
 	virtual		const char*				getConcreteTypeName() const	{ return "PxShape"; }
 
-/************************************************************************************************/
+	/************************************************************************************************/
 
-				void*					userData;	//!< user can assign this to whatever, usually to create a 1:1 relationship with a user object.
+	void*					userData;	//!< user can assign this to whatever, usually to create a 1:1 relationship with a user object.
 
 protected:
 	PX_INLINE							PxShape(PxBaseFlags baseFlags) : PxBase(baseFlags) {}

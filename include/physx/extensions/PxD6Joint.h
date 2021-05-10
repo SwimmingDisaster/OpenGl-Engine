@@ -33,8 +33,8 @@
   @{
 */
 
-#include "extensions/PxJoint.h"
-#include "extensions/PxJointLimit.h"
+#include "physx/extensions/PxJoint.h"
+#include "physx/extensions/PxJointLimit.h"
 #include "pxshared/foundation/PxFlags.h"
 
 #if !PX_DOXYGEN

@@ -31,7 +31,7 @@
 #ifndef PX_STRING_TABLE_EXT_H
 #define PX_STRING_TABLE_EXT_H
 #include "pxshared/foundation/Px.h"
-#include "common/PxStringTable.h"
+#include "physx/common/PxStringTable.h"
 
 #if !PX_DOXYGEN
 namespace physx

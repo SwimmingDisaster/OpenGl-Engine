@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_PHYSICS_COMMON_PX_TYPEINFO
 #define PX_PHYSICS_COMMON_PX_TYPEINFO
@@ -34,7 +34,7 @@
 @{
 */
 
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -44,7 +44,7 @@ namespace physx
 /**
 \brief an enumeration of concrete classes inheriting from PxBase
 
-Enumeration space is reserved for future PhysX core types, PhysXExtensions, 
+Enumeration space is reserved for future PhysX core types, PhysXExtensions,
 PhysXVehicle and Custom application types.
 
 @see PxBase, PxTypeInfo
@@ -74,15 +74,15 @@ struct PxConcreteType
 		eARTICULATION_JOINT_REDUCED_COORDINATE,
 		ePRUNING_STRUCTURE,
 		eBVH_STRUCTURE,
-		
+
 		ePHYSX_CORE_COUNT,
-        eFIRST_PHYSX_EXTENSION = 256,
+		eFIRST_PHYSX_EXTENSION = 256,
 		eFIRST_VEHICLE_EXTENSION = 512,
-        eFIRST_USER_EXTENSION = 1024
+		eFIRST_USER_EXTENSION = 1024
 	};
 };
 
-/** 
+/**
 \brief a structure containing per-type information for types inheriting from PxBase
 
 @see PxBase, PxConcreteType

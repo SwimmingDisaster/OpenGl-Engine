@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_FOUNDATION_PXRENDERBUFFER_H
@@ -35,7 +35,7 @@
 @{
 */
 
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 #include "pxshared/foundation/PxVec3.h"
 #include "pxshared/foundation/PxMat33.h"
 #include "pxshared/foundation/PxBounds3.h"

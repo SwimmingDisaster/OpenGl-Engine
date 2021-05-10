@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_COMMON_NX_SERIAL_FRAMEWORK
@@ -35,7 +35,7 @@
 @{
 */
 
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -82,7 +82,7 @@ class PxProcessPxBaseCallback
 {
 public:
 	virtual ~PxProcessPxBaseCallback()  {}
-	virtual void process(PxBase&) = 0;	
+	virtual void process(PxBase&) = 0;
 };
 
 
@@ -91,36 +91,36 @@ public:
 
 This class is used to register reference values and write object
 and object extra data during serialization.
-It is mainly used by the serialization framework. Except for custom 
+It is mainly used by the serialization framework. Except for custom
 serializable types, users should not have to worry about it.
 
-@see PxDeserializationContext 
+@see PxDeserializationContext
 */
 class PxSerializationContext
 {
 public:
 
-    /**
-    \brief Registers a reference value corresponding to a PxBase object.
+	/**
+	\brief Registers a reference value corresponding to a PxBase object.
 
 	This method is assumed to be called in the implementation of PxSerializer::registerReferences for serialized
 	references that need to be resolved on deserialization.
 
-	A reference needs to be associated with exactly one PxBase object in either the collection or the 
+	A reference needs to be associated with exactly one PxBase object in either the collection or the
 	external references collection.
 
 	Different kinds of references are supported and need to be specified. In the most common case
 	(PX_SERIAL_REF_KIND_PXBASE) the PxBase object matches the reference value (which is the pointer
-	to the PxBase object). Integer references maybe registered as well (used for internal material 
+	to the PxBase object). Integer references maybe registered as well (used for internal material
 	indices with PX_SERIAL_REF_KIND_MATERIAL_IDX). Other kinds could be added with the restriction that
 	for pointer types the kind value needs to be marked with the PX_SERIAL_REF_KIND_PTR_TYPE_BIT.
 
 	\param[in]  base		PxBase object associated with the reference
-    \param[in]  kind		What kind of reference this is (PX_SERIAL_REF_KIND_PXBASE, PX_SERIAL_REF_KIND_MATERIAL_IDX or custom kind)
-    \param[in]  reference	Value of reference
+	\param[in]  kind		What kind of reference this is (PX_SERIAL_REF_KIND_PXBASE, PX_SERIAL_REF_KIND_MATERIAL_IDX or custom kind)
+	\param[in]  reference	Value of reference
 
 	@see PxDeserializationContext::resolveReference, PX_SERIAL_REF_KIND_PXBASE, PX_SERIAL_REF_KIND_MATERIAL_IDX, PxSerializer::registerReferences
-    */
+	*/
 	virtual	void				registerReference(PxBase& base, PxU32 kind, size_t reference)		= 0;
 
 	/**
@@ -130,7 +130,7 @@ public:
 
 	/**
 	\brief Serializes object data and object extra data.
-	
+
 	This function is assumed to be called within the implementation of PxSerializer::exportData and PxSerializer::exportExtraData.
 
 	@see PxSerializer::exportData, PxSerializer::exportExtraData, PxSerializer::createObject, PxDeserializationContext::readExtraData
@@ -139,7 +139,7 @@ public:
 
 	/**
 	\brief Aligns the serialized data.
-	
+
 	This function is assumed to be called within the implementation of PxSerializer::exportData and PxSerializer::exportExtraData.
 
 	@see PxSerializer::exportData, PxSerializer::exportExtraData, PxDeserializationContext::alignExtraData
@@ -157,7 +157,7 @@ public:
 
 protected:
 
-							PxSerializationContext() {}
+	PxSerializationContext() {}
 	virtual					~PxSerializationContext() {}
 };
 
@@ -166,33 +166,33 @@ protected:
 \brief Binary deserialization context class.
 
 This class is used to resolve references and access extra data during deserialization.
-It is mainly used by the serialization framework. Except for custom 
+It is mainly used by the serialization framework. Except for custom
 serializable types, users should not have to worry about it.
 
-@see PxSerializationContext 
+@see PxSerializationContext
 */
 class PxDeserializationContext
 {
 public:
 
- 	/**
-    \brief Retrieves a pointer to a deserialized PxBase object given a corresponding deserialized reference value
+	/**
+	\brief Retrieves a pointer to a deserialized PxBase object given a corresponding deserialized reference value
 
 	This method is assumed to be called in the implementation of PxSerializer::createObject in order
 	to update reference values on deserialization.
-	
-	To update a PxBase reference the corresponding deserialized pointer value needs to be provided in order to retrieve 
-	the location of the corresponding deserialized PxBase object. (PxDeserializationContext::translatePxBase simplifies 
+
+	To update a PxBase reference the corresponding deserialized pointer value needs to be provided in order to retrieve
+	the location of the corresponding deserialized PxBase object. (PxDeserializationContext::translatePxBase simplifies
 	this common case).
 
-	For other kinds of references the reverence values need to be updated by deduction given the corresponding PxBase instance. 
+	For other kinds of references the reverence values need to be updated by deduction given the corresponding PxBase instance.
 
-    \param[in] kind			What kind of reference this is (PX_SERIAL_REF_KIND_PXBASE, PX_SERIAL_REF_KIND_MATERIAL_IDX or custom kind)
-    \param[in] reference	Deserialized reference value
-    \return					PxBase object associated with the reference value
+	\param[in] kind			What kind of reference this is (PX_SERIAL_REF_KIND_PXBASE, PX_SERIAL_REF_KIND_MATERIAL_IDX or custom kind)
+	\param[in] reference	Deserialized reference value
+	\return					PxBase object associated with the reference value
 
 	@see PxSerializationContext::registerReference, PX_SERIAL_REF_KIND_PXBASE, PX_SERIAL_REF_KIND_MATERIAL_IDX, translatePxBase
-    */
+	*/
 	virtual		PxBase*			resolveReference(PxU32 kind, size_t reference) const = 0;
 
 	/**
@@ -201,7 +201,7 @@ public:
 	@see resolveReference, PX_SERIAL_REF_KIND_PXBASE
 	*/
 	template<typename T>
-				void			translatePxBase(T*& base) { if (base) { base = static_cast<T*>(resolveReference(PX_SERIAL_REF_KIND_PXBASE, size_t(base))); } }
+	void			translatePxBase(T*& base) { if (base) { base = static_cast<T*>(resolveReference(PX_SERIAL_REF_KIND_PXBASE, size_t(base))); } }
 
 	/**
 	\brief Helper function to read a name from the extra data during deserialization.
@@ -215,33 +215,33 @@ public:
 		PxU32 len = *reinterpret_cast<PxU32*>(mExtraDataAddress);
 		mExtraDataAddress += sizeof(len);
 		name = len ? reinterpret_cast<const char*>(mExtraDataAddress) : NULL;
-		mExtraDataAddress += len; 
+		mExtraDataAddress += len;
 	}
 
 	/**
 	\brief Function to read extra data during deserialization.
-	
+
 	This function is assumed to be called within the implementation of PxSerializer::createObject.
 
 	@see PxSerializationContext::writeData, PxSerializer::createObject
 	*/
 	template<typename T>
-	PX_INLINE	T*				readExtraData(PxU32 count=1)
+	PX_INLINE	T*				readExtraData(PxU32 count = 1)
 	{
 		T* data = reinterpret_cast<T*>(mExtraDataAddress);
-		mExtraDataAddress += sizeof(T)*count;
+		mExtraDataAddress += sizeof(T) * count;
 		return data;
 	}
 
 	/**
 	\brief Function to read extra data during deserialization optionally aligning the extra data stream before reading.
-	
+
 	This function is assumed to be called within the implementation of PxSerializer::createObject.
 
 	@see PxSerializationContext::writeData, PxDeserializationContext::alignExtraData, PxSerializer::createObject
 	*/
 	template<typename T, PxU32 alignment>
-	PX_INLINE	T*				readExtraData(PxU32 count=1)
+	PX_INLINE	T*				readExtraData(PxU32 count = 1)
 	{
 		alignExtraData(alignment);
 		return readExtraData<T>(count);
@@ -257,23 +257,23 @@ public:
 	PX_INLINE	void			alignExtraData(PxU32 alignment = PX_SERIAL_ALIGN)
 	{
 		size_t addr = reinterpret_cast<size_t>(mExtraDataAddress);
-		addr = (addr+alignment-1)&~size_t(alignment-1);
+		addr = (addr + alignment - 1) & ~size_t(alignment - 1);
 		mExtraDataAddress = reinterpret_cast<PxU8*>(addr);
 	}
 
 protected:
 
-								PxDeserializationContext() {}
+	PxDeserializationContext() {}
 	virtual						~PxDeserializationContext() {}
 
-	PxU8*						mExtraDataAddress;	
+	PxU8*						mExtraDataAddress;
 };
 
 /**
 \brief Callback type for exporting binary meta data for a serializable type.
 @see PxSerializationRegistry::registerBinaryMetaDataCallback
 
-\param stream	Stream to store binary meta data. 
+\param stream	Stream to store binary meta data.
 */
 typedef void (*PxBinaryMetaDataCallback)(PxOutputStream& stream);
 
@@ -297,7 +297,7 @@ public:
 	//@{
 
 	/**
-	\brief Register a serializer for a concrete type 
+	\brief Register a serializer for a concrete type
 
 	\param	type PxConcreteType corresponding to the serializer
 	\param	serializer The PxSerializer to be registered
@@ -326,7 +326,7 @@ public:
 	@see PxBinaryMetaDataCallback, PxSerialization::dumpBinaryMetaData
 	*/
 	virtual void						registerBinaryMetaDataCallback(PxBinaryMetaDataCallback callback) = 0;
-	
+
 	/**
 	\brief Returns PxSerializer corresponding to type
 
@@ -335,7 +335,7 @@ public:
 
 	@see PxConcreteType
 	*/
-	virtual const PxSerializer*			getSerializer(PxType type) const = 0;  
+	virtual const PxSerializer*			getSerializer(PxType type) const = 0;
 
 	//@}
 	/************************************************************************************************/
@@ -349,7 +349,7 @@ public:
 
 	\param	type PxConcreteType corresponding to the RepX serializer
 	\param	serializer The PxRepXSerializer to be registered
-	
+
 	@see PxConcreteType, PxRepXSerializer
 	*/
 	virtual void						registerRepXSerializer(PxType type, PxRepXSerializer& serializer) = 0;
@@ -359,7 +359,7 @@ public:
 
 	\param	type PxConcreteType for which the RepX serializer should be unregistered
 	\return	Unregistered PxRepxSerializer corresponding to type, NULL for types for which no RepX serializer has been registered.
-	
+
 	@see PxConcreteType, PxSerializationRegistry::registerRepXSerializer, PxSerializationRegistry::release
 	*/
 	virtual PxRepXSerializer*			unregisterRepXSerializer(PxType type) = 0;
@@ -372,8 +372,8 @@ public:
 
 	@see PxRepXSerializer, PxTypeInfo, PX_DEFINE_TYPEINFO
 	*/
-	virtual PxRepXSerializer*			getRepXSerializer(const char* typeName) const = 0;  
-	
+	virtual PxRepXSerializer*			getRepXSerializer(const char* typeName) const = 0;
+
 	//@}
 	/************************************************************************************************/
 
@@ -388,7 +388,7 @@ public:
 	virtual void release() = 0;
 
 protected:
-	virtual ~PxSerializationRegistry(){}
+	virtual ~PxSerializationRegistry() {}
 };
 
 #if !PX_DOXYGEN

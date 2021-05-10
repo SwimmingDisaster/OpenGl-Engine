@@ -872,7 +872,7 @@ IMGUI_API const char*   GetClipboardText();
 IMGUI_API void          SetClipboardText(const char* text);
 
 // Settings/.Ini Utilities
-// - The disk functions are automatically called if io.IniFilename != NULL (default is "imgui.ini").
+// - The disk functions are automatically called if io.IniFilename != NULL (default is "ImGUI.ini").
 // - Set io.IniFilename to NULL to load/save manually. Read io.WantSaveIniSettings description about handling .ini saving manually.
 IMGUI_API void          LoadIniSettingsFromDisk(const char* ini_filename);                  // call after CreateContext() and before the first call to NewFrame(). NewFrame() automatically calls LoadIniSettingsFromDisk(io.IniFilename).
 IMGUI_API void          LoadIniSettingsFromMemory(const char* ini_data, size_t ini_size = 0); // call after CreateContext() and before the first call to NewFrame() to provide .ini data from your own data source.
@@ -1809,8 +1809,8 @@ struct ImGuiIO
 	ImVec2      DisplaySize;                    // <unset>          // Main display size, in pixels. This is for the default viewport.
 	float       DeltaTime;                      // = 1.0f/60.0f     // Time elapsed since last frame, in seconds.
 	float       IniSavingRate;                  // = 5.0f           // Minimum time between saving positions/sizes to .ini file, in seconds.
-	const char* IniFilename;                    // = "imgui.ini"    // Path to .ini file. Set NULL to disable automatic .ini loading/saving, if e.g. you want to manually load/save from memory.
-	const char* LogFilename;                    // = "imgui_log.txt"// Path to .log file (default parameter to ImGui::LogToFile when no file is specified).
+	const char* IniFilename;                    // = "ImGUI.ini"    // Path to .ini file. Set NULL to disable automatic .ini loading/saving, if e.g. you want to manually load/save from memory.
+	const char* LogFilename;                    // = "ImGUI_log.txt"// Path to .log file (default parameter to ImGui::LogToFile when no file is specified).
 	float       MouseDoubleClickTime;           // = 0.30f          // Time for a double-click, in seconds.
 	float       MouseDoubleClickMaxDist;        // = 6.0f           // Distance threshold to stay in to validate a double-click, in pixels.
 	float       MouseDragThreshold;             // = 6.0f           // Distance threshold before considering we are dragging.
@@ -3000,7 +3000,7 @@ struct ImGuiViewport
 
 // Include imgui_user.h at the end of imgui.h (convenient for user to only explicitly include vanilla imgui.h)
 #ifdef IMGUI_INCLUDE_IMGUI_USER_H
-#include "imgui_user.h"
+#include "ImGUI_user.h"
 #endif
 
 #endif // #ifndef IMGUI_DISABLE

@@ -34,7 +34,7 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
+#include "physx/PxPhysXConfig.h"
 #include "pxshared/foundation/PxBounds3.h"
 
 #if !PX_DOXYGEN

@@ -33,7 +33,7 @@
 /** \addtogroup geomutils
 @{
 */
-#include "geometry/PxGeometry.h"
+#include "physx/geometry/PxGeometry.h"
 #include "pxshared/foundation/PxVec3.h"
 
 #if !PX_DOXYGEN

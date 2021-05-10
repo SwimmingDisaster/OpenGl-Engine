@@ -32,7 +32,7 @@
 #define PX_CONTACT_H
 
 #include "pxshared/foundation/PxVec3.h"
-#include "foundation/PxAssert.h"
+#include "physx/foundation/PxAssert.h"
 
 #if !PX_DOXYGEN
 namespace physx

@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_VEHICLE_NWDRIVE_H
 #define PX_VEHICLE_NWDRIVE_H
@@ -33,9 +33,9 @@
   @{
 */
 
-#include "vehicle/PxVehicleDrive.h"
-#include "vehicle/PxVehicleWheels.h"
-#include "vehicle/PxVehicleComponents.h"
+#include "physx/vehicle/PxVehicleDrive.h"
+#include "physx/vehicle/PxVehicleWheels.h"
+#include "physx/vehicle/PxVehicleComponents.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -58,8 +58,8 @@ engine, clutch, gears, autobox, differential.
 class PxVehicleDriveSimDataNW : public PxVehicleDriveSimData
 {
 //= ATTENTION! =====================================================================================
-// Changing the data layout of this class breaks the binary serialization format.  See comments for 
-// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData 
+// Changing the data layout of this class breaks the binary serialization format.  See comments for
+// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData
 // function.  If the modification is made on a custom branch, please change PX_BINARY_SERIAL_VERSION
 // accordingly.
 //==================================================================================================
@@ -67,7 +67,7 @@ public:
 
 	friend class PxVehicleDriveNW;
 
-	PxVehicleDriveSimDataNW() 
+	PxVehicleDriveSimDataNW()
 		: PxVehicleDriveSimData()
 	{
 	}
@@ -97,7 +97,7 @@ private:
 	/**
 	\brief Test if the NW-drive simulation data has been setup with legal data.
 	Call only after setting all components.
-	@see setEngineData, setClutchData, setGearsData, setAutoboxData, setDiffData, setAckermannGeometryData 
+	@see setEngineData, setClutchData, setGearsData, setAutoboxData, setDiffData, setAckermannGeometryData
 	*/
 	bool isValid() const;
 
@@ -107,7 +107,7 @@ public:
 	static void getBinaryMetaData(PxOutputStream& stream);
 //~serialization
 };
-PX_COMPILE_TIME_ASSERT(0==(sizeof(PxVehicleDriveSimDataNW) & 15));
+PX_COMPILE_TIME_ASSERT(0 == (sizeof(PxVehicleDriveSimDataNW) & 15));
 
 
 /**
@@ -119,11 +119,11 @@ struct PxVehicleDriveNWControl
 {
 	enum Enum
 	{
-		eANALOG_INPUT_ACCEL=0,
-		eANALOG_INPUT_BRAKE,		
-		eANALOG_INPUT_HANDBRAKE,	
-		eANALOG_INPUT_STEER_LEFT,	
-		eANALOG_INPUT_STEER_RIGHT,	
+		eANALOG_INPUT_ACCEL = 0,
+		eANALOG_INPUT_BRAKE,
+		eANALOG_INPUT_HANDBRAKE,
+		eANALOG_INPUT_STEER_LEFT,
+		eANALOG_INPUT_STEER_RIGHT,
 		eMAX_NB_DRIVENW_ANALOG_INPUTS
 	};
 };
@@ -134,8 +134,8 @@ struct PxVehicleDriveNWControl
 class PxVehicleDriveNW : public PxVehicleDrive
 {
 //= ATTENTION! =====================================================================================
-// Changing the data layout of this class breaks the binary serialization format.  See comments for 
-// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData 
+// Changing the data layout of this class breaks the binary serialization format.  See comments for
+// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData
 // function.  If the modification is made on a custom branch, please change PX_BINARY_SERIAL_VERSION
 // accordingly.
 //==================================================================================================
@@ -144,7 +144,7 @@ public:
 	friend class PxVehicleUpdate;
 
 	/**
-	\brief Allocate a PxVehicleDriveNW instance for a NWDrive vehicle with nbWheels 
+	\brief Allocate a PxVehicleDriveNW instance for a NWDrive vehicle with nbWheels
 
 	\param[in] nbWheels is the number of wheels on the vehicle.
 
@@ -171,9 +171,9 @@ public:
 	@see allocate, free, setToRestState, PxVehicleWheelsSimData::setWheelShapeMapping
 	*/
 	void setup
-		(PxPhysics* physics, PxRigidDynamic* vehActor,
-		 const PxVehicleWheelsSimData& wheelsData, const PxVehicleDriveSimDataNW& driveData,
-		 const PxU32 nbWheels);
+	(PxPhysics* physics, PxRigidDynamic* vehActor,
+	 const PxVehicleWheelsSimData& wheelsData, const PxVehicleDriveSimDataNW& driveData,
+	 const PxU32 nbWheels);
 
 	/**
 	\brief Allocate and set up a vehicle using simulation data for the wheels and drive model.
@@ -187,15 +187,15 @@ public:
 	@see allocate, free, setToRestState, PxVehicleWheelsSimData::setWheelShapeMapping
 	*/
 	static PxVehicleDriveNW* create
-		(PxPhysics* physics, PxRigidDynamic* vehActor,
-		 const PxVehicleWheelsSimData& wheelsData, const PxVehicleDriveSimDataNW& driveData,
-		 const PxU32 nbWheels);
+	(PxPhysics* physics, PxRigidDynamic* vehActor,
+	 const PxVehicleWheelsSimData& wheelsData, const PxVehicleDriveSimDataNW& driveData,
+	 const PxU32 nbWheels);
 
 	/**
-	\brief Set a vehicle to its rest state.  Aside from the rigid body transform, this will set the vehicle and rigid body 
+	\brief Set a vehicle to its rest state.  Aside from the rigid body transform, this will set the vehicle and rigid body
 	to the state they were in immediately after setup or create.
 	\note Calling setToRestState invalidates the cached raycast hit planes under each wheel meaning that suspension line
-	raycasts need to be performed at least once with PxVehicleSuspensionRaycasts before calling PxVehicleUpdates. 
+	raycasts need to be performed at least once with PxVehicleSuspensionRaycasts before calling PxVehicleUpdates.
 	@see setup, create, PxVehicleSuspensionRaycasts, PxVehicleUpdates
 	*/
 	void setToRestState();
@@ -215,16 +215,16 @@ private:
 
 //serialization
 public:
-								PxVehicleDriveNW(PxBaseFlags baseFlags) : PxVehicleDrive(baseFlags), mDriveSimData(PxEmpty) {}
-								PxVehicleDriveNW();
-								~PxVehicleDriveNW(){}
+	PxVehicleDriveNW(PxBaseFlags baseFlags) : PxVehicleDrive(baseFlags), mDriveSimData(PxEmpty) {}
+	PxVehicleDriveNW();
+	~PxVehicleDriveNW() {}
 	static	PxVehicleDriveNW*	createObject(PxU8*& address, PxDeserializationContext& context);
 	static	void				getBinaryMetaData(PxOutputStream& stream);
 	virtual	const char*			getConcreteTypeName() const			{ return "PxVehicleDriveNW";	}
 	virtual	bool				isKindOf(const char* name)	const	{ return !::strcmp("PxVehicleDriveNW", name) || PxBase::isKindOf(name); }
 //~serialization
 };
-PX_COMPILE_TIME_ASSERT(0==(sizeof(PxVehicleDriveNW) & 15));
+PX_COMPILE_TIME_ASSERT(0 == (sizeof(PxVehicleDriveNW) & 15));
 
 
 

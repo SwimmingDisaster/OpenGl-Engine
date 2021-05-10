@@ -12,15 +12,14 @@
 
 #include "core/renderer.h"
 
-#include <boost/algorithm/string.hpp>
 
 #ifndef RELEASE_BUILD
 const ImGuiTreeNodeFlags treeNodeFlags =
-	ImGuiTreeNodeFlags_DefaultOpen |
-	ImGuiTreeNodeFlags_Framed |
-	ImGuiTreeNodeFlags_SpanAvailWidth |
-	ImGuiTreeNodeFlags_AllowItemOverlap |
-	ImGuiTreeNodeFlags_FramePadding;
+    ImGuiTreeNodeFlags_DefaultOpen |
+    ImGuiTreeNodeFlags_Framed |
+    ImGuiTreeNodeFlags_SpanAvailWidth |
+    ImGuiTreeNodeFlags_AllowItemOverlap |
+    ImGuiTreeNodeFlags_FramePadding;
 
 ImGuiContext *ImGuiManager::imGuiContext;
 
@@ -175,6 +174,8 @@ bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDr
 	return removeComponent;
 }
 
+
+
 bool ShowHeader(const std::string &headerName, const std::string &popupName, const std::string &popupIcon)
 {
 	ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{4, 4});
@@ -210,7 +211,11 @@ void ShowEntitySearchBar(std::shared_ptr<Entity> &entityToDraw, std::string &sea
 	{
 		for (auto it = Factory::get_table().begin(); it != Factory::get_table().end(); ++it)
 		{
-			if (boost::to_lower_copy<std::string>(it->first).rfind(boost::to_lower_copy<std::string>(searchString), 0) == 0)
+			std::string string1 = it->first;
+			std::string string2 = searchString;
+			std::transform(string1.begin(), string1.end(), string1.begin(), [](unsigned char c) { return std::tolower(c); });
+			std::transform(string2.begin(), string2.end(), string2.begin(), [](unsigned char c) { return std::tolower(c); });
+			if (string1.rfind(string2, 0) == 0)
 			{
 				if (ImGui::Button(it->first.c_str()))
 				{
@@ -364,7 +369,7 @@ void ShowSaveAndOpenMenuItems()
 	}
 	else if (saveas)
 	{
-		Application::sceneFileName = SaveFile("All files\0*.*\0");
+		Application::sceneFileName = SaveFile(NULL, 0);
 		std::replace(Application::sceneFileName.begin(), Application::sceneFileName.end(), '\\', '/');
 		if (Application::sceneFileName != "")
 			Application::m_curentScene.Serialize(Application::sceneFileName);

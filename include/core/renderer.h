@@ -1,5 +1,5 @@
 #include "mypch.h"
-#include "frameBuffer.h"
+#include "core/framebuffer.h"
 
 class Renderer
 {
@@ -23,6 +23,8 @@ public:
 	static void ShutdownOpenGL();
 	static void ResizeCallback(GLFWwindow *window, int width, int height);
 	static void SetWindowSize(GLFWwindow *window, int width, int height);
+	
+	static void GlfwErrorCallback(int error_code, const char* error_message);
 
 	static void StartFrame();
 	static void EndFrame();

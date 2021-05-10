@@ -33,9 +33,9 @@
   @{
 */
 
-#include "characterkinematic/PxExtended.h"
-#include "characterkinematic/PxControllerObstacles.h"
-#include "PxQueryFiltering.h"
+#include "physx/characterkinematic/PxExtended.h"
+#include "physx/characterkinematic/PxControllerObstacles.h"
+#include "physx/PxQueryFiltering.h"
 #include "pxshared/foundation/PxErrorCallback.h"
 
 #if !PX_DOXYGEN

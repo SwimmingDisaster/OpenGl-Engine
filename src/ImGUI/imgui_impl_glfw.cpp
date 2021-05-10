@@ -42,8 +42,8 @@
 //  2017-08-25: Inputs: MousePos set to -FLT_MAX,-FLT_MAX when mouse is unavailable/missing (instead of -1,-1).
 //  2016-10-15: Misc: Added a void* user_data parameter to Clipboard function handlers.
 
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_impl_glfw.h"
+#include "ImGUI/imgui.h"
+#include "ImGUI/imgui_impl_glfw.h"
 
 // GLFW
 #include <GLFW/glfw3.h>
@@ -177,7 +177,7 @@ static bool ImGui_ImplGlfw_Init(GLFWwindow* window, bool install_callbacks, Glfw
 #if GLFW_HAS_MOUSE_PASSTHROUGH || (GLFW_HAS_WINDOW_HOVERED && defined(_WIN32))
     io.BackendFlags |= ImGuiBackendFlags_HasMouseHoveredViewport; // We can set io.MouseHoveredViewport correctly (optional, not easy)
 #endif
-    io.BackendPlatformName = "imgui_impl_glfw";
+    io.BackendPlatformName = "ImGUI_impl_glfw";
 
     // Keyboard mapping. ImGui will use those indices to peek into the io.KeysDown[] array.
     io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;
@@ -401,8 +401,8 @@ static void ImGui_ImplGlfw_UpdateGamepads()
         return;
 
     // Update gamepad inputs
-    #define MAP_BUTTON(NAV_NO, BUTTON_NO)       { if (buttons_count > BUTTON_NO && buttons[BUTTON_NO] == GLFW_PRESS) io.NavInputs[NAV_NO] = 1.0f; }
-    #define MAP_ANALOG(NAV_NO, AXIS_NO, V0, V1) { float v = (axes_count > AXIS_NO) ? axes[AXIS_NO] : V0; v = (v - V0) / (V1 - V0); if (v > 1.0f) v = 1.0f; if (io.NavInputs[NAV_NO] < v) io.NavInputs[NAV_NO] = v; }
+#define MAP_BUTTON(NAV_NO, BUTTON_NO)       { if (buttons_count > BUTTON_NO && buttons[BUTTON_NO] == GLFW_PRESS) io.NavInputs[NAV_NO] = 1.0f; }
+#define MAP_ANALOG(NAV_NO, AXIS_NO, V0, V1) { float v = (axes_count > AXIS_NO) ? axes[AXIS_NO] : V0; v = (v - V0) / (V1 - V0); if (v > 1.0f) v = 1.0f; if (io.NavInputs[NAV_NO] < v) io.NavInputs[NAV_NO] = v; }
     int axes_count = 0, buttons_count = 0;
     const float* axes = glfwGetJoystickAxes(GLFW_JOYSTICK_1, &axes_count);
     const unsigned char* buttons = glfwGetJoystickButtons(GLFW_JOYSTICK_1, &buttons_count);
@@ -419,11 +419,11 @@ static void ImGui_ImplGlfw_UpdateGamepads()
     MAP_BUTTON(ImGuiNavInput_TweakSlow,  4);     // L1 / LB
     MAP_BUTTON(ImGuiNavInput_TweakFast,  5);     // R1 / RB
     MAP_ANALOG(ImGuiNavInput_LStickLeft, 0,  -0.3f,  -0.9f);
-    MAP_ANALOG(ImGuiNavInput_LStickRight,0,  +0.3f,  +0.9f);
+    MAP_ANALOG(ImGuiNavInput_LStickRight, 0,  +0.3f,  +0.9f);
     MAP_ANALOG(ImGuiNavInput_LStickUp,   1,  +0.3f,  +0.9f);
     MAP_ANALOG(ImGuiNavInput_LStickDown, 1,  -0.3f,  -0.9f);
-    #undef MAP_BUTTON
-    #undef MAP_ANALOG
+#undef MAP_BUTTON
+#undef MAP_ANALOG
     if (axes_count > 0 && buttons_count > 0)
         io.BackendFlags |= ImGuiBackendFlags_HasGamepad;
     else
@@ -562,8 +562,8 @@ static void ImGui_ImplGlfw_CreateWindow(ImGuiViewport* viewport)
     glfwWindowHint(GLFW_VISIBLE, false);
     glfwWindowHint(GLFW_FOCUSED, false);
 #if GLFW_HAS_FOCUS_ON_SHOW
-     glfwWindowHint(GLFW_FOCUS_ON_SHOW, false);
- #endif
+    glfwWindowHint(GLFW_FOCUS_ON_SHOW, false);
+#endif
     glfwWindowHint(GLFW_DECORATED, (viewport->Flags & ImGuiViewportFlags_NoDecoration) ? false : true);
 #if GLFW_HAS_WINDOW_TOPMOST
     glfwWindowHint(GLFW_FLOATING, (viewport->Flags & ImGuiViewportFlags_TopMost) ? true : false);
@@ -600,7 +600,7 @@ static void ImGui_ImplGlfw_DestroyWindow(ImGuiViewport* viewport)
         {
 #if !GLFW_HAS_MOUSE_PASSTHROUGH && GLFW_HAS_WINDOW_HOVERED && defined(_WIN32)
             HWND hwnd = (HWND)viewport->PlatformHandleRaw;
-            ::RemovePropA(hwnd, "IMGUI_VIEWPORT");
+            ::RemovePropA(hwnd, "ImGUI_VIEWPORT");
 #endif
             glfwDestroyWindow(data->Window);
         }
@@ -622,7 +622,7 @@ static LRESULT CALLBACK WndProcNoInputs(HWND hWnd, UINT msg, WPARAM wParam, LPAR
         // The ImGuiViewportFlags_NoInputs flag is set while dragging a viewport, as want to detect the window behind the one we are dragging.
         // If you cannot easily access those viewport flags from your windowing/event code: you may manually synchronize its state e.g. in
         // your main loop after calling UpdatePlatformWindows(). Iterate all viewports/platform windows and pass the flag to your windowing system.
-        ImGuiViewport* viewport = (ImGuiViewport*)::GetPropA(hWnd, "IMGUI_VIEWPORT");
+        ImGuiViewport* viewport = (ImGuiViewport*)::GetPropA(hWnd, "ImGUI_VIEWPORT");
         if (viewport->Flags & ImGuiViewportFlags_NoInputs)
             return HTTRANSPARENT;
     }
@@ -647,7 +647,7 @@ static void ImGui_ImplGlfw_ShowWindow(ImGuiViewport* viewport)
 
     // GLFW hack: install hook for WM_NCHITTEST message handler
 #if !GLFW_HAS_MOUSE_PASSTHROUGH && GLFW_HAS_WINDOW_HOVERED && defined(_WIN32)
-    ::SetPropA(hwnd, "IMGUI_VIEWPORT", viewport);
+    ::SetPropA(hwnd, "ImGUI_VIEWPORT", viewport);
     if (g_GlfwWndProc == NULL)
         g_GlfwWndProc = (WNDPROC)::GetWindowLongPtr(hwnd, GWLP_WNDPROC);
     ::SetWindowLongPtr(hwnd, GWLP_WNDPROC, (LONG_PTR)WndProcNoInputs);

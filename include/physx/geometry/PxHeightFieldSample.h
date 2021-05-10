@@ -33,7 +33,7 @@
 /** \addtogroup geomutils
 @{ */
 
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 #include "pxshared/foundation/PxBitAndData.h"
 
 #if !PX_DOXYGEN

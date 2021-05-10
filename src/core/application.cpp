@@ -58,9 +58,9 @@ void Application::Run()
 	m_curentScene.Deserialize("other/scenes/chubby.scene");//change this so that the initial scene is set in a .project file
 #endif
 
+
 	while (!glfwWindowShouldClose(window))
 	{
-
 
 
 

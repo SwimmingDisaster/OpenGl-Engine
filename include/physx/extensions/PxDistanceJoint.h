@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_DISTANCEJOINT_H
 #define PX_DISTANCEJOINT_H
@@ -33,7 +33,7 @@
   @{
 */
 
-#include "extensions/PxJoint.h"
+#include "physx/extensions/PxJoint.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -49,14 +49,14 @@ class PxDistanceJoint;
  \param[in] actor0		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
  \param[in] localFrame0	The position and orientation of the joint relative to actor0
  \param[in] actor1		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
- \param[in] localFrame1	The position and orientation of the joint relative to actor1 
+ \param[in] localFrame1	The position and orientation of the joint relative to actor1
 
 @see PxDistanceJoint
 */
 PxDistanceJoint*	PxDistanceJointCreate(PxPhysics& physics, PxRigidActor* actor0, const PxTransform& localFrame0, PxRigidActor* actor1, const PxTransform& localFrame1);
 
 
-/** 
+/**
 \brief flags for configuring the drive of a PxDistanceJoint
 
 @see PxDistanceJoint
@@ -65,9 +65,9 @@ struct PxDistanceJointFlag
 {
 	enum Enum
 	{
-		eMAX_DISTANCE_ENABLED	= 1<<1,
-		eMIN_DISTANCE_ENABLED	= 1<<2,
-		eSPRING_ENABLED			= 1<<3
+		eMAX_DISTANCE_ENABLED	= 1 << 1,
+		eMIN_DISTANCE_ENABLED	= 1 << 2,
+		eSPRING_ENABLED			= 1 << 3
 	};
 };
 
@@ -87,7 +87,7 @@ public:
 	\brief Return the current distance of the joint
 	*/
 	virtual PxReal					getDistance()	const	= 0;
-	
+
 	/**
 	\brief Set the allowed minimum distance for the joint.
 
@@ -114,7 +114,7 @@ public:
 	/**
 	\brief Set the allowed maximum distance for the joint.
 
-	The maximum	distance must be no less than the minimum distance. 
+	The maximum	distance must be no less than the minimum distance.
 
 	<b>Default</b> 0.0f
 	<b>Range</b> [0, PX_MAX_F32)
@@ -151,8 +151,8 @@ public:
 	<b>Default</b> 0.25f * PxTolerancesScale::length
 	<b>Range</b> (0, PX_MAX_F32)
 
-	This value should be used to ensure that if the minimum distance is zero and the 
-	spring function is in use, the rest length of the spring is non-zero. 
+	This value should be used to ensure that if the minimum distance is zero and the
+	spring function is in use, the rest length of the spring is non-zero.
 
 	@see PxDistanceJoint::tolerance, setTolerance()
 	*/
@@ -194,7 +194,7 @@ public:
 	@see PxDistanceJointFlag::eSPRING_ENABLED setDamping()
 	*/
 	virtual void					setDamping(PxReal damping)	= 0;
-	
+
 	/**
 	\brief Get the damping of the joint spring.
 
@@ -255,7 +255,7 @@ protected:
 
 	/**
 	\brief Returns whether a given type name matches with the type of this instance
-	*/							
+	*/
 	virtual	bool					isKindOf(const char* name)	const { return !::strcmp("PxDistanceJoint", name) || PxJoint::isKindOf(name);	}
 
 	//~serialization

@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_HEIGHTFIELD_GEOMETRY
@@ -33,8 +33,8 @@
 /** \addtogroup geomutils
 @{
 */
-#include "geometry/PxTriangleMeshGeometry.h"
-#include "common/PxCoreUtilityTypes.h"
+#include "physx/geometry/PxTriangleMeshGeometry.h"
+#include "physx/common/PxCoreUtilityTypes.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -53,31 +53,31 @@ This class allows to create a scaled height field geometry instance.
 
 There is a minimum allowed value for Y and XZ scaling - PX_MIN_HEIGHTFIELD_XZ_SCALE, heightfield creation will fail if XZ value is below this value.
 */
-class PxHeightFieldGeometry : public PxGeometry 
+class PxHeightFieldGeometry : public PxGeometry
 {
 public:
-	PX_INLINE PxHeightFieldGeometry() :		
+	PX_INLINE PxHeightFieldGeometry() :
 		PxGeometry		(PxGeometryType::eHEIGHTFIELD),
 		heightField		(NULL),
-		heightScale		(1.0f), 
-		rowScale		(1.0f), 
-		columnScale		(1.0f), 
+		heightScale		(1.0f),
+		rowScale		(1.0f),
+		columnScale		(1.0f),
 		heightFieldFlags(0)
 	{}
 
 	PX_INLINE PxHeightFieldGeometry(PxHeightField* hf,
-									PxMeshGeometryFlags flags, 
-									PxReal heightScale_,
-									PxReal rowScale_, 
-									PxReal columnScale_) :
-		PxGeometry			(PxGeometryType::eHEIGHTFIELD), 
+	                                PxMeshGeometryFlags flags,
+	                                PxReal heightScale_,
+	                                PxReal rowScale_,
+	                                PxReal columnScale_) :
+		PxGeometry			(PxGeometryType::eHEIGHTFIELD),
 		heightField			(hf) ,
-		heightScale			(heightScale_), 
-		rowScale			(rowScale_), 
-		columnScale			(columnScale_), 
+		heightScale			(heightScale_),
+		rowScale			(rowScale_),
+		columnScale			(columnScale_),
 		heightFieldFlags	(flags)
-		{
-		}
+	{
+	}
 
 	/**
 	\brief Returns true if the geometry is valid.

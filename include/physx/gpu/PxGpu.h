@@ -28,17 +28,17 @@
 #ifndef PX_GPU_H
 #define PX_GPU_H
 
-#include "PxPhysXConfig.h"
+#include "physx/PxPhysXConfig.h"
 
 
 #if PX_SUPPORT_GPU_PHYSX
 
-#include "cudamanager/PxCudaContextManager.h"
-#include "cudamanager/PxCudaMemoryManager.h"
+#include "physx/cudamanager/PxCudaContextManager.h"
+#include "physx/cudamanager/PxCudaMemoryManager.h"
 #include "pxshared/foundation/Px.h"
 #include "pxshared/foundation/PxPreprocessor.h"
-#include "common/PxPhysXCommonConfig.h"
-#include "PxFoundation.h"
+#include "physx/common/PxPhysXCommonConfig.h"
+#include "physx/PxFoundation.h"
 
 /**
 \brief PxGpuLoadHook

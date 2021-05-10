@@ -34,7 +34,7 @@
 @{
 */
 
-#include "foundation/PxAssert.h"
+#include "physx/foundation/PxAssert.h"
 #include "pxshared/foundation/PxMemory.h"
 
 #if !PX_DOXYGEN

@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_VEHICLE_DRIVE_TANK_H
 #define PX_VEHICLE_DRIVE_TANK_H
@@ -33,9 +33,9 @@
   @{
 */
 
-#include "vehicle/PxVehicleDrive.h"
-#include "vehicle/PxVehicleWheels.h"
-#include "vehicle/PxVehicleComponents.h"
+#include "physx/vehicle/PxVehicleDrive.h"
+#include "physx/vehicle/PxVehicleWheels.h"
+#include "physx/vehicle/PxVehicleComponents.h"
 
 
 #if !PX_DOXYGEN
@@ -60,7 +60,7 @@ struct PxVehicleDriveTankWheelOrder
 {
 	enum Enum
 	{
-		eFRONT_LEFT=0,
+		eFRONT_LEFT = 0,
 		eFRONT_RIGHT,
 		e1ST_FROM_FRONT_LEFT,
 		e1ST_FROM_FRONT_RIGHT,
@@ -87,13 +87,13 @@ struct PxVehicleDriveTankWheelOrder
 /**
 \brief The control inputs for a PxVehicleDriveTank.
 
-\note The values of eANALOG_INPUT_THRUST_LEFT and eANALOG_INPUT_THRUST_RIGHT determine how much 
-of the total available drive torque is diverted to the left and right wheels.  These entries in the 
-enumerated list represent the state of the left and right control sticks of a tank. The total available 
+\note The values of eANALOG_INPUT_THRUST_LEFT and eANALOG_INPUT_THRUST_RIGHT determine how much
+of the total available drive torque is diverted to the left and right wheels.  These entries in the
+enumerated list represent the state of the left and right control sticks of a tank. The total available
 drive torque available is controlled by eANALOG_INPUT_ACCEL, which represents the state of the acceleration
-pedal and controls how much torque will be applied to the engine.  
+pedal and controls how much torque will be applied to the engine.
 
-\note To accelerate forwards eANALOG_INPUT_ACCEL must be greater than zero so that torque is applied to drive the 
+\note To accelerate forwards eANALOG_INPUT_ACCEL must be greater than zero so that torque is applied to drive the
 engine, while eANALOG_INPUT_THRUST_LEFT and eANALOG_INPUT_THRUST_RIGHT must also be greater than zero
 to divert the available drive torque to the left and wheels. If eANALOG_INPUT_THRUST_LEFT > eANALOG_INPUT_THRUST_RIGHT
 the tank will turn to the right.  If eANALOG_INPUT_THRUST_RIGHT > eANALOG_INPUT_THRUST_LEFT
@@ -106,11 +106,11 @@ struct PxVehicleDriveTankControl
 {
 	enum Enum
 	{
-		eANALOG_INPUT_ACCEL=0,
-		eANALOG_INPUT_BRAKE_LEFT,	
-		eANALOG_INPUT_BRAKE_RIGHT,	
-		eANALOG_INPUT_THRUST_LEFT,	
-		eANALOG_INPUT_THRUST_RIGHT,	
+		eANALOG_INPUT_ACCEL = 0,
+		eANALOG_INPUT_BRAKE_LEFT,
+		eANALOG_INPUT_BRAKE_RIGHT,
+		eANALOG_INPUT_THRUST_LEFT,
+		eANALOG_INPUT_THRUST_RIGHT,
 		eMAX_NB_DRIVETANK_ANALOG_INPUTS
 	};
 };
@@ -118,15 +118,15 @@ struct PxVehicleDriveTankControl
 /**
 \brief Two driving models are supported.
 
-\note If eSTANDARD is chosen the left and right wheels are always driven in the same direction.  If the tank is in 
+\note If eSTANDARD is chosen the left and right wheels are always driven in the same direction.  If the tank is in
 a forward gear the left and right wheels will all be driven forwards, while in reverse gear the left and right wheels
 will all be driven backwards. With eSTANDARD the legal range of left and right thrust is (0,1).
 
-\note If eSPECIAL is chosen it is possible to drive the left and right wheels in different directions. 
-With eSPECIAL the legal range of left and right thrust is (-1,1).  In forward(reverse) gear negative thrust values drive the wheels 
-backwards(forwards), while positive thrust values drives the wheels forwards(backwards).  
+\note If eSPECIAL is chosen it is possible to drive the left and right wheels in different directions.
+With eSPECIAL the legal range of left and right thrust is (-1,1).  In forward(reverse) gear negative thrust values drive the wheels
+backwards(forwards), while positive thrust values drives the wheels forwards(backwards).
 
-\note A sharp left turn can be achieved in eSTANDARD mode by braking with the left wheels and thrusting forward with the 
+\note A sharp left turn can be achieved in eSTANDARD mode by braking with the left wheels and thrusting forward with the
 right wheels. A smaller turning circle can theoretically be achieved in eSPECIAL mode by applying negative thrust to the left wheels and positive
 thrust to the right wheels.
 
@@ -138,7 +138,7 @@ struct PxVehicleDriveTankControlModel
 {
 	enum Enum
 	{
-		eSTANDARD=0,
+		eSTANDARD = 0,
 		eSPECIAL
 	};
 };
@@ -150,8 +150,8 @@ struct PxVehicleDriveTankControlModel
 class PxVehicleDriveTank : public PxVehicleDrive
 {
 //= ATTENTION! =====================================================================================
-// Changing the data layout of this class breaks the binary serialization format.  See comments for 
-// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData 
+// Changing the data layout of this class breaks the binary serialization format.  See comments for
+// PX_BINARY_SERIAL_VERSION.  If a modification is required, please adjust the getBinaryMetaData
 // function.  If the modification is made on a custom branch, please change PX_BINARY_SERIAL_VERSION
 // accordingly.
 //==================================================================================================
@@ -189,13 +189,13 @@ public:
 	\note It is assumed that the first shapes of the actor are the wheel shapes, followed by the chassis shapes.  To break this assumption use PxVehicleWheelsSimData::setWheelShapeMapping.
 	@see allocate, free, setToRestState, PxVehicleWheelsSimData::setWheelShapeMapping
 	\note nbDrivenWheels must be an even number
-	\note The wheels must be arranged according to PxVehicleDriveTankWheelOrder; that is, 
-	the even wheels are on the left side of the tank and the odd wheels are on the right side of the tank. 
+	\note The wheels must be arranged according to PxVehicleDriveTankWheelOrder; that is,
+	the even wheels are on the left side of the tank and the odd wheels are on the right side of the tank.
 	*/
 	void setup
-		(PxPhysics* physics, PxRigidDynamic* vehActor, 
-		 const PxVehicleWheelsSimData& wheelsData, const PxVehicleDriveSimData& driveData,
-		 const PxU32 nbDrivenWheels);
+	(PxPhysics* physics, PxRigidDynamic* vehActor,
+	 const PxVehicleWheelsSimData& wheelsData, const PxVehicleDriveSimData& driveData,
+	 const PxU32 nbDrivenWheels);
 
 	/**
 	\brief Allocate and set up a tank using simulation data for the wheels and drive model.
@@ -209,9 +209,9 @@ public:
 	@see allocate, free, setToRestState, PxVehicleWheelsSimData::setWheelShapeMapping
 	*/
 	static PxVehicleDriveTank* create
-		(PxPhysics* physics, PxRigidDynamic* vehActor, 
-		 const PxVehicleWheelsSimData& wheelsData, const PxVehicleDriveSimData& driveData,
-		 const PxU32 nbDrivenWheels);
+	(PxPhysics* physics, PxRigidDynamic* vehActor,
+	 const PxVehicleWheelsSimData& wheelsData, const PxVehicleDriveSimData& driveData,
+	 const PxU32 nbDrivenWheels);
 
 	/**
 	\brief Set the control model used by the tank.
@@ -221,7 +221,7 @@ public:
 	*/
 	void setDriveModel(const PxVehicleDriveTankControlModel::Enum driveModel)
 	{
-		mDriveModel=driveModel;
+		mDriveModel = driveModel;
 	}
 
 	/**
@@ -230,10 +230,10 @@ public:
 	PxVehicleDriveTankControlModel::Enum getDriveModel() const {return mDriveModel;}
 
 	/**
-	\brief Set a vehicle to its rest state.  Aside from the rigid body transform, this will set the vehicle and rigid body 
+	\brief Set a vehicle to its rest state.  Aside from the rigid body transform, this will set the vehicle and rigid body
 	to the state they were in immediately after setup or create.
 	\note Calling setToRestState invalidates the cached raycast hit planes under each wheel meaning that suspension line
-	raycasts need to be performed at least once with PxVehicleSuspensionRaycasts before calling PxVehicleUpdates. 
+	raycasts need to be performed at least once with PxVehicleSuspensionRaycasts before calling PxVehicleUpdates.
 	@see setup, create, PxVehicleSuspensionRaycasts, PxVehicleUpdates
 	*/
 	void setToRestState();
@@ -260,17 +260,17 @@ private:
 
 //serialization
 public:
-											PxVehicleDriveTank(PxBaseFlags baseFlags) : PxVehicleDrive(baseFlags)			{}
+	PxVehicleDriveTank(PxBaseFlags baseFlags) : PxVehicleDrive(baseFlags)			{}
 	static		PxVehicleDriveTank*			createObject(PxU8*& address, PxDeserializationContext& context);
 	static		void						getBinaryMetaData(PxOutputStream& stream);
 	virtual		const char*					getConcreteTypeName()		const	{	return "PxVehicleDriveTank";	}
 	virtual		bool						isKindOf(const char* name)	const	{	return !::strcmp("PxVehicleDriveTank", name) || PxBase::isKindOf(name); }
 protected:
-											PxVehicleDriveTank();
-											~PxVehicleDriveTank(){}
+	PxVehicleDriveTank();
+	~PxVehicleDriveTank() {}
 //~serialization
 };
-PX_COMPILE_TIME_ASSERT(0==(sizeof(PxVehicleDriveTank) & 15));
+PX_COMPILE_TIME_ASSERT(0 == (sizeof(PxVehicleDriveTank) & 15));
 
 #if !PX_DOXYGEN
 } // namespace physx

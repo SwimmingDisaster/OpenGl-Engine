@@ -34,7 +34,7 @@
 @{
 */
 
-#include "PxRigidBody.h"
+#include "physx/PxRigidBody.h"
 
 #if !PX_DOXYGEN
 namespace physx

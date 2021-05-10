@@ -35,8 +35,8 @@
 
 #include "pxshared/foundation/PxVec3.h"
 #include "pxshared/foundation/PxBounds3.h"
-#include "common/PxPhysXCommonConfig.h"
-#include "common/PxBase.h"
+#include "physx/common/PxPhysXCommonConfig.h"
+#include "physx/common/PxBase.h"
 
 #if !PX_DOXYGEN
 namespace physx

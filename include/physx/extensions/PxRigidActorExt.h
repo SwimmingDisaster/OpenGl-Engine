@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_EXTENSIONS_RIGIDACTOR_H
@@ -34,9 +34,9 @@
   @{
 */
 
-#include "PxPhysXConfig.h"
-#include "PxPhysics.h"
-#include "PxRigidActor.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/PxPhysics.h"
+#include "physx/PxRigidActor.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -55,7 +55,7 @@ public:
 
 	/**
 	\brief Creates a new shape with default properties and a list of materials and adds it to the list of shapes of this actor.
-	
+
 	This is equivalent to the following
 
 	PxShape* shape(...) = PxGetPhysics().createShape(...);	// reference count is 1
@@ -65,7 +65,7 @@ public:
 	As a consequence, detachShape() will result in the release of the last reference, and the shape will be deleted.
 
 	\note The default shape flags to be set are: eVISUALIZATION, eSIMULATION_SHAPE, eSCENE_QUERY_SHAPE (see #PxShapeFlag).
-	Triangle mesh, heightfield or plane geometry shapes configured as eSIMULATION_SHAPE are not supported for 
+	Triangle mesh, heightfield or plane geometry shapes configured as eSIMULATION_SHAPE are not supported for
 	non-kinematic PxRigidDynamic instances.
 
 	\note Creating compounds with a very large number of shapes may adversely affect performance and stability.
@@ -83,20 +83,20 @@ public:
 	@see PxShape PxShape::release(), PxPhysics::createShape(), PxRigidActor::attachShape()
 	*/
 
-	static PxShape* createExclusiveShape(PxRigidActor& actor, const PxGeometry& geometry, PxMaterial*const* materials, PxU16 materialCount, 
-								         PxShapeFlags shapeFlags = PxShapeFlag::eVISUALIZATION | PxShapeFlag::eSCENE_QUERY_SHAPE | PxShapeFlag::eSIMULATION_SHAPE)
+	static PxShape* createExclusiveShape(PxRigidActor& actor, const PxGeometry& geometry, PxMaterial*const* materials, PxU16 materialCount,
+	                                     PxShapeFlags shapeFlags = PxShapeFlag::eVISUALIZATION | PxShapeFlag::eSCENE_QUERY_SHAPE | PxShapeFlag::eSIMULATION_SHAPE)
 	{
 		PxShape* shape = PxGetPhysics().createShape(geometry, materials, materialCount, true, shapeFlags);
-		if(shape)
+		if (shape)
 		{
 			bool status = actor.attachShape(*shape);	// attach can fail, if e.g. we try and attach a trimesh simulation shape to a dynamic actor
 			shape->release();		// if attach fails, we hold the only counted reference, and so this cleans up properly
-			if(!status)
+			if (!status)
 				shape = NULL;
 		}
 		return shape;
 	}
-	
+
 	/**
 	\brief Creates a new shape with default properties and a single material adds it to the list of shapes of this actor.
 
@@ -109,7 +109,7 @@ public:
 	As a consequence, detachShape() will result in the release of the last reference, and the shape will be deleted.
 
 	\note The default shape flags to be set are: eVISUALIZATION, eSIMULATION_SHAPE, eSCENE_QUERY_SHAPE (see #PxShapeFlag).
-	Triangle mesh, heightfield or plane geometry shapes configured as eSIMULATION_SHAPE are not supported for 
+	Triangle mesh, heightfield or plane geometry shapes configured as eSIMULATION_SHAPE are not supported for
 	non-kinematic PxRigidDynamic instances.
 
 	\note Creating compounds with a very large number of shapes may adversely affect performance and stability.
@@ -126,8 +126,8 @@ public:
 	@see PxShape PxShape::release(), PxPhysics::createShape(), PxRigidActor::attachShape()
 	*/
 
-	static PX_FORCE_INLINE	PxShape*	createExclusiveShape(PxRigidActor& actor, const PxGeometry& geometry, const PxMaterial& material, 
-													         PxShapeFlags shapeFlags = PxShapeFlag::eVISUALIZATION | PxShapeFlag::eSCENE_QUERY_SHAPE | PxShapeFlag::eSIMULATION_SHAPE)
+	static PX_FORCE_INLINE	PxShape*	createExclusiveShape(PxRigidActor& actor, const PxGeometry& geometry, const PxMaterial& material,
+	        PxShapeFlags shapeFlags = PxShapeFlag::eVISUALIZATION | PxShapeFlag::eSCENE_QUERY_SHAPE | PxShapeFlag::eSIMULATION_SHAPE)
 	{
 		PxMaterial* materialPtr = const_cast<PxMaterial*>(&material);
 		return createExclusiveShape(actor, geometry, &materialPtr, 1, shapeFlags);

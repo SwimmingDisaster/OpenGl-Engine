@@ -35,7 +35,7 @@
 */
 #include "pxshared/foundation/PxErrors.h"
 #include "pxshared/foundation/PxFlags.h"
-#include "pvd/PxPvd.h"
+#include "physx/pvd/PxPvd.h"
 
 #if !PX_DOXYGEN
 namespace physx

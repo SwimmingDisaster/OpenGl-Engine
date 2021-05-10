@@ -25,18 +25,18 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_SCENEQUERY
 #define PX_PHYSICS_NX_SCENEQUERY
-/** \addtogroup scenequery 
+/** \addtogroup scenequery
 @{ */
 
-#include "PxPhysXConfig.h"
-#include "PxShape.h"
-#include "PxBatchQueryDesc.h"
-#include "PxQueryFiltering.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/PxShape.h"
+#include "physx/PxBatchQueryDesc.h"
+#include "physx/PxQueryFiltering.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -48,7 +48,7 @@ class PxSphereGeometry;
 struct PxQueryCache;
 
 /**
-\brief Batched queries object. This is used to perform several queries at the same time. 
+\brief Batched queries object. This is used to perform several queries at the same time.
 
 \deprecated The batched query feature has been deprecated in PhysX version 3.4
 
@@ -56,7 +56,7 @@ struct PxQueryCache;
 */
 class PX_DEPRECATED PxBatchQuery
 {
-	public:
+public:
 
 	/**
 	\brief Executes batched queries.
@@ -101,20 +101,20 @@ class PX_DEPRECATED PxBatchQuery
 	virtual	PxU32							getFilterShaderDataSize() const	= 0;
 
 	/**
- 	\brief Sets new user memory pointers.
- 
- 	It is not possible to change the memory during query execute.
- 
- 	@see PxBatchQueryDesc
- 	*/
- 	virtual	void							setUserMemory(const PxBatchQueryMemory&) = 0;
+	\brief Sets new user memory pointers.
+
+	It is not possible to change the memory during query execute.
+
+	@see PxBatchQueryDesc
+	*/
+	virtual	void							setUserMemory(const PxBatchQueryMemory&) = 0;
 
 	/**
- 	\brief Gets the user memory pointers. 	
- 
- 	@see PxBatchQueryDesc
- 	*/
- 	virtual	const PxBatchQueryMemory&		getUserMemory() = 0;
+	\brief Gets the user memory pointers.
+
+	@see PxBatchQueryDesc
+	*/
+	virtual	const PxBatchQueryMemory&		getUserMemory() = 0;
 
 	/**
 	\brief Releases PxBatchQuery from PxScene
@@ -140,23 +140,23 @@ class PX_DEPRECATED PxBatchQuery
 	\param[in] cache		Cached hit shape (optional). Query is tested against cached shape first. If no hit is found the ray gets queried against the scene.
 							Note: Filtering is not executed for a cached shape if supplied; instead, if a hit is found, it is assumed to be a blocking hit.
 							Note: Using past touching hits as cache will produce incorrect behavior since the cached hit will always be treated as blocking.
-	
+
 	\note This query call writes to a list associated with the query object and is NOT thread safe (for performance reasons there is no lock
 		and overlapping writes from different threads may result in undefined behavior).
 
 	@see PxQueryFilterData PxBatchQueryPreFilterShader PxBatchQueryPostFilterShader PxRaycastHit PxScene::raycast
 	*/
 	virtual void raycast(
-		const PxVec3& origin, const PxVec3& unitDir, PxReal distance = PX_MAX_F32, PxU16 maxTouchHits = 0,
-		PxHitFlags hitFlags = PxHitFlag::eDEFAULT,
-		const PxQueryFilterData& filterData = PxQueryFilterData(),
-		void* userData = NULL, const PxQueryCache* cache = NULL) = 0;
+	    const PxVec3& origin, const PxVec3& unitDir, PxReal distance = PX_MAX_F32, PxU16 maxTouchHits = 0,
+	    PxHitFlags hitFlags = PxHitFlag::eDEFAULT,
+	    const PxQueryFilterData& filterData = PxQueryFilterData(),
+	    void* userData = NULL, const PxQueryCache* cache = NULL) = 0;
 
 
 	/**
 	\brief Performs an overlap test of a given geometry against objects in the scene, returns results in PxBatchQueryMemory::userOverlapResultBuffer
 	specified at PxBatchQuery creation time or via PxBatchQuery::setUserMemory call.
-	
+
 	\note Filtering: returning eBLOCK from user filter for overlap queries will cause a warning (see #PxQueryHitType).
 
 	\param[in] geometry		Geometry of object to check for overlap (supported types are: box, sphere, capsule, convex).
@@ -173,16 +173,16 @@ class PX_DEPRECATED PxBatchQuery
 	\note This query call writes to a list associated with the query object and is NOT thread safe (for performance reasons there is no lock
 		and overlapping writes from different threads may result in undefined behavior).
 
-	@see PxQueryFilterData PxBatchQueryPreFilterShader PxBatchQueryPostFilterShader 
+	@see PxQueryFilterData PxBatchQueryPreFilterShader PxBatchQueryPostFilterShader
 	*/
 	virtual void overlap(
-		const PxGeometry& geometry, const PxTransform& pose, PxU16 maxTouchHits = 0,
-		const PxQueryFilterData& filterData = PxQueryFilterData(), void* userData=NULL, const PxQueryCache* cache = NULL) = 0;
+	    const PxGeometry& geometry, const PxTransform& pose, PxU16 maxTouchHits = 0,
+	    const PxQueryFilterData& filterData = PxQueryFilterData(), void* userData = NULL, const PxQueryCache* cache = NULL) = 0;
 
 	/**
 	\brief Performs a sweep test against objects in the scene, returns results in PxBatchQueryMemory::userSweepResultBuffer
 	specified at PxBatchQuery creation time or via PxBatchQuery::setUserMemory call.
-	
+
 	\note	Touching hits are not ordered.
 	\note	If a shape from the scene is already overlapping with the query shape in its starting position,
 			the hit is returned unless eASSUME_NO_INITIAL_OVERLAP was specified.
@@ -207,10 +207,10 @@ class PX_DEPRECATED PxBatchQuery
 	@see PxHitFlags PxQueryFilterData PxBatchQueryPreFilterShader PxBatchQueryPostFilterShader PxSweepHit
 	*/
 	virtual void sweep(
-		const PxGeometry& geometry, const PxTransform& pose, const PxVec3& unitDir, const PxReal distance,
-		PxU16 maxTouchHits = 0, PxHitFlags hitFlags = PxHitFlag::eDEFAULT,
-		const PxQueryFilterData& filterData = PxQueryFilterData(), void* userData=NULL, const PxQueryCache* cache = NULL,
-		const PxReal inflation = 0.f) = 0;
+	    const PxGeometry& geometry, const PxTransform& pose, const PxVec3& unitDir, const PxReal distance,
+	    PxU16 maxTouchHits = 0, PxHitFlags hitFlags = PxHitFlag::eDEFAULT,
+	    const PxQueryFilterData& filterData = PxQueryFilterData(), void* userData = NULL, const PxQueryCache* cache = NULL,
+	    const PxReal inflation = 0.f) = 0;
 
 protected:
 	virtual	~PxBatchQuery() {}

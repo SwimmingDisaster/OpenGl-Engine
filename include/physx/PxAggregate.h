@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_AGGREGATE
@@ -35,8 +35,8 @@
 @{
 */
 
-#include "PxPhysXConfig.h"
-#include "common/PxBase.h"
+#include "physx/PxPhysXConfig.h"
+#include "physx/common/PxBase.h"
 
 
 #if !PX_DOXYGEN
@@ -53,8 +53,8 @@ class PxBVHStructure;
 A PxAggregate object is a collection of PxActors, which will exist as a single entry in the
 broad-phase structures. This has 3 main benefits:
 
-1) it reduces "broad phase pollution" by allowing a collection of spatially coherent broad-phase 
-entries to be replaced by a single aggregated entry (e.g. a ragdoll or a single actor with a 
+1) it reduces "broad phase pollution" by allowing a collection of spatially coherent broad-phase
+entries to be replaced by a single aggregated entry (e.g. a ragdoll or a single actor with a
 large number of attached shapes).
 
 2) it reduces broad-phase memory usage
@@ -92,7 +92,7 @@ public:
 	If the actor already belongs to a scene, a warning is output and the call is ignored. You need to remove
 	the actor from the scene first, before adding it to the aggregate.
 
-	\note When BVHStructure is provided the actor shapes are grouped together. 
+	\note When BVHStructure is provided the actor shapes are grouped together.
 	The scene query pruning structure inside PhysX SDK will store/update one
 	bound per actor. The scene queries against such an actor will query actor
 	bounds and then make a local space query against the provided BVH structure, which is in
@@ -120,7 +120,7 @@ public:
 	/**
 	\brief Adds an articulation to the aggregate object.
 
-	A warning is output if the total number of actors is reached (every articulation link counts as an actor), 
+	A warning is output if the total number of actors is reached (every articulation link counts as an actor),
 	or if the incoming articulation already belongs	to an aggregate.
 
 	If the aggregate belongs to a scene, adding an articulation to the aggregate also adds the articulation to that scene.
@@ -160,7 +160,7 @@ public:
 	/**
 	\brief Retrieves max amount of actors that can be contained in the aggregate.
 
-	\return Max aggregate size. 
+	\return Max aggregate size.
 
 	@see PxPhysics::createAggregate()
 	*/
@@ -178,7 +178,7 @@ public:
 
 	@see PxShape getNbShapes()
 	*/
-	virtual PxU32		getActors(PxActor** userBuffer, PxU32 bufferSize, PxU32 startIndex=0) const = 0;
+	virtual PxU32		getActors(PxActor** userBuffer, PxU32 bufferSize, PxU32 startIndex = 0) const = 0;
 
 	/**
 	\brief Retrieves the scene which this aggregate belongs to.

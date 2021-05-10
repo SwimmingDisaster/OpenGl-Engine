@@ -35,10 +35,10 @@
   @{
 */
 
-#include "PxPhysXConfig.h"
+#include "physx/PxPhysXConfig.h"
 #include "pxshared/foundation/PxBounds3.h"
 #include "PxClient.h"
-#include "common/PxBase.h"
+#include "physx/common/PxBase.h"
 
 #if !PX_DOXYGEN
 namespace physx

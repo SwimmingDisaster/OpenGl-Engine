@@ -1,6 +1,6 @@
 #include "imguizmo/ImGradient.h"
-#include "ImGui/imgui.h"
-#include "ImGui/imgui_internal.h"
+#include "ImGUI/imgui.h"
+#include "ImGUI/imgui_internal.h"
 #include <stdint.h>
 #include <set>
 

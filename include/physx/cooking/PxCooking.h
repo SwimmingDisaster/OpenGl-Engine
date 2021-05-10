@@ -33,16 +33,16 @@
 /** \addtogroup cooking
 @{
 */
-#include "common/PxPhysXCommonConfig.h"
-#include "common/PxTolerancesScale.h"
-#include "cooking/Pxc.h"
+#include "physx/common/PxPhysXCommonConfig.h"
+#include "physx/common/PxTolerancesScale.h"
+#include "physx/cooking/Pxc.h"
 
-#include "cooking/PxConvexMeshDesc.h"
-#include "cooking/PxTriangleMeshDesc.h"
-#include "cooking/PxMidphaseDesc.h"
-#include "cooking/PxBVHStructureDesc.h"
-#include "geometry/PxTriangleMesh.h"
-#include "geometry/PxBVHStructure.h"
+#include "physx/cooking/PxConvexMeshDesc.h"
+#include "physx/cooking/PxTriangleMeshDesc.h"
+#include "physx/cooking/PxMidphaseDesc.h"
+#include "physx/cooking/PxBVHStructureDesc.h"
+#include "physx/geometry/PxTriangleMesh.h"
+#include "physx/geometry/PxBVHStructure.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -94,8 +94,8 @@ struct PxConvexMeshCookingType
 	{
 		/**
 		\brief The Quickhull algorithm constructs the hull from the given input points. The resulting hull
-		will only contain a subset of the input points. 
-		
+		will only contain a subset of the input points.
+
 		*/
 		eQUICKHULL
 	};
@@ -138,17 +138,17 @@ struct PxMeshPreprocessingFlag
 		/**
 		\brief When set, mesh welding is performed. See PxCookingParams::meshWeldTolerance. Clean mesh must be enabled.
 		*/
-		eWELD_VERTICES					=	1 << 0, 
+		eWELD_VERTICES					=	1 << 0,
 
 		/**
 		\brief When set, mesh cleaning is disabled. This makes cooking faster.
 
-		When clean mesh is not performed, mesh welding is also not performed. 
+		When clean mesh is not performed, mesh welding is also not performed.
 
-		It is recommended to use only meshes that passed during validateTriangleMesh. 
+		It is recommended to use only meshes that passed during validateTriangleMesh.
 
 		*/
-		eDISABLE_CLEAN_MESH								=	1 << 1, 
+		eDISABLE_CLEAN_MESH								=	1 << 1,
 
 		/**
 		\brief When set, active edges are set for each triangle edge. This makes cooking faster but slow up contact generation.
@@ -164,7 +164,7 @@ struct PxMeshPreprocessingFlag
 	};
 };
 
-typedef PxFlags<PxMeshPreprocessingFlag::Enum,PxU32> PxMeshPreprocessingFlags;
+typedef PxFlags<PxMeshPreprocessingFlag::Enum, PxU32> PxMeshPreprocessingFlags;
 
 /**
 
@@ -193,10 +193,10 @@ struct PxCookingParams
 
 	The value is used during hull construction. When a new point is about to be added to the hull it
 	gets dropped when the point is closer to the hull than the planeTolerance. The planeTolerance
-	is increased according to the hull size. 
+	is increased according to the hull size.
 
 	If 0.0f is set all points are accepted when the convex hull is created. This may lead to edge cases
-	where the new points may be merged into an existing polygon and the polygons plane equation might 
+	where the new points may be merged into an existing polygon and the polygons plane equation might
 	slightly change therefore. This might lead to failures during polygon merging phase in the hull computation.
 
 	It is recommended to use the default value, however if it is required that all points needs to be
@@ -221,7 +221,7 @@ struct PxCookingParams
 
 	/**
 	\brief When true, the face remap table is not created.  This saves a significant amount of memory, but the SDK will
-		not be able to provide the remap information for internal mesh triangles returned by collisions, 
+		not be able to provide the remap information for internal mesh triangles returned by collisions,
 		sweeps or raycasts hits.
 
 	<b>Default value:</b> false
@@ -295,7 +295,7 @@ struct PxCookingParams
 	PxU32	gaussMapLimit;
 
 	PxCookingParams(const PxTolerancesScale& sc):
-		areaTestEpsilon					(0.06f*sc.length*sc.length),
+		areaTestEpsilon					(0.06f * sc.length * sc.length),
 		planeTolerance					(0.0007f),
 		convexMeshCookingType			(PxConvexMeshCookingType::eQUICKHULL),
 		suppressTriangleMeshRemapTable	(false),
@@ -374,7 +374,7 @@ public:
 	\param[in] desc The triangle mesh descriptor to read the mesh from.
 	\param[in] insertionCallback The insertion interface from PxPhysics.
 	\param[out] condition Result from triangle mesh cooking.
-	\return PxTriangleMesh pointer on success.	
+	\return PxTriangleMesh pointer on success.
 
 	@see cookTriangleMesh() setParams() PxPhysics.createTriangleMesh() PxPhysicsInsertionCallback
 	*/
@@ -385,7 +385,7 @@ public:
 
 	The following conditions are true for a valid triangle mesh:
 	1. There are no duplicate vertices (within specified vertexWeldTolerance. See PxCookingParams::meshWeldTolerance)
-    2. There are no large triangles (within specified PxTolerancesScale.)
+	2. There are no large triangles (within specified PxTolerancesScale.)
 
 	\param[in] desc The triangle mesh descriptor to read the mesh from.
 
@@ -428,7 +428,7 @@ public:
 	\param[in] desc The convex mesh descriptor to read the mesh from.
 	\param[in] insertionCallback The insertion interface from PxPhysics.
 	\param[out] condition Result from convex mesh cooking.
-	\return PxConvexMesh pointer on success	
+	\return PxConvexMesh pointer on success
 
 	@see cookConvexMesh() setParams() PxPhysicsInsertionCallback
 	*/
@@ -437,7 +437,7 @@ public:
 	/**
 	\brief Verifies if the convex mesh is valid. Prints an error message for each inconsistency found.
 
-	The convex mesh descriptor must contain an already created convex mesh - the vertices, indices and polygons must be provided.	
+	The convex mesh descriptor must contain an already created convex mesh - the vertices, indices and polygons must be provided.
 
 	\note This function should be used if PxConvexFlag::eDISABLE_MESH_VALIDATION is planned to be used in release builds.
 
@@ -453,7 +453,7 @@ public:
 	/**
 	\brief Computed hull polygons from given vertices and triangles. Polygons are needed for PxConvexMeshDesc rather than triangles.
 
-	Please note that the resulting polygons may have different number of vertices. Some vertices may be removed. 
+	Please note that the resulting polygons may have different number of vertices. Some vertices may be removed.
 	The output vertices, indices and polygons must be used to construct a hull.
 
 	The provided PxAllocatorCallback does allocate the out array's. It is the user responsibility to deallocated those
@@ -472,7 +472,7 @@ public:
 	@see cookConvexMesh() PxConvexFlags PxConvexMeshDesc PxSimpleTriangleMesh
 	*/
 	virtual bool  computeHullPolygons(const PxSimpleTriangleMesh& mesh, PxAllocatorCallback& inCallback, PxU32& nbVerts, PxVec3*& vertices,
-											PxU32& nbIndices, PxU32*& indices, PxU32& nbPolygons, PxHullPolygon*& hullPolygons) const = 0;
+	                                  PxU32& nbIndices, PxU32*& indices, PxU32& nbPolygons, PxHullPolygon*& hullPolygons) const = 0;
 
 	/**
 	\brief Cooks a heightfield. The results are written to the stream.
@@ -525,13 +525,13 @@ public:
 
 	\param[in] desc The BVH structure descriptor.
 	\param[in] insertionCallback The insertion interface from PxPhysics.
-	\return PxBVHStructure pointer on success	
+	\return PxBVHStructure pointer on success
 
 	@see cookBVHStructure() PxPhysicsInsertionCallback
 	*/
 	virtual PxBVHStructure*    createBVHStructure(const PxBVHStructureDesc& desc, PxPhysicsInsertionCallback& insertionCallback) const = 0;
 protected:
-	virtual ~PxCooking(){}
+	virtual ~PxCooking() {}
 };
 
 #if !PX_DOXYGEN
@@ -556,8 +556,8 @@ You should pass the same foundation object to all instances of the cooking inter
 \return true on success.
 */
 PX_C_EXPORT PX_PHYSX_COOKING_API physx::PxCooking* PX_CALL_CONV PxCreateCooking(physx::PxU32 version,
-																				physx::PxFoundation& foundation,
-																				const physx::PxCookingParams& params);
+        physx::PxFoundation& foundation,
+        const physx::PxCookingParams& params);
 
 /** @} */
 #endif

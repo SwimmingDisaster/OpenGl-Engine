@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_CONVEXMESH_GEOMETRY
@@ -33,10 +33,10 @@
 /** \addtogroup geomutils
 @{
 */
-#include "geometry/PxGeometry.h"
-#include "geometry/PxMeshScale.h"
-#include "common/PxCoreUtilityTypes.h"
-#include "geometry/PxConvexMesh.h"
+#include "physx/geometry/PxGeometry.h"
+#include "physx/geometry/PxMeshScale.h"
+#include "physx/common/PxCoreUtilityTypes.h"
+#include "physx/geometry/PxConvexMesh.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -54,7 +54,7 @@ struct PxConvexMeshGeometryFlag
 {
 	enum Enum
 	{
-		eTIGHT_BOUNDS = (1<<0)	//!< Use tighter (but more expensive to compute) bounds around the convex geometry.
+		eTIGHT_BOUNDS = (1 << 0)	//!< Use tighter (but more expensive to compute) bounds around the convex geometry.
 	};
 };
 
@@ -63,21 +63,21 @@ struct PxConvexMeshGeometryFlag
 
 @see PxConvexMeshGeometryFlag
 */
-typedef PxFlags<PxConvexMeshGeometryFlag::Enum,PxU8> PxConvexMeshGeometryFlags;
-PX_FLAGS_OPERATORS(PxConvexMeshGeometryFlag::Enum,PxU8)
+typedef PxFlags<PxConvexMeshGeometryFlag::Enum, PxU8> PxConvexMeshGeometryFlags;
+PX_FLAGS_OPERATORS(PxConvexMeshGeometryFlag::Enum, PxU8)
 
 /**
 \brief Convex mesh geometry class.
 
-This class unifies a convex mesh object with a scaling transform, and 
+This class unifies a convex mesh object with a scaling transform, and
 lets the combined object be used anywhere a PxGeometry is needed.
 
 The scaling is a transform along arbitrary axes contained in the scale object.
-The vertices of the mesh in geometry (or shape) space is the 
-PxMeshScale::toMat33() transform, multiplied by the vertex space vertices 
+The vertices of the mesh in geometry (or shape) space is the
+PxMeshScale::toMat33() transform, multiplied by the vertex space vertices
 in the PxConvexMesh object.
 */
-class PxConvexMeshGeometry : public PxGeometry 
+class PxConvexMeshGeometry : public PxGeometry
 {
 public:
 	/**
@@ -99,9 +99,9 @@ public:
 	\param[in] flags	Mesh flags.
 	\
 	*/
-	PX_INLINE PxConvexMeshGeometry(	PxConvexMesh* mesh, 
-									const PxMeshScale& scaling = PxMeshScale(),
-									PxConvexMeshGeometryFlags flags = PxConvexMeshGeometryFlag::eTIGHT_BOUNDS) :
+	PX_INLINE PxConvexMeshGeometry(	PxConvexMesh* mesh,
+	                                const PxMeshScale& scaling = PxMeshScale(),
+	                                PxConvexMeshGeometryFlags flags = PxConvexMeshGeometryFlag::eTIGHT_BOUNDS) :
 		PxGeometry	(PxGeometryType::eCONVEXMESH),
 		scale		(scaling),
 		convexMesh	(mesh),
@@ -131,15 +131,15 @@ public:
 
 PX_INLINE bool PxConvexMeshGeometry::isValid() const
 {
-	if(mType != PxGeometryType::eCONVEXMESH)
+	if (mType != PxGeometryType::eCONVEXMESH)
 		return false;
-	if(!scale.scale.isFinite() || !scale.rotation.isUnit())
+	if (!scale.scale.isFinite() || !scale.rotation.isUnit())
 		return false;
-	if(!scale.isValidForConvexMesh())
+	if (!scale.isValidForConvexMesh())
 		return false;
-	if(!convexMesh)
+	if (!convexMesh)
 		return false;
-	
+
 	return true;
 }
 

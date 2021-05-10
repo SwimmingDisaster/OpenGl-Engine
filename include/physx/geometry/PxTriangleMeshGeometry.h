@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_NX_TRIANGLEMESH_GEOMETRY
@@ -33,9 +33,9 @@
 /** \addtogroup geomutils
 @{
 */
-#include "geometry/PxGeometry.h"
-#include "geometry/PxMeshScale.h"
-#include "common/PxCoreUtilityTypes.h"
+#include "physx/geometry/PxGeometry.h"
+#include "physx/geometry/PxMeshScale.h"
+#include "physx/common/PxCoreUtilityTypes.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -54,9 +54,9 @@ struct PxMeshGeometryFlag
 {
 	enum Enum
 	{
-		eDOUBLE_SIDED = (1<<1)	//!< Meshes with this flag set are treated as double-sided.
-								//!< This flag is currently only used for raycasts and sweeps (it is ignored for overlap queries).
-								//!< For detailed specifications of this flag for meshes and heightfields please refer to the Geometry Query section of the user guide.
+		eDOUBLE_SIDED = (1 << 1)	//!< Meshes with this flag set are treated as double-sided.
+		                //!< This flag is currently only used for raycasts and sweeps (it is ignored for overlap queries).
+		                //!< For detailed specifications of this flag for meshes and heightfields please refer to the Geometry Query section of the user guide.
 	};
 };
 
@@ -65,21 +65,21 @@ struct PxMeshGeometryFlag
 
 @see PxMeshGeometryFlag
 */
-typedef PxFlags<PxMeshGeometryFlag::Enum,PxU8> PxMeshGeometryFlags;
-PX_FLAGS_OPERATORS(PxMeshGeometryFlag::Enum,PxU8)
+typedef PxFlags<PxMeshGeometryFlag::Enum, PxU8> PxMeshGeometryFlags;
+PX_FLAGS_OPERATORS(PxMeshGeometryFlag::Enum, PxU8)
 
 /**
 \brief Triangle mesh geometry class.
 
-This class unifies a mesh object with a scaling transform, and 
+This class unifies a mesh object with a scaling transform, and
 lets the combined object be used anywhere a PxGeometry is needed.
 
 The scaling is a transform along arbitrary axes contained in the scale object.
-The vertices of the mesh in geometry (or shape) space is the 
-PxMeshScale::toMat33() transform, multiplied by the vertex space vertices 
+The vertices of the mesh in geometry (or shape) space is the
+PxMeshScale::toMat33() transform, multiplied by the vertex space vertices
 in the PxConvexMesh object.
 */
-class PxTriangleMeshGeometry : public PxGeometry 
+class PxTriangleMeshGeometry : public PxGeometry
 {
 public:
 	/**
@@ -87,8 +87,8 @@ public:
 
 	Creates an empty object with a NULL mesh and identity scale.
 	*/
-	PX_INLINE PxTriangleMeshGeometry() : 
-		PxGeometry	(PxGeometryType::eTRIANGLEMESH), 
+	PX_INLINE PxTriangleMeshGeometry() :
+		PxGeometry	(PxGeometryType::eTRIANGLEMESH),
 		triangleMesh(NULL)
 	{}
 
@@ -99,13 +99,13 @@ public:
 	\param[in] flags	Mesh flags.
 	\
 	*/
-	PX_INLINE PxTriangleMeshGeometry(	PxTriangleMesh* mesh, 
-										const PxMeshScale& scaling = PxMeshScale(), 
-										PxMeshGeometryFlags flags = PxMeshGeometryFlags()) :
-		PxGeometry	(PxGeometryType::eTRIANGLEMESH), 
-		scale		(scaling), 
-		meshFlags	(flags), 
-		triangleMesh(mesh) 
+	PX_INLINE PxTriangleMeshGeometry(	PxTriangleMesh* mesh,
+	                                    const PxMeshScale& scaling = PxMeshScale(),
+	                                    PxMeshGeometryFlags flags = PxMeshGeometryFlags()) :
+		PxGeometry	(PxGeometryType::eTRIANGLEMESH),
+		scale		(scaling),
+		meshFlags	(flags),
+		triangleMesh(mesh)
 	{}
 
 	/**
@@ -130,13 +130,13 @@ public:
 
 PX_INLINE bool PxTriangleMeshGeometry::isValid() const
 {
-	if(mType != PxGeometryType::eTRIANGLEMESH)
+	if (mType != PxGeometryType::eTRIANGLEMESH)
 		return false;
-	if(!scale.scale.isFinite() || !scale.rotation.isUnit())
+	if (!scale.scale.isFinite() || !scale.rotation.isUnit())
 		return false;
-	if(!scale.isValidForTriangleMesh())
+	if (!scale.isValidForTriangleMesh())
 		return false;
-	if(!triangleMesh)
+	if (!triangleMesh)
 		return false;
 
 	return true;

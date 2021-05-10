@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_GEOMUTILS_PX_GEOMETRY_QUERY
@@ -43,8 +43,8 @@ The reason for this is GJK support cannot be evaluated near infinity. A viable a
   @{
 */
 
-#include "common/PxPhysXCommonConfig.h"
-#include "PxQueryReport.h"
+#include "physx/common/PxPhysXCommonConfig.h"
+#include "physx/PxQueryReport.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -88,15 +88,15 @@ public:
 
 	@see PxSweepHit PxGeometry PxTransform
 	*/
-	PX_PHYSX_COMMON_API static bool sweep(const PxVec3& unitDir, 
-							const PxReal maxDist,
-							const PxGeometry& geom0,
-							const PxTransform& pose0,
-							const PxGeometry& geom1,
-							const PxTransform& pose1,
-							PxSweepHit& sweepHit,
-							PxHitFlags hitFlags = PxHitFlag::eDEFAULT,
-							const PxReal inflation = 0.f);
+	PX_PHYSX_COMMON_API static bool sweep(const PxVec3& unitDir,
+	                                      const PxReal maxDist,
+	                                      const PxGeometry& geom0,
+	                                      const PxTransform& pose0,
+	                                      const PxGeometry& geom1,
+	                                      const PxTransform& pose1,
+	                                      PxSweepHit& sweepHit,
+	                                      PxHitFlags hitFlags = PxHitFlag::eDEFAULT,
+	                                      const PxReal inflation = 0.f);
 
 
 	/**
@@ -116,7 +116,7 @@ public:
 	@see PxGeometry PxTransform
 	*/
 	PX_PHYSX_COMMON_API static bool overlap(const PxGeometry& geom0, const PxTransform& pose0,
-											const PxGeometry& geom1, const PxTransform& pose1);
+	                                        const PxGeometry& geom1, const PxTransform& pose1);
 
 
 	/**
@@ -135,13 +135,13 @@ public:
 	@see PxRaycastHit PxGeometry PxTransform
 	*/
 	PX_PHYSX_COMMON_API static PxU32 raycast(const PxVec3& origin,
-							const PxVec3& unitDir,
-							const PxGeometry& geom,
-							const PxTransform& pose,
-							PxReal maxDist,
-							PxHitFlags hitFlags,
-							PxU32 maxHits,
-							PxRaycastHit* PX_RESTRICT rayHits);
+	        const PxVec3& unitDir,
+	        const PxGeometry& geom,
+	        const PxTransform& pose,
+	        PxReal maxDist,
+	        PxHitFlags hitFlags,
+	        PxU32 maxHits,
+	        PxRaycastHit* PX_RESTRICT rayHits);
 
 	/**
 	\brief Compute minimum translational distance (MTD) between two geometry objects.
@@ -174,8 +174,8 @@ public:
 	@see PxGeometry PxTransform
 	*/
 	PX_PHYSX_COMMON_API static bool		computePenetration(PxVec3& direction, PxF32& depth,
-											const PxGeometry& geom0, const PxTransform& pose0,
-											const PxGeometry& geom1, const PxTransform& pose1);
+	        const PxGeometry& geom0, const PxTransform& pose0,
+	        const PxGeometry& geom1, const PxTransform& pose1);
 
 	/**
 	\brief Computes distance between a point and a geometry object.
@@ -190,7 +190,7 @@ public:
 
 	@see PxGeometry PxTransform
 	*/
-	PX_PHYSX_COMMON_API static PxReal pointDistance(const PxVec3& point, const PxGeometry& geom, const PxTransform& pose, PxVec3* closestPoint=NULL);
+	PX_PHYSX_COMMON_API static PxReal pointDistance(const PxVec3& point, const PxGeometry& geom, const PxTransform& pose, PxVec3* closestPoint = NULL);
 
 
 	/**
@@ -203,7 +203,7 @@ public:
 
 	@see PxGeometry PxTransform
 	*/
-	PX_PHYSX_COMMON_API static PxBounds3 getWorldBounds(const PxGeometry& geom, const PxTransform& pose, float inflation=1.01f);
+	PX_PHYSX_COMMON_API static PxBounds3 getWorldBounds(const PxGeometry& geom, const PxTransform& pose, float inflation = 1.01f);
 
 	/**
 	\brief Checks if provided geometry is valid.

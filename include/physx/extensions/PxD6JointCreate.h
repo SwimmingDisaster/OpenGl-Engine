@@ -25,12 +25,12 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_D6JOINT_CREATE_H
 #define PX_D6JOINT_CREATE_H
 
-#include "common/PxPhysXCommonConfig.h"
+#include "physx/common/PxPhysXCommonConfig.h"
 
 /** \addtogroup extensions
   @{
@@ -56,7 +56,7 @@ class PxJoint;
 	\param[in] actor0		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
 	\param[in] localPos0	The position of the joint relative to actor0
 	\param[in] actor1		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
-	\param[in] localPos1	The position of the joint relative to actor1 
+	\param[in] localPos1	The position of the joint relative to actor1
 	\param[in] useD6		True to use a PxD6Joint, false to use a PxFixedJoint;
 
 	\return	The created joint.
@@ -78,7 +78,7 @@ PxJoint* PxD6JointCreate_Fixed(PxPhysics& physics, PxRigidActor* actor0, const P
 	\param[in] actor0		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
 	\param[in] localPos0	The position of the joint relative to actor0
 	\param[in] actor1		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
-	\param[in] localPos1	The position of the joint relative to actor1 
+	\param[in] localPos1	The position of the joint relative to actor1
 	\param[in] maxDist		The maximum allowed distance
 	\param[in] useD6		True to use a PxD6Joint, false to use a PxDistanceJoint;
 
@@ -96,14 +96,14 @@ PxJoint* PxD6JointCreate_Distance(PxPhysics& physics, PxRigidActor* actor0, cons
 
 	The translation can be limited. Limits are enforced if minLimit<maxLimit. If minLimit=maxLimit the axis is locked. If minLimit>maxLimit the
 	limits are not enforced and the axis is free. The limit values are computed relative to the position of actor0's joint frame.
-	
+
 	The function creates hard limits, and uses PhysX's default contact distance parameter.
 
 	\param[in] physics		The physics SDK
 	\param[in] actor0		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
 	\param[in] localPos0	The position of the joint relative to actor0
 	\param[in] actor1		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
-	\param[in] localPos1	The position of the joint relative to actor1 
+	\param[in] localPos1	The position of the joint relative to actor1
 	\param[in] axis			The axis along which objects are allowed to move, expressed in the actors' local space
 	\param[in] minLimit		The minimum allowed position along the axis
 	\param[in] maxLimit		The maximum allowed position along the axis
@@ -123,7 +123,7 @@ PxJoint* PxD6JointCreate_Prismatic(PxPhysics& physics, PxRigidActor* actor0, con
 
 	The rotation can be limited. Limits are enforced if minLimit<maxLimit. If minLimit=maxLimit the axis is locked. If minLimit>maxLimit the
 	limits are not enforced and the axis is free. The limit values are computed relative to the rotation of actor0's joint frame.
-	
+
 	The function creates hard limits, and uses PhysX's default contact distance parameter.
 
 	Limits are expressed in radians. Allowed range is ]-2*PI;+2*PI[
@@ -132,7 +132,7 @@ PxJoint* PxD6JointCreate_Prismatic(PxPhysics& physics, PxRigidActor* actor0, con
 	\param[in] actor0		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
 	\param[in] localPos0	The position of the joint relative to actor0
 	\param[in] actor1		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
-	\param[in] localPos1	The position of the joint relative to actor1 
+	\param[in] localPos1	The position of the joint relative to actor1
 	\param[in] axis			The axis around which objects are allowed to move, expressed in the actors' local space
 	\param[in] minLimit		The minimum allowed rotation along the axis
 	\param[in] maxLimit		The maximum allowed rotation along the axis
@@ -154,7 +154,7 @@ PxJoint* PxD6JointCreate_Revolute(PxPhysics& physics, PxRigidActor* actor0, cons
 
 	The rotations can be limited. Limits are enforced if limit1>0 and limit2>0. Otherwise the motion is free. The limit values define an ellipse,
 	which is the cross-section of the cone limit shape.
-	
+
 	The function creates hard limits, and uses PhysX's default contact distance parameter.
 
 	Limits are expressed in radians. Allowed range is ]0;PI[. Limits are symmetric around the cone axis.
@@ -165,7 +165,7 @@ PxJoint* PxD6JointCreate_Revolute(PxPhysics& physics, PxRigidActor* actor0, cons
 	\param[in] actor0		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
 	\param[in] localPos0	The position of the joint relative to actor0
 	\param[in] actor1		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
-	\param[in] localPos1	The position of the joint relative to actor1 
+	\param[in] localPos1	The position of the joint relative to actor1
 	\param[in] axis			The cone axis, expressed in the actors' local space
 	\param[in] limit1		Max angular limit for the ellipse along the joint frame's second axis (first axis = cone axis)
 	\param[in] limit2		Max angular limit for the ellipse along the joint frame's third axis (first axis = cone axis)
@@ -201,7 +201,7 @@ PxJoint* PxD6JointCreate_Spherical(PxPhysics& physics, PxRigidActor* actor0, con
 	\param[in] actor0		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
 	\param[in] localPos0	The position of the joint relative to actor0
 	\param[in] actor1		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
-	\param[in] localPos1	The position of the joint relative to actor1 
+	\param[in] localPos1	The position of the joint relative to actor1
 	\param[in] minLimit1	Min angular limit along the joint frame's second axis (first axis = cone axis)
 	\param[in] maxLimit1	Max angular limit along the joint frame's second axis (first axis = cone axis)
 	\param[in] minLimit2	Min angular limit along the joint frame's third axis (first axis = cone axis)
@@ -232,7 +232,7 @@ PxJoint* PxD6JointCreate_GenericCone(float& apiroty, float& apirotz, PxPhysics& 
 	\param[in] actor0		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
 	\param[in] localPos0	The position of the joint relative to actor0
 	\param[in] actor1		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
-	\param[in] localPos1	The position of the joint relative to actor1 
+	\param[in] localPos1	The position of the joint relative to actor1
 	\param[in] axis			The pyramid axis, expressed in the actors' local space
 	\param[in] minLimit1	Min angular limit along the joint frame's second axis (first axis = pyramid axis)
 	\param[in] maxLimit1	Max angular limit along the joint frame's second axis (first axis = pyramid axis)
@@ -244,7 +244,7 @@ PxJoint* PxD6JointCreate_GenericCone(float& apiroty, float& apirotz, PxPhysics& 
 	@see PxD6Joint
 */
 PxJoint* PxD6JointCreate_Pyramid(PxPhysics& physics, PxRigidActor* actor0, const PxVec3& localPos0, PxRigidActor* actor1, const PxVec3& localPos1, const PxVec3& axis,
-										float minLimit1, float maxLimit1, float minLimit2, float maxLimit2);
+                                 float minLimit1, float maxLimit1, float minLimit2, float maxLimit2);
 
 
 #if !PX_DOXYGEN

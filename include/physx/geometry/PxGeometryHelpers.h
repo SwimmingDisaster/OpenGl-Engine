@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 
 #ifndef PX_PHYSICS_GEOMETRYHELPERS
@@ -37,14 +37,14 @@
 #include "pxshared/foundation/PxPlane.h"
 #include "pxshared/foundation/PxTransform.h"
 #include "pxshared/foundation/PxUnionCast.h"
-#include "common/PxPhysXCommonConfig.h"
-#include "geometry/PxGeometry.h"
-#include "geometry/PxBoxGeometry.h"
-#include "geometry/PxSphereGeometry.h"
-#include "geometry/PxCapsuleGeometry.h"
-#include "geometry/PxPlaneGeometry.h"
-#include "geometry/PxConvexMeshGeometry.h"
-#include "geometry/PxHeightFieldGeometry.h"
+#include "physx/common/PxPhysXCommonConfig.h"
+#include "physx/geometry/PxGeometry.h"
+#include "physx/geometry/PxBoxGeometry.h"
+#include "physx/geometry/PxSphereGeometry.h"
+#include "physx/geometry/PxCapsuleGeometry.h"
+#include "physx/geometry/PxPlaneGeometry.h"
+#include "physx/geometry/PxConvexMeshGeometry.h"
+#include "physx/geometry/PxHeightFieldGeometry.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -56,7 +56,7 @@ namespace physx
 
 This class contains enough space to hold a value of any PxGeometry subtype.
 
-Its principal use is as a convenience class to allow geometries to be returned polymorphically 
+Its principal use is as a convenience class to allow geometries to be returned polymorphically
 from functions. See PxShape::getGeometry();
 */
 
@@ -70,13 +70,13 @@ public:
 	}
 
 	PX_FORCE_INLINE PxGeometry& any()
-	{ 
-		return *PxUnionCast<PxGeometry*>(&bytes.geometry); 
+	{
+		return *PxUnionCast<PxGeometry*>(&bytes.geometry);
 	}
 
-	PX_FORCE_INLINE const PxGeometry& any() const 
-	{ 
-		return *PxUnionCast<const PxGeometry*>(&bytes.geometry); 
+	PX_FORCE_INLINE const PxGeometry& any() const
+	{
+		return *PxUnionCast<const PxGeometry*>(&bytes.geometry);
 	}
 
 	PX_FORCE_INLINE PxSphereGeometry& sphere()
@@ -152,10 +152,10 @@ public:
 	PX_FORCE_INLINE void storeAny(const PxGeometry& geometry)
 	{
 		PX_ASSERT_WITH_MESSAGE(	(geometry.getType() >= PxGeometryType::eSPHERE) &&
-								(geometry.getType() < PxGeometryType::eGEOMETRY_COUNT),
-								"Unexpected GeometryType in PxGeometryHolder::storeAny");
+		                        (geometry.getType() < PxGeometryType::eGEOMETRY_COUNT),
+		                        "Unexpected GeometryType in PxGeometryHolder::storeAny");
 
-		switch(geometry.getType())
+		switch (geometry.getType())
 		{
 		case PxGeometryType::eSPHERE:		put<PxSphereGeometry>(geometry); break;
 		case PxGeometryType::ePLANE:		put<PxPlaneGeometry>(geometry); break;
@@ -170,25 +170,25 @@ public:
 	}
 
 	PX_FORCE_INLINE	PxGeometryHolder()							{}
-	PX_FORCE_INLINE	PxGeometryHolder(const PxGeometry& geometry){ storeAny(geometry);	}
+	PX_FORCE_INLINE	PxGeometryHolder(const PxGeometry& geometry) { storeAny(geometry);	}
 
-	private:
-		template<typename T> void put(const PxGeometry& geometry)
-		{
-			static_cast<T&>(any()) = static_cast<const T&>(geometry);
-		}
+private:
+	template<typename T> void put(const PxGeometry& geometry)
+	{
+		static_cast<T&>(any()) = static_cast<const T&>(geometry);
+	}
 
-		template<typename T, PxGeometryType::Enum type> T& get()
-		{
-			PX_ASSERT(getType() == type);
-			return static_cast<T&>(any());
-		}
+	template<typename T, PxGeometryType::Enum type> T& get()
+	{
+		PX_ASSERT(getType() == type);
+		return static_cast<T&>(any());
+	}
 
-		template<typename T, PxGeometryType::Enum type> T& get() const
-		{
-			PX_ASSERT(getType() == type);
-			return static_cast<T&>(any());
-		}
+	template<typename T, PxGeometryType::Enum type> T& get() const
+	{
+		PX_ASSERT(getType() == type);
+		return static_cast<T&>(any());
+	}
 
 	union {
 		PxU8	geometry[sizeof(PxGeometry)];

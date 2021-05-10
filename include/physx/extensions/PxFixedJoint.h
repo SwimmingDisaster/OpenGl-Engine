@@ -25,7 +25,7 @@
 //
 // Copyright (c) 2008-2019 NVIDIA Corporation. All rights reserved.
 // Copyright (c) 2004-2008 AGEIA Technologies, Inc. All rights reserved.
-// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.  
+// Copyright (c) 2001-2004 NovodeX AG. All rights reserved.
 
 #ifndef PX_FIXEDJOINT_H
 #define PX_FIXEDJOINT_H
@@ -33,7 +33,7 @@
   @{
 */
 
-#include "extensions/PxJoint.h"
+#include "physx/extensions/PxJoint.h"
 
 #if !PX_DOXYGEN
 namespace physx
@@ -49,7 +49,7 @@ class PxFixedJoint;
  \param[in] actor0		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
  \param[in] localFrame0	The position and orientation of the joint relative to actor0
  \param[in] actor1		An actor to which the joint is attached. NULL may be used to attach the joint to a specific point in the world frame
- \param[in] localFrame1	The position and orientation of the joint relative to actor1 
+ \param[in] localFrame1	The position and orientation of the joint relative to actor1
 
 @see PxFixedJoint
 */
@@ -65,12 +65,12 @@ PxFixedJoint*	PxFixedJointCreate(PxPhysics& physics, PxRigidActor* actor0, const
 class PxFixedJoint : public PxJoint
 {
 public:
-	
+
 	/**
 	\brief Set the linear tolerance threshold for projection. Projection is enabled if PxConstraintFlag::ePROJECTION
 	is set for the joint.
 
-	If the joint separates by more than this distance along its locked degrees of freedom, the solver 
+	If the joint separates by more than this distance along its locked degrees of freedom, the solver
 	will move the bodies to close the distance.
 
 	Setting a very small tolerance may result in simulation jitter or other artifacts.
@@ -96,12 +96,12 @@ public:
 	virtual PxReal				getProjectionLinearTolerance()	const	= 0;
 
 	/**
-	\brief Set the angular tolerance threshold for projection. Projection is enabled if 
+	\brief Set the angular tolerance threshold for projection. Projection is enabled if
 	PxConstraintFlag::ePROJECTION is set for the joint.
 
-	If the joint deviates by more than this angle around its locked angular degrees of freedom, 
+	If the joint deviates by more than this angle around its locked angular degrees of freedom,
 	the solver will move the bodies to close the angle.
-	
+
 	Setting a very small tolerance may result in simulation jitter or other artifacts.
 
 	Sometimes it is not possible to project (for example when the joints form a cycle).
@@ -120,10 +120,10 @@ public:
 
 	\return the angular tolerance threshold in radians
 
-	@see setProjectionAngularTolerance() 
+	@see setProjectionAngularTolerance()
 	*/
 	virtual PxReal				getProjectionAngularTolerance()	const	= 0;
-	
+
 	/**
 	\brief Returns string name of PxFixedJoint, used for serialization
 	*/

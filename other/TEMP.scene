@@ -1,7 +1,167 @@
-Scene: ""
+Scene: Physx
 Entities:
-  []
+  - Entity: New Cube
+    UUID: 1189118302
+    Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1000, 5, 1000]
+    Model:
+      Is flipped: false
+      Path: res/fbx/box.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [0.583333373, 0.583327532, 0.583327532]
+    BoxCollider:
+      Scale: [1000, 2.5, 1000]
+    Rigidbody:
+      Is Static: true
+  - Entity: Camera
+    UUID: 812171360
+    Components: [Transform, Camera, CameraFPSController]
+    Transform:
+      Position: [-22.8790665, 14.1221066, -13.4549561]
+      Rotation: [-34.4000053, -327.25, 0]
+      Scale: [1, 1, 1]
+    Camera:
+      Fov: 90
+      fNear: 0.0500000007
+      fFar: 1000
+      Background Color: [0.100000001, 0.100000001, 0.100000001]
+    CameraFPSController:
+      Mouse Sensitivity: 0.349999994
+      Movement Speed: 15
+  - Entity: New Cube
+    UUID: -59454194
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [0, 10, 0]
+      Rotation: [0, 0, 0]
+      Scale: [30, 10, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/box.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [1, 0.999989986, 0.999989986]
+  - Entity: New Cube
+    UUID: -1243430849
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [0, 10, -60]
+      Rotation: [0, 0, 0]
+      Scale: [30, 10, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/box.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [1, 0.999989986, 0.999989986]
+  - Entity: New Cube
+    UUID: -1156495766
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [29, 10, -30]
+      Rotation: [0, 90, 0]
+      Scale: [29.999548, 10, 0.999985874]
+    Model:
+      Is flipped: false
+      Path: res/fbx/box.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [1, 0.999989986, 0.999989986]
+  - Entity: New Cube
+    UUID: -832131107
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [-29, 10, -30]
+      Rotation: [0, 90, 0]
+      Scale: [29.9989357, 10, 0.999966741]
+    Model:
+      Is flipped: false
+      Path: res/fbx/box.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [1, 0.999989986, 0.999989986]
+  - Entity: New Sphere
+    UUID: -423871461
+    Components: [Transform, Model, ModelRenderer, Material, SphereCollider, Rigidbody]
+    Transform:
+      Position: [0, 11.7790413, -21.1005287]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [1, 0, 0]
+    SphereCollider:
+      Radius: 5
+    Rigidbody:
+      Is Static: false
+  - Entity: New Sphere
+    UUID: 406139535
+    Components: [Transform, Model, ModelRenderer, Material, SphereCollider, Rigidbody]
+    Transform:
+      Position: [17.2106228, 18.2055683, -30.7857399]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [1, 0, 0]
+    SphereCollider:
+      Radius: 5
+    Rigidbody:
+      Is Static: false
+  - Entity: New Sphere
+    UUID: 1606229215
+    Components: [Transform, Model, ModelRenderer, Material, SphereCollider, Rigidbody]
+    Transform:
+      Position: [-9.7795639, 11.7790413, -28.2086601]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [1, 0, 0]
+    SphereCollider:
+      Radius: 5
+    Rigidbody:
+      Is Static: false
+  - Entity: New Sphere
+    UUID: 1504087641
+    Components: [Transform, Model, ModelRenderer, Material, SphereCollider, Rigidbody]
+    Transform:
+      Position: [0, 15.1601973, -35.5959473]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+    Material:
+      Color: [1, 0, 0]
+    SphereCollider:
+      Radius: 5
+    Rigidbody:
+      Is Static: false
 Editor Camera:
-  - Camera vPos: [0, 0, -10]
-    Camera vUp: [0, 1, 0]
-    Camera vRot: [0, -90, 0]
+  - Camera vPos: [-3.64501429, 42.8554916, 18.5854473]
+    Camera vUp: [0.1109889, 0.980614543, -0.161482975]
+    Camera vRot: [-11.3000584, -55.4988632, 0]

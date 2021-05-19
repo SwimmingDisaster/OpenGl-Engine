@@ -1,0 +1,9 @@
+-DLIN
+-std=c++17
+-Iinclude/
+-Iinclude
+-I./include
+-IC:/Users/mixog/Desktop/ENGINE/include
+-IC:/Users/mixog/Desktop/ENGINE/include/
+-I./C:/Users/mixog/Desktop/ENGINE/include
+-I./C:/Users/mixog/Desktop/ENGINE/include/

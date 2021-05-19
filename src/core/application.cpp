@@ -43,6 +43,7 @@ int Application::Init()
 
 void Application::Start()
 {
+	ImGuiManager::Update();
 }
 
 void Application::Run()
@@ -61,9 +62,6 @@ void Application::Run()
 
 	while (!glfwWindowShouldClose(window))
 	{
-
-
-
 		Renderer::renderID = 0;
 
 
@@ -83,7 +81,7 @@ void Application::Run()
 		static bool is = false;
 		if (isRunning && !is)
 		{
-			for (int i = 0; i < 1000; i++)
+			for (int i = 0; i < 4000; i++)
 			{
 				auto ant = m_curentScene.AddEntityR("New Entity " + std::to_string(i));
 				auto aaaaaa = ant->AddComponentR<Transform>();
@@ -110,20 +108,20 @@ void Application::Run()
 		PhysicsManager::Update();
 
 
-		glm::vec4 vic[1000];
-		int j = 0;
-		for (int i = 0; i < m_curentScene.m_entities.size(); i++)
-		{
-			auto mat = m_curentScene.m_entities[i]->GetComponent<Material>();
-			if (mat) {
-				j++;
-				vic[j] = glm::vec4(mat->color, 1.0f);
+		/*	glm::vec4 vic[1000];
+			int j = 0;
+			for (int i = 0; i < m_curentScene.m_entities.size(); i++)
+			{
+				auto mat = m_curentScene.m_entities[i]->GetComponent<Material>();
+				if (mat) {
+					j++;
+					vic[j] = glm::vec4(mat->color, 1.0f);
+				}
 			}
-		}
 
-		colorShader1->use();
-		glUniform4fv(glGetUniformLocation(colorShader1->ID, "colorList"), 1023, glm::value_ptr(vic[0]));
-
+			colorShader1->use();
+			glUniform4fv(glGetUniformLocation(colorShader1->ID, "colorList"), 1023, glm::value_ptr(vic[0]));
+		*/
 
 #ifndef RELEASE_BUILD
 		if (isRunning)

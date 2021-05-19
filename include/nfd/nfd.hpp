@@ -13,7 +13,7 @@
 #ifndef _NFD_HPP
 #define _NFD_HPP
 
-#include <nfd/nfd.h>
+#include "nfd/nfd.h"
 #include <cstddef>  // for std::size_t
 #include <memory>   // for std::unique_ptr
 #ifdef NFD_THROWS_EXCEPTIONS

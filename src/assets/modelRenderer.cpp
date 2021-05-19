@@ -30,7 +30,6 @@ void ModelRenderer::Start() {
 	m_materialComponent = parentEntity->GetComponent<Material>();
 }
 void ModelRenderer::Update() {
-	m_shader->use();
 	DrawModel(m_shader, m_modelComponent);
 }
 void ModelRenderer::Show() {
@@ -43,6 +42,8 @@ void ModelRenderer::DrawModel(const std::shared_ptr<Shader>& shader, const std::
 
 	Renderer::renderID++;
 
+	shader->use();
+	shader->setVec3("color", m_materialComponent->color);
 	shader->setInt("renderID", Renderer::renderID);
 	shader->setMat4("matModel", matModel);
 	for (unsigned int i = 0; i < model->meshes.size(); i++) {

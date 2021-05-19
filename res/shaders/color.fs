@@ -15,12 +15,12 @@ in vec2 TexCoords;
 uniform vec3 color;
 uniform int renderID;
 
-uniform vec4[1023] colorList;
+//uniform vec4[1023] colorList;
 
 uniform Material material;
 
 void main()
 {    
-    FragColor = vec4(colorList[renderID].r, colorList[renderID].g,colorList[renderID].b, colorList[renderID].a);
+    FragColor = vec4(color, 1.0f);
 }
 

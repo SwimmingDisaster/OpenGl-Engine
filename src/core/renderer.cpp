@@ -16,7 +16,7 @@ FrameBuffer Renderer::frameBuffer;
 #endif
 
 
-void Renderer::GlfwErrorCallback(int error_code, const char* error_message){
+void Renderer::GlfwErrorCallback(int error_code, const char* error_message) {
 	Error("Error Number: " << error_code << " Error Message: " << error_message);
 }
 

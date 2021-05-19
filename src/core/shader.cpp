@@ -4,7 +4,7 @@
 
 
 std::unordered_map<std::string, std::shared_ptr<Shader> > Shader::shaderMap;
-
+int Shader::BoundShaderID;
 
 void Shader::CreateVertexAndFragment(const char* vertexPath, const char* fragmentPath) {
 	std::string vertexCode;
@@ -127,7 +127,7 @@ Shader::~Shader() {
 
 	//while ( itr != shaderMap.end() )
 	//{
-	//	if ( (*itr).second == *this )	
+	//	if ( (*itr).second == *this )
 	//		itr = shaderMap.erase( itr );
 	//	else
 	//		itr++;
@@ -139,72 +139,73 @@ bool Shader::operator==(Shader &rhs) {
 }
 
 void Shader::use() {
-	glUseProgram(ID);
+	if (ID != BoundShaderID)
+		glUseProgram(ID);
 }
 // ------------------------------------------------------------------------
-void Shader::setBool(const char* name, bool value) const noexcept
+void Shader::setBool(const char* name, bool value) noexcept
 {
-	glUniform1i(glGetUniformLocation(ID, name), (int)value);
+	glUniform1i(GetUniformLocation(name), (int)value);
 }
 // ------------------------------------------------------------------------
-void Shader::setInt(const char* name, int value) const noexcept
+void Shader::setInt(const char* name, int value) noexcept
 {
-	glUniform1i(glGetUniformLocation(ID, name), value);
+	glUniform1i(GetUniformLocation(name), value);
 }
 // ------------------------------------------------------------------------
-void Shader::setFloat(const char* name, float value) const noexcept
+void Shader::setFloat(const char* name, float value) noexcept
 {
-	glUniform1f(glGetUniformLocation(ID, name), value);
+	glUniform1f(GetUniformLocation(name), value);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec2(const char* name, const glm::vec2 &value) const noexcept
+void Shader::setVec2(const char* name, const glm::vec2 &value) noexcept
 {
-	glUniform2fv(glGetUniformLocation(ID, name), 1, &value[0]);
+	glUniform2fv(GetUniformLocation(name), 1, &value[0]);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec2(const char* name, float x, float y) const noexcept
+void Shader::setVec2(const char* name, float x, float y) noexcept
 {
-	glUniform2f(glGetUniformLocation(ID, name), x, y);
+	glUniform2f(GetUniformLocation(name), x, y);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec3(const char* name, const glm::vec3 &value) const noexcept
+void Shader::setVec3(const char* name, const glm::vec3 &value) noexcept
 {
-	glUniform3fv(glGetUniformLocation(ID, name), 1, &value[0]);
+	glUniform3fv(GetUniformLocation(name), 1, &value[0]);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec3(const char* name, float x, float y, float z) const noexcept
+void Shader::setVec3(const char* name, float x, float y, float z) noexcept
 {
-	glUniform3f(glGetUniformLocation(ID, name), x, y, z);
+	glUniform3f(GetUniformLocation(name), x, y, z);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec4(const char* name, const glm::vec4 &value) const noexcept
+void Shader::setVec4(const char* name, const glm::vec4 &value) noexcept
 {
-	glUniform4fv(glGetUniformLocation(ID, name), 1, &value[0]);
+	glUniform4fv(GetUniformLocation(name), 1, &value[0]);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec4(const char* name, const glm::vec3 &value) const noexcept
+void Shader::setVec4(const char* name, const glm::vec3 &value) noexcept
 {
-	glUniform4fv(glGetUniformLocation(ID, name), 1, &value[0]);
+	glUniform4fv(GetUniformLocation(name), 1, &value[0]);
 }
 // ------------------------------------------------------------------------
-void Shader::setVec4(const char* name, float x, float y, float z, float w) const noexcept
+void Shader::setVec4(const char* name, float x, float y, float z, float w) noexcept
 {
-	glUniform4f(glGetUniformLocation(ID, name), x, y, z, w);
+	glUniform4f(GetUniformLocation(name), x, y, z, w);
 }
 // ------------------------------------------------------------------------
-void Shader::setMat2(const char* name, const glm::mat2 &mat) const noexcept
+void Shader::setMat2(const char* name, const glm::mat2 &mat) noexcept
 {
-	glUniformMatrix2fv(glGetUniformLocation(ID, name), 1, GL_FALSE, &mat[0][0]);
+	glUniformMatrix2fv(GetUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
 }
 // ------------------------------------------------------------------------
-void Shader::setMat3(const char* name, const glm::mat3 &mat) const noexcept
+void Shader::setMat3(const char* name, const glm::mat3 &mat) noexcept
 {
-	glUniformMatrix3fv(glGetUniformLocation(ID, name), 1, GL_FALSE, &mat[0][0]);
+	glUniformMatrix3fv(GetUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
 }
 // ------------------------------------------------------------------------
-void Shader::setMat4(const char* name, const glm::mat4& mat) const noexcept
+void Shader::setMat4(const char* name, const glm::mat4& mat) noexcept
 {
-	glUniformMatrix4fv(glGetUniformLocation(ID, name), 1, GL_FALSE, &mat[0][0]);
+	glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
 }
 //-------------------------------------------------------------------------
 
@@ -228,4 +229,14 @@ void Shader::CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const 
 
 		std::cout << errorMessage << ": '" << error << "'" << std::endl;
 	}
+}
+
+GLint Shader::GetUniformLocation(const char* name) {
+	/*	if (uniform_cache.find(name) != uniform_cache.end()) {
+			return uniform_cache[name];
+		}*/
+
+	GLint location = glGetUniformLocation(ID, name);
+	uniform_cache[name] = location;
+	return location;
 }

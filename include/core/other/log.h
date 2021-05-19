@@ -3,8 +3,8 @@
 #include <iostream>
 
 #define GLM_ENABLE_EXPERIMENTAL
-#include <glm/glm.hpp>
-#include <glm/gtx/string_cast.hpp>
+#include "glm/glm.hpp"
+#include "glm/gtx/string_cast.hpp"
 
 std::ostream& operator<<(std::ostream& out, const glm::vec3& g);
 std::ostream& operator<<(std::ostream& out, const glm::vec4& g);

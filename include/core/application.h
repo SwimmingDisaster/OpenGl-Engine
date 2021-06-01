@@ -24,10 +24,6 @@ public:
 #ifndef RELEASE_BUILD
 	static EditorCamera editorCamera;
 #endif
-
-	//---GLLOBALS---
-	//static EngineInfo Info;
-
 	//---CONTROLLERS---
 	static GLFWwindow *window;
 

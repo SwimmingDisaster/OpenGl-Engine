@@ -37,6 +37,7 @@ int Application::Init()
 	Renderer::Init();
 	PhysicsManager::InitPhysx();
 	NFD_Init();
+
 	return 0;
 }
 

@@ -139,8 +139,10 @@ bool Shader::operator==(Shader &rhs) {
 }
 
 void Shader::use() {
-	if (ID != BoundShaderID)
+	if (ID != BoundShaderID) {
 		glUseProgram(ID);
+		BoundShaderID = ID;
+	}
 }
 // ------------------------------------------------------------------------
 void Shader::setBool(const char* name, bool value) noexcept

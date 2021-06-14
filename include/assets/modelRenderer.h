@@ -33,7 +33,7 @@ public:
 public:
 	virtual ~ModelRenderer() {}
 #endif
-
+public:
 	void DrawModel(const std::shared_ptr<Shader> &shader, const std::shared_ptr<Model> model);
 	void DrawMesh(const std::shared_ptr<Shader> &shader, const Mesh &mesh);
 };

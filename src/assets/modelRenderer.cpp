@@ -4,6 +4,8 @@
 #include "assets/material.h"
 #include "core/renderer.h"
 
+#include "core/batchRenderer.h"
+
 REGISTERIMPL(ModelRenderer);
 ModelRenderer::ModelRenderer() {
 	name = "ModelRenderer";
@@ -38,16 +40,13 @@ void ModelRenderer::Show() {
 
 void ModelRenderer::DrawModel(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model> model)
 {
-	glm::mat4 matModel = model->transform->GetTransform();
+	//shader->use();
+	//shader->setMat4("matModel", model->transform->GetTransform());
+	//shader->setVec3("color", m_materialComponent->color);
 
-	Renderer::renderID++;
-
-	shader->use();
-	shader->setVec3("color", m_materialComponent->color);
-	shader->setInt("renderID", Renderer::renderID);
-	shader->setMat4("matModel", matModel);
 	for (unsigned int i = 0; i < model->meshes.size(); i++) {
-		DrawMesh(shader, model->meshes[i]);
+		BatchRenderer::AddObject(model->meshes[i], m_materialComponent, model->transform);
+		//DrawMesh(shader, model->meshes[i]);
 	}
 }
 void ModelRenderer::DrawMesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh)

@@ -1,5 +1,6 @@
 #pragma once
-//#pragma warning(disable : 4005)
+#pragma warning(disable : 4005)
+
 
 #define NOMINMAX
 #define _DEBUG

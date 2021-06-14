@@ -10,17 +10,16 @@ struct Material {
 in vec3 FragPos;
 in vec3 Normal;
 in vec2 TexCoords;
+in flat int ObjectIndexFragment;
 
 
-uniform vec3 color;
-uniform int renderID;
-
-//uniform vec4[1023] colorList;
+uniform vec3 color[150];
 
 uniform Material material;
 
 void main()
 {    
-    FragColor = vec4(color, 1.0f);
+    FragColor = vec4(color[ObjectIndexFragment], 1.0f);
+	//FragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 }
 

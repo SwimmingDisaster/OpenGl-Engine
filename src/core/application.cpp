@@ -7,6 +7,8 @@
 #include "core/input.h"
 #include "core/physics.h"
 
+#include "core/batchRenderer.h"
+
 #ifndef RELEASE_BUILD
 EditorCamera Application::editorCamera;
 #endif
@@ -58,10 +60,12 @@ void Application::Run()
 	m_curentScene.Deserialize("other/scenes/chubby.scene");//change this so that the initial scene is set in a .project file
 #endif
 
+	BatchRenderer::Setup();
 
 	while (!glfwWindowShouldClose(window))
 	{
 		Renderer::renderID = 0;
+		BatchRenderer::Clear();
 
 
 #ifndef RELEASE_BUILD
@@ -80,7 +84,7 @@ void Application::Run()
 		static bool is = false;
 		if (isRunning && !is)
 		{
-			for (int i = 0; i < 4000; i++)
+			for (int i = 0; i <	100; i++)
 			{
 				auto ant = m_curentScene.AddEntityR("New Entity " + std::to_string(i));
 				auto aaaaaa = ant->AddComponentR<Transform>();
@@ -134,6 +138,7 @@ void Application::Run()
 #else
 		m_curentScene.Update();
 #endif
+		BatchRenderer::Draw(Shader::shaderMap["res/shaders/color"]);
 		Renderer::EndFrame();
 
 #ifndef RELEASE_BUILD

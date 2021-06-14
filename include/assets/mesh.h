@@ -16,6 +16,7 @@ struct Vertex {
 	glm::vec2 TexCoords;
 	glm::vec3 Tangent;
 	glm::vec3 Bitangent;
+	int ObjectIndex;
 };
 
 struct Texture {

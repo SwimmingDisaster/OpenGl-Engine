@@ -409,7 +409,6 @@ void ShowInfoPanel()
 void ShowHierarchyPanel()
 {
 	ImGui::Begin("Hierarchy");
-
 	for (int i = 0; i < Application::m_curentScene.m_entities.size(); i++)
 		DrawEnityHierarchy(Application::m_curentScene.m_entities[i]);
 
@@ -489,7 +488,6 @@ void ShowHierarchyPanel()
 			Error("Tried to paste a null entity");
 		}
 	}
-
 	ImGui::End(); //Hierarchy
 }
 void ShowPropertiesPanel()

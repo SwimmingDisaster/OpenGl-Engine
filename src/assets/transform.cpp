@@ -30,9 +30,8 @@ void Transform::Update() {
 }
 
 glm::mat4 Transform::GetTransform() {
-	return glm::translate(glm::mat4(1.0f), position)
-	       * glm::toMat4(glm::quat(glm::radians(rotation)))
-	       * glm::scale(glm::mat4(1.0f), scale);
+	const static glm::mat4 identity = glm::mat4(1.0f);
+	return glm::translate(identity, position) * glm::toMat4(glm::quat(glm::radians(rotation))) * glm::scale(identity, scale);
 }
 
 

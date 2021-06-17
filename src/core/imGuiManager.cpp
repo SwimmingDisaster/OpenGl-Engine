@@ -16,11 +16,11 @@
 
 #ifndef RELEASE_BUILD
 const ImGuiTreeNodeFlags treeNodeFlags =
-    ImGuiTreeNodeFlags_DefaultOpen |
-    ImGuiTreeNodeFlags_Framed |
-    ImGuiTreeNodeFlags_SpanAvailWidth |
-    ImGuiTreeNodeFlags_AllowItemOverlap |
-    ImGuiTreeNodeFlags_FramePadding;
+ImGuiTreeNodeFlags_DefaultOpen |
+ImGuiTreeNodeFlags_Framed |
+ImGuiTreeNodeFlags_SpanAvailWidth |
+ImGuiTreeNodeFlags_AllowItemOverlap |
+ImGuiTreeNodeFlags_FramePadding;
 
 ImGuiContext *ImGuiManager::imGuiContext;
 
@@ -585,10 +585,10 @@ void ShowImGuizmo()
 				tc->position = translation;
 				tc->scale = scale;
 				/*
-								auto rc = Application::selectedEntity->GetComponent<Rigidbody>();
-								if (rc && Application::isRunning) {
-									rc->aSphereActor->setGlobalPose({tc->position.x, tc->position.y, tc->position.z}, false);
-								}*/
+				   auto rc = Application::selectedEntity->GetComponent<Rigidbody>();
+				   if (rc && Application::isRunning) {
+				   rc->aSphereActor->setGlobalPose({tc->position.x, tc->position.y, tc->position.z}, false);
+				   }*/
 
 				glm::vec3 deltaRot = glm::degrees(rotation) - tc->rotation;
 				tc->rotation += deltaRot;

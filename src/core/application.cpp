@@ -44,7 +44,6 @@ int Application::Init()
 
 void Application::Start()
 {
-	ImGuiManager::Update();
 }
 
 void Application::Run()

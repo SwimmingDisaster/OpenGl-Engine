@@ -112,6 +112,7 @@
 		<ClCompile Include="src\core\physics.cpp" />
 		<ClCompile Include="src\core\other\editorCamera.cpp" />
 		<ClCompile Include="src\core\application.cpp" />
+		<ClCompile Include="src\core\ui\text.cpp" />
 		<ClCompile Include="src\core\main.cpp" />
 		<ClCompile Include="src\core\shader.cpp" />
 		<ClCompile Include="src\core\texture.cpp" />

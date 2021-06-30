@@ -14,7 +14,6 @@ public:
 
 public:
 	void Show() override;
-	void Update() override;
 	void Serialize(YAML::Emitter& out) override;
 	void Deserialize(const YAML::Node& data) override;
 

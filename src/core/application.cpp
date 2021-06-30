@@ -51,9 +51,11 @@ void Application::Run()
 	//change this so that shaders can be added in the engine and saved in a .project file.
 	std::shared_ptr<Shader> lightingShader1 = std::make_shared<Shader>();
 	std::shared_ptr<Shader> colorShader1 = std::make_shared<Shader>();
+	std::shared_ptr<Shader> glyphShader1 = std::make_shared<Shader>();
 
 	lightingShader1->CreateVertexAndFragment("res/shaders/model.vs", "res/shaders/model.fs");
 	colorShader1->CreateVertexAndFragment("res/shaders/color.vs", "res/shaders/color.fs");
+	glyphShader1->CreateVertexAndFragment("res/shaders/glyph.vs", "res/shaders/glyph.fs");
 
 #ifdef RELEASE_BUILD
 	m_curentScene.Deserialize("other/scenes/chubby.scene");//change this so that the initial scene is set in a .project file

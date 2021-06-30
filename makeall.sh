@@ -11,6 +11,7 @@ mkdir -p obj/imguizmo
 mkdir -p obj/ecs/other
 mkdir -p obj/yaml-cpp/contrib
 mkdir -p obj/core/other
+mkdir -p obj/core/ui
 
 ./makepch.sh
 ./makeglad.sh

@@ -26,9 +26,6 @@ void Transform::Deserialize(const YAML::Node& data) {
 	scale = data["Scale"].as<glm::vec3>();
 }
 
-void Transform::Update() {
-}
-
 glm::mat4 Transform::GetTransform() {
 	const static glm::mat4 identity = glm::mat4(1.0f);
 	return glm::translate(identity, position) * glm::toMat4(glm::quat(glm::radians(rotation))) * glm::scale(identity, scale);

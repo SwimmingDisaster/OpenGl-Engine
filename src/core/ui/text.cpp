@@ -270,7 +270,6 @@ void UI_Text::Deserialize(const YAML::Node& data) {
 	color = data["Color"].as<glm::vec3>();
 	shaderName = data["ShaderName"].as<std::string>();
 
-	Log(shaderName);
 }
 
 
@@ -324,9 +323,6 @@ void UI_Text::Update() {
         glBindVertexArray(0);
         glEnable(GL_DEPTH_TEST);
     }
-
-	
-	Log("hiii");
 }
 
 void UI_Text::Show() {

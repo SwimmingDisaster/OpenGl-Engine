@@ -1,1 +1,1 @@
-make -j1 -f Debug
+make -j3 -f Debug

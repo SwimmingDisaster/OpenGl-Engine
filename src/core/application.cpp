@@ -93,6 +93,7 @@ void Application::Run()
 				ant->AddComponent<Model>();
 				auto mmmmmm = ant->AddComponentR<Material>();
 				mmmmmm->color = {Random::Float(), Random::Float(), Random::Float()};
+				Log(Random::Float());
 				ant->AddComponent<ModelRenderer>();
 				ant->Start();
 			}

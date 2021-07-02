@@ -25,7 +25,6 @@ int Random::Int(float minVal, float maxVal) {
 
 float Random::Float()
 {
-	Log("Random: " << (float)s_Distribution(s_RandomEngine));
 	return (float)s_Distribution(s_RandomEngine) / (float)std::numeric_limits<uint64_t>::max();
 }
 

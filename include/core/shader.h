@@ -5,6 +5,7 @@
 class Shader: public std::enable_shared_from_this<Shader> {
 public:
 	static std::unordered_map<std::string, std::shared_ptr<Shader>> shaderMap;
+	static std::vector<std::shared_ptr<Shader>> shaderList;
 	unsigned int ID;
 
 	static int BoundShaderID;
@@ -14,7 +15,7 @@ public:
 	Shader();
 	~Shader();
 
-	void CreateVertexAndFragment(const char* vertexPath, const char* fragmentPath);
+	void CreateVertexAndFragment(const std::string& name);
 	void CreateCompute(const char* computePath);
 
 	void use();

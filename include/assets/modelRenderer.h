@@ -20,7 +20,7 @@ public:
 	void Serialize(YAML::Emitter &out) override;
 	void Deserialize(const YAML::Node &data) override;
 	void Start() override;
-	void Update() override;
+	void Draw() override;
 	void Show() override;
 
 	ModelRenderer(const ModelRenderer &other) {}

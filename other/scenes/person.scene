@@ -127,6 +127,31 @@ Entities:
     CameraFPSController:
       Mouse Sensitivity: 0.349999994
       Movement Speed: 15
+  - Entity: New Entity
+    UUID: 1074772697
+    Components: [Transform, Font, Text]
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Font:
+      FileName: res/fonts/IHATEYOU.fnt
+      TextureName: res/fonts/IHATEYOU.png
+    Text:
+      Text: lorem ipsum dolor sit ameit
+      IsCentered: 0
+      FontSize: 100
+      GlyphWidth: 0.660000026
+      Width: 0.419999987
+      Edge: 0.100000001
+      LineMaxWidth: 0.100000001
+      LineMaxHeight: 0.200000003
+      Angle: 0
+      Position: [0, 0, -18]
+      Rotation: [0, 90, 0]
+      Scale: [1, 1, 1]
+      Color: [0, 0, 1]
+      ShaderName: res/shaders/glyph
 Editor Camera:
   - Camera vPos: [-6.26432657, 21.1377239, -0.323950469]
     Camera vUp: [-0.0292968936, 0.997915685, 0.0574970767]

@@ -4,9 +4,10 @@
 
 
 std::unordered_map<std::string, std::shared_ptr<Shader> > Shader::shaderMap;
+std::vector<std::shared_ptr<Shader>> Shader::shaderList;
 int Shader::BoundShaderID;
 
-void Shader::CreateVertexAndFragment(const char* vertexPath, const char* fragmentPath) {
+void Shader::CreateVertexAndFragment(const std::string& name) {
 	std::string vertexCode;
 	std::string fragmentCode;
 	std::ifstream vShaderFile;
@@ -17,8 +18,8 @@ void Shader::CreateVertexAndFragment(const char* vertexPath, const char* fragmen
 	try
 	{
 
-		vShaderFile.open(vertexPath);
-		fShaderFile.open(fragmentPath);
+		vShaderFile.open(name+ ".vs");
+		fShaderFile.open(name+ ".fs");
 		std::stringstream vShaderStream, fShaderStream;
 
 		vShaderStream << vShaderFile.rdbuf();
@@ -67,10 +68,11 @@ void Shader::CreateVertexAndFragment(const char* vertexPath, const char* fragmen
 
 
 
-	std::string fullname(vertexPath);
-	size_t lastindex = fullname.find_last_of(".");
-	std::string rawname = fullname.substr(0, lastindex);
-	shaderMap[rawname] = shared_from_this();
+	//std::string fullname(vertexPath);
+	//size_t lastindex = fullname.find_last_of(".");
+	//std::string rawname = fullname.substr(0, lastindex);
+	//shaderMap[rawname] = shared_from_this();
+	shaderMap[name] = shared_from_this();
 }
 void Shader::CreateCompute(const char* computePath) {
 	std::string computeCode;

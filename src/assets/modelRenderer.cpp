@@ -31,11 +31,11 @@ void ModelRenderer::Start() {
 	m_modelComponent = parentEntity->GetComponent<Model>();
 	m_materialComponent = parentEntity->GetComponent<Material>();
 }
-void ModelRenderer::Update() {
+void ModelRenderer::Draw() {
 	DrawModel(m_shader, m_modelComponent);
 }
 void ModelRenderer::Show() {
-	ImGui::InputInt("Shader id", reinterpret_cast<int*>(&m_shader->ID));
+    ImGui::InputText("Shader Name", &shaderName, ImGuiInputTextFlags_CallbackResize);
 }
 
 void ModelRenderer::DrawModel(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model> model)

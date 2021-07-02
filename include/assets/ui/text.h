@@ -64,9 +64,9 @@ public:
 class UI_Text : public Component {
     REGISTER(UI_Text);
 public:
-    void Start();
-    void Update();
-    void Show();
+    void Start() override;
+    void Draw() override;
+    void Show() override;
 	void Serialize(YAML::Emitter& out) override;
 	void Deserialize(const YAML::Node& data) override;
 

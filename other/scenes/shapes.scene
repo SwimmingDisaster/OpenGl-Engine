@@ -1,4 +1,8 @@
 Scene: SHAPES
+Shaders:
+  - Shader Path: res/shaders/glyph
+  - Shader Path: res/shaders/color
+  - Shader Path: res/shaders/model
 Entities:
   - Entity: New Plane
     UUID: -1641502703
@@ -99,7 +103,30 @@ Entities:
     CameraFPSController:
       Mouse Sensitivity: 0.349999994
       Movement Speed: 5
+  - Entity: 2D Text
+    UUID: 203493368
+    Components: [Transform, Font, UI_Text]
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Font:
+      FileName: res/fonts/IHATEYOU.fnt
+      TextureName: res/fonts/IHATEYOU.png
+    UI_Text:
+      Text: This is some 2D text
+      IsCentered: 1
+      FontSize: 418
+      GlyphWidth: 0.660000026
+      Width: 0.419999987
+      Edge: 0.100000001
+      LineMaxWidth: 0.393999994
+      LineMaxHeight: 0.200000003
+      Angle: 0
+      Position: [400, 200]
+      Color: [0.990196049, 0.11649359, 0]
+      ShaderName: res/shaders/glyph
 Editor Camera:
-  - Camera vPos: [-0.87597996, 8.49542046, 12.204196]
-    Camera vUp: [-0.194355473, 0.872068524, -0.449135214]
-    Camera vRot: [-29.3000889, -113.399712, 0]
+  - Camera vPos: [-2.40544701, 14.3253279, 22.2461472]
+    Camera vUp: [-0.00634078356, 0.998719335, -0.0501938276]
+    Camera vRot: [-2.89998889, -97.1998062, 0]

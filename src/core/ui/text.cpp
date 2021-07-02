@@ -1,5 +1,5 @@
 #include "mypch.h"
-#include "core/ui/text.h"
+#include "assets/ui/text.h"
 #include "core/shader.h"
 #include "core/engineInfo.h"
 #include "core/texture.h"
@@ -273,7 +273,7 @@ void UI_Text::Deserialize(const YAML::Node& data) {
 }
 
 
-void UI_Text::Update() {
+void UI_Text::Draw() {
 
 
     shader->use();

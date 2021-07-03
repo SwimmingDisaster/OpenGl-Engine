@@ -52,8 +52,6 @@ void BatchRenderer::Clear() {
 }
 
 void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform)  {
-
-#if !MAYBE
 	int numNewVertices = mesh.vertices.size();
 	int numNewIndices = mesh.indices.size();
 
@@ -77,8 +75,6 @@ void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, s
 		indices[i] += numVertices;
 	}
 	index++;
-
-#endif
 }
 
 void BatchRenderer::Draw(const std::shared_ptr<Shader>& shader) {

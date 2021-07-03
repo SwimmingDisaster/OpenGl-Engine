@@ -6,6 +6,7 @@ class Shader: public std::enable_shared_from_this<Shader> {
 public:
 	static std::unordered_map<std::string, std::shared_ptr<Shader>> shaderMap;
 	static std::vector<std::shared_ptr<Shader>> shaderList;
+	static std::vector<std::string> shaderNames;
 	unsigned int ID;
 
 	static int BoundShaderID;

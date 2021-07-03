@@ -5,6 +5,7 @@
 
 std::unordered_map<std::string, std::shared_ptr<Shader> > Shader::shaderMap;
 std::vector<std::shared_ptr<Shader>> Shader::shaderList;
+std::vector<std::string> Shader::shaderNames;
 int Shader::BoundShaderID;
 
 void Shader::CreateVertexAndFragment(const std::string& name) {

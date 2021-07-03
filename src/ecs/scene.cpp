@@ -115,6 +115,9 @@ void Scene::Clear() noexcept
         i--;
     }
     m_entities.clear();
+	Shader::shaderMap.clear();
+	Shader::shaderList.clear();
+	Shader::shaderNames.clear();
 }
 void Scene::Update() const
 {
@@ -155,10 +158,10 @@ void Scene::Serialize(const std::string &filePath) const
     out << YAML::Key << "Scene" << YAML::Value << Application::m_curentScene.name;
 
     out << YAML::Key << "Shaders" << YAML::Value << YAML::BeginSeq;
-    for (auto shader : Shader::shaderMap)
+    for (auto shaderName : Shader::shaderNames)
     {
         out << YAML::BeginMap;
-        out << YAML::Key << "Shader Path" << YAML::Value << shader.first;
+        out << YAML::Key << "Shader Path" << YAML::Value << shaderName;
         out << YAML::EndMap;
     }
     out << YAML::EndSeq;
@@ -204,7 +207,7 @@ void Scene::Serialize(const std::string &filePath) const
 void Scene::Deserialize(const std::string &filePath)
 {
 #ifdef SHOW_SCENE_SERIALISATION
-    Log("Deerialized: " << filePath);
+    Log("Deserialized: " << filePath);
 #endif
 
     Clear();
@@ -221,8 +224,8 @@ void Scene::Deserialize(const std::string &filePath)
     for (auto shader : shaders) {
         std::string shaderName = shader["Shader Path"].as<std::string>();
         Shader::shaderList.push_back(std::make_shared<Shader>());
+        Shader::shaderNames.push_back(shaderName);
 		Shader::shaderList[Shader::shaderList.size() - 1]->CreateVertexAndFragment(shaderName);
-		Log("hmmm");
     }
 
     const YAML::Node &entities = data["Entities"];

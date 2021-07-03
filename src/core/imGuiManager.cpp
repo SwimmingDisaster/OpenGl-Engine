@@ -598,6 +598,26 @@ void ShowImGuizmo()
 	ImGui::End();
 }
 
+void ShowShadersPanel(){
+	ImGui::Begin("Shaders");
+	for(int i = 0; i < Shader::shaderNames.size(); i++){
+		ImGui::InputText(("Shader Name " + std::to_string(i)).c_str(), &Shader::shaderNames[i], ImGuiInputTextFlags_CallbackResize);
+	}
+
+
+	if (ImGui::Button("Add new shader")){
+		Shader::shaderNames.push_back("");		
+	}
+
+
+	static int indexToDelete;
+	ImGui::InputInt("Delete index", &indexToDelete);
+	if (ImGui::Button("Delete")){
+		Shader::shaderNames.erase(Shader::shaderNames.begin() + indexToDelete);
+	}
+	ImGui::End(); //Shaders
+}
+
 void ImGuiManager::Update()
 {
 	StartFrame();
@@ -608,6 +628,7 @@ void ImGuiManager::Update()
 	ShowHierarchyPanel();
 	ShowPropertiesPanel();
 	ShowOutputPanel();
+	ShowShadersPanel();
 
 	EndFrame();
 }

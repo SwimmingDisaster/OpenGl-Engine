@@ -128,5 +128,5 @@ Entities:
       ShaderName: res/shaders/glyph
 Editor Camera:
   - Camera vPos: [-2.40544701, 14.3253279, 22.2461472]
-    Camera vUp: [-0.00634078356, 0.998719335, -0.0501938276]
-    Camera vRot: [-2.89998889, -97.1998062, 0]
+    Camera vUp: [0.0347224176, 0.998806179, 0.0343609117]
+    Camera vRot: [2.80001092, -135.29982, 0]

@@ -15,6 +15,29 @@ unsigned int BatchRenderer::EBO;
 int BatchRenderer::index = 0;
 
 
+/*
+void RenderBatch::Draw(const std::shared_ptr<Shader>& shader){
+	if (vertices.size() == 0) {
+		return;
+	}
+
+	shader->use();
+	glUniformMatrix4fv(glGetUniformLocation(shader->ID, "matModel"), 150, GL_FALSE, &matrixList[0][0][0]);
+	glUniform3fv(glGetUniformLocation(shader->ID, "color"), 150, &colorList[0][0]);
+
+	glBindVertexArray(VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
+
+	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, (const void *)0);
+	glBindVertexArray(0);
+}
+*/
+
 void BatchRenderer::Setup() {
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
@@ -51,7 +74,7 @@ void BatchRenderer::Clear() {
 	index = 0;
 }
 
-void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform)  {
+void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
 	int numNewVertices = mesh.vertices.size();
 	int numNewIndices = mesh.indices.size();
 

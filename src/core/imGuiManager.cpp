@@ -218,7 +218,8 @@ void ShowEntitySearchBar(std::shared_ptr<Entity> &entityToDraw, std::string &sea
 			std::transform(string2.begin(), string2.end(), string2.begin(), [](unsigned char c) { return std::tolower(c); });
 			if (string1.rfind(string2, 0) == 0)
 			{
-				if (ImGui::Button(it->first.c_str()))
+				bool clicked = ImGui::Button(it->first.c_str(), ImVec2(ImGui::GetContentRegionAvail().x, 0.0f) );
+				if (clicked)
 				{
 					Factory::create(it->first, (std::shared_ptr<Entity> &)entityToDraw)->Start();
 					showSearch = false;

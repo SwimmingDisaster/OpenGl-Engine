@@ -4,9 +4,9 @@
 
 int main(int argc, char *argv[]) {
 
-//#if !__linux__
+#if !__linux__
 	std::freopen("other/output.txt", "w", stdout);
-//#endif
+#endif
 
 	Application app;
 

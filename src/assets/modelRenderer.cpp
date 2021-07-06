@@ -45,7 +45,7 @@ void ModelRenderer::DrawModel(const std::shared_ptr<Shader>& shader, const std::
 	//shader->setVec3("color", m_materialComponent->color);
 
 	for (unsigned int i = 0; i < model->meshes.size(); i++) {
-		BatchRenderer::AddObject(model->meshes[i], m_materialComponent, model->transform);
+		BatchRenderer::AddObject(model->meshes[i], m_materialComponent, model->transform, shaderName);
 		//DrawMesh(shader, model->meshes[i]);
 	}
 }

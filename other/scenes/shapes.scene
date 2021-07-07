@@ -88,6 +88,11 @@ Entities:
       Shader name: res/shaders/color
     Material:
       Color: [1, 0, 0]
+      fFloat: 127
+      fFloatiii: -128
+      4Vec4: [34, 32, 69, -109]
+      3Vec3: [13, -28, -69]
+      iInt: 170
   - Entity: Camera
     UUID: 1595950024
     Components: [Transform, Camera, CameraFPSController]

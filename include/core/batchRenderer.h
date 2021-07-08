@@ -36,6 +36,12 @@ public:
 	static std::vector<glm::mat4> matrixList;
 	static std::vector<glm::vec3> colorList;
 
+	static std::unordered_map<std::string, std::any> materialMap;
+
+
+private:
+	static void AddPropertyVector(std::shared_ptr<Material>& material, int& i);
+	static void AddProperty(std::shared_ptr<Material>& material, int& i); 
 private:
 	static unsigned int VAO, VBO, EBO;
 	static int index;

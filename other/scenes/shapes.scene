@@ -88,11 +88,13 @@ Entities:
       Shader name: res/shaders/color
     Material:
       Color: [1, 0, 0]
-      fFloat: 127
-      fFloatiii: -128
-      4Vec4: [34, 32, 69, -109]
+      fFloat: -72
+      fFloatiii: -71
+      4Vec4: [-3, 32, 69, -109]
       3Vec3: [13, -28, -69]
-      iInt: 170
+      iInt: 194
+      ibrightness: -2
+      fbrightnessScale: 66.5
   - Entity: Camera
     UUID: 1595950024
     Components: [Transform, Camera, CameraFPSController]
@@ -133,5 +135,5 @@ Entities:
       ShaderName: res/shaders/glyph
 Editor Camera:
   - Camera vPos: [-2.40544701, 14.3253279, 22.2461472]
-    Camera vUp: [0.0347224176, 0.998806179, 0.0343609117]
-    Camera vRot: [2.80001092, -135.29982, 0]
+    Camera vUp: [-0.0372411646, 0.836764455, -0.546295226]
+    Camera vRot: [-33.1999893, -93.8998413, 0]

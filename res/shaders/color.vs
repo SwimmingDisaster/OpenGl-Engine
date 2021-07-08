@@ -27,5 +27,5 @@ void main()
     Normal = aNormal;  
     TexCoords = aTexCoords;
 
-    gl_Position = matProj * matView * vec4(FragPos, 1.0f);
+    gl_Position = matProj *  matView * vec4(FragPos, 1.0f);
 }

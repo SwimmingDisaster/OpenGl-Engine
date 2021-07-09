@@ -105,10 +105,7 @@ bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDraw)
 		{
 			if (Application::copiedComponent != nullptr)
 			{
-				std::string str(typeid(Application::copiedComponent.get()).name());
-				std::string last_element(str.substr(str.rfind(" ") + 1));
-
-				Factory::copy(last_element, entityToDraw, Application::copiedComponent);
+				Factory::copy(Application::copiedComponent->name, entityToDraw, Application::copiedComponent);
 				Application::copiedComponent = nullptr;
 				entityToDraw->Start();
 			}
@@ -157,10 +154,7 @@ bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDr
 		{
 			if (Application::copiedComponent != nullptr)
 			{
-				std::string str(typeid(Application::copiedComponent.get()).name());
-				std::string last_element(str.substr(str.rfind(" ") + 1));
-
-				Factory::copy(last_element, entityToDraw, Application::copiedComponent);
+				Factory::copy(Application::copiedComponent->name, entityToDraw, Application::copiedComponent);
 				Application::copiedComponent = nullptr;
 				entityToDraw->m_components[i]->Start();
 			}

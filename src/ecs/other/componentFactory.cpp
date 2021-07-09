@@ -26,8 +26,9 @@ void Factory::copy(const std::string &classname, const std::shared_ptr<Entity> &
 	std::unordered_map<std::string, Creator *>::iterator i;
 	i = get_table().find(classname);
 
-	if (i != get_table().end())
+	if (i != get_table().end()){
 		i->second->copy(entityRef, componentRef);
+	}
 }
 
 std::unordered_map<std::string, Creator *> &Factory::get_table()

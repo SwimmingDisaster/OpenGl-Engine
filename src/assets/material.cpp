@@ -12,20 +12,22 @@ void Material::Show()  {
 		ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.25f);
         ImGui::InputText(std::to_string(i).c_str(), &materialProperties[i].first, ImGuiInputTextFlags_CallbackResize);
         ImGui::SameLine();
+		ImGui::PopItemWidth();
 		ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.75f);
+		auto& materialType = materialProperties[i].second.type();
 		if(materialProperties[i].first.find("olor") != std::string::npos){
             ImGui::ColorEdit3(("###" + materialProperties[i].first).c_str(), glm::value_ptr(*std::any_cast<glm::vec3>(&materialProperties[i].second)));
 		}
-		else if(materialProperties[i].second.type() == typeid(float)) {
+		else if(materialType == typeid(float)) {
             ImGui::DragFloat(("###" + materialProperties[i].first).c_str(), std::any_cast<float>(&materialProperties[i].second));
         }
-		else if(materialProperties[i].second.type() == typeid(int)) {
+		else if(materialType == typeid(int)) {
             ImGui::DragInt(("###" + materialProperties[i].first).c_str(), std::any_cast<int>(&materialProperties[i].second));
         }
-		else if(materialProperties[i].second.type() == typeid(glm::vec3)) {
+		else if(materialType == typeid(glm::vec3)) {
             ImGui::DragFloat3(("###" + materialProperties[i].first).c_str(), glm::value_ptr(*std::any_cast<glm::vec3>(&materialProperties[i].second)));
         }
-		else if(materialProperties[i].second.type() == typeid(glm::vec4)) {
+		else if(materialType == typeid(glm::vec4)) {
             ImGui::DragFloat4(("###" + materialProperties[i].first).c_str(), glm::value_ptr(*std::any_cast<glm::vec4>(&materialProperties[i].second)));
         }
 		ImGui::PopItemWidth();
@@ -52,6 +54,13 @@ void Material::Show()  {
         ImGui::EndPopup();
     }
 
+	static int indexToDelete;
+	ImGui::InputInt("Delete index", &indexToDelete);
+    ImGui::SameLine();
+	if (ImGui::Button("Delete")){
+		materialProperties.erase(materialProperties.begin() + indexToDelete);
+	}
+
 }
 
 void Material::Serialize(YAML::Emitter& out) {
@@ -61,16 +70,17 @@ void Material::Serialize(YAML::Emitter& out) {
     out << YAML::Key << "Color" << YAML::Value << color;
 
 	for(int i = 0; i < materialProperties.size(); i++){
-		if(materialProperties[i].second.type() == typeid(float)) {
+		auto& materialType = materialProperties[i].second.type();
+		if(materialType == typeid(float)) {
 			out << YAML::Key << ("f" + materialProperties[i].first) << YAML::Value << std::any_cast<float>(materialProperties[i].second);
         }
-		else if(materialProperties[i].second.type() == typeid(int)) {
+		else if(materialType == typeid(int)) {
 			out << YAML::Key << ("i" + materialProperties[i].first) << YAML::Value << std::any_cast<int>(materialProperties[i].second);
         }
-		else if(materialProperties[i].second.type() == typeid(glm::vec3)) {
+		else if(materialType == typeid(glm::vec3)) {
 			out << YAML::Key << ("3" + materialProperties[i].first)<< YAML::Value << std::any_cast<glm::vec3>(materialProperties[i].second);
         }
-		else if(materialProperties[i].second.type() == typeid(glm::vec4)) {
+		else if(materialType == typeid(glm::vec4)) {
 			out << YAML::Key << ("4" + materialProperties[i].first) << YAML::Value << std::any_cast<glm::vec4>(materialProperties[i].second);
         }
 	}

@@ -20,8 +20,8 @@ uniform Material material;
 
 void main()
 {    
-    //FragColor = vec4(color[ObjectIndexFragment] / brightnessScale[0], 1.0f);
-	FragColor = vec4(color[0], 1.0f);
+    FragColor = vec4(color[ObjectIndexFragment], 1.0f);
+	//FragColor = vec4(color[0], 1.0f);
 	//FragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 }
 

@@ -18,6 +18,7 @@ Entities:
       Shader name: res/shaders/color
     Material:
       Color: [0.774509788, 0.774502039, 0.774502039]
+      3color: [0.776470602, 0.772549033, 0.772549033]
   - Entity: New Cube
     UUID: -1103208782
     Components: [Transform, Model, ModelRenderer, Material]
@@ -32,6 +33,7 @@ Entities:
       Shader name: res/shaders/color
     Material:
       Color: [1, 1, 1]
+      3color: [1, 0, 0]
   - Entity: New Sphere
     UUID: 1732036372
     Components: [Transform, Model, ModelRenderer, Material]
@@ -46,6 +48,7 @@ Entities:
       Shader name: res/shaders/color
     Material:
       Color: [0, 1, 0.0297620296]
+      3color: [0, 1, 0]
   - Entity: New Cone
     UUID: -731618429
     Components: [Transform, Model, ModelRenderer, Material]
@@ -60,6 +63,7 @@ Entities:
       Shader name: res/shaders/color
     Material:
       Color: [0, 0, 1]
+      3color: [0, 0, 1]
   - Entity: New Torus
     UUID: 468162451
     Components: [Transform, Model, ModelRenderer, Material]
@@ -74,6 +78,7 @@ Entities:
       Shader name: res/shaders/color
     Material:
       Color: [1, 0, 0.501960814]
+      3color: [1, 0, 0.501960814]
   - Entity: New Cylinder
     UUID: -1758694919
     Components: [Transform, Model, ModelRenderer, Material]
@@ -88,13 +93,7 @@ Entities:
       Shader name: res/shaders/color
     Material:
       Color: [1, 0, 0]
-      fFloat: -72
-      fFloatiii: -71
-      4Vec4: [-3, 32, 69, -109]
-      3Vec3: [13, -28, -69]
-      iInt: 194
-      ibrightness: -2
-      fbrightnessScale: 66.5
+      3color: [0.264705777, 1, 0]
   - Entity: Camera
     UUID: 1595950024
     Components: [Transform, Camera, CameraFPSController]

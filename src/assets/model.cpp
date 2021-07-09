@@ -28,7 +28,6 @@ void Model::Show() {
 	ImGui::InputText("File path", &path, ImGuiInputTextFlags_CallbackResize);
 
 	if (ImGui::Button("Browse")) {
-		Log("hmmmmm");
 		nfdfilteritem_t filterItemList[1] = { { "3D model", "fbx,dae,gltf,glb,blend,3ds,ase,obj,ifc,xgl,zgl,ply,dxf,lwo,lws,lxo,stl,x,ac,ms3d,cob,scn,bvh,csm,xml,irrmesh,irr,mdl,md2,md3,pk3,mdc,md5*,smd,vta,ogex,3d,b3d,q3d,q3s,nff,nff,off,raw,ter,mdl,hmp,ndo" } };
 
 		path = OpenFile(filterItemList, 1);

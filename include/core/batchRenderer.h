@@ -34,7 +34,6 @@ public:
 	static std::vector<unsigned int> indices;
 
 	static std::vector<glm::mat4> matrixList;
-	static std::vector<glm::vec3> colorList;
 
 	static std::unordered_map<std::string, std::any> materialMap;
 

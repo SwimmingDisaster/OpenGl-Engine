@@ -1,12 +1,12 @@
 #include "mypch.h"
 #include "assets/material.h"
+#include "utils/fileUtils.h"
 
 
 class ModelRenderer;
 REGISTERIMPL(Material);
 
 void Material::Show()  {
-    ImGui::ColorEdit3("Color", glm::value_ptr(color));
 
     for(int i = 0; i < materialProperties.size(); i++) {
 		ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.25f);
@@ -55,10 +55,37 @@ void Material::Show()  {
     }
 
 	static int indexToDelete;
+    ImGui::SameLine();
+	ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.25f);
 	ImGui::InputInt("Delete index", &indexToDelete);
+	ImGui::PopItemWidth();
     ImGui::SameLine();
 	if (ImGui::Button("Delete")){
 		materialProperties.erase(materialProperties.begin() + indexToDelete);
+	}
+
+	if (ImGui::Button("Save to file")){
+		YAML::Emitter out;
+		out << YAML::BeginMap;
+		Serialize(out);
+
+		std::fstream fout;
+		std::string filePath = SaveFile(NULL, 0);//"other/materials/test.material";
+		fout.open(filePath, std::fstream::out);
+		fout << out.c_str();
+	}
+    ImGui::SameLine();
+	if (ImGui::Button("Load from file")){
+		std::string filePath = OpenFile(NULL, 0);//"other/materials/test.material";
+	    std::ifstream stream(filePath);
+	    std::stringstream strStream;
+		strStream << stream.rdbuf();
+
+		YAML::Node data = YAML::Load(strStream.str());
+		const YAML::Node &materialNode= data["Material"];
+
+		materialProperties.clear();
+		Deserialize(materialNode);
 	}
 
 }
@@ -66,8 +93,6 @@ void Material::Show()  {
 void Material::Serialize(YAML::Emitter& out) {
     out << YAML::Key << name;
     out << YAML::BeginMap;
-
-    out << YAML::Key << "Color" << YAML::Value << color;
 
 	for(int i = 0; i < materialProperties.size(); i++){
 		auto& materialType = materialProperties[i].second.type();
@@ -89,7 +114,6 @@ void Material::Serialize(YAML::Emitter& out) {
 }
 
 void Material::Deserialize(const YAML::Node& data) {
-    color = data["Color"].as<glm::vec3>();
 	for (YAML::const_iterator property=data.begin(); property != data.end();++property){
 		std::string name = property->first.as<std::string>();
 		char firstLetter = name[0];

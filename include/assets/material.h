@@ -11,9 +11,6 @@ class Material : public Component {
 public:
     std::vector<std::pair<std::string, std::any>>materialProperties;
 
-
-public:
-    glm::vec3 color = {1.0f, 1.0f, 1.0f};
 public:
     void Show() override ;
     void Serialize(YAML::Emitter& out) override;

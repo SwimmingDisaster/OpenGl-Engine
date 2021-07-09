@@ -7,7 +7,6 @@ std::vector<Vertex> BatchRenderer::vertices;
 std::vector<unsigned int> BatchRenderer::indices;
 
 std::vector<glm::mat4> BatchRenderer::matrixList(150);
-std::vector<glm::vec3> BatchRenderer::colorList(150);
 std::unordered_map<std::string, std::any> BatchRenderer::materialMap;
 
 unsigned int BatchRenderer::VAO;
@@ -153,7 +152,6 @@ void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, s
     indices.insert(indices.end(), mesh.indices.begin(), mesh.indices.end());
 
     matrixList[index] = transform->GetTransform();
-    colorList[index] = material->color;
 
     for (int i = numVertices; i < numVertices + numNewVertices; i++) {
         vertices[i].ObjectIndex = index;
@@ -204,7 +202,6 @@ void BatchRenderer::Draw(const std::shared_ptr<Shader>& shader) {
         }
     }
     glUniformMatrix4fv(glGetUniformLocation(shader->ID, "matModel"), 150, GL_FALSE, &matrixList[0][0][0]);
-    //glUniform3fv(glGetUniformLocation(shader->ID, "color"), 150, &colorList[0][0]);
 
     glBindVertexArray(VAO);
 

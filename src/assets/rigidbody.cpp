@@ -79,10 +79,6 @@ void Rigidbody::Update()
 			tc->scale = scale;
 			tc->scale = size;
 		}
-		else
-		{
-			parentEntity->GetComponent<Material>()->color = glm::vec3(0.0f, 255.0f, 0.0f);
-		}
 	}
 }
 

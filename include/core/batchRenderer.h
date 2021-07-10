@@ -2,49 +2,35 @@
 #include "assets/mesh.h"
 #include "assets/material.h"
 
+#define BATCH_SIZE 150
 
-/*
-class RenderBatch{
+class Batch{
 public:
-	static void AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName);
-	static void Setup();
-	static void Clear();
-	static void Draw(const std::shared_ptr<Shader>& shader);
+	void AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform);
+	void Setup();
+	void Clear();
+	void Draw(const std::shared_ptr<Shader>& shader);
 public:
-	static std::vector<Vertex> vertices;
-	static std::vector<unsigned int> indices;
+	int index = 0;
 
-	static std::vector<glm::mat4> matrixList;
-	static std::vector<glm::vec3> colorList;
+	std::vector<Vertex> vertices;
+	std::vector<unsigned int> indices;
+
+	std::vector<glm::mat4> matrixList = std::vector<glm::mat4>(BATCH_SIZE);
+
+	std::unordered_map<std::string, std::any> materialMap;
 
 private:
-	static unsigned int VAO, VBO, EBO;
-	static int index;
-}
-*/
+	void AddPropertyVector(std::shared_ptr<Material>& material, int& i);
+	void AddProperty(std::shared_ptr<Material>& material, int& i); 
+private:
+	unsigned int VAO, VBO, EBO;
+};
 
 class BatchRenderer{
 public:
+	static std::unordered_map<std::string, std::vector<Batch>> batchMap;
 	static void AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName);
-	static void Setup();
 	static void Clear();
-	static void Draw(const std::shared_ptr<Shader>& shader);
-public:
-	static std::vector<Vertex> vertices;
-	static std::vector<unsigned int> indices;
-
-	static std::vector<glm::mat4> matrixList;
-
-	static std::unordered_map<std::string, std::any> materialMap;
-
-
-private:
-	static void AddPropertyVector(std::shared_ptr<Material>& material, int& i);
-	static void AddProperty(std::shared_ptr<Material>& material, int& i); 
-private:
-	static unsigned int VAO, VBO, EBO;
-	static int index;
-
-
-
+	static void Draw();
 };

@@ -3,42 +3,9 @@
 #include "assets/mesh.h"
 #include "assets/material.h"
 
-std::vector<Vertex> BatchRenderer::vertices;
-std::vector<unsigned int> BatchRenderer::indices;
+std::unordered_map<std::string, std::vector<Batch>> BatchRenderer::batchMap;
 
-std::vector<glm::mat4> BatchRenderer::matrixList(150);
-std::unordered_map<std::string, std::any> BatchRenderer::materialMap;
-
-unsigned int BatchRenderer::VAO;
-unsigned int BatchRenderer::VBO;
-unsigned int BatchRenderer::EBO;
-int BatchRenderer::index = 0;
-
-
-/*
-void RenderBatch::Draw(const std::shared_ptr<Shader>& shader){
-	if (vertices.size() == 0) {
-		return;
-	}
-
-	shader->use();
-	glUniformMatrix4fv(glGetUniformLocation(shader->ID, "matModel"), 150, GL_FALSE, &matrixList[0][0][0]);
-	glUniform3fv(glGetUniformLocation(shader->ID, "color"), 150, &colorList[0][0]);
-
-	glBindVertexArray(VAO);
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_DYNAMIC_DRAW);
-
-	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, (const void *)0);
-	glBindVertexArray(0);
-}
-*/
-
-void BatchRenderer::Setup() {
+void Batch::Setup() {
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
@@ -68,74 +35,53 @@ void BatchRenderer::Setup() {
     glBindVertexArray(0);
 }
 
-void BatchRenderer::Clear() {
+void Batch::Clear() {
     vertices.clear();
     indices.clear();
     materialMap.clear();
+
     index = 0;
 }
 
-void BatchRenderer::AddProperty(std::shared_ptr<Material>& material, int& i) {
-    if(material->materialProperties[i].second.type() == typeid(float)) {
-		std::any_cast<std::vector<float>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<float>(&material->materialProperties[i].second));
-        //materialMap[material->materialProperties[i].first].push_back(std::any_cast<float>(&material->materialProperties[i].second));
+void Batch::AddProperty(std::shared_ptr<Material>& material, int& i) {
+	auto& materialType = material->materialProperties[i].second.type();
+    if(materialType == typeid(float)) {
+        std::any_cast<std::vector<float>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<float>(&material->materialProperties[i].second));
     }
-    else if(material->materialProperties[i].second.type() == typeid(int)) {
-		std::any_cast<std::vector<int>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<int>(&material->materialProperties[i].second));
-        //materialMap[material->materialProperties[i].first].push_back(std::any_cast<int>(&material->materialProperties[i].second));
+    else if(materialType == typeid(int)) {
+        std::any_cast<std::vector<int>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<int>(&material->materialProperties[i].second));
     }
-    else if(material->materialProperties[i].second.type() == typeid(glm::vec3)) {
-		std::any_cast<std::vector<glm::vec3>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<glm::vec3>(&material->materialProperties[i].second));
-        //materialMap[material->materialProperties[i].first].push_back(glm::value_ptr(*std::any_cast<glm::vec3>(&material->materialProperties[i].second)));
+    else if(materialType == typeid(glm::vec3)) {
+        std::any_cast<std::vector<glm::vec3>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<glm::vec3>(&material->materialProperties[i].second));
     }
-    else if(material->materialProperties[i].second.type() == typeid(glm::vec4)) {
-		std::any_cast<std::vector<glm::vec4>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<glm::vec4>(&material->materialProperties[i].second));
-        //materialMap[material->materialProperties[i].first].push_back(glm::value_ptr(*std::any_cast<glm::vec4>(&material->materialProperties[i].second)));
+    else if(materialType == typeid(glm::vec4)) {
+        std::any_cast<std::vector<glm::vec4>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<glm::vec4>(&material->materialProperties[i].second));
     }
 }
 
-void BatchRenderer::AddPropertyVector(std::shared_ptr<Material>& material, int& i) {
-    if(material->materialProperties[i].second.type() == typeid(float)) {
+void Batch::AddPropertyVector(std::shared_ptr<Material>& material, int& i) {
+	auto& materialType = material->materialProperties[i].second.type();
+
+    if(materialType == typeid(float)) {
         materialMap[material->materialProperties[i].first] = std::vector<float>();
     }
-    else if(material->materialProperties[i].second.type() == typeid(int)) {
+    else if(materialType == typeid(int)) {
         materialMap[material->materialProperties[i].first] = std::vector<int>();
     }
-    else if(material->materialProperties[i].second.type() == typeid(glm::vec3)) {
+    else if(materialType == typeid(glm::vec3)) {
         materialMap[material->materialProperties[i].first] = std::vector<glm::vec3>();
     }
-    else if(material->materialProperties[i].second.type() == typeid(glm::vec4)) {
+    else if(materialType == typeid(glm::vec4)) {
         materialMap[material->materialProperties[i].first] = std::vector<glm::vec4>();
     }
 }
 
-void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
-    /*
-    	if(materialProperties[i].first.find("olor") != std::string::npos){
-            ImGui::ColorEdit3(("###" + materialProperties[i].first).c_str(), glm::value_ptr(*std::any_cast<glm::vec3>(&materialProperties[i].second)));
-    	}
-    	else if(materialProperties[i].second.type() == typeid(float)) {
-            ImGui::DragFloat(("###" + materialProperties[i].first).c_str(), std::any_cast<float>(&materialProperties[i].second));
-        }
-    	else if(materialProperties[i].second.type() == typeid(int)) {
-            ImGui::DragInt(("###" + materialProperties[i].first).c_str(), std::any_cast<int>(&materialProperties[i].second));
-        }
-    	else if(materialProperties[i].second.type() == typeid(glm::vec3)) {
-            ImGui::DragFloat3(("###" + materialProperties[i].first).c_str(), glm::value_ptr(*std::any_cast<glm::vec3>(&materialProperties[i].second)));
-        }
-    	else if(materialProperties[i].second.type() == typeid(glm::vec4)) {
-            ImGui::DragFloat4(("###" + materialProperties[i].first).c_str(), glm::value_ptr(*std::any_cast<glm::vec4>(&materialProperties[i].second)));
-        }
-    	*/
+void Batch::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform)  {
     for(int i = 0; i < material->materialProperties.size(); i++) {
-        if(materialMap.count(material->materialProperties[i].first) > 0) {
-        	AddProperty(material, i);
+        if(materialMap.count(material->materialProperties[i].first) ==  0) { //if the vector doesnt exits
+            AddPropertyVector(material, i);
         }
-        else {
-        	AddPropertyVector(material, i);
-        	AddProperty(material, i);
-        }
-        //AddProperty(material, i);
+        AddProperty(material, i);
     }
 
 
@@ -153,6 +99,7 @@ void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, s
 
     matrixList[index] = transform->GetTransform();
 
+
     for (int i = numVertices; i < numVertices + numNewVertices; i++) {
         vertices[i].ObjectIndex = index;
     }
@@ -163,45 +110,30 @@ void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, s
     index++;
 }
 
-void BatchRenderer::Draw(const std::shared_ptr<Shader>& shader) {
-
+void Batch::Draw(const std::shared_ptr<Shader>& shader) {
     if (vertices.size() == 0) {
         return;
     }
 
-    shader->use();/*
-    	else if(materialProperties[i].second.type() == typeid(float)) {
-            ImGui::DragFloat(("###" + materialProperties[i].first).c_str(), std::any_cast<float>(&materialProperties[i].second));
-        }
-    	else if(materialProperties[i].second.type() == typeid(int)) {
-            ImGui::DragInt(("###" + materialProperties[i].first).c_str(), std::any_cast<int>(&materialProperties[i].second));
-        }
-    	else if(materialProperties[i].second.type() == typeid(glm::vec3)) {
-            ImGui::DragFloat3(("###" + materialProperties[i].first).c_str(), glm::value_ptr(*std::any_cast<glm::vec3>(&materialProperties[i].second)));
-        }
-    	else if(materialProperties[i].second.type() == typeid(glm::vec4)) {
-            ImGui::DragFloat4(("###" + materialProperties[i].first).c_str(), glm::value_ptr(*std::any_cast<glm::vec4>(&materialProperties[i].second)));
-        }*/
-
     for(auto& property : materialMap) {
         if(property.second.type() == typeid(std::vector<float>)) {
-			std::vector<float>* propertyVector = std::any_cast<std::vector<float>>(&property.second);
-			glUniform1fv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
+            std::vector<float>* propertyVector = std::any_cast<std::vector<float>>(&property.second);
+            glUniform1fv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
         }
         else if(property.second.type() == typeid(std::vector<int>)) {
-			std::vector<int>* propertyVector = std::any_cast<std::vector<int>>(&property.second);
-			glUniform1iv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
+            std::vector<int>* propertyVector = std::any_cast<std::vector<int>>(&property.second);
+            glUniform1iv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
         }
         else if(property.second.type() == typeid(std::vector<glm::vec3>)) {
-			std::vector<glm::vec3>* propertyVector = std::any_cast<std::vector<glm::vec3>>(&property.second);
-			glUniform3fv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0][0]));
+            std::vector<glm::vec3>* propertyVector = std::any_cast<std::vector<glm::vec3>>(&property.second);
+            glUniform3fv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0][0]));
         }
         else if(property.second.type() == typeid(std::vector<glm::vec4>)) {
-			std::vector<glm::vec4>* propertyVector = std::any_cast<std::vector<glm::vec4>>(&property.second);
-			glUniform4fv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0][0]));
+            std::vector<glm::vec4>* propertyVector = std::any_cast<std::vector<glm::vec4>>(&property.second);
+            glUniform4fv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0][0]));
         }
     }
-    glUniformMatrix4fv(glGetUniformLocation(shader->ID, "matModel"), 150, GL_FALSE, &matrixList[0][0][0]);
+    glUniformMatrix4fv(glGetUniformLocation(shader->ID, "matModel"), BATCH_SIZE, GL_FALSE, &matrixList[0][0][0]);
 
     glBindVertexArray(VAO);
 
@@ -213,4 +145,32 @@ void BatchRenderer::Draw(const std::shared_ptr<Shader>& shader) {
 
     glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, (const void *)0);
     glBindVertexArray(0);
+}
+
+
+void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
+	std::vector<Batch>& batchList= batchMap[shaderName];
+	if(batchList.size() == 0){
+		batchList.push_back(Batch());
+		batchList[batchList.size() - 1].Setup();
+	}
+	else if(batchList[batchList.size() - 1].index == BATCH_SIZE){
+		batchList.push_back(Batch());
+		batchList[batchList.size() - 1].Setup();
+	}
+	batchList[batchList.size() - 1].AddObject(mesh, material, transform);
+}
+
+void BatchRenderer::Clear(){
+	batchMap.clear();	
+}
+
+void BatchRenderer::Draw(){
+	for(auto& batchPair : batchMap){
+		auto& shader = Shader::shaderMap[batchPair.first];
+		shader->use();
+		for(int i = 0; i < batchPair.second.size(); i++){
+			batchPair.second[i].Draw(shader);
+		}	
+	}
 }

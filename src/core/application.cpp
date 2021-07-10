@@ -48,23 +48,11 @@ void Application::Start()
 
 void Application::Run()
 {
-	/*
-	//change this so that shaders can be added in the engine and saved in a .project file.
-	std::shared_ptr<Shader> lightingShader1 = std::make_shared<Shader>();
-	std::shared_ptr<Shader> colorShader1 = std::make_shared<Shader>();
-	std::shared_ptr<Shader> glyphShader1 = std::make_shared<Shader>();
-
-	lightingShader1->CreateVertexAndFragment("res/shaders/model");
-	colorShader1->CreateVertexAndFragment("res/shaders/color");
-	glyphShader1->CreateVertexAndFragment("res/shaders/glyph");
-
-	*/
 
 #ifdef RELEASE_BUILD
 	m_curentScene.Deserialize("other/scenes/chubby.scene");//change this so that the initial scene is set in a .project file
 #endif
 
-	BatchRenderer::Setup();
 
 	while (!glfwWindowShouldClose(window))
 	{
@@ -85,18 +73,19 @@ void Application::Run()
 		}
 #endif
 
-		/*
+/*
 		static bool is = false;
 		if (isRunning && !is)
 		{
-			for (int i = 0; i <	100; i++)
+			for (int i = 0; i <	500; i++)
 			{
 				auto ant = m_curentScene.AddEntityR("New Entity " + std::to_string(i));
 				auto aaaaaa = ant->AddComponentR<Transform>();
 				aaaaaa->position = {((int)i % 80) * 3.0f, 50.0f, (int)(i / 80.0f) * 3.0f};
 				ant->AddComponent<Model>();
 				auto mmmmmm = ant->AddComponentR<Material>();
-				mmmmmm->color = {Random::Float(), Random::Float(), Random::Float()};
+				//mmmmmm->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
+				mmmmmm->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
 				ant->AddComponent<ModelRenderer>();
 				ant->Start();
 			}
@@ -117,32 +106,15 @@ void Application::Run()
 		PhysicsManager::Update();
 
 
-		/*	glm::vec4 vic[1000];
-			int j = 0;
-			for (int i = 0; i < m_curentScene.m_entities.size(); i++)
-			{
-			auto mat = m_curentScene.m_entities[i]->GetComponent<Material>();
-			if (mat) {
-			j++;
-			vic[j] = glm::vec4(mat->color, 1.0f);
-			}
-			}
-
-			colorShader1->use();
-			glUniform4fv(glGetUniformLocation(colorShader1->ID, "colorList"), 1023, glm::value_ptr(vic[0]));
-			*/
-
 #ifndef RELEASE_BUILD
-		if (isRunning)
-		{
+		if (isRunning)	{
 			m_curentScene.Update();
 		}
-		m_curentScene.Render();
 #else
 		m_curentScene.Update();
-		m_curentScene.Render();
 #endif
-		//BatchRenderer::Draw(Shader::shaderMap["res/shaders/color"]);
+
+		m_curentScene.Render();
 		Renderer::EndFrame();
 
 #ifndef RELEASE_BUILD

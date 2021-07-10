@@ -136,7 +136,7 @@ void Scene::Render() const
             modelRendererComponent->Draw();
         }
     }
-    BatchRenderer::Draw(Shader::shaderMap["res/shaders/color"]);
+    BatchRenderer::Draw();
     for (int i = 0; i < m_entities.size(); i++)
     {
         auto textRendererComponent = m_entities[i]->GetComponent<UI_Text>();

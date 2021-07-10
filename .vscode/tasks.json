@@ -1,6 +1,0 @@
-"problemMatcher": [
-    {
-        "base":"$gcc",
-        "fileLocation": ["autoDetect", "${workspaceFolder}"]
-    }
-],

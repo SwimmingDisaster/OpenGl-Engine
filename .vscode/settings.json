@@ -1,0 +1,10 @@
+{
+    "C_Cpp.default.configurationProvider": "ms-vscode.makefile-tools",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/ognjen/OpenGl-Engine/bin/linux/Debug",
+            "binaryPath": "/home/ognjen/OpenGl-Engine/bin/linux/Debug/main",
+            "binaryArgs": []
+        }
+    ]
+}

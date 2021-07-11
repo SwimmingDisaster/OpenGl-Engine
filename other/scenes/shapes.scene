@@ -105,15 +105,15 @@ Entities:
       Movement Speed: 5
   - Entity: 2D Text
     UUID: 203493368
-    Components: [Transform, Font, UI_Text]
+    Components: [Transform, Font, Text]
     Transform:
-      Position: [0, 0, 0]
-      Rotation: [0, 0, 0]
+      Position: [350, 200, 0]
+      Rotation: [0, -1, 0]
       Scale: [1, 1, 1]
     Font:
       FileName: res/fonts/IHATEYOU.fnt
       TextureName: res/fonts/IHATEYOU.png
-    UI_Text:
+    Text:
       Text: This is some 2D text
       IsCentered: 1
       FontSize: 418
@@ -123,10 +123,9 @@ Entities:
       LineMaxWidth: 0.393999994
       LineMaxHeight: 0.200000003
       Angle: 0
-      Position: [400, 200]
       Color: [0.990196049, 0.11649359, 0]
       ShaderName: res/shaders/glyph
 Editor Camera:
-  - Camera vPos: [-2.40544701, 14.3253279, 22.2461472]
-    Camera vUp: [-0.0372411646, 0.836764455, -0.546295226]
-    Camera vRot: [-33.1999893, -93.8998413, 0]
+  - Camera vPos: [0.576657057, 30.4680367, 55.7088547]
+    Camera vUp: [-0.103312783, 0.891797662, -0.440481037]
+    Camera vRot: [-26.899992, -103.19986, 0]

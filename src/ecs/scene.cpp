@@ -139,7 +139,7 @@ void Scene::Render() const
     BatchRenderer::Draw();
     for (int i = 0; i < m_entities.size(); i++)
     {
-        auto textRendererComponent = m_entities[i]->GetComponent<UI_Text>();
+        auto textRendererComponent = m_entities[i]->GetComponent<Text>();
         if (textRendererComponent != nullptr)
         {
             textRendererComponent->Draw();

@@ -3,7 +3,6 @@
 #include "core/texture.h"
 #include "ecs/component.h"
 #include "ecs/entity.h"
-#include "utils/fileUtils.h"
 
 #include "core/shader.h"
 #include "assets/transform.h"

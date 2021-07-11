@@ -49,8 +49,26 @@ void Font::Start() {
 }
 
 void Font::Show() {
+	ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.50f);
     ImGui::InputText("File name", &fileName, ImGuiInputTextFlags_CallbackResize);
+	ImGui::SameLine();
+	ImGui::PopItemWidth();
+    if (ImGui::Button("Browse##1")) {
+        fileName = OpenFile(NULL, 0);
+#ifndef __linux__
+        std::replace( fileName.begin(), fileName.end(), '\\', '/');
+#endif
+    }
+	ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.50f);
     ImGui::InputText("Texture name", &textureName, ImGuiInputTextFlags_CallbackResize);
+	ImGui::SameLine();
+	ImGui::PopItemWidth();
+    if (ImGui::Button("Browse##2")) {
+        textureName = OpenFile(NULL, 0);
+#ifndef __linux__
+        std::replace( textureName.begin(), textureName.end(), '\\', '/');
+#endif
+    }
 }
 
 
@@ -77,10 +95,10 @@ Font::~Font() {
 }
 #endif
 
-REGISTERIMPL(UI_Text);
+REGISTERIMPL(Text);
 
 
-std::vector<Word> UI_Text::WordsFromText(std::string f_text) {
+std::vector<Word> Text::WordsFromText(std::string f_text) {
     std::vector<std::string> strs;
 
     boost::split(strs, f_text, boost::is_any_of("\t "), boost::token_compress_on);
@@ -96,7 +114,7 @@ std::vector<Word> UI_Text::WordsFromText(std::string f_text) {
     return words;
 }
 
-std::vector<Line> UI_Text::LinesFromWords(std::vector<Word> words) {
+std::vector<Line> Text::LinesFromWords(std::vector<Word> words) {
     std::vector<Line> lines(1);
     float lineSize = 0;
     unsigned int index = 0;
@@ -117,7 +135,7 @@ std::vector<Line> UI_Text::LinesFromWords(std::vector<Word> words) {
     return lines;
 }
 
-float UI_Text::getSize(Word word) {
+float Text::getSize(Word word) {
     float size = 0.0f;
     for (Character& c : word.characters) {
         size += c.xAdvance;
@@ -125,7 +143,7 @@ float UI_Text::getSize(Word word) {
     return size;
 }
 
-float UI_Text::getSize(Line line) {
+float Text::getSize(Line line) {
     float size = 0.0f;
     for (Word& w : line.words) {
         size += getSize(w);
@@ -135,7 +153,7 @@ float UI_Text::getSize(Line line) {
 }
 
 
-void UI_Text::addVerticesForCharacter(Character& chara, float curX, float curY) {
+void Text::addVerticesForCharacter(Character& chara, float curX, float curY) {
     float x = curX + (chara.xOffset * fontSize);
     float y = curY + (chara.yOffset * fontSize);
     float maxX = x + (chara.sizeX * fontSize);
@@ -147,7 +165,7 @@ void UI_Text::addVerticesForCharacter(Character& chara, float curX, float curY) 
     addVertexPos(properX, properY, properMaxX, properMaxY);
 }
 
-void UI_Text::addVertexPos(float x, float y, float maxX, float maxY) {
+void Text::addVertexPos(float x, float y, float maxX, float maxY) {
     vertexCoord.push_back(x);
     vertexCoord.push_back(y);
     vertexCoord.push_back(x);
@@ -162,7 +180,7 @@ void UI_Text::addVertexPos(float x, float y, float maxX, float maxY) {
     vertexCoord.push_back(y);
 }
 
-void UI_Text::addTexCoords(float x, float y, float maxX, float maxY) {
+void Text::addTexCoords(float x, float y, float maxX, float maxY) {
     textureCoord.push_back(x);
     textureCoord.push_back(y);
     textureCoord.push_back(x);
@@ -179,7 +197,7 @@ void UI_Text::addTexCoords(float x, float y, float maxX, float maxY) {
 
 
 
-void UI_Text::RecalculateText(std::string& f_text) {
+void Text::RecalculateText(std::string& f_text) {
 
     vertexCoord.clear();
     textureCoord.clear();
@@ -226,70 +244,61 @@ void UI_Text::RecalculateText(std::string& f_text) {
         glBindVertexArray(0);
     }
 }
-//std::string c_text, Font* c_font
-void UI_Text::Start() {
+void Text::Start() {
+	transform = parentEntity->GetComponent<Transform>();
     font = parentEntity->GetComponent<Font>();
-	shader = Shader::shaderMap[shaderName];
+    shader = Shader::shaderMap[shaderName];
     glGenVertexArrays(1, &textVAO);
     glGenBuffers(1, &vertexVBO);
     glGenBuffers(1, &textureVBO);
     RecalculateText(text);
 }
 
-void UI_Text::Serialize(YAML::Emitter& out) {
-	out << YAML::Key << name;
-	out << YAML::BeginMap;
+void Text::Serialize(YAML::Emitter& out) {
+    out << YAML::Key << name;
+    out << YAML::BeginMap;
 
-	out << YAML::Key << "Text" << YAML::Value << text;
-	out << YAML::Key << "IsCentered" << YAML::Value << (int)isCentered;
-	out << YAML::Key << "FontSize" << YAML::Value << fontSize;
-	out << YAML::Key << "GlyphWidth" << YAML::Value << glyphWidth;
-	out << YAML::Key << "Width" << YAML::Value << width;
-	out << YAML::Key << "Edge" << YAML::Value << edge;
-	out << YAML::Key << "LineMaxWidth" << YAML::Value << lineMaxWidth;
-	out << YAML::Key << "LineMaxHeight" << YAML::Value << lineMaxHeight;
-	out << YAML::Key << "Angle" << YAML::Value << angle;
-	out << YAML::Key << "Position" << YAML::Value << vPos;
-	out << YAML::Key << "Color" << YAML::Value << color;
-	out << YAML::Key << "ShaderName" << YAML::Value << shaderName;
+    out << YAML::Key << "Text" << YAML::Value << text;
+    out << YAML::Key << "IsCentered" << YAML::Value << (int)isCentered;
+    out << YAML::Key << "FontSize" << YAML::Value << fontSize;
+    out << YAML::Key << "GlyphWidth" << YAML::Value << glyphWidth;
+    out << YAML::Key << "Width" << YAML::Value << width;
+    out << YAML::Key << "Edge" << YAML::Value << edge;
+    out << YAML::Key << "LineMaxWidth" << YAML::Value << lineMaxWidth;
+    out << YAML::Key << "LineMaxHeight" << YAML::Value << lineMaxHeight;
+    out << YAML::Key << "Angle" << YAML::Value << angle;
+    out << YAML::Key << "Color" << YAML::Value << color;
+    out << YAML::Key << "ShaderName" << YAML::Value << shaderName;
 
-	out << YAML::EndMap;
+    out << YAML::EndMap;
 }
 
-void UI_Text::Deserialize(const YAML::Node& data) {
-	text = data["Text"].as<std::string>();
-	isCentered = (bool)data["IsCentered"].as<int>();
-	fontSize = data["FontSize"].as<float>();
-	glyphWidth = data["GlyphWidth"].as<float>();
-	width = data["Width"].as<float>();
-	edge = data["Edge"].as<float>();
-	lineMaxWidth = data["LineMaxWidth"].as<float>();
-	lineMaxHeight = data["LineMaxHeight"].as<float>();
-	angle = data["Angle"].as<float>();
-	vPos = data["Position"].as<glm::vec2>();
-	color = data["Color"].as<glm::vec3>();
-	shaderName = data["ShaderName"].as<std::string>();
+void Text::Deserialize(const YAML::Node& data) {
+    text = data["Text"].as<std::string>();
+    isCentered = (bool)data["IsCentered"].as<int>();
+    fontSize = data["FontSize"].as<float>();
+    glyphWidth = data["GlyphWidth"].as<float>();
+    width = data["Width"].as<float>();
+    edge = data["Edge"].as<float>();
+    lineMaxWidth = data["LineMaxWidth"].as<float>();
+    lineMaxHeight = data["LineMaxHeight"].as<float>();
+    angle = data["Angle"].as<float>();
+    color = data["Color"].as<glm::vec3>();
+    shaderName = data["ShaderName"].as<std::string>();
 
 }
 
 
-void UI_Text::Draw() {
+void Text::Draw() {
 
 
     shader->use();
     shader->setFloat("text", font->atlasTexture);
     shader->setVec3("textColor", color);
-    shader->setVec2("position", vPos);
+    shader->setVec2("position", {transform->position.x, transform->position.y});
 
     shader->setFloat("width", width);
     shader->setFloat("edge", edge);
-
-    /*	glm::mat4 proj = glm::mat4(1.0f);
-    	proj = glm::translate(proj, vPos);
-    	proj = glm::scale(proj, vScale);
-    	proj = glm::rotate(proj, glm::radians(vRot.x), glm::vec3(1.0f, 0.0f, 0.0f));
-    	proj = glm::rotate(proj, glm::radians(vRot.y), glm::vec3(0.0f, 1.0f, 0.0f));
-    	proj = glm::rotate(proj, glm::radians(vRot.z), glm::vec3(0.0f, 0.0f, 1.0f));*/
 
     glm::mat4 proj = glm::ortho(0.0f, (float)EngineInfo::SCREEN_WIDTH, 0.0f, (float)EngineInfo::SCREEN_HEIGHT);
     float scale = EngineInfo::SCREEN_HEIGHT / 1080.0f;
@@ -297,7 +306,7 @@ void UI_Text::Draw() {
     model = glm::scale(model, glm::vec3(scale, scale, 1.0f));
     shader->setMat4("projection", /*EngineInfo::projectionMatrix * EngineInfo::viewMatrix * */ proj * model);
 
-    glm::mat4 rot = glm::translate(glm::mat4(1.0f), glm::vec3(vPos, 0.0f));
+    glm::mat4 rot = glm::translate(glm::mat4(1.0f), glm::vec3(transform->position.x, transform->position.y, 0.0f));
     rot = glm::rotate(rot, glm::radians(angle), glm::vec3(0.0, 0.0, 1.0f));
     shader->setMat4("rotation", rot);
     if (vertexCoord.size() > 0 ) //IF THE STRING IS NOT EMPTY
@@ -325,10 +334,9 @@ void UI_Text::Draw() {
     }
 }
 
-void UI_Text::Show() {
+void Text::Show() {
     bool changed = false;
     changed |= ImGui::InputText("Text box", &text, ImGuiInputTextFlags_CallbackResize);
-    ImGui::DragFloat2("Position", glm::value_ptr(vPos));
     /*changed |= ImGui::DragFloat3(("Position-").c_str(), glm::value_ptr(vPos));
       changed |= ImGui::DragFloat3(("Scale-").c_str(), glm::value_ptr(vScale));
       changed |= ImGui::DragFloat3(("Rotation-").c_str(), glm::value_ptr(vRot));*/
@@ -349,10 +357,10 @@ void UI_Text::Show() {
 }
 
 #ifdef SHOW_DELETED
-UI_Text::~UI_Text() {
+Text::~Text() {
     Log("Deleted " << name);
 }
 #endif
-UI_Text::UI_Text() {
-    name = "UI_Text";
+Text::Text() {
+    name = "Text";
 }

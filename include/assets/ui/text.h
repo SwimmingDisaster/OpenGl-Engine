@@ -5,6 +5,8 @@
 #include "ecs/other/componentFactory.h"
 #include "ecs/other/componentDefines.h"
 
+#include "assets/transform.h"
+
 struct Character {
     int id; // do i need this?
     float xTextureCoord;
@@ -49,7 +51,6 @@ public:
     std::string fileName;
     std::string textureName;
 
-    //void Init(std::string fileName, std::string textureName);
 
     Font();
 #ifdef SHOW_DELETED
@@ -61,8 +62,8 @@ public:
 #endif
 };
 
-class UI_Text : public Component {
-    REGISTER(UI_Text);
+class Text : public Component {
+    REGISTER(Text);
 public:
     void Start() override;
     void Draw() override;
@@ -84,17 +85,15 @@ public:
     std::vector<Line> LinesFromWords(std::vector<Word> words);
 
     void RecalculateText(std::string& f_text);
-	// void Draw(Shader& shader);
-   // void ImGuiDraw();
 	
 public:
-    UI_Text();
+    Text();
 #ifdef SHOW_DELETED
 public:
-    virtual ~UI_Text();
+    virtual ~Text();
 #else
 public:
-    virtual ~UI_Text() {};
+    virtual ~Text() {};
 #endif
 
 public:
@@ -112,21 +111,17 @@ public:
 
     float angle = 0.0f;
 
-    glm::vec2 vPos = {400.0f, 200.0f};
+    //glm::vec2 vPos = {400.0f, 200.0f};
     glm::vec3 color = {0.0f, 0.0f, 1.0f};
 
 	std::string shaderName;
 
-
-    /*	glm::vec3 vPos = {0.0f, 0.0f, -18.0f};
-    	glm::vec3 vScale = {1.0f, 1.0f, 1.0f};
-    	glm::vec3 vRot = {0.0f, 90.0f, 0.0f};*/
 private:
-
+	std::shared_ptr<Transform> transform;
+    std::shared_ptr<Font> font;
 	std::shared_ptr<Shader> shader;
 
     unsigned int textVAO, vertexVBO, textureVBO;
-    std::shared_ptr<Font> font;
     std::vector<float> vertexCoord;
     std::vector<float> textureCoord;
 };

@@ -1,11 +1,13 @@
 #pragma once
 #include "mypch.h"
+#include "core/texture.h"
 
 
 
 YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec2& v);
 YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v);
 YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec4& v);
+YAML::Emitter& operator<<(YAML::Emitter& out, const TextureInfo& v);
 
 
 namespace YAML {
@@ -74,4 +76,18 @@ struct convert<glm::vec4>
 	}
 };
 
+template<>
+struct convert<TextureInfo>
+{
+	static Node encode(const TextureInfo& t) {
+		Node node;
+		node.push_back(t.name);
+		return node;
+	}
+	static bool decode(const Node& node, TextureInfo& t) {
+		t.name = node.as<std::string>();
+		Log(t.name);
+		return true;
+	}
+};
 }

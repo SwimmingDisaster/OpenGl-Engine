@@ -57,6 +57,16 @@ void Batch::AddProperty(std::shared_ptr<Material>& material, int& i) {
     else if(materialType == typeid(glm::vec4)) {
         std::any_cast<std::vector<glm::vec4>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<glm::vec4>(&material->materialProperties[i].second));
     }
+    else if(materialType == typeid(TextureInfo)) {
+		
+		std::string textureName = std::any_cast<TextureInfo>(material->materialProperties[i].second).name;
+
+		if(textureIndexMap.find(textureName) == textureIndexMap.end()){
+			textureIndexMap[textureName] = textureIndex;
+			textureIndex++;
+		}
+        std::any_cast<std::vector<int>>(&materialMap[material->materialProperties[i].first])->push_back(textureIndexMap[textureName]);
+    }
 }
 
 void Batch::AddPropertyVector(std::shared_ptr<Material>& material, int& i) {
@@ -73,6 +83,9 @@ void Batch::AddPropertyVector(std::shared_ptr<Material>& material, int& i) {
     }
     else if(materialType == typeid(glm::vec4)) {
         materialMap[material->materialProperties[i].first] = std::vector<glm::vec4>();
+    }
+    else if(materialType == typeid(TextureInfo)) {
+        materialMap[material->materialProperties[i].first] = std::vector<int>();
     }
 }
 
@@ -97,7 +110,7 @@ void Batch::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shar
     vertices.insert(vertices.end(), mesh.vertices.begin(), mesh.vertices.end());
     indices.insert(indices.end(), mesh.indices.begin(), mesh.indices.end());
 
-    matrixList[index] = transform->GetTransform();
+    matrixList.push_back(transform->GetTransform());
 
 
     for (int i = numVertices; i < numVertices + numNewVertices; i++) {
@@ -132,11 +145,21 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
             std::vector<glm::vec4>* propertyVector = std::any_cast<std::vector<glm::vec4>>(&property.second);
             glUniform4fv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0][0]));
         }
+        else if(property.second.type() == typeid(std::vector<int>)) {
+            std::vector<int>* propertyVector = std::any_cast<std::vector<int>>(&property.second);
+            glUniform1iv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
+        }
     }
-    glUniformMatrix4fv(glGetUniformLocation(shader->ID, "matModel"), BATCH_SIZE, GL_FALSE, &matrixList[0][0][0]);
+
+	for(auto& a : textureIndexMap){
+		glActiveTexture(GL_TEXTURE0 + a.second); // activate the texture unit first before binding texture
+		glBindTexture(GL_TEXTURE_2D, TextureManager::textureMap[a.first]);	
+	}
+    glUniformMatrix4fv(glGetUniformLocation(shader->ID, "matModel"), matrixList.size(), GL_FALSE, &matrixList[0][0][0]);
 
     glBindVertexArray(VAO);
 
+	glFinish();
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_DYNAMIC_DRAW);
 
@@ -147,6 +170,11 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
     glBindVertexArray(0);
 }
 
+Batch::~Batch(){
+    glDeleteBuffers(1, &EBO);
+    glDeleteBuffers(1, &VBO);
+    glDeleteVertexArrays(1, &VAO);
+}
 
 void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
 	std::vector<Batch>& batchList= batchMap[shaderName];

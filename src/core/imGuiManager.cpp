@@ -613,6 +613,24 @@ void ShowShadersPanel(){
 	ImGui::End(); //Shaders
 }
 
+void ShowTexturesPanel(){
+	ImGui::Begin("Textures");
+	for(int i = 0; i < TextureManager::textureList.size(); i++){
+		ImGui::InputText(("Texture Name " + std::to_string(i)).c_str(), &TextureManager::textureList[i], ImGuiInputTextFlags_CallbackResize);
+	}
+
+	if (ImGui::Button("Add new texture")){
+		TextureManager::textureList.push_back("");		
+	}
+
+	static int indexToDelete;
+	ImGui::InputInt("Delete index", &indexToDelete);
+	if (ImGui::Button("Delete")){
+		TextureManager::textureList.erase(TextureManager::textureList.begin() + indexToDelete);
+	}
+	ImGui::End(); //Textures
+}
+
 void ImGuiManager::Update()
 {
 	StartFrame();
@@ -624,6 +642,7 @@ void ImGuiManager::Update()
 	ShowPropertiesPanel();
 	ShowOutputPanel();
 	ShowShadersPanel();
+	ShowTexturesPanel();
 
 	EndFrame();
 }

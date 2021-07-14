@@ -42,23 +42,19 @@ int Application::Init()
 	return 0;
 }
 
-void Application::Start()
-{
+void Application::Start(){
 }
 
 void Application::Run()
 {
 
 #ifdef RELEASE_BUILD
-	m_curentScene.Deserialize("other/scenes/chubby.scene");//change this so that the initial scene is set in a .project file
+	m_curentScene.Deserialize("other/scenes/shapes.scene");//change this so that the initial scene is set in a .project file
 #endif
-
-
 	while (!glfwWindowShouldClose(window))
 	{
 		Renderer::renderID = 0;
 		BatchRenderer::Clear();
-
 
 #ifndef RELEASE_BUILD
 		if (isRunningLast == false && isRunning == true)

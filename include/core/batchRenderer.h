@@ -6,6 +6,8 @@
 
 class Batch{
 public:
+	~Batch();
+public:
 	void AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform);
 	void Setup();
 	void Clear();
@@ -16,9 +18,12 @@ public:
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 
-	std::vector<glm::mat4> matrixList = std::vector<glm::mat4>(BATCH_SIZE);
+	std::vector<glm::mat4> matrixList;
 
 	std::unordered_map<std::string, std::any> materialMap;
+	std::unordered_map<std::string, int> textureIndexMap;
+
+	int textureIndex = 0;
 
 private:
 	void AddPropertyVector(std::shared_ptr<Material>& material, int& i);

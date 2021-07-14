@@ -1,6 +1,7 @@
 #include "mypch.h"
 #include "assets/material.h"
 #include "utils/fileUtils.h"
+#include "core/texture.h"
 
 
 class ModelRenderer;
@@ -10,7 +11,7 @@ void Material::Show()  {
 
     for(int i = 0; i < materialProperties.size(); i++) {
 		ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.25f);
-        ImGui::InputText(std::to_string(i).c_str(), &materialProperties[i].first, ImGuiInputTextFlags_CallbackResize);
+        ImGui::InputText(std::to_string(i).c_str(), &materialProperties[i].first, ImGuiInputTextFlags_CallbackResize | ImGuiInputTextFlags_EnterReturnsTrue);
         ImGui::SameLine();
 		ImGui::PopItemWidth();
 		ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.75f);
@@ -29,6 +30,9 @@ void Material::Show()  {
         }
 		else if(materialType == typeid(glm::vec4)) {
             ImGui::DragFloat4(("###" + materialProperties[i].first).c_str(), glm::value_ptr(*std::any_cast<glm::vec4>(&materialProperties[i].second)));
+        }
+		else if(materialType == typeid(TextureInfo)) {
+            ImGui::InputText(("###" + materialProperties[i].first).c_str(), &(*std::any_cast<TextureInfo>(&materialProperties[i].second)).name, ImGuiInputTextFlags_CallbackResize);
         }
 		ImGui::PopItemWidth();
     }
@@ -50,6 +54,9 @@ void Material::Show()  {
         }
         if (ImGui::MenuItem("Add a vec4")) {
             materialProperties.push_back(std::make_pair("Vec4", glm::vec4(0.0f)));
+        }
+        if (ImGui::MenuItem("Add a texture")) {
+            materialProperties.push_back(std::make_pair("Texture", TextureInfo()));
         }
         ImGui::EndPopup();
     }
@@ -108,6 +115,9 @@ void Material::Serialize(YAML::Emitter& out) {
 		else if(materialType == typeid(glm::vec4)) {
 			out << YAML::Key << ("4" + materialProperties[i].first) << YAML::Value << std::any_cast<glm::vec4>(materialProperties[i].second);
         }
+		else if(materialType == typeid(TextureInfo)) {
+			out << YAML::Key << ("t" + materialProperties[i].first) << YAML::Value << std::any_cast<TextureInfo>(materialProperties[i].second);
+        }
 	}
 
     out << YAML::EndMap;
@@ -128,6 +138,9 @@ void Material::Deserialize(const YAML::Node& data) {
 		}
 		if(firstLetter == '4'){
 			materialProperties.push_back(std::make_pair(name.substr(1, name.size() - 1), property->second.as<glm::vec4>()));
+		}
+		if(firstLetter == 't'){
+			materialProperties.push_back(std::make_pair(name.substr(1, name.size() - 1), property->second.as<TextureInfo>()));
 		}
 	}
 }

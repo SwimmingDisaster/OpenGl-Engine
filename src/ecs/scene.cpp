@@ -166,6 +166,15 @@ void Scene::Serialize(const std::string &filePath) const
     }
     out << YAML::EndSeq;
 
+    out << YAML::Key << "Textures" << YAML::Value << YAML::BeginSeq;
+    for (auto textureName : TextureManager::textureList)
+    {
+        out << YAML::BeginMap;
+        out << YAML::Key << "Texture Path" << YAML::Value << textureName;
+        out << YAML::EndMap;
+    }
+    out << YAML::EndSeq;
+
 
     out << YAML::Key << "Entities" << YAML::Value << YAML::BeginSeq;
     for (auto entity : m_entities)
@@ -226,7 +235,15 @@ void Scene::Deserialize(const std::string &filePath)
         Shader::shaderList.push_back(std::make_shared<Shader>());
         Shader::shaderNames.push_back(shaderName);
 		Shader::shaderList[Shader::shaderList.size() - 1]->CreateVertexAndFragment(shaderName);
+ 	}
+
+    const YAML::Node &textures = data["Textures"];
+    for (auto texture : textures) {
+        std::string textureName = texture["Texture Path"].as<std::string>();
+		TextureManager::textureList.push_back(textureName);
+		TextureManager::textureMap[textureName] = (int)loadTexture(textureName.c_str());
     }
+
 
     const YAML::Node &entities = data["Entities"];
     if (entities)

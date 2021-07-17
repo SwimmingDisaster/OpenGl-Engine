@@ -171,19 +171,19 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
 }
 
 Batch::~Batch(){
-    glDeleteBuffers(1, &EBO);
     glDeleteBuffers(1, &VBO);
+    glDeleteBuffers(1, &EBO);
     glDeleteVertexArrays(1, &VAO);
 }
 
 void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
 	std::vector<Batch>& batchList= batchMap[shaderName];
 	if(batchList.size() == 0){
-		batchList.push_back(Batch());
+		batchList.emplace_back();
 		batchList[batchList.size() - 1].Setup();
 	}
 	else if(batchList[batchList.size() - 1].index == BATCH_SIZE){
-		batchList.push_back(Batch());
+		batchList.emplace_back();
 		batchList[batchList.size() - 1].Setup();
 	}
 	batchList[batchList.size() - 1].AddObject(mesh, material, transform);

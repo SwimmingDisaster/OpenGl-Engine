@@ -31,5 +31,4 @@ public:
 
 	void RemoveEntity(const std::shared_ptr<Entity>& entity);
 
-	~Scene();
 };

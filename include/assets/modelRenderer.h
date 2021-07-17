@@ -23,8 +23,6 @@ public:
 	void Draw() override;
 	void Show() override;
 
-	ModelRenderer(const ModelRenderer &other) {}
-
 	ModelRenderer();
 #ifdef SHOW_DELETED
 public:

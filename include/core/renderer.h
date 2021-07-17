@@ -10,8 +10,6 @@ public:
 	static glm::mat4 viewProjectionMatrix;
 	static glm::vec3 clearColor;
 
-	static int renderID;
-
 #ifndef RELEASE_BUILD
 	static FrameBuffer frameBuffer;
 #endif

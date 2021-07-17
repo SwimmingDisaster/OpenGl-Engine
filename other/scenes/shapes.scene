@@ -9,6 +9,7 @@ Textures:
   - Texture Path: res/robot/arm_dif.png
   - Texture Path: res/test/white.png
   - Texture Path: res/test/yellow.png
+  - Texture Path: res/test/colors.png
 Entities:
   - Entity: New Plane
     UUID: -1641502703
@@ -147,7 +148,22 @@ Entities:
     Material:
       3color: [0.264705777, 1, 0]
       ttextures: res/test/yellow.png
+  - Entity: New Cylinder
+    UUID: -1115886422
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [7.9495759, 7.94921875, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/cylinder.fbx
+    ModelRenderer:
+      Shader name: res/shaders/test
+    Material:
+      3color: [0.264705777, 1, 0]
+      ttextures: res/test/colors.png
 Editor Camera:
-  - Camera vPos: [5.64249134, 4.02390575, -10.5900345]
-    Camera vUp: [-0.0629602224, 0.988756478, 0.135634512]
-    Camera vRot: [-8.59997845, 114.900269, 0]
+  - Camera vPos: [10.3378315, 7.04289007, -3.73453975]
+    Camera vUp: [-0.253642857, 0.949972391, 0.182257771]
+    Camera vRot: [-18.1999512, 144.300461, 0]

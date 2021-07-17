@@ -43,18 +43,16 @@ int Application::Init()
 }
 
 void Application::Start(){
-}
-
-void Application::Run()
-{
 
 #ifdef RELEASE_BUILD
 	m_curentScene.Deserialize("other/scenes/shapes.scene");//change this so that the initial scene is set in a .project file
 #endif
+}
+
+void Application::Run()
+{
 	while (!glfwWindowShouldClose(window))
 	{
-		Renderer::renderID = 0;
-		BatchRenderer::Clear();
 
 #ifndef RELEASE_BUILD
 		if (isRunningLast == false && isRunning == true)
@@ -109,7 +107,6 @@ void Application::Run()
 #else
 		m_curentScene.Update();
 #endif
-
 		m_curentScene.Render();
 		Renderer::EndFrame();
 
@@ -117,6 +114,7 @@ void Application::Run()
 		ImGuiManager::Update();
 #endif
 
+		BatchRenderer::Clear();
 		glfwSwapBuffers(window);
 
 		Input::Update();
@@ -136,7 +134,6 @@ void Application::Run()
 void Application::Shutdown()
 {
 	PhysicsManager::ShutdownPhysx();
-
 #ifndef RELEASE_BUILD
 	ImGuiManager::ShutdownImGui();
 #endif

@@ -29,7 +29,7 @@ private:
 	void AddPropertyVector(std::shared_ptr<Material>& material, int& i);
 	void AddProperty(std::shared_ptr<Material>& material, int& i); 
 private:
-	unsigned int VAO, VBO, EBO;
+	unsigned int VAO = 0, VBO = 0, EBO = 0;
 };
 
 class BatchRenderer{

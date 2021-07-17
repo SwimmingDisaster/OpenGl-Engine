@@ -597,6 +597,12 @@ void ShowShadersPanel(){
 	ImGui::Begin("Shaders");
 	for(int i = 0; i < Shader::shaderNames.size(); i++){
 		ImGui::InputText(("Shader Name " + std::to_string(i)).c_str(), &Shader::shaderNames[i], ImGuiInputTextFlags_CallbackResize);
+        ImGui::SameLine();
+		if (ImGui::Button(("Browse##" + std::to_string(i)).c_str())) {
+			Shader::shaderNames[i] = OpenFile(NULL, 0);
+            std::replace(Shader::shaderNames[i].begin(), Shader::shaderNames[i].end(), '\\', '/');
+			Shader::shaderNames[i] = Shader::shaderNames[i].substr(0, Shader::shaderNames[i].size() - 3);
+        }
 	}
 
 
@@ -617,6 +623,11 @@ void ShowTexturesPanel(){
 	ImGui::Begin("Textures");
 	for(int i = 0; i < TextureManager::textureList.size(); i++){
 		ImGui::InputText(("Texture Name " + std::to_string(i)).c_str(), &TextureManager::textureList[i], ImGuiInputTextFlags_CallbackResize);
+        ImGui::SameLine();
+		if (ImGui::Button(("Browse##" + std::to_string(i)).c_str())) {
+            TextureManager::textureList[i] = OpenFile(NULL, 0);
+            std::replace(TextureManager::textureList[i].begin(), TextureManager::textureList[i].end(), '\\', '/');
+        }
 	}
 
 	if (ImGui::Button("Add new texture")){

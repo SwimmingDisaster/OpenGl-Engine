@@ -10,10 +10,6 @@
 
 #include "core/application.h"
 
-Scene::~Scene()
-{
-    Clear();
-}
 
 std::shared_ptr<Entity> Scene::GetEntity(std::string name) const noexcept
 {
@@ -115,9 +111,15 @@ void Scene::Clear() noexcept
         i--;
     }
     m_entities.clear();
+
+	BatchRenderer::Clear();
+
 	Shader::shaderMap.clear();
 	Shader::shaderList.clear();
 	Shader::shaderNames.clear();
+
+	TextureManager::textureMap.clear();
+	TextureManager::textureList.clear();
 }
 void Scene::Update() const
 {

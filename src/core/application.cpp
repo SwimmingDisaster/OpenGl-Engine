@@ -35,7 +35,6 @@ int Application::Init()
 #ifndef RELEASE_BUILD
 	ImGuiManager::InitImGui();
 #endif
-
 	Renderer::Init();
 	PhysicsManager::InitPhysx();
 	NFD_Init();

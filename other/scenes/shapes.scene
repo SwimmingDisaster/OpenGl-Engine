@@ -11,20 +11,47 @@ Textures:
   - Texture Path: res/test/yellow.png
   - Texture Path: res/test/colors.png
 Entities:
+  - Entity: Camera
+    UUID: 1595950024
+    Components: [Transform, Camera, SphereCollider, Rigidbody, PhysicsFPScontroler]
+    Transform:
+      Position: [19.7938671, 2.00999999, -15.6506939]
+      Rotation: [-19.339962, 61.7800751, 0]
+      Scale: [1, 1, 1]
+    Camera:
+      Fov: 90
+      fNear: 0.0500000007
+      fFar: 1000
+      Background Color: [0.100000001, 0.100000001, 0.100000001]
+    SphereCollider:
+      Radius: 1
+    Rigidbody:
+      Is Static: false
+      Constrain position: false
+      Constrain rotation: true
+    PhysicsFPScontroler:
+      Mouse Sensitivity: 0.349999994
+      Movement Speed: 5
   - Entity: New Plane
     UUID: -1641502703
-    Components: [Transform, Model, ModelRenderer, Material]
+    Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
     Transform:
-      Position: [0, 0, 0]
+      Position: [0, -1, 0]
       Rotation: [0, 0, 0]
       Scale: [25, 1, 25]
     Model:
       Is flipped: false
-      Path: res/fbx/plane.fbx
+      Path: res/fbx/box.fbx
     ModelRenderer:
       Shader name: res/shaders/color
     Material:
       3color: [0.776470602, 0.772549033, 0.772549033]
+    BoxCollider:
+      Scale: [25, 1, 25]
+    Rigidbody:
+      Is Static: true
+      Constrain position: false
+      Constrain rotation: false
   - Entity: New Cube
     UUID: -1103208782
     Components: [Transform, Model, ModelRenderer, Material]
@@ -96,21 +123,6 @@ Entities:
     Material:
       3color: [0.264705777, 1, 0]
       ttextures: res/test/white.png
-  - Entity: Camera
-    UUID: 1595950024
-    Components: [Transform, Camera, CameraFPSController]
-    Transform:
-      Position: [2.73748732, 18.8610821, 11.3889294]
-      Rotation: [-50.4899635, -138.419968, 0]
-      Scale: [1, 1, 1]
-    Camera:
-      Fov: 90
-      fNear: 0.0500000007
-      fFar: 1000
-      Background Color: [0.100000001, 0.100000001, 0.100000001]
-    CameraFPSController:
-      Mouse Sensitivity: 0.349999994
-      Movement Speed: 5
   - Entity: 2D Text
     UUID: 203493368
     Components: [Transform, Font, Text]
@@ -135,7 +147,7 @@ Entities:
       ShaderName: res/shaders/glyph
   - Entity: New Cylinder
     UUID: -28820628
-    Components: [Transform, Model, ModelRenderer, Material]
+    Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
     Transform:
       Position: [3.08942032, 4.38205767, 0]
       Rotation: [0, 0, 0]
@@ -148,22 +160,55 @@ Entities:
     Material:
       3color: [0.264705777, 1, 0]
       ttextures: res/test/yellow.png
-  - Entity: New Cylinder
-    UUID: -1115886422
-    Components: [Transform, Model, ModelRenderer, Material]
-    Transform:
-      Position: [7.9495759, 7.94921875, 0]
-      Rotation: [0, 0, 0]
+    BoxCollider:
       Scale: [1, 1, 1]
+    Rigidbody:
+      Is Static: true
+      Constrain position: false
+      Constrain rotation: false
+  - Entity: New Box
+    UUID: -1115886422
+    Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
+    Transform:
+      Position: [20.5010357, 0.999992788, -1.715729]
+      Rotation: [-0.000882836233, -75.4064102, -180]
+      Scale: [0.999999762, 1, 0.999999881]
     Model:
       Is flipped: false
-      Path: res/fbx/cylinder.fbx
+      Path: res/fbx/box.fbx
     ModelRenderer:
       Shader name: res/shaders/test
     Material:
       3color: [0.264705777, 1, 0]
       ttextures: res/test/colors.png
+    BoxCollider:
+      Scale: [1, 1, 1]
+    Rigidbody:
+      Is Static: false
+      Constrain position: false
+      Constrain rotation: false
+  - Entity: New Sphere
+    UUID: -762144144
+    Components: [Transform, Model, ModelRenderer, Material, SphereCollider, Rigidbody]
+    Transform:
+      Position: [46.3362045, -9743.91406, -268.977356]
+      Rotation: [17.9685879, -0.296278298, 42.3620834]
+      Scale: [0.75, 0.75, 0.75]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/test
+    Material:
+      3color: [0, 1, 0]
+      ttextures: res/test/colors.png
+    SphereCollider:
+      Radius: 0.75
+    Rigidbody:
+      Is Static: false
+      Constrain position: false
+      Constrain rotation: false
 Editor Camera:
-  - Camera vPos: [10.3378315, 7.04289007, -3.73453975]
-    Camera vUp: [-0.253642857, 0.949972391, 0.182257771]
-    Camera vRot: [-18.1999512, 144.300461, 0]
+  - Camera vPos: [-16.4372139, 16.735815, 6.5579114]
+    Camera vUp: [0.393647313, 0.912120223, -0.114361688]
+    Camera vRot: [-24.1999912, -16.1995411, 0]

@@ -17,6 +17,9 @@ public:
 	glm::vec3 size;
 	bool isStatic = false;
 
+	bool constrainPos = false;
+	bool constrainRot = false;
+
 public:
 	void Start() override;
 	void Show() override;

@@ -10,6 +10,8 @@ REGISTERIMPL(Rigidbody);
 void Rigidbody::Show()
 {
 	ImGui::Checkbox("Is Static", &isStatic);
+	ImGui::Checkbox("Constrain position", &constrainPos);
+	ImGui::Checkbox("Constrain rotation", &constrainRot);
 }
 
 void Rigidbody::Serialize(YAML::Emitter &out)
@@ -18,6 +20,8 @@ void Rigidbody::Serialize(YAML::Emitter &out)
 	out << YAML::BeginMap;
 
 	out << YAML::Key << "Is Static" << isStatic;
+	out << YAML::Key << "Constrain position" << constrainPos;
+	out << YAML::Key << "Constrain rotation" << constrainRot;
 
 	out << YAML::EndMap;
 }
@@ -25,11 +29,12 @@ void Rigidbody::Serialize(YAML::Emitter &out)
 void Rigidbody::Deserialize(const YAML::Node &data)
 {
 	isStatic = data["Is Static"].as<bool>();
+	constrainPos = data["Constrain position"].as<bool>();
+	constrainRot = data["Constrain rotation"].as<bool>();
 }
 
 void Rigidbody::Start()
 {
-
 	tc = parentEntity->GetComponent<Transform>();
 	cc = parentEntity->GetComponent<ColliderBase>();
 	size = tc->scale;
@@ -74,8 +79,10 @@ void Rigidbody::Update()
 			DecomposeTransform(newMat, translation, rotation, scale);
 
 			auto pxvec3Vel = aDynamicActor->getLinearVelocity();
-			tc->position = translation + glm::vec3(pxvec3Vel.x, pxvec3Vel.y, pxvec3Vel.z) * PhysicsManager::mAccumulator;
-			tc->rotation = glm::degrees(rotation);
+			if(!constrainPos)
+				tc->position = translation + glm::vec3(pxvec3Vel.x, pxvec3Vel.y, pxvec3Vel.z) * PhysicsManager::mAccumulator;
+			if(!constrainRot)
+				tc->rotation = glm::degrees(rotation);
 			tc->scale = scale;
 			tc->scale = size;
 		}

@@ -54,10 +54,13 @@ void Rigidbody::Start()
 	if (!aDynamicActor || !aStaticActor)
 		Error("create shape failed!");
 
-	if (!isStatic)
+	if (!isStatic){
+		aDynamicActor->setName(parentEntity->GetUUIDString().c_str());
 		PhysicsManager::mScene->addActor(*aDynamicActor);
+	}
 	else
 	{
+		aStaticActor->setName(parentEntity->GetUUIDString().c_str());
 		PhysicsManager::mScene->addActor(*aStaticActor);
 	}
 }
@@ -93,7 +96,10 @@ void Rigidbody::Update()
 Rigidbody::~Rigidbody()
 {
 	Log("Deleted " << name);
-	aSphereActor->release();
+	if (!isStatic)
+		aDynamicActor->release();
+	else
+		aStaticActor->release();
 	mMaterial->release();
 }
 #else

@@ -16,7 +16,7 @@ std::shared_ptr<Entity> Scene::GetEntity(std::string name) const noexcept
 {
     for (auto &entt : m_entities)
     {
-        if (entt->name == name)
+        if (entt->GetName() == name)
         {
             return entt;
         }
@@ -27,7 +27,7 @@ std::shared_ptr<Entity> Scene::GetEntity(long long uuid) const noexcept
 {
     for (auto &entt : m_entities)
     {
-        if (entt->uuid == uuid)
+        if (entt->GetUUID() == uuid)
         {
             return entt;
         }
@@ -38,7 +38,7 @@ std::shared_ptr<Entity> Scene::GetEntity(std::string name, long long uuid) const
 {
     for (auto &entt : m_entities)
     {
-        if (entt->name == name && entt->uuid == uuid)
+        if (entt->GetName() == name && entt->GetUUID() == uuid)
         {
             return entt;
         }
@@ -49,22 +49,22 @@ std::shared_ptr<Entity> Scene::GetEntity(std::string name, long long uuid) const
 void Scene::AddEntity(std::string name, long long uuid)
 {
     std::shared_ptr<Entity> entt = std::make_shared<Entity>();
-    entt->name = name;
+    entt->SetName(name);
     if (uuid != -1)
-        entt->uuid = uuid;
+        entt->SetUUID(uuid);
     else
-        entt->uuid = Random::Int();
+        entt->SetUUID(Random::Int());
     m_entities.push_back(entt);
 }
 
 std::shared_ptr<Entity> Scene::AddEntityR(std::string name, long long uuid)
 {
     std::shared_ptr<Entity> entt = std::make_shared<Entity>();
-    entt->name = name;
+    entt->SetName(name);
     if (uuid != -1)
-        entt->uuid = uuid;
+        entt->SetUUID(uuid);
     else
-        entt->uuid = Random::Int();
+        entt->SetUUID(Random::Int());
     m_entities.push_back(entt);
     return entt;
 }
@@ -73,7 +73,7 @@ void Scene::RemoveEntity(std::string name) noexcept
 {
     for (int i = 0; i < m_entities.size(); i++)
     {
-        if (m_entities[i]->name == name)
+        if (m_entities[i]->GetName() == name)
         {
             m_entities[i]->m_components.clear();
             m_entities.erase(m_entities.begin() + i);
@@ -84,7 +84,7 @@ void Scene::RemoveEntity(long long uuid) noexcept
 {
     for (int i = 0; i < m_entities.size(); i++)
     {
-        if (m_entities[i]->uuid == uuid)
+        if (m_entities[i]->GetUUID() == uuid)
         {
             m_entities[i]->m_components.clear();
             m_entities.erase(m_entities.begin() + i);
@@ -95,7 +95,7 @@ void Scene::RemoveEntity(std::string name, long long uuid) noexcept
 {
     for (int i = 0; i < m_entities.size(); i++)
     {
-        if (m_entities[i]->name == name && m_entities[i]->uuid == uuid)
+        if (m_entities[i]->GetName() == name && m_entities[i]->GetUUID() == uuid)
         {
             m_entities[i]->m_components.clear();
             m_entities.erase(m_entities.begin() + i);
@@ -184,8 +184,8 @@ void Scene::Serialize(const std::string &filePath) const
     {
         out << YAML::BeginMap;
 
-        out << YAML::Key << "Entity" << YAML::Value << entity->name;
-        out << YAML::Key << "UUID" << YAML::Value << entity->uuid;
+        out << YAML::Key << "Entity" << YAML::Value << entity->GetName();
+        out << YAML::Key << "UUID" << YAML::Value << entity->GetUUID();
 
         out << YAML::Flow;
         out << YAML::Key << "Components" << YAML::Flow << YAML::BeginSeq;

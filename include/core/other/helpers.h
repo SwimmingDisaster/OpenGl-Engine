@@ -86,7 +86,6 @@ struct convert<TextureInfo>
 	}
 	static bool decode(const Node& node, TextureInfo& t) {
 		t.name = node.as<std::string>();
-		Log(t.name);
 		return true;
 	}
 };

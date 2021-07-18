@@ -27,3 +27,25 @@ void Entity::Deserialize(YAML::Node& data) {
 		comp->Deserialize(data);
 	}
 }
+
+
+void Entity::SetName(std::string& othername){
+	name = othername;
+}
+void Entity::SetUUID(long long otheruuid){
+	uuid = otheruuid;
+	uuidString = std::to_string(uuid);
+}
+const std::string& Entity::GetName(){
+	return name;
+}
+const long long& Entity::GetUUID(){
+	return uuid;
+}
+const std::string& Entity::GetUUIDString(){
+	return uuidString;
+}
+	
+std::string& Entity::GetNameReference(){
+	return name;
+}

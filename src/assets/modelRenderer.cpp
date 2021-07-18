@@ -38,7 +38,6 @@ void ModelRenderer::Show() {
     //ImGui::InputText("Shader Name", &shaderName, ImGuiInputTextFlags_CallbackResize);
     std::string copyString = shaderName;
     if(ImGui::InputText("Shader Name", &copyString, ImGuiInputTextFlags_CallbackResize | ImGuiInputTextFlags_EnterReturnsTrue)) {
-        Log("what");
 		shaderName = copyString;
     }
 }

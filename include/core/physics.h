@@ -1,5 +1,6 @@
 #pragma once
 #include "mypch.h"
+#include "ecs/entity.h"
 
 class PhysicsManager
 {
@@ -11,6 +12,7 @@ public:
 	static float mAccumulator;
 	static float mStepSize;
 
+//	std::unordered_map<PxActor, std::shared_ptr<Entity>> mapi;
 public:
 	static void InitPhysx();
 	static void ShutdownPhysx();

@@ -121,7 +121,7 @@ bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDraw)
         if (ImGui::MenuItem("Paste Entity"))
         {
             entityToDraw->Copy(Application::copiedEntity);
-            entityToDraw->uuid = Random::Int();
+            entityToDraw->SetUUID(Random::Int());
             Application::copiedEntity = nullptr;
         }
 
@@ -239,14 +239,14 @@ void DrawEnity(std::shared_ptr<Entity> &entityToDraw)
     contentRegionAvailable = ImGui::GetContentRegionAvail();
     lineHeight = ImGuiManager::imGuiContext->Font->FontSize + ImGuiManager::imGuiContext->Style.FramePadding.y * 2.0f;
 
-    bool isEntityopen = ShowHeader(entityToDraw->name, "EntitySettings", "-");
+    bool isEntityopen = ShowHeader(entityToDraw->GetName(), "EntitySettings", "-");
     bool isEntityRemoved = ShowEntityMenuAndReturnTrueIfRemoved(entityToDraw);
 
     if (isEntityopen)
     {
 
-        ImGui::InputText("Name", &entityToDraw->name, ImGuiInputTextFlags_CallbackResize);
-        ImGui::TextUnformatted(("UIID: " + std::to_string(entityToDraw->uuid)).c_str());
+        ImGui::InputText("Name", &entityToDraw->GetNameReference(), ImGuiInputTextFlags_CallbackResize);
+        ImGui::TextUnformatted(("UIID: " + std::to_string(entityToDraw->GetUUID())).c_str());
         for (int i = 0; i < entityToDraw->m_components.size(); i++)
         {
 
@@ -269,7 +269,7 @@ void DrawEnity(std::shared_ptr<Entity> &entityToDraw)
 
     if (isEntityRemoved)
     {
-        Application::m_curentScene.RemoveEntity(entityToDraw->name, entityToDraw->uuid);
+        Application::m_curentScene.RemoveEntity(entityToDraw->GetName(), entityToDraw->GetUUID());
         Application::selectedEntity = nullptr;
     }
 }
@@ -282,10 +282,10 @@ void DrawEnityHierarchy(const std::shared_ptr<Entity> &entt, int i)
     }
     else
     {
-        flags = ((Application::selectedEntity->uuid == entt->uuid) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
+        flags = ((Application::selectedEntity->GetUUID() == entt->GetUUID()) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
     }
 
-    bool opened = ImGui::TreeNodeEx((void *)entt->uuid, flags, "%s", entt->name.c_str());
+    bool opened = ImGui::TreeNodeEx((void *)entt->GetUUID(), flags, "%s", entt->GetName().c_str());
 
     if (ImGui::IsItemClicked())
     {
@@ -449,7 +449,7 @@ void ShowHierarchyPanel()
             {
                 auto copiedEntity = Application::m_curentScene.AddEntityR();
                 copiedEntity->Copy(Application::copiedEntity);
-                copiedEntity->uuid = Random::Int();
+                copiedEntity->SetUUID(Random::Int());
                 Application::copiedEntity = nullptr;
             }
             else
@@ -476,14 +476,14 @@ void ShowHierarchyPanel()
             if (Application::selectedEntity)
             {
                 Application::selectedEntity->Copy(Application::copiedEntity);
-                Application::selectedEntity->uuid = Random::Int();
+                Application::selectedEntity->SetUUID(Random::Int());
                 Application::copiedEntity = nullptr;
             }
             else
             {
                 auto copiedEntity = Application::m_curentScene.AddEntityR();
                 copiedEntity->Copy(Application::copiedEntity);
-                copiedEntity->uuid = Random::Int();
+                copiedEntity->SetUUID(Random::Int());
                 Application::copiedEntity = nullptr;
             }
         }

@@ -7,10 +7,22 @@
 class Entity : public std::enable_shared_from_this<Entity> {
 public:
 	std::vector< std::shared_ptr<Component> > m_components;
+
+private:
 	std::string name;
+	std::string uuidString;
 	long long uuid;
 
 public:
+	void SetName(std::string& othername);
+	void SetUUID(long long otheruuid);
+
+	const std::string& GetName();
+	const long long& GetUUID();
+	const std::string& GetUUIDString();
+
+	std::string& GetNameReference();
+	
 	virtual void Start();
 	virtual void Update();
 	virtual void End();

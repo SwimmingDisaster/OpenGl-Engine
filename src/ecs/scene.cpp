@@ -1,14 +1,15 @@
 #include "mypch.h"
-#include "ecs/scene.h"
 
-#include "assets/transform.h"
-#include "assets/mesh.h"
+#include "ecs/scene.h"
 #include "ecs/other/componentFactory.h"
 
-#include "core/batchRenderer.h"
-#include "assets/ui/text.h"
-
 #include "core/application.h"
+#include "core/batchRenderer.h"
+
+#include "assets/ui/text.h"
+#include "assets/transform.h"
+#include "assets/mesh.h"
+#include "assets/modelRenderer.h"
 
 
 std::shared_ptr<Entity> Scene::GetEntity(std::string name) const noexcept

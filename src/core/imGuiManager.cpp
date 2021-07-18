@@ -370,14 +370,12 @@ void ShowSaveAndOpenMenuItems()
     if (openScene)
     {
         Application::sceneFileName = OpenFile(NULL, 0);
-        std::replace(Application::sceneFileName.begin(), Application::sceneFileName.end(), '\\', '/');
         if (Application::sceneFileName != "")
             Application::m_curentScene.Deserialize(Application::sceneFileName);
     }
     else if (saveas)
     {
         Application::sceneFileName = SaveFile(NULL, 0);
-        std::replace(Application::sceneFileName.begin(), Application::sceneFileName.end(), '\\', '/');
         if (Application::sceneFileName != "")
             Application::m_curentScene.Serialize(Application::sceneFileName);
     }
@@ -609,9 +607,9 @@ void ShowShadersPanel() {
         ImGui::InputText(("Shader Name " + std::to_string(i)).c_str(), &Shader::shaderNames[i], ImGuiInputTextFlags_CallbackResize);
         ImGui::SameLine();
         if (ImGui::Button(("Browse##" + std::to_string(i)).c_str())) {
-            Shader::shaderNames[i] = OpenFile(NULL, 0);
-            std::replace(Shader::shaderNames[i].begin(), Shader::shaderNames[i].end(), '\\', '/');
-            Shader::shaderNames[i] = Shader::shaderNames[i].substr(0, Shader::shaderNames[i].size() - 3);
+			std::string& shaderName = Shader::shaderNames[i];
+            shaderName = OpenFile(NULL, 0);
+            shaderName = shaderName.substr(0, shaderName.size() - 3);
         }
     }
 
@@ -636,7 +634,6 @@ void ShowTexturesPanel() {
         ImGui::SameLine();
         if (ImGui::Button(("Browse##" + std::to_string(i)).c_str())) {
             TextureManager::textureList[i] = OpenFile(NULL, 0);
-            std::replace(TextureManager::textureList[i].begin(), TextureManager::textureList[i].end(), '\\', '/');
         }
     }
 

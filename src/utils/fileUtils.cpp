@@ -11,7 +11,11 @@ std::string OpenFile(nfdfilteritem_t filterItem[], int numFilters)
 	nfdresult_t result = NFD_OpenDialog(&outPath, filterItem, numFilters, NULL);
 	if (result == NFD_OKAY)
 	{
-		return std::string(outPath);
+		std::string outPathString(outPath);
+#ifndef __linux__
+        std::replace(outPathString.begin(), outPathString.end(), '\\', '/');
+#endif
+		return outPathString;
 		NFD_FreePath(outPath);
 	}
 	else if (result == NFD_ERROR)
@@ -27,7 +31,11 @@ std::string SaveFile(nfdfilteritem_t filterItem[], int numFilters)
 	nfdresult_t result = NFD_SaveDialog(&outPath, filterItem, numFilters, NULL, NULL);
 	if (result == NFD_OKAY)
 	{
-		return std::string(outPath);
+		std::string outPathString(outPath);
+#ifndef __linux__
+        std::replace(outPathString.begin(), outPathString.end(), '\\', '/');
+#endif
+		return outPathString;
 		NFD_FreePath(outPath);
 	}
 	else if (result == NFD_ERROR)

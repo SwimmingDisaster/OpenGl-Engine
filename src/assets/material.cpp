@@ -37,7 +37,6 @@ void Material::Show()  {
             ImGui::SameLine();
             if (ImGui::Button("Browse")) {
                 textureName = OpenFile(NULL, 0);
-                std::replace(textureName.begin(), textureName.end(), '\\', '/');
             }
         }
         ImGui::PopItemWidth();

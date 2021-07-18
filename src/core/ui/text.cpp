@@ -55,9 +55,6 @@ void Font::Show() {
 	ImGui::PopItemWidth();
     if (ImGui::Button("Browse##1")) {
         fileName = OpenFile(NULL, 0);
-#ifndef __linux__
-        std::replace( fileName.begin(), fileName.end(), '\\', '/');
-#endif
     }
 	ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.50f);
     ImGui::InputText("Texture name", &textureName, ImGuiInputTextFlags_CallbackResize);
@@ -65,9 +62,6 @@ void Font::Show() {
 	ImGui::PopItemWidth();
     if (ImGui::Button("Browse##2")) {
         textureName = OpenFile(NULL, 0);
-#ifndef __linux__
-        std::replace( textureName.begin(), textureName.end(), '\\', '/');
-#endif
     }
 }
 

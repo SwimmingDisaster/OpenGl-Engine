@@ -1,21 +1,12 @@
 #pragma once
 #include "mypch.h"
 
-#include "core/shader.h"
 #include "core/other/editorCamera.h"
-#include "texture.h"
+#include "core/engineInfo.h"
 
 #include "ecs/entity.h"
 #include "ecs/scene.h"
 
-#include "assets/model.h"
-#include "assets/modelRenderer.h"
-#include "assets/colliders.h"
-#include "assets/rigidbody.h"
-#include "assets/material.h"
-#include "core/framebuffer.h"
-
-#include "core/engineInfo.h"
 
 class Application
 {

@@ -16,6 +16,7 @@
 #include "assets/material.h"
 
 
+
 #ifndef RELEASE_BUILD
 EditorCamera Application::editorCamera;
 #endif

@@ -34,6 +34,28 @@ std::shared_ptr<Entity> Scene::GetEntity(long long uuid) const noexcept
     }
     return nullptr;
 }
+std::shared_ptr<Entity> Scene::GetEntityWithUUID(long long uuid) const noexcept
+{
+    for (auto &entt : m_entities)
+    {
+        if (entt->GetUUID() == uuid)
+        {
+            return entt;
+        }
+    }
+    return nullptr;
+}
+std::shared_ptr<Entity> Scene::GetEntityWithUUID(const std::string& uuidstring) const noexcept
+{
+    for (auto &entt : m_entities)
+    {
+        if (entt->GetUUIDString() == uuidstring)
+        {
+            return entt;
+        }
+    }
+    return nullptr;
+}
 std::shared_ptr<Entity> Scene::GetEntity(std::string name, long long uuid) const noexcept
 {
     for (auto &entt : m_entities)

@@ -15,6 +15,7 @@ public:
     virtual void Serialize(YAML::Emitter& out) {}
     virtual void Deserialize(const YAML::Node& data)  {}
     virtual void Show()  {}
+	virtual void OnCollision(const std::shared_ptr<Entity>& other) {}
 
 public:
     virtual ~Component() noexcept {}

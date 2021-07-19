@@ -29,6 +29,8 @@ Entities:
       Is Static: false
       Constrain position: false
       Constrain rotation: true
+      Is simulation: true
+      Is trigger: false
     PhysicsFPScontroler:
       Mouse Sensitivity: 0.349999994
       Movement Speed: 5
@@ -52,6 +54,8 @@ Entities:
       Is Static: true
       Constrain position: false
       Constrain rotation: false
+      Is simulation: true
+      Is trigger: false
   - Entity: New Cube
     UUID: -1103208782
     Components: [Transform, Model, ModelRenderer, Material]
@@ -166,6 +170,8 @@ Entities:
       Is Static: true
       Constrain position: false
       Constrain rotation: false
+      Is simulation: true
+      Is trigger: false
   - Entity: New Box
     UUID: -1115886422
     Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
@@ -187,12 +193,14 @@ Entities:
       Is Static: false
       Constrain position: false
       Constrain rotation: false
+      Is simulation: true
+      Is trigger: false
   - Entity: New Sphere
     UUID: -762144144
     Components: [Transform, Model, ModelRenderer, Material, SphereCollider, Rigidbody]
     Transform:
-      Position: [46.3362045, -9743.91406, -268.977356]
-      Rotation: [17.9685879, -0.296278298, 42.3620834]
+      Position: [0, 13.2201042, 0]
+      Rotation: [0, 0, 0]
       Scale: [0.75, 0.75, 0.75]
     Model:
       Is flipped: false
@@ -208,7 +216,9 @@ Entities:
       Is Static: false
       Constrain position: false
       Constrain rotation: false
+      Is simulation: true
+      Is trigger: false
 Editor Camera:
-  - Camera vPos: [-16.4372139, 16.735815, 6.5579114]
-    Camera vUp: [0.393647313, 0.912120223, -0.114361688]
-    Camera vRot: [-24.1999912, -16.1995411, 0]
+  - Camera vPos: [-4.35331726, 14.5589647, 14.3542557]
+    Camera vUp: [0.36961627, 0.85081172, -0.37350142]
+    Camera vRot: [-31.6999397, -45.2995491, 0]

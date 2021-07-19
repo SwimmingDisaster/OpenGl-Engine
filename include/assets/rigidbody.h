@@ -20,12 +20,16 @@ public:
 	bool constrainPos = false;
 	bool constrainRot = false;
 
+	bool isSimulation = true;
+	bool isTrigger = false;
+
 public:
 	void Start() override;
 	void Show() override;
 	void Update() override;
 	void Serialize(YAML::Emitter& out) override;
 	void Deserialize(const YAML::Node& data) override;
+	void OnCollision(const std::shared_ptr<Entity>& other) override;
 
 	Rigidbody();
 #ifdef SHOW_DELETED

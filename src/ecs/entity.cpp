@@ -27,6 +27,11 @@ void Entity::Deserialize(YAML::Node& data) {
 		comp->Deserialize(data);
 	}
 }
+void Entity::OnCollision(const std::shared_ptr<Entity>& other){
+	for (auto& comp : m_components) {
+		comp->OnCollision(other);
+	}
+}
 
 
 void Entity::SetName(std::string& othername){

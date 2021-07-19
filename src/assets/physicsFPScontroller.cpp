@@ -76,7 +76,7 @@ void PhysicsFPScontroler::ProcessKeyboard(float deltaTime)
     }
     acceleration.y -= 30.0f * deltaTime;
     transform->position += acceleration * deltaTime;
-    if (transform->position.y < 2.05f) {
+    if (transform->position.y < 2.03f) {
         transform->position.y = 2.01f;
         acceleration.y = 0.0f;
         canjump = true;

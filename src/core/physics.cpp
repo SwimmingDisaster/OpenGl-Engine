@@ -6,13 +6,13 @@ PxFoundation *PhysicsManager::mFoundation;
 PxPhysics *PhysicsManager::mPhysics;
 //PxCooking* PhysicsManager::mCooking;
 PxScene *PhysicsManager::mScene;
+PhysxSimulatorCallback PhysicsManager::simulationCallback;
 
 float PhysicsManager::mAccumulator = 0.0f;
 float PhysicsManager::mStepSize = 1.0f / 60.0f;
 
 void PhysicsManager::InitPhysx()
 {
-
 	static PxDefaultErrorCallback gDefaultErrorCallback;
 	static PxDefaultAllocator gDefaultAllocatorCallback;
 
@@ -44,11 +44,12 @@ void PhysicsManager::InitPhysx()
 
 	auto gDispatcher = PxDefaultCpuDispatcherCreate(1);
 	sceneDesc.cpuDispatcher = gDispatcher;
-	sceneDesc.filterShader = PxDefaultSimulationFilterShader;
+	sceneDesc.filterShader = SampleSubmarineFilterShader; 
 
 	mScene = mPhysics->createScene(sceneDesc);
 	if (!mScene)
 		Error("createScene failed!");
+	mScene->setSimulationEventCallback(&simulationCallback);
 }
 
 void PhysicsManager::ShutdownPhysx()

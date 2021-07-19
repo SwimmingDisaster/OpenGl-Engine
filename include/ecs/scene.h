@@ -10,9 +10,11 @@ public:
 
 
 public:
-	std::shared_ptr<Entity>  GetEntity(std::string name) const noexcept;
-	std::shared_ptr<Entity>  GetEntity(long long uuid) const noexcept;
-	std::shared_ptr<Entity>  GetEntity(std::string name, long long uuid) const noexcept;
+	std::shared_ptr<Entity> GetEntity(std::string name) const noexcept;
+	std::shared_ptr<Entity> GetEntity(long long uuid) const noexcept;
+	std::shared_ptr<Entity> GetEntity(std::string name, long long uuid) const noexcept;
+	std::shared_ptr<Entity>	GetEntityWithUUID(long long uuid) const noexcept;
+	std::shared_ptr<Entity> GetEntityWithUUID(const std::string& uuidstring) const noexcept;
 
 	void AddEntity(std::string name = "New Entity", long long uuid = -1);
 	std::shared_ptr<Entity> AddEntityR(std::string name = "New Entity", long long uuid = -1);

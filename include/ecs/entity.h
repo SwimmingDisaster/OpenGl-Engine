@@ -23,11 +23,12 @@ public:
 
 	std::string& GetNameReference();
 	
-	virtual void Start();
-	virtual void Update();
-	virtual void End();
-	virtual void Serialize(YAML::Emitter& out);
-	virtual void Deserialize(YAML::Node& data);
+	void Start();
+	void Update();
+	void End();
+	void Serialize(YAML::Emitter& out);
+	void Deserialize(YAML::Node& data);
+	void OnCollision(const std::shared_ptr<Entity>& other);
 
 	Entity() {}
 public:

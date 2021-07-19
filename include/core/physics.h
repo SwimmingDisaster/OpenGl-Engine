@@ -1,6 +1,7 @@
 #pragma once
 #include "mypch.h"
 #include "ecs/entity.h"
+#include "core/physxSimulationFilter.h"
 
 class PhysicsManager
 {
@@ -11,6 +12,7 @@ public:
 	static PxScene *mScene;
 	static float mAccumulator;
 	static float mStepSize;
+	static PhysxSimulatorCallback simulationCallback;
 
 //	std::unordered_map<PxActor, std::shared_ptr<Entity>> mapi;
 public:

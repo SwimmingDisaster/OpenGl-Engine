@@ -3,7 +3,6 @@
 
 Input Input::m_instance;
 
-
 Input& Input::Get() {
 	return m_instance;
 }

@@ -10,9 +10,46 @@ Textures:
   - Texture Path: res/test/white.png
   - Texture Path: res/test/yellow.png
   - Texture Path: res/test/colors.png
+Tags:
+  - Tag Name: "test"
+Layers:
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: aaaaaaaaaaaaa
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
 Entities:
   - Entity: Camera
     UUID: 1595950024
+    Tag: 0
+    Layer: 0
     Components: [Transform, Camera, SphereCollider, Rigidbody, PhysicsFPScontroler]
     Transform:
       Position: [19.7938671, 2.00999999, -15.6506939]
@@ -36,6 +73,8 @@ Entities:
       Movement Speed: 5
   - Entity: New Plane
     UUID: -1641502703
+    Tag: 0
+    Layer: 0
     Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
     Transform:
       Position: [0, -1, 0]
@@ -58,9 +97,11 @@ Entities:
       Is trigger: false
   - Entity: New Cube
     UUID: -1103208782
-    Components: [Transform, Model, ModelRenderer, Material]
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody, DeleteAfterTouched]
     Transform:
-      Position: [-5, 1, 0]
+      Position: [-5, 100, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     Model:
@@ -69,9 +110,21 @@ Entities:
     ModelRenderer:
       Shader name: res/shaders/color
     Material:
-      3color: [1, 0, 0]
+      3color: [0, 0, 1]
+    BoxCollider:
+      Scale: [1, 1, 1]
+    Rigidbody:
+      Is Static: false
+      Constrain position: false
+      Constrain rotation: false
+      Is simulation: true
+      Is trigger: false
+    DeleteAfterTouched:
+      {}
   - Entity: New Sphere
     UUID: 1732036372
+    Tag: 0
+    Layer: 0
     Components: [Transform, Model, ModelRenderer, Material]
     Transform:
       Position: [-10, 1, 0]
@@ -86,6 +139,8 @@ Entities:
       3color: [0, 1, 0]
   - Entity: New Cone
     UUID: -731618429
+    Tag: 0
+    Layer: 0
     Components: [Transform, Model, ModelRenderer, Material]
     Transform:
       Position: [-15, 0, 0]
@@ -100,6 +155,8 @@ Entities:
       3color: [0, 0, 1]
   - Entity: New Torus
     UUID: 468162451
+    Tag: 0
+    Layer: 0
     Components: [Transform, Model, ModelRenderer, Material]
     Transform:
       Position: [5, 1, 0]
@@ -114,6 +171,8 @@ Entities:
       3color: [1, 0, 0.501960814]
   - Entity: New Cylinder
     UUID: -1758694919
+    Tag: 0
+    Layer: 0
     Components: [Transform, Model, ModelRenderer, Material]
     Transform:
       Position: [0, 4.32737207, 0]
@@ -129,6 +188,8 @@ Entities:
       ttextures: res/test/white.png
   - Entity: 2D Text
     UUID: 203493368
+    Tag: 0
+    Layer: 0
     Components: [Transform, Font, Text]
     Transform:
       Position: [350, 200, 0]
@@ -151,6 +212,8 @@ Entities:
       ShaderName: res/shaders/glyph
   - Entity: New Cylinder
     UUID: -28820628
+    Tag: 0
+    Layer: 0
     Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
     Transform:
       Position: [3.08942032, 4.38205767, 0]
@@ -174,9 +237,11 @@ Entities:
       Is trigger: false
   - Entity: New Box
     UUID: -1115886422
+    Tag: 0
+    Layer: 3
     Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
     Transform:
-      Position: [20.5010357, 0.999992788, -1.715729]
+      Position: [20, 0.999992788, -1.715729]
       Rotation: [-0.000882836233, -75.4064102, -180]
       Scale: [0.999999762, 1, 0.999999881]
     Model:
@@ -197,6 +262,8 @@ Entities:
       Is trigger: false
   - Entity: New Sphere
     UUID: -762144144
+    Tag: 0
+    Layer: 0
     Components: [Transform, Model, ModelRenderer, Material, SphereCollider, Rigidbody]
     Transform:
       Position: [0, 13.2201042, 0]
@@ -219,6 +286,6 @@ Entities:
       Is simulation: true
       Is trigger: false
 Editor Camera:
-  - Camera vPos: [-4.35331726, 14.5589647, 14.3542557]
-    Camera vUp: [0.36961627, 0.85081172, -0.37350142]
-    Camera vRot: [-31.6999397, -45.2995491, 0]
+  - Camera vPos: [-10.5901299, 18.4311085, 23.7328644]
+    Camera vUp: [0.100807466, 0.941470981, -0.321668148]
+    Camera vRot: [-19.6999397, -72.5995483, 0]

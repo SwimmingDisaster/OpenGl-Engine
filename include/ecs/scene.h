@@ -17,7 +17,7 @@ public:
 	std::shared_ptr<Entity> GetEntityWithUUID(const std::string& uuidstring) const noexcept;
 
 	void AddEntity(std::string name = "New Entity", long long uuid = -1);
-	std::shared_ptr<Entity> AddEntityR(std::string name = "New Entity", long long uuid = -1);
+	std::shared_ptr<Entity> AddEntityR(std::string name = "New Entity", long long uuid = -1, int tag = 0, int layer = 0);
 
 	void RemoveEntity(std::string name) noexcept;
 	void RemoveEntity(long long uuid) noexcept;

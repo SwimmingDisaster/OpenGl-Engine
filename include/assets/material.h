@@ -15,6 +15,7 @@ public:
     void Show() override ;
     void Serialize(YAML::Emitter& out) override;
     void Deserialize(const YAML::Node& data) override;
+	void SetProperty(const std::string& propertyName, const std::any value); 
 
     Material();
 #ifdef SHOW_DELETED

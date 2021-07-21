@@ -151,6 +151,13 @@ void Material::Deserialize(const YAML::Node& data) {
 }
 
 
+void Material::SetProperty(const std::string& propertyName, const std::any value){
+	for(auto& propertyPair : materialProperties){
+		if(propertyPair.first == propertyName){
+			propertyPair.second = value;	
+		}
+	}
+}
 
 #ifdef SHOW_DELETED
 Material::~Material() {

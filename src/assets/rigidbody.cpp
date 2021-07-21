@@ -110,7 +110,7 @@ void Rigidbody::Update()
 }
 
 void Rigidbody::OnCollision(const std::shared_ptr<Entity>& other) {
-    Log(parentEntity->GetName() << " collided with " << other->GetName());
+    //Log(parentEntity->GetName() << " collided with " << other->GetName());
 }
 
 #ifdef SHOW_DELETED

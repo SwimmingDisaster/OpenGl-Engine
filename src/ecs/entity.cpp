@@ -34,13 +34,20 @@ void Entity::OnCollision(const std::shared_ptr<Entity>& other){
 }
 
 
-void Entity::SetName(std::string& othername){
+void Entity::SetName(const std::string& othername){
 	name = othername;
 }
-void Entity::SetUUID(long long otheruuid){
+void Entity::SetUUID(const long long otheruuid){
 	uuid = otheruuid;
 	uuidString = std::to_string(uuid);
 }
+void Entity::SetTag(const int othertag){
+	tag = othertag;
+}
+void Entity::SetLayer(const int otherlayer){
+	layer = otherlayer;
+}
+
 const std::string& Entity::GetName(){
 	return name;
 }
@@ -49,6 +56,12 @@ const long long& Entity::GetUUID(){
 }
 const std::string& Entity::GetUUIDString(){
 	return uuidString;
+}
+const int& Entity::GetTag(){
+	return tag;
+}
+const int& Entity::GetLayer(){
+	return layer;
 }
 	
 std::string& Entity::GetNameReference(){

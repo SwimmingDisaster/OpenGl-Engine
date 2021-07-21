@@ -9,17 +9,23 @@ public:
 	std::vector< std::shared_ptr<Component> > m_components;
 
 private:
+	int tag = 0;
+	int layer = 0;
 	std::string name;
 	std::string uuidString;
 	long long uuid;
 
 public:
-	void SetName(std::string& othername);
-	void SetUUID(long long otheruuid);
+	void SetName(const std::string& othername);
+	void SetUUID(const long long otheruuid);
+	void SetTag(const int othertag);
+	void SetLayer(const int othertag);
 
 	const std::string& GetName();
 	const long long& GetUUID();
 	const std::string& GetUUIDString();
+	const int& GetTag();
+	const int& GetLayer();
 
 	std::string& GetNameReference();
 	

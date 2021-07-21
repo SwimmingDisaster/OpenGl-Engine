@@ -3,6 +3,11 @@
 #include "core/imGuiManager.h"
 #include "core/application.h"
 #include "core/input.h"
+#include "core/renderer.h"
+
+#include "core/tag.h"
+#include "core/layer.h"
+
 #include "ecs/entity.h"
 
 #include "assets/transform.h"
@@ -11,7 +16,6 @@
 #include "assets/modelRenderer.h"
 #include "assets/rigidbody.h"
 
-#include "core/renderer.h"
 
 
 #ifndef RELEASE_BUILD
@@ -247,6 +251,48 @@ void DrawEnity(std::shared_ptr<Entity> &entityToDraw)
 
         ImGui::InputText("Name", &entityToDraw->GetNameReference(), ImGuiInputTextFlags_CallbackResize);
         ImGui::TextUnformatted(("UIID: " + std::to_string(entityToDraw->GetUUID())).c_str());
+
+		ImGui::TextUnformatted((
+					"Tag: " + 
+					TagManager::tagList[entityToDraw->GetTag()] + 
+					" (" + std::to_string(entityToDraw->GetTag()) + ")").c_str());
+		ImGui::SameLine();
+		if(ImGui::Button("Change tag")){
+			ImGui::OpenPopup("Tag Popup");
+		}
+		ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
+		ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
+		if(ImGui::BeginPopupModal("Tag Popup")){
+			if (ImGui::Button("Close"))
+                ImGui::CloseCurrentPopup();
+			for(int i = 0; i < TagManager::tagList.size(); i++){
+				if(ImGui::MenuItem(TagManager::tagList[i].c_str())){
+					entityToDraw->SetTag(i);
+				}
+			}
+			ImGui::EndPopup();
+		}
+
+		ImGui::TextUnformatted((
+					"Layer: " + 
+					LayerManager::layerList[entityToDraw->GetLayer()] + 
+					" (" + std::to_string(entityToDraw->GetLayer()) + ")").c_str());
+		ImGui::SameLine();
+		if(ImGui::Button("Change layer")){
+			ImGui::OpenPopup("Layer Popup");
+		}
+		ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
+		ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
+		if(ImGui::BeginPopupModal("Layer Popup")){
+			if (ImGui::Button("Close"))
+                ImGui::CloseCurrentPopup();
+			for(int i = 0; i < LayerManager::layerList.size(); i++){
+				if(ImGui::MenuItem(LayerManager::layerList[i].c_str())){
+					entityToDraw->SetLayer(i);
+				}
+			}
+			ImGui::EndPopup();
+		}
         for (int i = 0; i < entityToDraw->m_components.size(); i++)
         {
 
@@ -649,6 +695,30 @@ void ShowTexturesPanel() {
     ImGui::End(); //Textures
 }
 
+void ShowTagsPanel() {
+    ImGui::Begin("Tags");
+    for(int i = 1; i < TagManager::tagList.size(); i++) {
+        ImGui::InputText(("Tag " + std::to_string(i)).c_str(), &TagManager::tagList[i], ImGuiInputTextFlags_CallbackResize);
+    }
+
+    if (ImGui::Button("Add new tag")) {
+        TagManager::tagList.push_back("");
+    }
+    static int indexToDelete;
+    ImGui::InputInt("Delete index", &indexToDelete);
+    if (ImGui::Button("Delete")) {
+        TagManager::tagList.erase(TagManager::tagList.begin() + indexToDelete);
+    }
+    ImGui::End(); //Tags
+}
+void ShowLayersPanel() {
+    ImGui::Begin("Layers");
+    for(int i = 0; i < LayerManager::layerList.size(); i++) {
+        ImGui::InputText(("Layer " + std::to_string(i)).c_str(), &LayerManager::layerList[i], ImGuiInputTextFlags_CallbackResize);
+    }
+    ImGui::End(); //Layers
+}
+
 void ImGuiManager::Update()
 {
     StartFrame();
@@ -661,6 +731,8 @@ void ImGuiManager::Update()
     ShowOutputPanel();
     ShowShadersPanel();
     ShowTexturesPanel();
+	ShowTagsPanel();
+	ShowLayersPanel();
 
     EndFrame();
 }

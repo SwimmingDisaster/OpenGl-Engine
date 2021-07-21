@@ -6,6 +6,9 @@
 #include "core/application.h"
 #include "core/batchRenderer.h"
 
+#include "core/tag.h"
+#include "core/layer.h"
+
 #include "assets/ui/text.h"
 #include "assets/transform.h"
 #include "assets/mesh.h"
@@ -79,14 +82,19 @@ void Scene::AddEntity(std::string name, long long uuid)
     m_entities.push_back(entt);
 }
 
-std::shared_ptr<Entity> Scene::AddEntityR(std::string name, long long uuid)
+std::shared_ptr<Entity> Scene::AddEntityR(std::string name, long long uuid, int tag, int layer)
 {
     std::shared_ptr<Entity> entt = std::make_shared<Entity>();
     entt->SetName(name);
-    if (uuid != -1)
+    if (uuid != -1){
         entt->SetUUID(uuid);
-    else
+	}
+    else{
         entt->SetUUID(Random::Int());
+	}
+
+	entt->SetTag(tag);
+	entt->SetLayer(layer);
     m_entities.push_back(entt);
     return entt;
 }
@@ -135,14 +143,14 @@ void Scene::Clear() noexcept
     }
     m_entities.clear();
 
-	BatchRenderer::Clear();
+    BatchRenderer::Clear();
 
-	Shader::shaderMap.clear();
-	Shader::shaderList.clear();
-	Shader::shaderNames.clear();
+    Shader::shaderMap.clear();
+    Shader::shaderList.clear();
+    Shader::shaderNames.clear();
 
-	TextureManager::textureMap.clear();
-	TextureManager::textureList.clear();
+    TextureManager::textureMap.clear();
+    TextureManager::textureList.clear();
 }
 void Scene::Update() const
 {
@@ -200,6 +208,25 @@ void Scene::Serialize(const std::string &filePath) const
     }
     out << YAML::EndSeq;
 
+    out << YAML::Key << "Tags" << YAML::Value << YAML::BeginSeq;
+    for (int i = 1; i < TagManager::tagList.size(); i++)
+    {
+		std::string& tagName = TagManager::tagList[i];
+        out << YAML::BeginMap;
+        out << YAML::Key << "Tag Name" << YAML::Value << tagName;
+        out << YAML::EndMap;
+    }
+    out << YAML::EndSeq;
+
+    out << YAML::Key << "Layers" << YAML::Value << YAML::BeginSeq;
+    for (auto layerName : LayerManager::layerList)
+    {
+        out << YAML::BeginMap;
+        Log(layerName);
+        out << YAML::Key << "Layer Name" << YAML::Value << layerName;
+        out << YAML::EndMap;
+    }
+    out << YAML::EndSeq;
 
     out << YAML::Key << "Entities" << YAML::Value << YAML::BeginSeq;
     for (auto entity : m_entities)
@@ -208,6 +235,8 @@ void Scene::Serialize(const std::string &filePath) const
 
         out << YAML::Key << "Entity" << YAML::Value << entity->GetName();
         out << YAML::Key << "UUID" << YAML::Value << entity->GetUUID();
+        out << YAML::Key << "Tag" << YAML::Value << entity->GetTag();
+        out << YAML::Key << "Layer" << YAML::Value << entity->GetLayer();
 
         out << YAML::Flow;
         out << YAML::Key << "Components" << YAML::Flow << YAML::BeginSeq;
@@ -259,14 +288,28 @@ void Scene::Deserialize(const std::string &filePath)
         std::string shaderName = shader["Shader Path"].as<std::string>();
         Shader::shaderList.push_back(std::make_shared<Shader>());
         Shader::shaderNames.push_back(shaderName);
-		Shader::shaderList[Shader::shaderList.size() - 1]->CreateVertexAndFragment(shaderName);
- 	}
+        Shader::shaderList[Shader::shaderList.size() - 1]->CreateVertexAndFragment(shaderName);
+    }
 
     const YAML::Node &textures = data["Textures"];
     for (auto texture : textures) {
         std::string textureName = texture["Texture Path"].as<std::string>();
-		TextureManager::textureList.push_back(textureName);
-		TextureManager::textureMap[textureName] = (int)loadTexture(textureName.c_str());
+        TextureManager::textureList.push_back(textureName);
+        TextureManager::textureMap[textureName] = (int)loadTexture(textureName.c_str());
+    }
+
+    const YAML::Node &tags = data["Tags"];
+    for (auto tag : tags) {
+        std::string tagName = tag["Tag Name"].as<std::string>();
+        TagManager::tagList.push_back(tagName);
+    }
+
+    const YAML::Node &layers = data["Layers"];
+    int j = 0;
+    for (auto layer : layers) {
+        std::string layerName = layer["Layer Name"].as<std::string>();
+        LayerManager::layerList[j] = layerName;
+        j++;
     }
 
 
@@ -277,10 +320,12 @@ void Scene::Deserialize(const std::string &filePath)
         {
             std::string name = entity["Entity"].as<std::string>();
             long long uuid = entity["UUID"].as<long long>();
+            int tag = entity["Tag"].as<int>();
+            int layer = entity["Layer"].as<int>();
 
             std::vector<std::string> componentNames = entity["Components"].as<std::vector<std::string>>();
 
-            std::shared_ptr<Entity> newEntity = AddEntityR(name, uuid);
+            std::shared_ptr<Entity> newEntity = AddEntityR(name, uuid, tag, layer);
             for (int i = 0; i < componentNames.size(); i++)
             {
                 const YAML::Node &componentData = entity[componentNames[i]];

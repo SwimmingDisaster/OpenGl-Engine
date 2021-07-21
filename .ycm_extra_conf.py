@@ -46,6 +46,7 @@ flags = [
 '-Werror',
 '-Wno-long-long',
 '-Wno-variadic-macros',
+'-Wno-sign-compare',
 '-fexceptions',
 '-DNDEBUG',
 '-DYCM_EXPORT=',

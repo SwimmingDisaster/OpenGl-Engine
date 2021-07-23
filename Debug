@@ -5,7 +5,7 @@ SRC_DIR := src
 OBJ_DIR := obj
 BIN_DIR := bin
 
-GLAD = obj/GLAD/glad.o
+GLAD = obj/vendor/GLAD/glad.o
 
 EXE := bin/linux/Debug/main
 SRC := $(call rwildcard,$(SRC_DIR),*.cpp)
@@ -13,7 +13,7 @@ SRC += $(GLAD)
 
 OBJ := $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
-CPPFLAGS := -include include/mypch.h -I include -MMD -MP `pkg-config --cflags gtk+-3.0` -fsanitize=address 
+CPPFLAGS := -include include/mypch.h -I include -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0` -fsanitize=address 
 CFLAGS   := -Wall -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer
 LDFLAGS  := -g -Llibg -fsanitize=address 
 LDLIBS   := -rpath ./lib/linux -rpath . -Llib/linux -lassimp -lglfw3 -lnfd -lpthread -ldl -lX11 `pkg-config --libs gtk+-3.0` -Llib/linux/physx -lPhysXExtensions_static_64 -lPhysX_static_64 -lPhysXPvdSDK_static_64 -lPhysXVehicle_static_64 -lPhysXCharacterKinematic_static_64 -lPhysXCooking_static_64 -lPhysXCommon_static_64 -lPhysXFoundation_static_64 -lSnippetRender_static_64 -lSnippetUtils_static_64 

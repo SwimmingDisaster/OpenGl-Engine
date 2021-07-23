@@ -11,6 +11,9 @@ PhysxSimulatorCallback PhysicsManager::simulationCallback;
 float PhysicsManager::mAccumulator = 0.0f;
 float PhysicsManager::mStepSize = 1.0f / 60.0f;
 
+std::array<int, 32> PhysicsManager::collisionLayerMask;
+std::array<int, 32> PhysicsManager::notifyLayerMask;
+
 void PhysicsManager::InitPhysx()
 {
 	static PxDefaultErrorCallback gDefaultErrorCallback;
@@ -78,6 +81,22 @@ void PhysicsManager::Update()
 #ifndef RELEASE_BUILD
 	}
 #endif
+}
+void PhysicsManager::SetupFiltering(PxRigidActor* actor, PxU32 filterGroup, PxU32 collisionMask, PxU32 notifyMask)
+{
+    PxFilterData filterData;
+    filterData.word0 = filterGroup; 
+    filterData.word1 = collisionMask;  
+    filterData.word2 = notifyMask;  
+    const PxU32 numShapes = actor->getNbShapes();
+    PxShape** shapes = (PxShape**)malloc(sizeof(PxShape*)*numShapes);
+    actor->getShapes(shapes, numShapes);
+    for(PxU32 i = 0; i < numShapes; i++)
+    {
+        PxShape* shape = shapes[i];
+        shape->setSimulationFilterData(filterData);
+    }
+    free(shapes);
 }
 
 void PhysicsManager::AdvanceSimulation(float deltaTime)

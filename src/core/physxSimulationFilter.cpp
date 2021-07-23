@@ -64,19 +64,18 @@ PxFilterFlags SampleSubmarineFilterShader(
     PxFilterObjectAttributes attributes1, PxFilterData filterData1,
     PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
 {
-    // let triggers through
     if(PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
     {
         pairFlags = PxPairFlag::eTRIGGER_DEFAULT;
         pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND;
         return PxFilterFlag::eDEFAULT;
     }
-    // generate contacts for all that were not filtered above
-    pairFlags = PxPairFlag::eCONTACT_DEFAULT;
-    // trigger the contact callback for pairs (A,B) where
-    // the filtermask of A contains the ID of B and vice versa.
-    //if((filterData0.word0 & filterData1.word1) && (filterData1.word0 & filterData0.word1))
-    pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND;
+
+	if((filterData0.word0 & filterData1.word1) && (filterData1.word0 & filterData0.word1))
+		pairFlags |= PxPairFlag::eCONTACT_DEFAULT;
+
+	if((filterData0.word0 & filterData1.word2) && (filterData1.word0 & filterData0.word2))
+		pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND;
 
     return PxFilterFlag::eDEFAULT;
 }

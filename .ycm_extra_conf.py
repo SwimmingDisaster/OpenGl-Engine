@@ -60,6 +60,8 @@ flags = [
 'include',
 '-I',
 'include/',
+'-I'
+'include/vendor',
 '-std=c++20'
 ]
 

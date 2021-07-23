@@ -11,16 +11,75 @@ Textures:
   - Texture Path: res/test/yellow.png
   - Texture Path: res/test/colors.png
 Tags:
-  - Tag Name: "test"
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
+  - Tag Name: test
 Layers:
-  - Layer Name: ""
-  - Layer Name: ""
-  - Layer Name: ""
-  - Layer Name: aaaaaaaaaaaaa
-  - Layer Name: ""
-  - Layer Name: ""
-  - Layer Name: ""
-  - Layer Name: ""
+  - Layer Name: default
+  - Layer Name: player
+  - Layer Name: ground
+  - Layer Name: ball
   - Layer Name: ""
   - Layer Name: ""
   - Layer Name: ""
@@ -45,11 +104,81 @@ Layers:
   - Layer Name: ""
   - Layer Name: ""
   - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+Collision layer mask:
+  - Layer Name: 15
+  - Layer Name: 15
+  - Layer Name: 7
+  - Layer Name: 11
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+Notify layer mask:
+  - Layer Name: 15
+  - Layer Name: 15
+  - Layer Name: 7
+  - Layer Name: 11
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
 Entities:
   - Entity: Camera
     UUID: 1595950024
     Tag: 0
-    Layer: 0
+    Layer: 1
     Components: [Transform, Camera, SphereCollider, Rigidbody, PhysicsFPScontroler]
     Transform:
       Position: [19.7938671, 2.00999999, -15.6506939]
@@ -74,7 +203,7 @@ Entities:
   - Entity: New Plane
     UUID: -1641502703
     Tag: 0
-    Layer: 0
+    Layer: 2
     Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
     Transform:
       Position: [0, -1, 0]
@@ -98,7 +227,7 @@ Entities:
   - Entity: New Cube
     UUID: -1103208782
     Tag: 0
-    Layer: 0
+    Layer: 3
     Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody, DeleteAfterTouched]
     Transform:
       Position: [-5, 100, 0]
@@ -238,11 +367,11 @@ Entities:
   - Entity: New Box
     UUID: -1115886422
     Tag: 0
-    Layer: 3
+    Layer: 2
     Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
     Transform:
-      Position: [20, 0.999992788, -1.715729]
-      Rotation: [-0.000882836233, -75.4064102, -180]
+      Position: [20.0002327, 16.6888924, -1.71566808]
+      Rotation: [-0.000882837106, -75.4064102, -180]
       Scale: [0.999999762, 1, 0.999999881]
     Model:
       Is flipped: false
@@ -263,7 +392,7 @@ Entities:
   - Entity: New Sphere
     UUID: -762144144
     Tag: 0
-    Layer: 0
+    Layer: 3
     Components: [Transform, Model, ModelRenderer, Material, SphereCollider, Rigidbody]
     Transform:
       Position: [0, 13.2201042, 0]
@@ -286,6 +415,6 @@ Entities:
       Is simulation: true
       Is trigger: false
 Editor Camera:
-  - Camera vPos: [-10.5901299, 18.4311085, 23.7328644]
-    Camera vUp: [0.100807466, 0.941470981, -0.321668148]
-    Camera vRot: [-19.6999397, -72.5995483, 0]
+  - Camera vPos: [-22.2296143, 22.5454121, 32.8932877]
+    Camera vUp: [0.386749238, 0.82511425, -0.411839455]
+    Camera vRot: [-34.3999329, -46.7995415, 0]

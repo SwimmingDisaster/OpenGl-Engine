@@ -5,6 +5,7 @@
 
 #include "core/application.h"
 #include "core/batchRenderer.h"
+#include "core/physics.h"
 
 #include "core/tag.h"
 #include "core/layer.h"
@@ -135,6 +136,9 @@ void Scene::RemoveEntity(std::string name, long long uuid) noexcept
 
 void Scene::Clear() noexcept
 {
+	for(auto& entity : m_entities){
+		entity->End();
+	}
     for (int i = 0; i < m_entities.size(); i++)
     {
         m_entities[i]->m_components.clear();
@@ -222,7 +226,24 @@ void Scene::Serialize(const std::string &filePath) const
     for (auto layerName : LayerManager::layerList)
     {
         out << YAML::BeginMap;
-        Log(layerName);
+        out << YAML::Key << "Layer Name" << YAML::Value << layerName;
+        out << YAML::EndMap;
+    }
+    out << YAML::EndSeq;
+
+    out << YAML::Key << "Collision layer mask" << YAML::Value << YAML::BeginSeq;
+    for (auto layerName : PhysicsManager::collisionLayerMask)
+    {
+        out << YAML::BeginMap;
+        out << YAML::Key << "Layer Name" << YAML::Value << layerName;
+        out << YAML::EndMap;
+    }
+    out << YAML::EndSeq;
+
+    out << YAML::Key << "Notify layer mask" << YAML::Value << YAML::BeginSeq;
+    for (auto layerName : PhysicsManager::collisionLayerMask)
+    {
+        out << YAML::BeginMap;
         out << YAML::Key << "Layer Name" << YAML::Value << layerName;
         out << YAML::EndMap;
     }
@@ -310,6 +331,22 @@ void Scene::Deserialize(const std::string &filePath)
         std::string layerName = layer["Layer Name"].as<std::string>();
         LayerManager::layerList[j] = layerName;
         j++;
+    }
+
+    const YAML::Node &collisionLayerMaskValues = data["Collision layer mask"];
+    int k = 0;
+    for (auto collisionLayerMaskValue : collisionLayerMaskValues) {
+        int layerName = collisionLayerMaskValue["Layer Name"].as<int>();
+        PhysicsManager::collisionLayerMask[k] = layerName;
+        k++;
+    }
+
+    const YAML::Node &notifyLayerMaskValues = data["Notify layer mask"];
+    int l = 0;
+    for (auto notifyLayerMaskValue : notifyLayerMaskValues) {
+        int layerName = notifyLayerMaskValue["Layer Name"].as<int>();
+		PhysicsManager::notifyLayerMask[l] = layerName;
+        l++;
     }
 
 

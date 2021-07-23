@@ -4,6 +4,7 @@
 #include "core/application.h"
 #include "core/input.h"
 #include "core/renderer.h"
+#include "core/physics.h"
 
 #include "core/tag.h"
 #include "core/layer.h"
@@ -252,47 +253,47 @@ void DrawEnity(std::shared_ptr<Entity> &entityToDraw)
         ImGui::InputText("Name", &entityToDraw->GetNameReference(), ImGuiInputTextFlags_CallbackResize);
         ImGui::TextUnformatted(("UIID: " + std::to_string(entityToDraw->GetUUID())).c_str());
 
-		ImGui::TextUnformatted((
-					"Tag: " + 
-					TagManager::tagList[entityToDraw->GetTag()] + 
-					" (" + std::to_string(entityToDraw->GetTag()) + ")").c_str());
-		ImGui::SameLine();
-		if(ImGui::Button("Change tag")){
-			ImGui::OpenPopup("Tag Popup");
-		}
-		ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
-		ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
-		if(ImGui::BeginPopupModal("Tag Popup")){
-			if (ImGui::Button("Close"))
+        ImGui::TextUnformatted((
+                                   "Tag: " +
+                                   TagManager::tagList[entityToDraw->GetTag()] +
+                                   " (" + std::to_string(entityToDraw->GetTag()) + ")").c_str());
+        ImGui::SameLine();
+        if(ImGui::Button("Change tag")) {
+            ImGui::OpenPopup("Tag Popup");
+        }
+        ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
+        ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
+        if(ImGui::BeginPopupModal("Tag Popup")) {
+            if (ImGui::Button("Close"))
                 ImGui::CloseCurrentPopup();
-			for(int i = 0; i < TagManager::tagList.size(); i++){
-				if(ImGui::MenuItem(TagManager::tagList[i].c_str())){
-					entityToDraw->SetTag(i);
-				}
-			}
-			ImGui::EndPopup();
-		}
+            for(int i = 0; i < TagManager::tagList.size(); i++) {
+                if(ImGui::MenuItem(TagManager::tagList[i].c_str())) {
+                    entityToDraw->SetTag(i);
+                }
+            }
+            ImGui::EndPopup();
+        }
 
-		ImGui::TextUnformatted((
-					"Layer: " + 
-					LayerManager::layerList[entityToDraw->GetLayer()] + 
-					" (" + std::to_string(entityToDraw->GetLayer()) + ")").c_str());
-		ImGui::SameLine();
-		if(ImGui::Button("Change layer")){
-			ImGui::OpenPopup("Layer Popup");
-		}
-		ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
-		ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
-		if(ImGui::BeginPopupModal("Layer Popup")){
-			if (ImGui::Button("Close"))
+        ImGui::TextUnformatted((
+                                   "Layer: " +
+                                   LayerManager::layerList[entityToDraw->GetLayer()] +
+                                   " (" + std::to_string(entityToDraw->GetLayer()) + ")").c_str());
+        ImGui::SameLine();
+        if(ImGui::Button("Change layer")) {
+            ImGui::OpenPopup("Layer Popup");
+        }
+        ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
+        ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
+        if(ImGui::BeginPopupModal("Layer Popup")) {
+            if (ImGui::Button("Close"))
                 ImGui::CloseCurrentPopup();
-			for(int i = 0; i < LayerManager::layerList.size(); i++){
-				if(ImGui::MenuItem(LayerManager::layerList[i].c_str())){
-					entityToDraw->SetLayer(i);
-				}
-			}
-			ImGui::EndPopup();
-		}
+            for(int i = 0; i < LayerManager::layerList.size(); i++) {
+                if(ImGui::MenuItem(LayerManager::layerList[i].c_str())) {
+                    entityToDraw->SetLayer(i);
+                }
+            }
+            ImGui::EndPopup();
+        }
         for (int i = 0; i < entityToDraw->m_components.size(); i++)
         {
 
@@ -648,77 +649,157 @@ void ShowImGuizmo()
 }
 
 void ShowShadersPanel() {
-    ImGui::Begin("Shaders");
-    for(int i = 0; i < Shader::shaderNames.size(); i++) {
-        ImGui::InputText(("Shader Name " + std::to_string(i)).c_str(), &Shader::shaderNames[i], ImGuiInputTextFlags_CallbackResize);
-        ImGui::SameLine();
-        if (ImGui::Button(("Browse##" + std::to_string(i)).c_str())) {
-			std::string& shaderName = Shader::shaderNames[i];
-            shaderName = OpenFile(NULL, 0);
-            shaderName = shaderName.substr(0, shaderName.size() - 3);
+    bool open = ImGui::TreeNodeEx((void *)"Shaders", treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s", "Shaders");
+    if(open) {
+        for(int i = 0; i < Shader::shaderNames.size(); i++) {
+            ImGui::InputText(("Shader Name " + std::to_string(i)).c_str(), &Shader::shaderNames[i], ImGuiInputTextFlags_CallbackResize);
+            ImGui::SameLine();
+            if (ImGui::Button(("Browse##" + std::to_string(i)).c_str())) {
+                std::string& shaderName = Shader::shaderNames[i];
+                shaderName = OpenFile(NULL, 0);
+                shaderName = shaderName.substr(0, shaderName.size() - 3);
+            }
         }
+
+
+        if (ImGui::Button("Add new shader")) {
+            Shader::shaderNames.push_back("");
+        }
+
+
+        static int indexToDelete;
+        ImGui::InputInt("Delete index", &indexToDelete);
+        if (ImGui::Button("Delete")) {
+            Shader::shaderNames.erase(Shader::shaderNames.begin() + indexToDelete);
+        }
+        ImGui::TreePop();
     }
-
-
-    if (ImGui::Button("Add new shader")) {
-        Shader::shaderNames.push_back("");
-    }
-
-
-    static int indexToDelete;
-    ImGui::InputInt("Delete index", &indexToDelete);
-    if (ImGui::Button("Delete")) {
-        Shader::shaderNames.erase(Shader::shaderNames.begin() + indexToDelete);
-    }
-    ImGui::End(); //Shaders
 }
 
 void ShowTexturesPanel() {
-    ImGui::Begin("Textures");
-    for(int i = 0; i < TextureManager::textureList.size(); i++) {
-        ImGui::InputText(("Texture Name " + std::to_string(i)).c_str(), &TextureManager::textureList[i], ImGuiInputTextFlags_CallbackResize);
-        ImGui::SameLine();
-        if (ImGui::Button(("Browse##" + std::to_string(i)).c_str())) {
-            TextureManager::textureList[i] = OpenFile(NULL, 0);
+    bool open = ImGui::TreeNodeEx((void *)"Textures", treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s", "Textures");
+    if(open) {
+        for(int i = 0; i < TextureManager::textureList.size(); i++) {
+            ImGui::InputText(("Texture Name " + std::to_string(i)).c_str(), &TextureManager::textureList[i], ImGuiInputTextFlags_CallbackResize);
+            ImGui::SameLine();
+            if (ImGui::Button(("Browse##" + std::to_string(i)).c_str())) {
+                TextureManager::textureList[i] = OpenFile(NULL, 0);
+            }
         }
-    }
 
-    if (ImGui::Button("Add new texture")) {
-        TextureManager::textureList.push_back("");
-    }
+        if (ImGui::Button("Add new texture")) {
+            TextureManager::textureList.push_back("");
+        }
 
-    static int indexToDelete;
-    ImGui::InputInt("Delete index", &indexToDelete);
-    if (ImGui::Button("Delete")) {
-        TextureManager::textureList.erase(TextureManager::textureList.begin() + indexToDelete);
+        static int indexToDelete;
+        ImGui::InputInt("Delete index", &indexToDelete);
+        if (ImGui::Button("Delete")) {
+            TextureManager::textureList.erase(TextureManager::textureList.begin() + indexToDelete);
+        }
+        ImGui::TreePop();
     }
-    ImGui::End(); //Textures
 }
 
 void ShowTagsPanel() {
-    ImGui::Begin("Tags");
-    for(int i = 1; i < TagManager::tagList.size(); i++) {
-        ImGui::InputText(("Tag " + std::to_string(i)).c_str(), &TagManager::tagList[i], ImGuiInputTextFlags_CallbackResize);
-    }
+    bool open = ImGui::TreeNodeEx((void *)"Tags", treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s", "Tags");
+    if(open) {
+        for(int i = 1; i < TagManager::tagList.size(); i++) {
+            ImGui::InputText(("Tag " + std::to_string(i)).c_str(), &TagManager::tagList[i], ImGuiInputTextFlags_CallbackResize);
+        }
 
-    if (ImGui::Button("Add new tag")) {
-        TagManager::tagList.push_back("");
+        if (ImGui::Button("Add new tag")) {
+            TagManager::tagList.push_back("");
+        }
+        static int indexToDelete;
+        ImGui::InputInt("Delete index", &indexToDelete);
+        if (ImGui::Button("Delete")) {
+            TagManager::tagList.erase(TagManager::tagList.begin() + indexToDelete);
+        }
+        ImGui::TreePop();
     }
-    static int indexToDelete;
-    ImGui::InputInt("Delete index", &indexToDelete);
-    if (ImGui::Button("Delete")) {
-        TagManager::tagList.erase(TagManager::tagList.begin() + indexToDelete);
-    }
-    ImGui::End(); //Tags
 }
 void ShowLayersPanel() {
-    ImGui::Begin("Layers");
-    for(int i = 0; i < LayerManager::layerList.size(); i++) {
-        ImGui::InputText(("Layer " + std::to_string(i)).c_str(), &LayerManager::layerList[i], ImGuiInputTextFlags_CallbackResize);
+    bool open = ImGui::TreeNodeEx((void *)"Layers", treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s", "Layers");
+    if(open) {
+        for(int i = 0; i < LayerManager::layerList.size(); i++) {
+            ImGui::InputText(("Layer " + std::to_string(i)).c_str(), &LayerManager::layerList[i], ImGuiInputTextFlags_CallbackResize);
+        }
+        ImGui::TreePop();
     }
-    ImGui::End(); //Layers
 }
+void ShowPhysicsPanel() {
+    bool open = ImGui::TreeNodeEx((void *)"Physics - collision mask", treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s", "Physics - collision mask");
+    if(open) {
+        ImGui::TextUnformatted("Change the collision mask for");
+		static int clickedi = 0;
+        for(int i = 0; i < LayerManager::layerList.size(); i++) {
+            if(ImGui::Button(LayerManager::layerList[i].c_str())) {
+				clickedi = i;
+                ImGui::OpenPopup("Change collision layer mask");
+            }
+        }
+        ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
+        ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
+        if(ImGui::BeginPopupModal("Change collision layer mask")) {
+            if (ImGui::Button("Close"))
+                ImGui::CloseCurrentPopup();
+            for(int j = 0; j < LayerManager::layerList.size(); j++) {
+                bool checkboxbool = ((PhysicsManager::collisionLayerMask[clickedi]) & (1<<(j)));
+                bool tempbool = checkboxbool;
+                ImGui::Checkbox(LayerManager::layerList[j].c_str(), &checkboxbool);
+                if(checkboxbool != tempbool) {
+                    PhysicsManager::collisionLayerMask[clickedi] ^= 1UL << j;
+					if(j != clickedi){
+						PhysicsManager::collisionLayerMask[j] ^= 1UL << clickedi;
+					}
+                }
+            }
+            ImGui::EndPopup();
+        }
+        ImGui::TreePop();
+    }
+    open = ImGui::TreeNodeEx((void *)"Physics - notify mask", treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s", "Physics - notify mask");
+    if(open) {
+        ImGui::TextUnformatted("Change the notify mask for");
+		static int clickedi = 0;
+        for(int i = 0; i < LayerManager::layerList.size(); i++) {
+            if(ImGui::Button(LayerManager::layerList[i].c_str())) {
+				clickedi = i;
+                ImGui::OpenPopup("Change notify layer mask");
+            }
+        }
+        ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
+        ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
+        if(ImGui::BeginPopupModal("Change notify layer mask")) {
+            if (ImGui::Button("Close"))
+                ImGui::CloseCurrentPopup();
+            for(int j = 0; j < LayerManager::layerList.size(); j++) {
+                bool checkboxbool = ((PhysicsManager::notifyLayerMask[clickedi]) & (1<<(j)));
+                bool tempbool = checkboxbool;
+                ImGui::Checkbox(LayerManager::layerList[j].c_str(), &checkboxbool);
+                if(checkboxbool != tempbool) {
+                    PhysicsManager::notifyLayerMask[clickedi] ^= 1UL << j;
+					if(j != clickedi){
+						PhysicsManager::notifyLayerMask[j] ^= 1UL << clickedi;
+					}
+                }
+            }
+            ImGui::EndPopup();
+        }
+        ImGui::TreePop();
+    }
+}
+void ShowEnvironmentPanel() {
+    ImGui::Begin("Environment");
 
+    ShowShadersPanel();
+    ShowTexturesPanel();
+    ShowTagsPanel();
+    ShowLayersPanel();
+	ShowPhysicsPanel();
+
+    ImGui::End();
+}
 void ImGuiManager::Update()
 {
     StartFrame();
@@ -729,10 +810,7 @@ void ImGuiManager::Update()
     ShowHierarchyPanel();
     ShowPropertiesPanel();
     ShowOutputPanel();
-    ShowShadersPanel();
-    ShowTexturesPanel();
-	ShowTagsPanel();
-	ShowLayersPanel();
+    ShowEnvironmentPanel();
 
     EndFrame();
 }

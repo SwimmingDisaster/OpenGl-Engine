@@ -80,6 +80,15 @@ void Rigidbody::Start()
         treasureShape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, isSimulation);
         treasureShape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, isTrigger);
     }
+
+	if(!isStatic){
+		const int& layer = parentEntity->GetLayer();
+		PhysicsManager::SetupFiltering(aDynamicActor, 1UL << layer, PhysicsManager::collisionLayerMask[layer], PhysicsManager::notifyLayerMask[layer]); 
+	}
+	else{
+		const int& layer = parentEntity->GetLayer();
+		PhysicsManager::SetupFiltering(aStaticActor, 1UL << layer, PhysicsManager::collisionLayerMask[layer], PhysicsManager::notifyLayerMask[layer]); 
+	}
 }
 void Rigidbody::Update()
 {

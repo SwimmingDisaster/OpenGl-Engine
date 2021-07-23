@@ -151,9 +151,17 @@ struct as_if<std::string, void> {
 // access functions
 template <typename T>
 inline T Node::as() const {
+  /*
   if (!m_isValid)
     throw InvalidNode(m_invalidKey);
-  return as_if<T, void>(*this)();
+    */
+  if (m_isValid){
+    //throw InvalidNode(m_invalidKey);
+    return as_if<T, void>(*this)();
+  }
+  else{
+    return T();
+  }
 }
 
 template <typename T, typename S>

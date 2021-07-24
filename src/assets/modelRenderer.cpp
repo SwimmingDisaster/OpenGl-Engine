@@ -48,10 +48,8 @@ void ModelRenderer::DrawModel(const std::shared_ptr<Shader>& shader, const std::
     //shader->setMat4("matModel", model->transform->GetTransform());
     //shader->setVec3("color", m_materialComponent->color);
 
-    for (unsigned int i = 0; i < model->meshes.size(); i++) {
-        BatchRenderer::AddObject(model->meshes[i], m_materialComponent, model->transform, shaderName);
-        //DrawMesh(shader, model->meshes[i]);
-    }
+    BatchRenderer::AddObject(model, m_materialComponent, model->transform, shaderName);
+    //DrawMesh(shader, model->meshes[i]);
 }
 void ModelRenderer::DrawMesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh)
 {

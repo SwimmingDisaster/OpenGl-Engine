@@ -27,8 +27,8 @@ public:
 	virtual ~BoxCollider(){};
 #endif
 };
-//--------------BoxCollider--------------
 
+//--------------BoxCollider--------------
 class SphereCollider : public ColliderBase
 {
 	REGISTER(SphereCollider);
@@ -52,3 +52,4 @@ public:
 	virtual ~SphereCollider(){};
 #endif
 };
+

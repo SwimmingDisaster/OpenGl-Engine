@@ -153,6 +153,9 @@ void Scene::Clear() noexcept
     Shader::shaderList.clear();
     Shader::shaderNames.clear();
 
+	TagManager::tagList.clear();
+	TagManager::tagList.emplace_back();
+
     TextureManager::textureMap.clear();
     TextureManager::textureList.clear();
 }

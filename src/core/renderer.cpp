@@ -18,7 +18,7 @@ void Renderer::GlfwErrorCallback(int error_code, const char* error_message) {
 	Error("Error Number: " << error_code << " Error Message: " << error_message);
 }
 
-int Renderer::InitOpenGL(const std::string& windowName) {
+int Renderer::InitOpenGL() {
 	glfwInit();
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -29,7 +29,7 @@ int Renderer::InitOpenGL(const std::string& windowName) {
 	glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
 	glfwSetErrorCallback(GlfwErrorCallback);
 
-	Application::window = glfwCreateWindow(EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT, windowName.c_str(),  NULL, NULL);
+	Application::window = glfwCreateWindow(EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT, EngineInfo::name.c_str(),  NULL, NULL);
 	if (Application::window == nullptr) {
 		Error("Failed to create a GLFW window");
 		glfwTerminate();
@@ -60,7 +60,7 @@ int Renderer::InitOpenGL(const std::string& windowName) {
 	glCullFace(GL_BACK);
 	glFrontFace(GL_CCW);
 
-	glfwSwapInterval(1);
+	glfwSwapInterval(EngineInfo::swapInterval);
 
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

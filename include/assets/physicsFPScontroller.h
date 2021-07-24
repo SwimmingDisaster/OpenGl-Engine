@@ -15,6 +15,7 @@ public:
 	float mouseSensitivity = 0.35f;
 	float movementSpeed = 15.0f;
 	bool isLocked = false;
+    bool canjump = false;
 	glm::vec3 acceleration = {0.0f, 0.0f, 0.0f};
 
 public:
@@ -23,6 +24,7 @@ public:
     void Serialize(YAML::Emitter& out) override;
     void Deserialize(const YAML::Node& data) override;
     void Show() override;
+	void OnCollision(const std::shared_ptr<Entity>& other) override;
 
 	void ProcessKeyboard(float deltaTime);
 	void ProcessMouseMovement(bool constrainPitch);

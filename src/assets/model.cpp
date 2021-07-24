@@ -3,7 +3,8 @@
 
 void Model::Start() {
 	transform = parentEntity->GetComponent<Transform>();
-	loadModel(path);
+	//loadModel(path);
+	ModelImporter::LoadModelWithTextures(path, vertices, indices, textures);
 }
 
 
@@ -35,18 +36,18 @@ void Model::Show() {
 	ImGui::SameLine();
 
 	if (ImGui::Button("Reload")) {
-		textures_loaded.clear();
-		meshes.clear();
+		textures.clear();
+		vertices.clear();
+		indices.clear();
 
 		Start();
 	}
 }
 
+/*
 void Model::loadModel(std::string const& path)
 {
-
 	stbi_set_flip_vertically_on_load(isFlipped);
-
 
 	Assimp::Importer importer;
 	const aiScene* scene = importer.ReadFile(path, aiProcess_Triangulate | aiProcess_GenSmoothNormals | aiProcess_FlipUVs | aiProcess_CalcTangentSpace | aiProcess_ImproveCacheLocality | aiProcess_OptimizeMeshes);
@@ -193,3 +194,4 @@ std::vector<Texture> Model::loadMaterialTextures(aiMaterial * mat, aiTextureType
 	}
 	return textures;
 }
+*/

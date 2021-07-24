@@ -5,6 +5,9 @@ int EngineInfo::SCREEN_WIDTH = 1920;
 int EngineInfo::SCREEN_HEIGHT = 1080;
 float EngineInfo::deltaTime = 0.0001f;
 float EngineInfo::lastFrame = 0.0f;
+	
+std::string EngineInfo::name = "ENGINE";
+int EngineInfo::swapInterval = 1; 
 
 void EngineInfo::CalculateDeltaTime()
 {

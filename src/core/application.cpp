@@ -38,7 +38,7 @@ int Application::imguizmoType = -1;
 
 int Application::Init(){
     Random::Init();
-    ReturnIfNotZero(Renderer::InitOpenGL("ENGINE"));
+    ReturnIfNotZero(Renderer::InitOpenGL());
 #ifndef RELEASE_BUILD
     ImGuiManager::InitImGui();
 #endif

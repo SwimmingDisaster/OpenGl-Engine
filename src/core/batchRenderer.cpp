@@ -89,7 +89,7 @@ void Batch::AddPropertyVector(std::shared_ptr<Material>& material, int& i) {
     }
 }
 
-void Batch::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform)  {
+void Batch::AddObject(const std::shared_ptr<Model>& model, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform)  {
     for(int i = 0; i < material->materialProperties.size(); i++) {
         if(materialMap.count(material->materialProperties[i].first) ==  0) { //if the vector doesnt exits
             AddPropertyVector(material, i);
@@ -98,8 +98,8 @@ void Batch::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shar
     }
 
 
-    int numNewVertices = mesh.vertices.size();
-    int numNewIndices = mesh.indices.size();
+    int numNewVertices = model->vertices.size();
+    int numNewIndices = model->indices.size();
 
     int numVertices = vertices.size();
     int numIndices = indices.size();
@@ -107,8 +107,8 @@ void Batch::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shar
     vertices.reserve(numVertices + numNewVertices);
     indices.reserve(numIndices + numNewIndices);
 
-    vertices.insert(vertices.end(), mesh.vertices.begin(), mesh.vertices.end());
-    indices.insert(indices.end(), mesh.indices.begin(), mesh.indices.end());
+    vertices.insert(vertices.end(), model->vertices.begin(), model->vertices.end());
+    indices.insert(indices.end(), model->indices.begin(), model->indices.end());
 
     matrixList.push_back(transform->GetTransform());
 
@@ -176,7 +176,7 @@ Batch::~Batch(){
     glDeleteVertexArrays(1, &VAO);
 }
 
-void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
+void BatchRenderer::AddObject(const std::shared_ptr<Model>& model, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
 	std::vector<Batch>& batchList= batchMap[shaderName];
 	if(batchList.size() == 0){
 		batchList.emplace_back();
@@ -186,7 +186,7 @@ void BatchRenderer::AddObject(Mesh& mesh, std::shared_ptr<Material>& material, s
 		batchList.emplace_back();
 		batchList[batchList.size() - 1].Setup();
 	}
-	batchList[batchList.size() - 1].AddObject(mesh, material, transform);
+	batchList[batchList.size() - 1].AddObject(model, material, transform);
 }
 
 void BatchRenderer::Clear(){

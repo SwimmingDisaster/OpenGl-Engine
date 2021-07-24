@@ -12,8 +12,10 @@ class Model : public Component
 {
 	REGISTER(Model);
 public:
-	std::vector<Texture> textures_loaded;
-	std::vector<Mesh> meshes;
+	std::vector<Vertex>       vertices;
+	std::vector<unsigned int> indices;
+	std::vector<Texture>      textures;
+	unsigned int VAO, VBO, EBO;
 
 	std::shared_ptr<Transform> transform;
 
@@ -27,10 +29,12 @@ public:
 	void Deserialize(const YAML::Node& data) override;
 	void Show() override;
 
+	/*
 	void loadModel(std::string const& path);
 	void  processNode(aiNode * node, const aiScene * scene);
 	Mesh processMesh(aiMesh * mesh, const aiScene * scene);
 	std::vector<Texture> loadMaterialTextures(aiMaterial * mat, aiTextureType type, std::string typeName);
+	*/
 
 	Model();
 #ifdef SHOW_DELETED

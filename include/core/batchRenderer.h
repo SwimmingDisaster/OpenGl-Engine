@@ -1,5 +1,5 @@
 #pragma once
-#include "assets/mesh.h"
+#include "assets/model.h"
 #include "assets/material.h"
 
 #define BATCH_SIZE 150
@@ -8,7 +8,7 @@ class Batch{
 public:
 	~Batch();
 public:
-	void AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform);
+	void AddObject(const std::shared_ptr<Model>& model, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform);
 	void Setup();
 	void Clear();
 	void Draw(const std::shared_ptr<Shader>& shader);
@@ -35,7 +35,7 @@ private:
 class BatchRenderer{
 public:
 	static std::unordered_map<std::string, std::vector<Batch>> batchMap;
-	static void AddObject(Mesh& mesh, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName);
+	static void AddObject(const std::shared_ptr<Model>& model, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName);
 	static void Clear();
 	static void Draw();
 };

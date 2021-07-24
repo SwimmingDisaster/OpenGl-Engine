@@ -12,69 +12,6 @@ Textures:
   - Texture Path: res/test/colors.png
 Tags:
   - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
-  - Tag Name: test
 Layers:
   - Layer Name: default
   - Layer Name: player
@@ -181,8 +118,8 @@ Entities:
     Layer: 1
     Components: [Transform, Camera, SphereCollider, Rigidbody, PhysicsFPScontroler]
     Transform:
-      Position: [19.7938671, 2.00999999, -15.6506939]
-      Rotation: [-19.339962, 61.7800751, 0]
+      Position: [-16.2427464, 1, -21.5332584]
+      Rotation: [21.2499981, 4.07979965, 0]
       Scale: [1, 1, 1]
     Camera:
       Fov: 90
@@ -230,8 +167,8 @@ Entities:
     Layer: 3
     Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody, DeleteAfterTouched]
     Transform:
-      Position: [-5, 100, 0]
-      Rotation: [0, 0, 0]
+      Position: [-5, -267765.062, 0]
+      Rotation: [0, -0, 0]
       Scale: [1, 1, 1]
     Model:
       Is flipped: false
@@ -239,7 +176,7 @@ Entities:
     ModelRenderer:
       Shader name: res/shaders/color
     Material:
-      3color: [0, 0, 1]
+      3color: [0, 1, 0]
     BoxCollider:
       Scale: [1, 1, 1]
     Rigidbody:
@@ -330,14 +267,14 @@ Entities:
     Text:
       Text: This is some 2D text
       IsCentered: 1
-      FontSize: 418
+      FontSize: 95
       GlyphWidth: 0.660000026
       Width: 0.419999987
       Edge: 0.100000001
       LineMaxWidth: 0.393999994
       LineMaxHeight: 0.200000003
       Angle: 0
-      Color: [0.990196049, 0.11649359, 0]
+      Color: [1, 1, 0.984313726]
       ShaderName: res/shaders/glyph
   - Entity: New Cylinder
     UUID: -28820628
@@ -370,8 +307,8 @@ Entities:
     Layer: 2
     Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
     Transform:
-      Position: [20.0002327, 16.6888924, -1.71566808]
-      Rotation: [-0.000882837106, -75.4064102, -180]
+      Position: [0.464540005, 0.999994695, -11.5768242]
+      Rotation: [-179.999481, 45.1923637, 179.999634]
       Scale: [0.999999762, 1, 0.999999881]
     Model:
       Is flipped: false
@@ -395,8 +332,8 @@ Entities:
     Layer: 3
     Components: [Transform, Model, ModelRenderer, Material, SphereCollider, Rigidbody]
     Transform:
-      Position: [0, 13.2201042, 0]
-      Rotation: [0, 0, 0]
+      Position: [0, -267851.875, 0]
+      Rotation: [0, -0, 0]
       Scale: [0.75, 0.75, 0.75]
     Model:
       Is flipped: false
@@ -414,7 +351,24 @@ Entities:
       Constrain rotation: false
       Is simulation: true
       Is trigger: false
+  - Entity: New Platform
+    UUID: -1699205927
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [0, 5, 55]
+      Rotation: [0, 0, 0]
+      Scale: [25, 10, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/platform.fbx
+    ModelRenderer:
+      Shader name: res/shaders/test
+    Material:
+      3color: [0, 1, 0]
+      ttextures: res/test/white.png
 Editor Camera:
-  - Camera vPos: [-22.2296143, 22.5454121, 32.8932877]
-    Camera vUp: [0.386749238, 0.82511425, -0.411839455]
-    Camera vRot: [-34.3999329, -46.7995415, 0]
+  - Camera vPos: [35.0229454, 5.46853924, -22.5252285]
+    Camera vUp: [-0.297399759, 0.924546301, 0.238259405]
+    Camera vRot: [-22.3999615, -218.699677, 0]

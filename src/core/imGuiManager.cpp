@@ -727,67 +727,49 @@ void ShowLayersPanel() {
         ImGui::TreePop();
     }
 }
+
+
+void ShowPhysicsMask(std::array<int, 32>& arr, const std::string& name1, const std::string& name2) {
+    bool open = ImGui::TreeNodeEx((void *)&name1, treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s",name1.c_str());
+    static bool showAll = false;
+    if(open) {
+        ImGui::TextUnformatted(name2.c_str());
+        ImGui::SameLine();
+        ImGui::Checkbox("Show all", &showAll);
+        static int clickedi = 0;
+        for(int i = 0; i < LayerManager::layerList.size(); i++) {
+            if(!showAll && LayerManager::layerList[i] == "") {
+                continue;
+            }
+            if(ImGui::Button(LayerManager::layerList[i].c_str())) {
+                clickedi = i;
+                ImGui::OpenPopup(name2.c_str());
+            }
+        }
+        ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
+        ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
+        if(ImGui::BeginPopupModal(name2.c_str())) {
+            if (ImGui::Button("Close"))
+                ImGui::CloseCurrentPopup();
+            for(int j = 0; j < LayerManager::layerList.size(); j++) {
+                bool checkboxbool = ((arr[clickedi]) & (1<<(j)));
+                bool tempbool = checkboxbool;
+                ImGui::Checkbox(LayerManager::layerList[j].c_str(), &checkboxbool);
+                if(checkboxbool != tempbool) {
+                    arr[clickedi] ^= 1UL << j;
+                    if(j != clickedi) {
+                        arr[j] ^= 1UL << clickedi;
+                    }
+                }
+            }
+            ImGui::EndPopup();
+        }
+        ImGui::TreePop();
+    }
+}
 void ShowPhysicsPanel() {
-    bool open = ImGui::TreeNodeEx((void *)"Physics - collision mask", treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s", "Physics - collision mask");
-    if(open) {
-        ImGui::TextUnformatted("Change the collision mask for");
-		static int clickedi = 0;
-        for(int i = 0; i < LayerManager::layerList.size(); i++) {
-            if(ImGui::Button(LayerManager::layerList[i].c_str())) {
-				clickedi = i;
-                ImGui::OpenPopup("Change collision layer mask");
-            }
-        }
-        ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
-        ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
-        if(ImGui::BeginPopupModal("Change collision layer mask")) {
-            if (ImGui::Button("Close"))
-                ImGui::CloseCurrentPopup();
-            for(int j = 0; j < LayerManager::layerList.size(); j++) {
-                bool checkboxbool = ((PhysicsManager::collisionLayerMask[clickedi]) & (1<<(j)));
-                bool tempbool = checkboxbool;
-                ImGui::Checkbox(LayerManager::layerList[j].c_str(), &checkboxbool);
-                if(checkboxbool != tempbool) {
-                    PhysicsManager::collisionLayerMask[clickedi] ^= 1UL << j;
-					if(j != clickedi){
-						PhysicsManager::collisionLayerMask[j] ^= 1UL << clickedi;
-					}
-                }
-            }
-            ImGui::EndPopup();
-        }
-        ImGui::TreePop();
-    }
-    open = ImGui::TreeNodeEx((void *)"Physics - notify mask", treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s", "Physics - notify mask");
-    if(open) {
-        ImGui::TextUnformatted("Change the notify mask for");
-		static int clickedi = 0;
-        for(int i = 0; i < LayerManager::layerList.size(); i++) {
-            if(ImGui::Button(LayerManager::layerList[i].c_str())) {
-				clickedi = i;
-                ImGui::OpenPopup("Change notify layer mask");
-            }
-        }
-        ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
-        ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
-        if(ImGui::BeginPopupModal("Change notify layer mask")) {
-            if (ImGui::Button("Close"))
-                ImGui::CloseCurrentPopup();
-            for(int j = 0; j < LayerManager::layerList.size(); j++) {
-                bool checkboxbool = ((PhysicsManager::notifyLayerMask[clickedi]) & (1<<(j)));
-                bool tempbool = checkboxbool;
-                ImGui::Checkbox(LayerManager::layerList[j].c_str(), &checkboxbool);
-                if(checkboxbool != tempbool) {
-                    PhysicsManager::notifyLayerMask[clickedi] ^= 1UL << j;
-					if(j != clickedi){
-						PhysicsManager::notifyLayerMask[j] ^= 1UL << clickedi;
-					}
-                }
-            }
-            ImGui::EndPopup();
-        }
-        ImGui::TreePop();
-    }
+    ShowPhysicsMask(PhysicsManager::collisionLayerMask, "Physics - collision mask", "Change collision mask for:");
+    ShowPhysicsMask(PhysicsManager::notifyLayerMask, "Physics - notify mask", "Change notify mask for:");
 }
 void ShowEnvironmentPanel() {
     ImGui::Begin("Environment");
@@ -796,7 +778,7 @@ void ShowEnvironmentPanel() {
     ShowTexturesPanel();
     ShowTagsPanel();
     ShowLayersPanel();
-	ShowPhysicsPanel();
+    ShowPhysicsPanel();
 
     ImGui::End();
 }

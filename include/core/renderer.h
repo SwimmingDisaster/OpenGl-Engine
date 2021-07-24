@@ -15,7 +15,7 @@ public:
 #endif
 
 public:
-	static int InitOpenGL(const std::string& windowName);
+	static int InitOpenGL();
 	static void SetupMatrices();
 	static void Init();
 	static void ShutdownOpenGL();

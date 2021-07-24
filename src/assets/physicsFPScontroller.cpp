@@ -51,7 +51,6 @@ void PhysicsFPScontroler::ProcessKeyboard(float deltaTime)
 {
     float velocity = movementSpeed * deltaTime;
 
-    static bool canjump = false;
     if (glfwGetKey(Application::window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         velocity *= 3.0f;
     glm::vec3 velvec3 = glm::vec3(velocity, 0, velocity);
@@ -74,13 +73,10 @@ void PhysicsFPScontroler::ProcessKeyboard(float deltaTime)
             canjump = false;
         }
     }
-    acceleration.y -= 30.0f * deltaTime;
+	if(canjump == false){
+		acceleration.y -= 30.0f * deltaTime;
+	}
     transform->position += acceleration * deltaTime;
-    if (transform->position.y < 2.03f) {
-        transform->position.y = 2.01f;
-        acceleration.y = 0.0f;
-        canjump = true;
-    }
 
     if (rigidbody && Application::isRunning) {
         rigidbody->aDynamicActor->setGlobalPose({transform->position.x, transform->position.y, transform->position.z}, false);
@@ -88,6 +84,11 @@ void PhysicsFPScontroler::ProcessKeyboard(float deltaTime)
     }
     //acceleration.x -= 30.0f * deltaTime, 0;
     //acceleration.z -=  30.0f * deltaTime, 0;
+}
+
+void PhysicsFPScontroler::OnCollision(const std::shared_ptr<Entity>& other){
+    acceleration.y = 0.0f;
+    canjump = true;
 }
 
 void PhysicsFPScontroler::ProcessMouseMovement(bool constrainPitch)

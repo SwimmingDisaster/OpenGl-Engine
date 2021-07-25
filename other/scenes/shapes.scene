@@ -355,20 +355,27 @@ Entities:
     UUID: -1699205927
     Tag: 0
     Layer: 0
-    Components: [Transform, Model, ModelRenderer, Material]
+    Components: [Transform, Model, ModelRenderer, Material, ConcaveMeshCollider, Rigidbody]
     Transform:
-      Position: [0, 5, 55]
+      Position: [10.9920416, -0.760883808, 36.8480415]
       Rotation: [0, 0, 0]
-      Scale: [25, 10, 1]
+      Scale: [1, 1, 1]
     Model:
       Is flipped: false
-      Path: res/fbx/platform.fbx
+      Path: res/physx/longbox.obj
     ModelRenderer:
-      Shader name: res/shaders/test
+      Shader name: res/shaders/color
     Material:
       3color: [0, 1, 0]
-      ttextures: res/test/white.png
+    ConcaveMeshCollider:
+      File path: res/physx/longbox.obj
+    Rigidbody:
+      Is Static: true
+      Constrain position: false
+      Constrain rotation: false
+      Is simulation: true
+      Is trigger: false
 Editor Camera:
-  - Camera vPos: [35.0229454, 5.46853924, -22.5252285]
-    Camera vUp: [-0.297399759, 0.924546301, 0.238259405]
-    Camera vRot: [-22.3999615, -218.699677, 0]
+  - Camera vPos: [36.5383339, 3.76717401, 22.0628967]
+    Camera vUp: [0.0944284722, 0.991894424, -0.0850226805]
+    Camera vRot: [7.30003929, -221.999634, 0]

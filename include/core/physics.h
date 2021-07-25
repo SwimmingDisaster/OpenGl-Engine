@@ -8,7 +8,7 @@ class PhysicsManager
 public:
 	static PxFoundation *mFoundation;
 	static PxPhysics *mPhysics;
-	//PxCooking* mCooking;
+	static PxCooking* mCooking;
 	static PxScene *mScene;
 	static float mAccumulator;
 	static float mStepSize;

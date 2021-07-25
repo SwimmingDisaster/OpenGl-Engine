@@ -15,7 +15,7 @@ public:
 	std::shared_ptr<Transform> tc;
 	std::shared_ptr<ColliderBase> cc;
 	glm::vec3 size;
-	bool isStatic = false;
+	bool isStatic = true;
 
 	bool constrainPos = false;
 	bool constrainRot = false;

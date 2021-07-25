@@ -53,3 +53,33 @@ public:
 #endif
 };
 
+//--------------ConcaveMeshCollider--------------
+class ConcaveMeshCollider : public ColliderBase
+{
+	REGISTER(ConcaveMeshCollider);
+
+private:
+	std::vector<glm::vec3> vertices;
+	std::vector<unsigned int> indices;
+	PxTriangleMesh* aTriangleMesh = nullptr;
+
+public:
+	std::string filePath;
+
+public:
+	void Show() override;
+	void Start() override;
+	void Serialize(YAML::Emitter &out) override;
+	void Deserialize(const YAML::Node &data) override;
+
+	PxGeometryHolder GetGeometry() override;
+
+	ConcaveMeshCollider();
+#ifdef SHOW_DELETED
+public:
+	virtual ~ConcaveMeshCollider();
+#else
+public:
+	virtual ~ConcaveMeshCollider();
+#endif
+};

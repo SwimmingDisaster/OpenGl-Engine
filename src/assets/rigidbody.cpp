@@ -56,8 +56,13 @@ void Rigidbody::Start()
         aDynamicActor = PxCreateDynamic(*PhysicsManager::mPhysics, PxTransform(physxTransform), cc->GetGeometry().any(), *mMaterial, 1.0f);
     else
         aStaticActor = PxCreateStatic(*PhysicsManager::mPhysics, PxTransform(physxTransform), cc->GetGeometry().any(), *mMaterial);
-    if (!aDynamicActor || !aStaticActor)
-        Error("create shape failed!");
+    if (!aDynamicActor || !aStaticActor){
+        Error("create actor failed!");
+	}
+
+	if(isStatic){
+		aStaticActor->setGlobalPose({tc->position.x, tc->position.y, tc->position.z});
+	}
 
     if (!isStatic) {
         aDynamicActor->setName(parentEntity->GetUUIDString().c_str());

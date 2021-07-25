@@ -18,16 +18,19 @@ struct Texture {
 
 class ModelImporter {
 private:
-	static const aiScene* GetAssimpScene(const std::string& filePath, Assimp::Importer& importer);
+	static const aiScene* GetAssimpScene(const std::string& filePath, Assimp::Importer& importer, unsigned int flags);
 public:	
 	static void LoadModelWithTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, bool isFlipped = false);
 	static void LoadModelWithoutTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
+	static void LoadModelBasic(const std::string& filePath, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices);
 
 	static void ProcessNodeWithTextures(aiNode* node, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures);
 	static void ProcessNodeWithoutTextures(aiNode* node, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
+	static void ProcessNodeBasic(aiNode* node, const aiScene* scene, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices);
 
 	static void ProcessMeshWithTextures(aiMesh* mesh, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures);
 	static void ProcessMeshWithoutTextures(aiMesh* mesh, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
+	static void ProcessMeshBasic(aiMesh* mesh, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices);
 
 	static void ProcessTextures(std::vector<Texture>& textures, aiMaterial* material);
 	static void LoadTextures(std::vector<Texture>& textures, aiMaterial* mat, aiTextureType type, const std::string& typeName);

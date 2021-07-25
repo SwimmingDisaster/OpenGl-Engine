@@ -4,7 +4,7 @@
 
 PxFoundation *PhysicsManager::mFoundation;
 PxPhysics *PhysicsManager::mPhysics;
-//PxCooking* PhysicsManager::mCooking;
+PxCooking* PhysicsManager::mCooking;
 PxScene *PhysicsManager::mScene;
 PhysxSimulatorCallback PhysicsManager::simulationCallback;
 
@@ -32,9 +32,9 @@ void PhysicsManager::InitPhysx()
 	scale.length = 100;
 	scale.speed = 981;
 
-	/*	mCooking = PxCreateCooking(PX_PHYSICS_VERSION, *mFoundation, PxCookingParams(scale));
-		if (!mCooking)
-			ErrorAtPos("PxCreateCooking failed! In file: " << __FILE__ << " on line: " << __LINE__);*/
+	mCooking = PxCreateCooking(PX_PHYSICS_VERSION, *mFoundation, PxCookingParams(scale));
+	if (!mCooking)
+		ErrorAtPos("PxCreateCooking failed!");
 
 	if (!PxInitExtensions(*mPhysics, nullptr))
 		ErrorAtPos("PxInitExtensions failed!");

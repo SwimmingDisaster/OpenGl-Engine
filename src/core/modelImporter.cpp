@@ -1,7 +1,5 @@
 #include "core/modelImporter.h"
 
-std::string ModelImporter::directory;
-
 static const unsigned int assimpFlags = aiProcess_CalcTangentSpace
                                   | aiProcess_JoinIdenticalVertices
                                   | aiProcess_Triangulate
@@ -33,8 +31,9 @@ void ModelImporter::LoadModelWithTextures(const std::string& filePath, std::vect
     stbi_set_flip_vertically_on_load(isFlipped);
     Assimp::Importer importer;
     const aiScene* scene = GetAssimpScene(filePath, importer, assimpFlags);
-    directory = filePath.substr(0, filePath.find_last_of('/'));
-    ProcessNodeWithTextures(scene->mRootNode, scene, vertices, indices, textures);
+    std::string directory = filePath.substr(0, filePath.find_last_of('/'));
+	std::string a = "woo";
+    ProcessNodeWithTextures(scene->mRootNode, scene, vertices, indices, textures, directory);
 }
 void ModelImporter::LoadModelWithoutTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
     vertices.clear();
@@ -51,19 +50,19 @@ void ModelImporter::LoadModelBasic(const std::string& filePath, std::vector<glm:
     ProcessNodeBasic(scene->mRootNode, scene, vertices, indices);
 }
 
-void ModelImporter::ProcessNodeWithTextures(aiNode* node, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures) {
+void ModelImporter::ProcessNodeWithTextures(const aiNode* node, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, const std::string& directory) {
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
-        ProcessMeshWithTextures(mesh, scene, vertices, indices, textures);
+        ProcessMeshWithTextures(mesh, scene, vertices, indices, textures, directory);
     }
 
     for (unsigned int i = 0; i < node->mNumChildren; i++)
     {
-        ProcessNodeWithTextures(node->mChildren[i], scene, vertices, indices, textures);
+        ProcessNodeWithTextures(node->mChildren[i], scene, vertices, indices, textures, directory);
     }
 }
-void ModelImporter::ProcessNodeWithoutTextures(aiNode* node, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+void ModelImporter::ProcessNodeWithoutTextures(const aiNode* node, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
@@ -75,7 +74,7 @@ void ModelImporter::ProcessNodeWithoutTextures(aiNode* node, const aiScene* scen
         ProcessNodeWithoutTextures(node->mChildren[i], scene, vertices, indices);
     }
 }
-void ModelImporter::ProcessNodeBasic(aiNode* node, const aiScene* scene, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices) {
+void ModelImporter::ProcessNodeBasic(const aiNode* node, const aiScene* scene, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices) {
     for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
@@ -87,12 +86,12 @@ void ModelImporter::ProcessNodeBasic(aiNode* node, const aiScene* scene, std::ve
         ProcessNodeBasic(node->mChildren[i], scene, vertices, indices);
     }
 }
-void ModelImporter::ProcessMeshWithTextures(aiMesh* mesh, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures) {
+void ModelImporter::ProcessMeshWithTextures(const aiMesh* mesh, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, const std::string& directory) {
     ProcessMeshWithoutTextures(mesh, vertices, indices);
     aiMaterial* material = scene->mMaterials[mesh->mMaterialIndex];
-    ProcessTextures(textures, material);
+    ProcessTextures(textures, material, directory);
 }
-void ModelImporter::ProcessMeshWithoutTextures(aiMesh* mesh, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+void ModelImporter::ProcessMeshWithoutTextures(const aiMesh* mesh, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
     // walk through each of the mesh's vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
@@ -148,7 +147,7 @@ void ModelImporter::ProcessMeshWithoutTextures(aiMesh* mesh, std::vector<Vertex>
             indices.push_back(face.mIndices[j]);
     }
 }
-void ModelImporter::ProcessMeshBasic(aiMesh* mesh, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices) {
+void ModelImporter::ProcessMeshBasic(const aiMesh* mesh, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices) {
     // walk through each of the mesh's vertices
 	assert(!mesh->HasNormals());
 	Log(mesh->mNumVertices);
@@ -174,13 +173,13 @@ void ModelImporter::ProcessMeshBasic(aiMesh* mesh, std::vector<glm::vec3>& verti
     }
 }
 
-void ModelImporter::ProcessTextures(std::vector<Texture>& textures, aiMaterial* material) {
-    LoadTextures(textures, material, aiTextureType_DIFFUSE, "texture_diffuse");
-    LoadTextures(textures, material, aiTextureType_SPECULAR, "texture_specular");
-    LoadTextures(textures, material, aiTextureType_HEIGHT, "texture_normal");
-    LoadTextures(textures, material, aiTextureType_AMBIENT, "texture_height");
+void ModelImporter::ProcessTextures(std::vector<Texture>& textures, const aiMaterial* material, const std::string& directory) {
+    LoadTextures(textures, material, aiTextureType_DIFFUSE, "texture_diffuse", directory);
+    LoadTextures(textures, material, aiTextureType_SPECULAR, "texture_specular", directory);
+    LoadTextures(textures, material, aiTextureType_HEIGHT, "texture_normal", directory);
+    LoadTextures(textures, material, aiTextureType_AMBIENT, "texture_height", directory);
 }
-void ModelImporter::LoadTextures(std::vector<Texture>& textures, aiMaterial* mat, aiTextureType type, const std::string& typeName) {
+void ModelImporter::LoadTextures(std::vector<Texture>& textures, const aiMaterial* mat, const aiTextureType type, const std::string& typeName, const std::string& directory) {
     for (unsigned int i = 0; i < mat->GetTextureCount(type); i++)
     {
         aiString str;
@@ -207,4 +206,5 @@ void ModelImporter::LoadTextures(std::vector<Texture>& textures, aiMaterial* mat
         }
     }
 }
+
 

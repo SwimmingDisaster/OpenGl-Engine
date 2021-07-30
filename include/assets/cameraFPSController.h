@@ -18,7 +18,7 @@ public:
 	void Start() override;
 	void Update() override;
 	void Show() override;
-	void Serialize(YAML::Emitter& out) override;
+	void Serialize(YAML::Emitter& out) const override;
 	void Deserialize(const YAML::Node& data) override;
 
 	CameraFPSController();

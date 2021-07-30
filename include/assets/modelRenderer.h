@@ -17,7 +17,7 @@ public:
 	std::shared_ptr<Material> m_materialComponent;
 
 public:
-	void Serialize(YAML::Emitter &out) override;
+	void Serialize(YAML::Emitter& out) const override;
 	void Deserialize(const YAML::Node &data) override;
 	void Start() override;
 	void Draw() override;

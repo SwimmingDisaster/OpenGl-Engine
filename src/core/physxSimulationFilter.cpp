@@ -14,8 +14,8 @@ void PhysxSimulatorCallback::onContact(const PxContactPairHeader& pairHeader, co
             //Log("Actor 1:  " << pairHeader.actors[0]->getName());
             //Log("Actor 2:  " << pairHeader.actors[1]->getName());
 
-			const std::shared_ptr<Entity>& entity1 = Application::m_curentScene.GetEntityWithUUID(pairHeader.actors[0]->getName());
-			const std::shared_ptr<Entity>& entity2 = Application::m_curentScene.GetEntityWithUUID(pairHeader.actors[1]->getName());
+			const std::shared_ptr<Entity>& entity1 = Application::GetSceneModifiable().GetEntityWithUUID(pairHeader.actors[0]->getName());
+			const std::shared_ptr<Entity>& entity2 = Application::GetSceneModifiable().GetEntityWithUUID(pairHeader.actors[1]->getName());
 
 			entity1->OnCollision(entity2);
 			entity2->OnCollision(entity1);

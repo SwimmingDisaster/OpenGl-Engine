@@ -9,7 +9,7 @@ void Transform::Show()  {
 	ImGui::DragFloat3("scale", glm::value_ptr(scale), 0.01f);
 }
 
-void Transform::Serialize(YAML::Emitter& out) {
+void Transform::Serialize(YAML::Emitter& out) const {
 	out << YAML::Key << name;
 	out << YAML::BeginMap;
 

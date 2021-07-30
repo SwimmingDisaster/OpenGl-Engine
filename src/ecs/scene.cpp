@@ -72,28 +72,11 @@ std::shared_ptr<Entity> Scene::GetEntity(std::string name, long long uuid) const
     return nullptr;
 }
 
-void Scene::AddEntity(std::string name, long long uuid)
+std::shared_ptr<Entity> Scene::AddEntity(std::string name, long long uuid, int tag, int layer)
 {
     std::shared_ptr<Entity> entt = std::make_shared<Entity>();
     entt->SetName(name);
-    if (uuid != -1)
-        entt->SetUUID(uuid);
-    else
-        entt->SetUUID(Random::Int());
-    m_entities.push_back(entt);
-}
-
-std::shared_ptr<Entity> Scene::AddEntityR(std::string name, long long uuid, int tag, int layer)
-{
-    std::shared_ptr<Entity> entt = std::make_shared<Entity>();
-    entt->SetName(name);
-    if (uuid != -1){
-        entt->SetUUID(uuid);
-	}
-    else{
-        entt->SetUUID(Random::Int());
-	}
-
+    entt->SetUUID(uuid);
 	entt->SetTag(tag);
 	entt->SetLayer(layer);
     m_entities.push_back(entt);
@@ -195,7 +178,7 @@ void Scene::Serialize(const std::string &filePath) const
 
     YAML::Emitter out;
     out << YAML::BeginMap;
-    out << YAML::Key << "Scene" << YAML::Value << Application::m_curentScene.name;
+    out << YAML::Key << "Scene" << YAML::Value << Application::GetScene().name;
 
     out << YAML::Key << "Shaders" << YAML::Value << YAML::BeginSeq;
     for (auto shaderName : Shader::shaderNames)
@@ -365,7 +348,7 @@ void Scene::Deserialize(const std::string &filePath)
 
             std::vector<std::string> componentNames = entity["Components"].as<std::vector<std::string>>();
 
-            std::shared_ptr<Entity> newEntity = AddEntityR(name, uuid, tag, layer);
+            std::shared_ptr<Entity> newEntity = AddEntity(name, uuid, tag, layer);
             for (int i = 0; i < componentNames.size(); i++)
             {
                 const YAML::Node &componentData = entity[componentNames[i]];

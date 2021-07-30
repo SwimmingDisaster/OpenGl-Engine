@@ -17,7 +17,6 @@ public:
 	static std::array<int, 32> collisionLayerMask;
 	static std::array<int, 32> notifyLayerMask;
 
-
 //	std::unordered_map<PxActor, std::shared_ptr<Entity>> mapi;
 public:
 	static void InitPhysx();

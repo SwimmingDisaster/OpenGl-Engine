@@ -2,6 +2,36 @@
 #include "mypch.h"
 
 
+class Input {
+private:
+	static Input m_instance;
+
+public:
+	std::unordered_map<int, bool> m_pressedKeysNow;
+	std::unordered_map<int, bool> m_pressedKeysLast;
+	std::unordered_map<int, bool> m_pressedMouseButton;
+
+	float lastX = 0;
+	float lastY = 0;
+
+	float xoffset = 0;
+	float yoffset = 0;
+
+public:
+	static Input& Get();
+	static void Update();
+	static void KeyInputCallback(GLFWwindow * window, int key, int scancode, int action, int mods);
+	static void MouseCallback(GLFWwindow * window, double xpos, double ypos);
+	static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+
+	[[nodiscard]] static bool IsKeyPressed(int keycode);
+	[[nodiscard]] static bool IsKeyHeld(int keycode);
+	[[nodiscard]] static bool IsKeyReleased(int keycode);
+	[[nodiscard]] static bool IsMouseButtonPressed(int button);
+
+	static void SetKey(int keycode, bool val);
+};
+
 #define 	INPUT_KEY_UNKNOWN   			-1
 #define 	INPUT_KEY_SPACE   				32
 #define 	INPUT_KEY_APOSTROPHE   			39
@@ -124,32 +154,3 @@
 #define 	INPUT_KEY_RIGHT_SUPER   		347
 #define 	INPUT_KEY_MENU   				348
 
-
-class Input {
-private:
-	static Input m_instance;
-
-public:
-	std::unordered_map<int, bool> m_pressedKeysNow;
-	std::unordered_map<int, bool> m_pressedKeysLast;
-	std::unordered_map<int, bool> m_pressedMouseButton;
-
-	float lastX = 0;
-	float lastY = 0;
-
-	float xoffset = 0;
-	float yoffset = 0;
-
-public:
-	static Input& Get();
-	static void Update();
-	static void KeyInputCallback(GLFWwindow * window, int key, int scancode, int action, int mods);
-	static void MouseCallback(GLFWwindow * window, double xpos, double ypos);
-	static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-
-	static bool IsKeyPressed(int keycode);
-	static bool IsKeyHeld(int keycode);
-	static bool IsKeyReleased(int keycode);
-	static void SetKey(int keycode, bool val);
-	static bool IsMouseButtonPressed(int button);
-};

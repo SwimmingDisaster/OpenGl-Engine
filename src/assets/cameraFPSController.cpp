@@ -16,11 +16,11 @@ void CameraFPSController::Update() {
 	if (Input::IsKeyPressed(INPUT_KEY_ESCAPE)) {
 		if (isLocked) {
 			isLocked = false;
-			glfwSetInputMode(Application::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+			glfwSetInputMode(Application::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		}
 		else {
 			isLocked = true;
-			glfwSetInputMode(Application::window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+			glfwSetInputMode(Application::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		}
 	}
 
@@ -34,7 +34,7 @@ void CameraFPSController::Show() {
 	ImGui::DragFloat("Movement Speed", &movementSpeed, 0.001f);
 	ImGui::Checkbox("Is Locked", &isLocked);
 }
-void CameraFPSController::Serialize(YAML::Emitter& out) {
+void CameraFPSController::Serialize(YAML::Emitter& out) const{
 	out << YAML::Key << name;
 	out << YAML::BeginMap;
 
@@ -64,7 +64,7 @@ void CameraFPSController::ProcessKeyboard(float deltaTime)
 	float velocity = movementSpeed * deltaTime;
 
 	//static bool canjump = false;
-	if (glfwGetKey(Application::window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+	if (glfwGetKey(Application::GetWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		velocity *= 3.0f;
 	glm::vec3 velvec3 = glm::vec3(velocity, velocity/*0*/, velocity);
 

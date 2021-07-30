@@ -10,7 +10,7 @@ void TestComponent::Show()  {
 	ImGui::DragFloat3("Offset", glm::value_ptr(offset));
 }
 
-void TestComponent::Serialize(YAML::Emitter& out) {
+void TestComponent::Serialize(YAML::Emitter& out) const {
 	out << YAML::Key << name;
 	out << YAML::BeginMap;
 
@@ -25,7 +25,7 @@ void TestComponent::Deserialize(const YAML::Node& data) {
 	offset = data["Offset"].as<glm::vec3>();
 }
 void TestComponent::Start() {
-	entity = Application::m_curentScene.GetEntity(entity_name);
+	entity = Application::GetScene().GetEntity(entity_name);
 	transform = parentEntity->GetComponent<Transform>();
 	otherTransform = entity->GetComponent<Transform>();
 }

@@ -35,7 +35,7 @@ void Camera::Show() {
 	ImGui::ColorEdit3("Background Color", glm::value_ptr(backgroundColor));
 }
 
-void Camera::Serialize(YAML::Emitter& out) {
+void Camera::Serialize(YAML::Emitter& out) const{
 	out << YAML::Key << name;
 	out << YAML::BeginMap;
 	out << YAML::Key << "Fov" << YAML::Value << fov;

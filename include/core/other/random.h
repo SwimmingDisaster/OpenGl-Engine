@@ -7,13 +7,13 @@ class Random
 public:
 	static void Init();
 
-	static int Int();
-	static int Int(float maxVal);
-	static int Int(float minVal, float maxVal);
+	[[nodiscard]] static int Int();
+	[[nodiscard]] static int Int(float maxVal);
+	[[nodiscard]] static int Int(float minVal, float maxVal);
 
-	static float Float();
-	static float Float(float maxVal);
-	static float Float(float minVal, float maxVal);
+	[[nodiscard]] static float Float();
+	[[nodiscard]] static float Float(float maxVal);
+	[[nodiscard]] static float Float(float minVal, float maxVal);
 
 
 private:

@@ -3,6 +3,8 @@
 #include "assets/colliderBase.h"
 #include "ecs/other/componentDefines.h"
 
+#include "assets/transform.h"
+
 //--------------BoxCollider--------------
 class BoxCollider : public ColliderBase
 {
@@ -13,7 +15,7 @@ public:
 
 public:
 	void Show() override;
-	void Serialize(YAML::Emitter &out) override;
+	void Serialize(YAML::Emitter &out) const override;
 	void Deserialize(const YAML::Node &data) override;
 
 	PxGeometryHolder GetGeometry() override;
@@ -38,7 +40,7 @@ public:
 
 public:
 	void Show() override;
-	void Serialize(YAML::Emitter &out) override;
+	void Serialize(YAML::Emitter &out) const override;
 	void Deserialize(const YAML::Node &data) override;
 
 	PxGeometryHolder GetGeometry() override;
@@ -63,13 +65,15 @@ private:
 	std::vector<unsigned int> indices;
 	PxTriangleMesh* aTriangleMesh = nullptr;
 
+	std::shared_ptr<Transform> transform;
+
 public:
 	std::string filePath;
 
 public:
 	void Show() override;
 	void Start() override;
-	void Serialize(YAML::Emitter &out) override;
+	void Serialize(YAML::Emitter &out) const override;
 	void Deserialize(const YAML::Node &data) override;
 
 	PxGeometryHolder GetGeometry() override;

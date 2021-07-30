@@ -102,7 +102,7 @@ void Material::Show()  {
 
 }
 
-void Material::Serialize(YAML::Emitter& out) {
+void Material::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
 

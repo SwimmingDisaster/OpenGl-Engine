@@ -12,7 +12,7 @@ public:
     virtual void Update()  {}
     virtual void Draw()  {}
     virtual void End()  {}
-    virtual void Serialize(YAML::Emitter& out) {}
+    virtual void Serialize(YAML::Emitter& out) const {}
     virtual void Deserialize(const YAML::Node& data)  {}
     virtual void Show()  {}
 	virtual void OnCollision(const std::shared_ptr<Entity>& other) {}

@@ -15,7 +15,7 @@ ModelRenderer::~ModelRenderer() {
     Log("Deleted " << name);
 }
 #endif
-void ModelRenderer::Serialize(YAML::Emitter& out) {
+void ModelRenderer::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
 
@@ -48,7 +48,7 @@ void ModelRenderer::DrawModel(const std::shared_ptr<Shader>& shader, const std::
     //shader->setMat4("matModel", model->transform->GetTransform());
     //shader->setVec3("color", m_materialComponent->color);
 
-    BatchRenderer::AddObject(model, m_materialComponent, model->transform, shaderName);
+    BatchRenderer::AddObject(model->vertices, model->indices, m_materialComponent, model->transform, shaderName);
     //DrawMesh(shader, model->meshes[i]);
 }
 void ModelRenderer::DrawMesh(const std::shared_ptr<Shader>& shader, const Mesh& mesh)

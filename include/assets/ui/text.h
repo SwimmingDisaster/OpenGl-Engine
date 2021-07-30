@@ -39,7 +39,7 @@ class Font : public Component {
 public:
     void Show() override;
     void Start() override;
-    void Serialize(YAML::Emitter& out) override;
+    void Serialize(YAML::Emitter& out) const override;
     void Deserialize(const YAML::Node& data) override;
 
 public:
@@ -68,7 +68,7 @@ public:
     void Start() override;
     void Draw() override;
     void Show() override;
-	void Serialize(YAML::Emitter& out) override;
+	void Serialize(YAML::Emitter& out) const override;
 	void Deserialize(const YAML::Node& data) override;
 
 public:

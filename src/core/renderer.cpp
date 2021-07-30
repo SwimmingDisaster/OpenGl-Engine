@@ -29,20 +29,20 @@ int Renderer::InitOpenGL() {
 	glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
 	glfwSetErrorCallback(GlfwErrorCallback);
 
-	Application::window = glfwCreateWindow(EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT, EngineInfo::name.c_str(),  NULL, NULL);
-	if (Application::window == nullptr) {
+	Application::Get().window = glfwCreateWindow(EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT, EngineInfo::name.c_str(),  NULL, NULL);
+	if (Application::GetWindow() == nullptr) {
 		Error("Failed to create a GLFW window");
 		glfwTerminate();
 		return -1;
 	}
 
-	glfwMakeContextCurrent(Application::window);
-	glfwShowWindow(Application::window);
+	glfwMakeContextCurrent(Application::GetWindow());
+	glfwShowWindow(Application::GetWindow());
 
-	glfwSetKeyCallback(Application::window, Input::KeyInputCallback);
-	glfwSetFramebufferSizeCallback(Application::window, ResizeCallback);
-	glfwSetCursorPosCallback(Application::window, Input::MouseCallback);
-	glfwSetMouseButtonCallback(Application::window, Input::MouseButtonCallback);
+	glfwSetKeyCallback(Application::GetWindow(), Input::KeyInputCallback);
+	glfwSetFramebufferSizeCallback(Application::GetWindow(), ResizeCallback);
+	glfwSetCursorPosCallback(Application::GetWindow(), Input::MouseCallback);
+	glfwSetMouseButtonCallback(Application::GetWindow(), Input::MouseButtonCallback);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
 		Error("Failed to initialize GLAD");
@@ -50,7 +50,7 @@ int Renderer::InitOpenGL() {
 	}
 
 	glViewport(0, 0, EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT);
-	glfwSetInputMode(Application::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	glfwSetInputMode(Application::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);

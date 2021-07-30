@@ -119,6 +119,9 @@ void Shader::CreateCompute(const char* computePath) {
 	glDeleteShader(computeShader);
 }
 
+const unsigned int& Shader::GetID() const {
+	return ID;
+}
 
 Shader::Shader() {}
 

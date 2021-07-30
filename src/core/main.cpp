@@ -9,7 +9,7 @@ int main(int argc, char *argv[]) {
 	std::freopen("other/erroroutput.txt", "w", stderr);
 //#endif
 
-	Application app;
+	Application& app = Application::Get();
 
 	ReturnIfNotZero(app.Init());
 

@@ -21,7 +21,7 @@ public:
 public:
     void Start() override;
     void Update() override;
-    void Serialize(YAML::Emitter& out) override;
+    void Serialize(YAML::Emitter& out) const override;
     void Deserialize(const YAML::Node& data) override;
     void Show() override;
 	void OnCollision(const std::shared_ptr<Entity>& other) override;

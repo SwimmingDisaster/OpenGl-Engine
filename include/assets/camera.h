@@ -7,7 +7,7 @@
 #include "assets/transform.h"
 
 
-#define _ITERATOR_DEBUG_LEVEL 0
+//#define _ITERATOR_DEBUG_LEVEL 0
 
 
 class Camera : public Component {
@@ -35,7 +35,7 @@ public:
 	void Start() override;
 	void Update() override;
 	void Show() override;
-	void Serialize(YAML::Emitter& out) override;
+	void Serialize(YAML::Emitter& out) const override;
 	void Deserialize(const YAML::Node& data) override;
 
 

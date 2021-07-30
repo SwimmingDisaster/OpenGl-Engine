@@ -10,14 +10,13 @@ public:
 
 
 public:
-	std::shared_ptr<Entity> GetEntity(std::string name) const noexcept;
-	std::shared_ptr<Entity> GetEntity(long long uuid) const noexcept;
-	std::shared_ptr<Entity> GetEntity(std::string name, long long uuid) const noexcept;
-	std::shared_ptr<Entity>	GetEntityWithUUID(long long uuid) const noexcept;
-	std::shared_ptr<Entity> GetEntityWithUUID(const std::string& uuidstring) const noexcept;
+	[[nodiscard]] std::shared_ptr<Entity> GetEntity(std::string name) const noexcept;
+	[[nodiscard]] std::shared_ptr<Entity> GetEntity(long long uuid) const noexcept;
+	[[nodiscard]] std::shared_ptr<Entity> GetEntity(std::string name, long long uuid) const noexcept;
+	[[nodiscard]] std::shared_ptr<Entity> GetEntityWithUUID(long long uuid) const noexcept;
+	[[nodiscard]] std::shared_ptr<Entity> GetEntityWithUUID(const std::string& uuidstring) const noexcept;
 
-	void AddEntity(std::string name = "New Entity", long long uuid = -1);
-	std::shared_ptr<Entity> AddEntityR(std::string name = "New Entity", long long uuid = -1, int tag = 0, int layer = 0);
+	std::shared_ptr<Entity> AddEntity(std::string name = "New Entity", long long uuid = -1, int tag = 0, int layer = 0);
 
 	void RemoveEntity(std::string name) noexcept;
 	void RemoveEntity(long long uuid) noexcept;
@@ -32,5 +31,4 @@ public:
 	void Deserialize(const std::string& filePath);
 
 	void RemoveEntity(const std::shared_ptr<Entity>& entity);
-
 };

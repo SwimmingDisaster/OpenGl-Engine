@@ -13,7 +13,7 @@ public:
 
 public:
     void Show() override ;
-    void Serialize(YAML::Emitter& out) override;
+    void Serialize(YAML::Emitter& out) const override;
     void Deserialize(const YAML::Node& data) override;
 	void SetProperty(const std::string& propertyName, const std::any value); 
 

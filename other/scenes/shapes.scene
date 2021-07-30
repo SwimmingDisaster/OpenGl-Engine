@@ -357,18 +357,18 @@ Entities:
     Layer: 0
     Components: [Transform, Model, ModelRenderer, Material, ConcaveMeshCollider, Rigidbody]
     Transform:
-      Position: [10.9920416, -0.760883808, 36.8480415]
+      Position: [0, 15, 60]
       Rotation: [0, 0, 0]
-      Scale: [1, 1, 1]
+      Scale: [2, 1, 1]
     Model:
       Is flipped: false
-      Path: res/physx/longbox.obj
+      Path: res/physx/platform.fbx
     ModelRenderer:
       Shader name: res/shaders/color
     Material:
       3color: [0, 1, 0]
     ConcaveMeshCollider:
-      File path: res/physx/longbox.obj
+      File path: res/physx/platform.fbx
     Rigidbody:
       Is Static: true
       Constrain position: false
@@ -376,6 +376,6 @@ Entities:
       Is simulation: true
       Is trigger: false
 Editor Camera:
-  - Camera vPos: [36.5383339, 3.76717401, 22.0628967]
-    Camera vUp: [0.0944284722, 0.991894424, -0.0850226805]
-    Camera vRot: [7.30003929, -221.999634, 0]
+  - Camera vPos: [43.673439, 17.8801899, 13.9964705]
+    Camera vUp: [-0.448239148, 0.803857327, 0.391018093]
+    Camera vRot: [-36.4999619, -221.099579, 0]

@@ -29,10 +29,6 @@ const ImGuiTreeNodeFlags treeNodeFlags =
 
 ImGuiContext *ImGuiManager::imGuiContext;
 
-float frameCountToDisplay = 0;
-std::string frameImGuiText = "FPS";
-std::string searchString;
-
 ImVec2 contentRegionAvailable;
 float lineHeight;
 
@@ -56,7 +52,7 @@ void ImGuiManager::InitImGui()
 
     //io.Fonts->AddFontFromFileTTF("res/fonts/OpenSans-Bold.ttf", 15.0f);
 
-    ImGui_ImplGlfw_InitForOpenGL(Application::window, true);
+    ImGui_ImplGlfw_InitForOpenGL(Application::GetWindow(), true);
     ImGui_ImplOpenGL3_Init("#version 430");
 
     ImGui::StyleColorsDark();
@@ -108,10 +104,10 @@ bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDraw)
 
         if (ImGui::MenuItem("Paste Component"))
         {
-            if (Application::copiedComponent != nullptr)
+            if (Application::GetCopiedComponent() != nullptr)
             {
-                Factory::copy(Application::copiedComponent->name, entityToDraw, Application::copiedComponent);
-                Application::copiedComponent = nullptr;
+                Factory::copy(Application::GetCopiedComponent()->name, entityToDraw, Application::GetCopiedComponent());
+                Application::GetCopiedComponent() = nullptr;
                 entityToDraw->Start();
             }
             else
@@ -121,13 +117,13 @@ bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDraw)
         }
         if (ImGui::MenuItem("Copy Entity"))
         {
-            Application::copiedEntity = entityToDraw;
+            Application::GetCopiedEntity() = entityToDraw;
         }
         if (ImGui::MenuItem("Paste Entity"))
         {
-            entityToDraw->Copy(Application::copiedEntity);
+            entityToDraw->Copy(Application::GetCopiedEntity());
             entityToDraw->SetUUID(Random::Int());
-            Application::copiedEntity = nullptr;
+            Application::GetCopiedEntity() = nullptr;
         }
 
         ImGui::EndPopup();
@@ -153,14 +149,14 @@ bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDr
         }
         if (ImGui::MenuItem("Copy"))
         {
-            Application::copiedComponent = entityToDraw->m_components[i];
+            Application::GetCopiedComponent() = entityToDraw->m_components[i];
         }
         if (ImGui::MenuItem("Paste"))
         {
-            if (Application::copiedComponent != nullptr)
+            if (Application::GetCopiedComponent() != nullptr)
             {
-                Factory::copy(Application::copiedComponent->name, entityToDraw, Application::copiedComponent);
-                Application::copiedComponent = nullptr;
+                Factory::copy(Application::GetCopiedComponent()->name, entityToDraw, Application::GetCopiedComponent());
+                Application::GetCopiedComponent() = nullptr;
                 entityToDraw->m_components[i]->Start();
             }
             else
@@ -189,9 +185,10 @@ bool ShowHeader(const std::string &headerName, const std::string &popupName, con
     }
     return open;
 }
-void ShowEntitySearchBar(std::shared_ptr<Entity> &entityToDraw, std::string &searchString)
+void ShowEntitySearchBar(std::shared_ptr<Entity> &entityToDraw)
 {
     static bool showSearch = false;
+	static std::string searchString;
     if (ImGui::InputText("##Add Component", &searchString, ImGuiInputTextFlags_CallbackAlways))
     {
         showSearch = true;
@@ -311,32 +308,32 @@ void DrawEnity(std::shared_ptr<Entity> &entityToDraw)
                 i--;
             }
         }
-        ShowEntitySearchBar(entityToDraw, searchString);
+        ShowEntitySearchBar(entityToDraw);
     }
 
     if (isEntityRemoved)
     {
-        Application::m_curentScene.RemoveEntity(entityToDraw->GetName(), entityToDraw->GetUUID());
-        Application::selectedEntity = nullptr;
+        Application::GetSceneModifiable().RemoveEntity(entityToDraw->GetName(), entityToDraw->GetUUID());
+        Application::GetSelectedEntity() = nullptr;
     }
 }
 void DrawEnityHierarchy(const std::shared_ptr<Entity> &entt, int i)
 {
     ImGuiTreeNodeFlags flags;
-    if (Application::selectedEntity == nullptr)
+    if (Application::GetSelectedEntity() == nullptr)
     {
         flags = (0) | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
     }
     else
     {
-        flags = ((Application::selectedEntity->GetUUID() == entt->GetUUID()) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
+        flags = ((Application::GetSelectedEntity()->GetUUID() == entt->GetUUID()) ? ImGuiTreeNodeFlags_Selected : 0) | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
     }
 
     bool opened = ImGui::TreeNodeEx((void *)entt->GetUUID(), flags, "%s", entt->GetName().c_str());
 
     if (ImGui::IsItemClicked())
     {
-        Application::selectedEntity = entt;
+        Application::GetSelectedEntity() = entt;
     }
     if (opened)
     {
@@ -348,24 +345,24 @@ void DrawEnityHierarchy(const std::shared_ptr<Entity> &entt, int i)
 
         if (ImGui::MenuItem("Delete Entity"))
         {
-            Application::selectedEntity.reset();
-            Application::m_curentScene.RemoveEntity(entt);
+            Application::GetSelectedEntity().reset();
+            Application::GetSceneModifiable().RemoveEntity(entt);
         }
         if (ImGui::MenuItem("Copy Entity"))
         {
-            Application::copiedEntity = entt;
+            Application::GetCopiedEntity() = entt;
         }
         if (ImGui::MenuItem("Paste Entity"))
         {
-            entt->Copy(Application::copiedEntity);
-            Application::copiedEntity = nullptr;
+            entt->Copy(Application::GetCopiedEntity());
+            Application::GetCopiedEntity() = nullptr;
         }
         ImGui::MenuItem("--------------");
         if (ImGui::MenuItem("Move up")) {
-            iter_swap(Application::m_curentScene.m_entities.begin() + i, Application::m_curentScene.m_entities.begin() + i - 1);
+            iter_swap(Application::GetSceneModifiable().m_entities.begin() + i, Application::GetSceneModifiable().m_entities.begin() + i - 1);
         }
         if (ImGui::MenuItem("Move down")) {
-            iter_swap(Application::m_curentScene.m_entities.begin() + i, Application::m_curentScene.m_entities.begin() + i + 1);
+            iter_swap(Application::GetSceneModifiable().m_entities.begin() + i, Application::GetSceneModifiable().m_entities.begin() + i + 1);
         }
         ImGui::EndPopup();
     }
@@ -375,14 +372,14 @@ void ShapeMenu(const char *name, const char *fileName)
 {
     if (ImGui::MenuItem(name))
     {
-        auto entity = Application::m_curentScene.AddEntityR((std::string("New ") + name).c_str());
+        auto entity = Application::GetSceneModifiable().AddEntity((std::string("New ") + name).c_str());
         entity->AddComponent<Transform>();
         auto modelComponent = entity->AddComponentR<Model>();
         modelComponent->path = fileName;
         entity->AddComponent<ModelRenderer>();
         entity->AddComponent<Material>();
         entity->Start();
-        Application::selectedEntity = entity;
+        Application::GetSelectedEntity() = entity;
     }
 }
 
@@ -414,26 +411,30 @@ void ShowSaveAndOpenMenuItems()
     }
     ImGui::EndMainMenuBar();
 
+	static std::string sceneFileName;
+
     if (openScene)
     {
-        Application::sceneFileName = OpenFile(NULL, 0);
-        if (Application::sceneFileName != "")
-            Application::m_curentScene.Deserialize(Application::sceneFileName);
+		nfdfilteritem_t filterItemList[1] = { { "Scene", "scene" } };
+        sceneFileName = OpenFile(filterItemList, 1);
+        if (sceneFileName != "")
+            Application::GetSceneModifiable().Deserialize(sceneFileName);
     }
     else if (saveas)
     {
-        Application::sceneFileName = SaveFile(NULL, 0);
-        if (Application::sceneFileName != "")
-            Application::m_curentScene.Serialize(Application::sceneFileName);
+		nfdfilteritem_t filterItemList[1] = { { "Scene", "scene" } };
+        sceneFileName = SaveFile(filterItemList, 1);
+        if (sceneFileName != "")
+            Application::GetSceneModifiable().Serialize(sceneFileName);
     }
     else if (save)
     {
-        if (Application::sceneFileName != "")
+        if (sceneFileName != "")
         {
-            Application::m_curentScene.Serialize(Application::sceneFileName);
+            Application::GetSceneModifiable().Serialize(sceneFileName);
             if (Application::isRunning)
             {
-                Application::m_curentScene.Serialize("other/TEMP.scene");
+                Application::GetSceneModifiable().Serialize("other/TEMP.scene");
             }
         }
     }
@@ -442,8 +443,10 @@ void ShowInfoPanel()
 {
     ImGui::Begin("INFO");
 
-    ImGui::InputText("Scene name", &Application::m_curentScene.name, ImGuiInputTextFlags_CallbackAlways);
+    ImGui::InputText("Scene name", &Application::GetSceneModifiable().name, ImGuiInputTextFlags_CallbackAlways);
 
+	static float frameCountToDisplay = 0;
+	static std::string frameImGuiText = "FPS";
     frameCountToDisplay += EngineInfo::deltaTime;
     if (frameCountToDisplay >= 1.0f)
     {
@@ -460,12 +463,12 @@ void ShowInfoPanel()
 void ShowHierarchyPanel()
 {
     ImGui::Begin("Hierarchy");
-    for (int i = 0; i < Application::m_curentScene.m_entities.size(); i++)
-        DrawEnityHierarchy(Application::m_curentScene.m_entities[i], i);
+    for (int i = 0; i < Application::GetScene().m_entities.size(); i++)
+        DrawEnityHierarchy(Application::GetScene().m_entities[i], i);
 
     if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
     {
-        Application::selectedEntity.reset();
+        Application::GetSelectedEntity().reset();
     }
 
     if (ImGui::BeginPopupContextWindow(0, 1, false))
@@ -475,7 +478,7 @@ void ShowHierarchyPanel()
         {
             if (ImGui::MenuItem("Empty object"))
             {
-                Application::m_curentScene.AddEntity();
+                Application::GetSceneModifiable().AddEntity();
             }
             if (ImGui::BeginMenu("Model"))
             {
@@ -492,12 +495,12 @@ void ShowHierarchyPanel()
         }
         if (ImGui::MenuItem("Paste Entity"))
         {
-            if (Application::copiedEntity != nullptr)
+            if (Application::GetCopiedEntity() != nullptr)
             {
-                auto copiedEntity = Application::m_curentScene.AddEntityR();
-                copiedEntity->Copy(Application::copiedEntity);
+                auto copiedEntity = Application::GetSceneModifiable().AddEntity();
+                copiedEntity->Copy(Application::GetCopiedEntity());
                 copiedEntity->SetUUID(Random::Int());
-                Application::copiedEntity = nullptr;
+                Application::GetCopiedEntity() = nullptr;
             }
             else
             {
@@ -509,29 +512,29 @@ void ShowHierarchyPanel()
 
     if (Input::IsKeyPressed(INPUT_KEY_DELETE))
     {
-        Application::m_curentScene.RemoveEntity(Application::selectedEntity);
-        Application::selectedEntity.reset();
+        Application::GetSceneModifiable().RemoveEntity(Application::GetSelectedEntity());
+        Application::GetSelectedEntity().reset();
     }
     if (Input::IsKeyHeld(INPUT_KEY_LEFT_CONTROL) && Input::IsKeyPressed(INPUT_KEY_C))
     {
-        Application::copiedEntity = Application::selectedEntity;
+        Application::GetCopiedEntity() = Application::GetSelectedEntity();
     }
     if (Input::IsKeyHeld(INPUT_KEY_LEFT_CONTROL) && Input::IsKeyPressed(INPUT_KEY_V))
     {
-        if (Application::copiedEntity)
+        if (Application::GetCopiedEntity())
         {
-            if (Application::selectedEntity)
+            if (Application::GetSelectedEntity())
             {
-                Application::selectedEntity->Copy(Application::copiedEntity);
-                Application::selectedEntity->SetUUID(Random::Int());
-                Application::copiedEntity = nullptr;
+                Application::GetSelectedEntity()->Copy(Application::GetCopiedEntity());
+                Application::GetSelectedEntity()->SetUUID(Random::Int());
+                Application::GetCopiedEntity() = nullptr;
             }
             else
             {
-                auto copiedEntity = Application::m_curentScene.AddEntityR();
-                copiedEntity->Copy(Application::copiedEntity);
+                auto copiedEntity = Application::GetSceneModifiable().AddEntity();
+                copiedEntity->Copy(Application::GetCopiedEntity());
                 copiedEntity->SetUUID(Random::Int());
-                Application::copiedEntity = nullptr;
+                Application::GetCopiedEntity() = nullptr;
             }
         }
         else
@@ -544,7 +547,7 @@ void ShowHierarchyPanel()
 void ShowPropertiesPanel()
 {
     ImGui::Begin("Properties");
-    DrawEnity(Application::selectedEntity);
+    DrawEnity(Application::GetSelectedEntity());
     ImGui::End(); //Properties
 }
 void ShowOutputPanel()
@@ -578,29 +581,30 @@ void ShowOutputPanel()
 void ShowImGuizmo()
 {
     ImGui::Begin("Scene");
+	static int imguizmoType;
 
     if (Input::IsKeyPressed(INPUT_KEY_W))
     {
-        Application::imguizmoType = ImGuizmo::OPERATION::TRANSLATE;
+        imguizmoType = ImGuizmo::OPERATION::TRANSLATE;
     }
     else if (Input::IsKeyPressed(INPUT_KEY_E))
     {
-        Application::imguizmoType = ImGuizmo::OPERATION::SCALE;
+        imguizmoType = ImGuizmo::OPERATION::SCALE;
     }
     else if (Input::IsKeyPressed(INPUT_KEY_R))
     {
-        Application::imguizmoType = ImGuizmo::OPERATION::ROTATE;
+        imguizmoType = ImGuizmo::OPERATION::ROTATE;
     }
     else if (Input::IsKeyPressed(INPUT_KEY_T))
     {
-        Application::imguizmoType = -1;
+        imguizmoType = -1;
     }
     else if (Input::IsKeyPressed(INPUT_KEY_Q))
     {
-        Application::imguizmoType = -2;
+        imguizmoType = -2;
     }
 
-    Renderer::SetWindowSize(Application::window, (int)ImGui::GetContentRegionAvail().x, (int)ImGui::GetContentRegionAvail().y);
+    Renderer::SetWindowSize(Application::GetWindow(), (int)ImGui::GetContentRegionAvail().x, (int)ImGui::GetContentRegionAvail().y);
 
     ImVec4 borderColor;
     if (Application::isRunning)
@@ -613,9 +617,9 @@ void ShowImGuizmo()
     }
     ImGui::Image((void*)(uintptr_t)Renderer::frameBuffer.GetData(), ImVec2(EngineInfo::SCREEN_WIDTH - 2.0f, EngineInfo::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
 
-    if (Application::selectedEntity && Application::imguizmoType != -2)
+    if (Application::GetSelectedEntity() && imguizmoType != -2)
     {
-        auto tc = Application::selectedEntity->GetComponent<Transform>();
+        auto tc = Application::GetSelectedEntity()->GetComponent<Transform>();
         if (tc)
         {
 
@@ -627,7 +631,7 @@ void ShowImGuizmo()
             glm::mat4 projMat = Renderer::projectionMatrix;
             glm::mat4 transformMat = tc->GetTransform();
 
-            ImGuizmo::Manipulate(glm::value_ptr(viewMat), glm::value_ptr(projMat), (ImGuizmo::OPERATION)Application::imguizmoType, ImGuizmo::LOCAL, glm::value_ptr(transformMat));
+            ImGuizmo::Manipulate(glm::value_ptr(viewMat), glm::value_ptr(projMat), (ImGuizmo::OPERATION)imguizmoType, ImGuizmo::LOCAL, glm::value_ptr(transformMat));
 
             if (ImGuizmo::IsUsing())
             {
@@ -635,7 +639,7 @@ void ShowImGuizmo()
                 DecomposeTransform(transformMat, translation, rotation, scale);
                 tc->position = translation;
                 tc->scale = scale;
-                auto rc = Application::selectedEntity->GetComponent<Rigidbody>();
+                auto rc = Application::GetSelectedEntity()->GetComponent<Rigidbody>();
                 if (rc && Application::isRunning) {
                     rc->aDynamicActor->setGlobalPose({tc->position.x, tc->position.y, tc->position.z}, false);
                 }

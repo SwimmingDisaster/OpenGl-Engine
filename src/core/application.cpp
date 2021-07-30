@@ -16,25 +16,21 @@
 #include "assets/material.h"
 
 
+Application Application::m_instance;
 
 #ifndef RELEASE_BUILD
 EditorCamera Application::editorCamera;
+bool Application::isRunning = false;
+bool Application::isRunningLast = false;
 #endif
-
+/*
 Scene Application::m_curentScene;
 std::shared_ptr<Entity> Application::selectedEntity;
 std::shared_ptr<Entity> Application::copiedEntity;
 std::shared_ptr<Component> Application::copiedComponent;
 
 GLFWwindow *Application::window = nullptr;
-
-#ifndef RELEASE_BUILD
-bool Application::isRunning = false;
-bool Application::isRunningLast = false;
-#endif
-std::string Application::sceneFileName = "";
-
-int Application::imguizmoType = -1;
+*/
 
 int Application::Init(){
     Random::Init();
@@ -138,3 +134,4 @@ void Application::Shutdown(){
     Renderer::ShutdownOpenGL();
     NFD_Quit();
 }
+

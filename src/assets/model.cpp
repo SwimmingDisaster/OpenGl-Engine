@@ -8,7 +8,7 @@ void Model::Start() {
 }
 
 
-void Model::Serialize(YAML::Emitter& out) {
+void Model::Serialize(YAML::Emitter& out) const {
 	out << YAML::Key << name;
 	out << YAML::BeginMap;
 

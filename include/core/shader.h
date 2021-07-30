@@ -7,14 +7,17 @@ public:
 	static std::unordered_map<std::string, std::shared_ptr<Shader>> shaderMap;
 	static std::vector<std::shared_ptr<Shader>> shaderList;
 	static std::vector<std::string> shaderNames;
-	unsigned int ID;
-
 	static int BoundShaderID;
 
+private:
+	unsigned int ID = 0;
 	std::unordered_map<std::string, GLint> uniform_cache;
+
 public:
 	Shader();
 	~Shader();
+
+	[[nodiscard]] const unsigned int& GetID() const;
 
 	void CreateVertexAndFragment(const std::string& name);
 	void CreateCompute(const char* computePath);
@@ -37,7 +40,7 @@ public:
 
 	void CheckShaderError(GLuint shader, GLuint flag, bool isProgram, const std::string& errorMessage);
 
-	bool operator== (Shader &rhs);
+	bool operator==(Shader &rhs);
 
-	GLint GetUniformLocation(const char* name);
+	[[nodiscard]] GLint GetUniformLocation(const char* name);
 };

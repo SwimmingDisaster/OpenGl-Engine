@@ -16,7 +16,7 @@ void Rigidbody::Show()
     ImGui::Checkbox("Is trigger", &isTrigger);
 }
 
-void Rigidbody::Serialize(YAML::Emitter &out)
+void Rigidbody::Serialize(YAML::Emitter& out) const
 {
     out << YAML::Key << name;
     out << YAML::BeginMap;

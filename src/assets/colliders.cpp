@@ -10,7 +10,7 @@ REGISTERIMPL(BoxCollider);
 void BoxCollider::Show() {
     ImGui::DragFloat3("scale", glm::value_ptr(scale), 0.01f);
 }
-void BoxCollider::Serialize(YAML::Emitter& out) {
+void BoxCollider::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
     out << YAML::Key << "Scale" << YAML::Value << scale;
@@ -39,7 +39,7 @@ REGISTERIMPL(SphereCollider);
 void SphereCollider::Show() {
     ImGui::DragFloat("Radius", &radius, 0.01f);
 }
-void SphereCollider::Serialize(YAML::Emitter& out) {
+void SphereCollider::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
     out << YAML::Key << "Radius" << YAML::Value << radius;
@@ -76,10 +76,10 @@ void ConcaveMeshCollider::Show() {
     }
 }
 void ConcaveMeshCollider::Start() {
-	Log(filePath);
     if(filePath != "")
-        ModelImporter::LoadModelBasic(filePath, vertices, indices);
+		ModelImporter::LoadModelBasic(filePath, vertices, indices);
 
+	transform = parentEntity->GetComponent<Transform>();
     PxTolerancesScale scale;
     scale.length = 100;
     scale.speed = 981;
@@ -90,8 +90,6 @@ void ConcaveMeshCollider::Start() {
     params.meshPreprocessParams |= PxMeshPreprocessingFlag::eDISABLE_ACTIVE_EDGES_PRECOMPUTE;
 
     PhysicsManager::mCooking->setParams(params);
-
-	Log(vertices.size() << " " << indices.size());
 
     PxTriangleMeshDesc meshDesc;
     meshDesc.points.count           = vertices.size();
@@ -109,10 +107,10 @@ void ConcaveMeshCollider::Start() {
     assert(res);
 #endif
 
-
+    //BatchRenderer::AddObject(model->vertices, model->indices, m_materialComponent, model->transform, shaderName);
     aTriangleMesh = PhysicsManager::mCooking->createTriangleMesh(meshDesc, PhysicsManager::mPhysics->getPhysicsInsertionCallback());
 }
-void ConcaveMeshCollider::Serialize(YAML::Emitter& out) {
+void ConcaveMeshCollider::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
     out << YAML::Key << "File path" << YAML::Value << filePath;
@@ -122,7 +120,7 @@ void ConcaveMeshCollider::Deserialize(const YAML::Node& data) {
     filePath = data["File path"].as<std::string>();
 }
 PxGeometryHolder ConcaveMeshCollider::GetGeometry() {
-	PxMeshScale scale(PxVec3(1.0f, 1.0f, 1.0f), PxQuat(PxIdentity));
+	PxMeshScale scale(PxVec3(transform->scale.x, transform->scale.y, transform->scale.z), PxQuat(PxIdentity));
     return PxTriangleMeshGeometry(aTriangleMesh, scale);
 }
 ConcaveMeshCollider::ConcaveMeshCollider() {

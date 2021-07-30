@@ -8,7 +8,7 @@ void DeleteAfterTouched::Show()  {
     //	ImGui::InputText("Shader Name", &shaderName, ImGuiInputTextFlags_CallbackResize);
 	//ImGui::Text(std::to_string(time).c_str());
 }
-void DeleteAfterTouched::Serialize(YAML::Emitter& out) {
+void DeleteAfterTouched::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
 

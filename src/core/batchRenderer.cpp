@@ -89,7 +89,7 @@ void Batch::AddPropertyVector(std::shared_ptr<Material>& material, int& i) {
     }
 }
 
-void Batch::AddObject(const std::shared_ptr<Model>& model, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform)  {
+void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform)  {
     for(int i = 0; i < material->materialProperties.size(); i++) {
         if(materialMap.count(material->materialProperties[i].first) ==  0) { //if the vector doesnt exits
             AddPropertyVector(material, i);
@@ -97,9 +97,8 @@ void Batch::AddObject(const std::shared_ptr<Model>& model, std::shared_ptr<Mater
         AddProperty(material, i);
     }
 
-
-    int numNewVertices = model->vertices.size();
-    int numNewIndices = model->indices.size();
+    int numNewVertices = otherVertices.size();
+    int numNewIndices = otherIndices.size();
 
     int numVertices = vertices.size();
     int numIndices = indices.size();
@@ -107,8 +106,8 @@ void Batch::AddObject(const std::shared_ptr<Model>& model, std::shared_ptr<Mater
     vertices.reserve(numVertices + numNewVertices);
     indices.reserve(numIndices + numNewIndices);
 
-    vertices.insert(vertices.end(), model->vertices.begin(), model->vertices.end());
-    indices.insert(indices.end(), model->indices.begin(), model->indices.end());
+    vertices.insert(vertices.end(), otherVertices.begin(), otherVertices.end());
+    indices.insert(indices.end(), otherIndices.begin(), otherIndices.end());
 
     matrixList.push_back(transform->GetTransform());
 
@@ -131,23 +130,23 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
     for(auto& property : materialMap) {
         if(property.second.type() == typeid(std::vector<float>)) {
             std::vector<float>* propertyVector = std::any_cast<std::vector<float>>(&property.second);
-            glUniform1fv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
+            glUniform1fv(glGetUniformLocation(shader->GetID(), property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
         }
         else if(property.second.type() == typeid(std::vector<int>)) {
             std::vector<int>* propertyVector = std::any_cast<std::vector<int>>(&property.second);
-            glUniform1iv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
+            glUniform1iv(glGetUniformLocation(shader->GetID(), property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
         }
         else if(property.second.type() == typeid(std::vector<glm::vec3>)) {
             std::vector<glm::vec3>* propertyVector = std::any_cast<std::vector<glm::vec3>>(&property.second);
-            glUniform3fv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0][0]));
+            glUniform3fv(glGetUniformLocation(shader->GetID(), property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0][0]));
         }
         else if(property.second.type() == typeid(std::vector<glm::vec4>)) {
             std::vector<glm::vec4>* propertyVector = std::any_cast<std::vector<glm::vec4>>(&property.second);
-            glUniform4fv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0][0]));
+            glUniform4fv(glGetUniformLocation(shader->GetID(), property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0][0]));
         }
         else if(property.second.type() == typeid(std::vector<int>)) {
             std::vector<int>* propertyVector = std::any_cast<std::vector<int>>(&property.second);
-            glUniform1iv(glGetUniformLocation(shader->ID, property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
+            glUniform1iv(glGetUniformLocation(shader->GetID(), property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
         }
     }
 
@@ -155,7 +154,7 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
 		glActiveTexture(GL_TEXTURE0 + a.second); // activate the texture unit first before binding texture
 		glBindTexture(GL_TEXTURE_2D, TextureManager::textureMap[a.first]);	
 	}
-    glUniformMatrix4fv(glGetUniformLocation(shader->ID, "matModel"), matrixList.size(), GL_FALSE, &matrixList[0][0][0]);
+    glUniformMatrix4fv(glGetUniformLocation(shader->GetID(), "matModel"), matrixList.size(), GL_FALSE, &matrixList[0][0][0]);
 
     glBindVertexArray(VAO);
 
@@ -176,7 +175,7 @@ Batch::~Batch(){
     glDeleteVertexArrays(1, &VAO);
 }
 
-void BatchRenderer::AddObject(const std::shared_ptr<Model>& model, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
+void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
 	std::vector<Batch>& batchList= batchMap[shaderName];
 	if(batchList.size() == 0){
 		batchList.emplace_back();
@@ -186,7 +185,7 @@ void BatchRenderer::AddObject(const std::shared_ptr<Model>& model, std::shared_p
 		batchList.emplace_back();
 		batchList[batchList.size() - 1].Setup();
 	}
-	batchList[batchList.size() - 1].AddObject(model, material, transform);
+	batchList[batchList.size() - 1].AddObject(otherVertices, otherIndices, material, transform);
 }
 
 void BatchRenderer::Clear(){

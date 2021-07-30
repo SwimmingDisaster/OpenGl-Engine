@@ -66,7 +66,7 @@ void Font::Show() {
 }
 
 
-void Font::Serialize(YAML::Emitter& out) {
+void Font::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
 
@@ -248,7 +248,7 @@ void Text::Start() {
     RecalculateText(text);
 }
 
-void Text::Serialize(YAML::Emitter& out) {
+void Text::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
 

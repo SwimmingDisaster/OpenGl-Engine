@@ -35,7 +35,7 @@ void EditorCamera::ProcessKeyboard()
     float velocity = movementSpeed * EngineInfo::deltaTime;
 
     float speedup = 1.0f;
-    if (glfwGetKey(Application::window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+    if (glfwGetKey(Application::GetWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
         speedup = 3.0f;
 
     if (Input::IsKeyHeld(INPUT_KEY_W)) {
@@ -87,13 +87,13 @@ void EditorCamera::Deserialize(const YAML::Node& data) {
 }
 void EditorCamera::ShowOrHideMouse() {
     if (Input::IsKeyPressed(INPUT_KEY_ESCAPE)) {
-        if (glfwGetInputMode(Application::window, GLFW_CURSOR) == GLFW_CURSOR_NORMAL) {
+        if (glfwGetInputMode(Application::GetWindow(), GLFW_CURSOR) == GLFW_CURSOR_NORMAL) {
             isLocked = false;
-            glfwSetInputMode(Application::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+            glfwSetInputMode(Application::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         }
         else {
             isLocked = true;
-            glfwSetInputMode(Application::window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+            glfwSetInputMode(Application::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         }
     }
 

@@ -6,8 +6,8 @@ REGISTERIMPL(PhysicsFPScontroler);
 
 void PhysicsFPScontroler::Show()  {
     //	ImGui::InputText("Shader Name", &shaderName, ImGuiInputTextFlags_CallbackResize);
-    ImGui::DragFloat("Mouse Sensitivity", &mouseSensitivity, 0.1f);
-    ImGui::DragFloat("Movement Speed", &movementSpeed, 0.001f);
+    ImGui::DragFloat("Mouse Sensitivity", &mouseSensitivity, 0.1F);
+    ImGui::DragFloat("Movement Speed", &movementSpeed, 0.001F);
     ImGui::Checkbox("Is Locked", &isLocked);
 }
 void PhysicsFPScontroler::Serialize(YAML::Emitter& out) const {
@@ -51,8 +51,9 @@ void PhysicsFPScontroler::ProcessKeyboard(float deltaTime)
 {
     float velocity = movementSpeed * deltaTime;
 
-    if (glfwGetKey(Application::GetWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+    if (glfwGetKey(Application::GetWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
         velocity *= 3.0f;
+    }
     glm::vec3 velvec3 = glm::vec3(velocity, 0, velocity);
 
     if (Input::IsKeyHeld(INPUT_KEY_W)) {
@@ -73,20 +74,20 @@ void PhysicsFPScontroler::ProcessKeyboard(float deltaTime)
             canjump = false;
         }
     }
-	if(canjump == false){
-		acceleration.y -= 30.0f * deltaTime;
-	}
+    if(!canjump) {
+        acceleration.y -= 30.0f * deltaTime;
+    }
     transform->position += acceleration * deltaTime;
 
     if (rigidbody && Application::isRunning) {
         rigidbody->aDynamicActor->setGlobalPose({transform->position.x, transform->position.y, transform->position.z}, false);
-		rigidbody->aDynamicActor->setLinearVelocity({0.0f, 0.0f, 0.0f});
+        rigidbody->aDynamicActor->setLinearVelocity({0.0f, 0.0f, 0.0f});
     }
     //acceleration.x -= 30.0f * deltaTime, 0;
     //acceleration.z -=  30.0f * deltaTime, 0;
 }
 
-void PhysicsFPScontroler::OnCollision(const std::shared_ptr<Entity>& other){
+void PhysicsFPScontroler::OnCollision(const std::shared_ptr<Entity>& other) {
     acceleration.y = 0.0f;
     canjump = true;
 }
@@ -103,10 +104,12 @@ void PhysicsFPScontroler::ProcessMouseMovement(bool constrainPitch)
 
         if (constrainPitch)
         {
-            if (transform->rotation.x > 89.0f)
+            if (transform->rotation.x > 89.0f) {
                 transform->rotation.x = 89.0f;
-            if (transform->rotation.x < -89.0f)
+            }
+            if (transform->rotation.x < -89.0f) {
                 transform->rotation.x = -89.0f;
+            }
         }
 
         camera->updateCameraVectors();

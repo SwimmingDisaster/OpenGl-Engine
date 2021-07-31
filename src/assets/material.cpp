@@ -15,7 +15,7 @@ void Material::Show()  {
         ImGui::SameLine();
         ImGui::PopItemWidth();
         ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.75f);
-        auto& materialType = materialProperties[i].second.type();
+        const auto& materialType = materialProperties[i].second.type();
         if(materialProperties[i].first.find("olor") != std::string::npos) {
             ImGui::ColorEdit3(("###" + materialProperties[i].first).c_str(), glm::value_ptr(*std::any_cast<glm::vec3>(&materialProperties[i].second)));
         }
@@ -32,11 +32,11 @@ void Material::Show()  {
             ImGui::DragFloat4(("###" + materialProperties[i].first).c_str(), glm::value_ptr(*std::any_cast<glm::vec4>(&materialProperties[i].second)));
         }
         else if(materialType == typeid(TextureInfo)) {
-			std::string& textureName = (*std::any_cast<TextureInfo>(&materialProperties[i].second)).name;
+            std::string& textureName = (*std::any_cast<TextureInfo>(&materialProperties[i].second)).name;
             ImGui::InputText(("###" + materialProperties[i].first).c_str(), &textureName, ImGuiInputTextFlags_CallbackResize);
             ImGui::SameLine();
             if (ImGui::Button("Browse")) {
-                textureName = OpenFile(NULL, 0);
+                textureName = OpenFile(nullptr, 0);
             }
         }
         ImGui::PopItemWidth();
@@ -49,19 +49,19 @@ void Material::Show()  {
     if (ImGui::BeginPopup("MaterialPopup"))
     {
         if (ImGui::MenuItem("Add a float")) {
-            materialProperties.push_back(std::make_pair("Float", 0.0f));
+            materialProperties.emplace_back(std::make_pair("Float", 0.0f));
         }
         if (ImGui::MenuItem("Add an int")) {
-            materialProperties.push_back(std::make_pair("Int", 0));
+            materialProperties.emplace_back(std::make_pair("Int", 0));
         }
         if (ImGui::MenuItem("Add a vec3")) {
-            materialProperties.push_back(std::make_pair("Vec3", glm::vec3(0.0f)));
+            materialProperties.emplace_back(std::make_pair("Vec3", glm::vec3(0.0f)));
         }
         if (ImGui::MenuItem("Add a vec4")) {
-            materialProperties.push_back(std::make_pair("Vec4", glm::vec4(0.0f)));
+            materialProperties.emplace_back(std::make_pair("Vec4", glm::vec4(0.0f)));
         }
         if (ImGui::MenuItem("Add a texture")) {
-            materialProperties.push_back(std::make_pair("Texture", TextureInfo()));
+            materialProperties.emplace_back(std::make_pair("Texture", TextureInfo()));
         }
         ImGui::EndPopup();
     }
@@ -82,13 +82,13 @@ void Material::Show()  {
         Serialize(out);
 
         std::fstream fout;
-        std::string filePath = SaveFile(NULL, 0);//"other/materials/test.material";
+        std::string filePath = SaveFile(nullptr, 0);//"other/materials/test.material";
         fout.open(filePath, std::fstream::out);
         fout << out.c_str();
     }
     ImGui::SameLine();
     if (ImGui::Button("Load from file")) {
-        std::string filePath = OpenFile(NULL, 0);//"other/materials/test.material";
+        std::string filePath = OpenFile(nullptr, 0);//"other/materials/test.material";
         std::ifstream stream(filePath);
         std::stringstream strStream;
         strStream << stream.rdbuf();
@@ -106,22 +106,22 @@ void Material::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
 
-    for(int i = 0; i < materialProperties.size(); i++) {
-        auto& materialType = materialProperties[i].second.type();
+    for(const auto& materialProperty : materialProperties) {
+        const auto& materialType = materialProperty.second.type();
         if(materialType == typeid(float)) {
-            out << YAML::Key << ("f" + materialProperties[i].first) << YAML::Value << std::any_cast<float>(materialProperties[i].second);
+            out << YAML::Key << ("f" + materialProperty.first) << YAML::Value << std::any_cast<float>(materialProperty.second);
         }
         else if(materialType == typeid(int)) {
-            out << YAML::Key << ("i" + materialProperties[i].first) << YAML::Value << std::any_cast<int>(materialProperties[i].second);
+            out << YAML::Key << ("i" + materialProperty.first) << YAML::Value << std::any_cast<int>(materialProperty.second);
         }
         else if(materialType == typeid(glm::vec3)) {
-            out << YAML::Key << ("3" + materialProperties[i].first)<< YAML::Value << std::any_cast<glm::vec3>(materialProperties[i].second);
+            out << YAML::Key << ("3" + materialProperty.first)<< YAML::Value << std::any_cast<glm::vec3>(materialProperty.second);
         }
         else if(materialType == typeid(glm::vec4)) {
-            out << YAML::Key << ("4" + materialProperties[i].first) << YAML::Value << std::any_cast<glm::vec4>(materialProperties[i].second);
+            out << YAML::Key << ("4" + materialProperty.first) << YAML::Value << std::any_cast<glm::vec4>(materialProperty.second);
         }
         else if(materialType == typeid(TextureInfo)) {
-            out << YAML::Key << ("t" + materialProperties[i].first) << YAML::Value << std::any_cast<TextureInfo>(materialProperties[i].second);
+            out << YAML::Key << ("t" + materialProperty.first) << YAML::Value << std::any_cast<TextureInfo>(materialProperty.second);
         }
     }
 
@@ -130,33 +130,33 @@ void Material::Serialize(YAML::Emitter& out) const {
 
 void Material::Deserialize(const YAML::Node& data) {
     for (YAML::const_iterator property=data.begin(); property != data.end(); ++property) {
-        std::string name = property->first.as<std::string>();
-        char firstLetter = name[0];
+        auto name = property->first.as<std::string>();
+        const char& firstLetter = name[0];
         if(firstLetter == 'f') {
-            materialProperties.push_back(std::make_pair(name.substr(1, name.size() - 1), property->second.as<float>()));
+            materialProperties.emplace_back(std::make_pair(name.substr(1, name.size() - 1), property->second.as<float>()));
         }
         if(firstLetter == 'i') {
-            materialProperties.push_back(std::make_pair(name.substr(1, name.size() - 1), property->second.as<int>()));
+            materialProperties.emplace_back(std::make_pair(name.substr(1, name.size() - 1), property->second.as<int>()));
         }
         if(firstLetter == '3') {
-            materialProperties.push_back(std::make_pair(name.substr(1, name.size() - 1), property->second.as<glm::vec3>()));
+            materialProperties.emplace_back(std::make_pair(name.substr(1, name.size() - 1), property->second.as<glm::vec3>()));
         }
         if(firstLetter == '4') {
-            materialProperties.push_back(std::make_pair(name.substr(1, name.size() - 1), property->second.as<glm::vec4>()));
+            materialProperties.emplace_back(std::make_pair(name.substr(1, name.size() - 1), property->second.as<glm::vec4>()));
         }
         if(firstLetter == 't') {
-            materialProperties.push_back(std::make_pair(name.substr(1, name.size() - 1), property->second.as<TextureInfo>()));
+            materialProperties.emplace_back(std::make_pair(name.substr(1, name.size() - 1), property->second.as<TextureInfo>()));
         }
     }
 }
 
 
-void Material::SetProperty(const std::string& propertyName, const std::any value){
-	for(auto& propertyPair : materialProperties){
-		if(propertyPair.first == propertyName){
-			propertyPair.second = value;	
-		}
-	}
+void Material::SetProperty(const std::string& propertyName, const std::any& value) {
+    for(auto& propertyPair : materialProperties) {
+        if(propertyPair.first == propertyName) {
+            propertyPair.second = value;
+        }
+    }
 }
 
 #ifdef SHOW_DELETED

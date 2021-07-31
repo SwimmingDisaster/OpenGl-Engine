@@ -12,7 +12,7 @@ public:
 	std::shared_ptr<Transform> otherTransform;
 	float speed = 1.0f;
 	std::string entity_name = "";
-	glm::vec3 offset;
+	glm::vec3 offset = {0.0f, 0.0f, 0.0f};
 
 public:
 	void Show() override;

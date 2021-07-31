@@ -38,11 +38,11 @@ void ModelRenderer::Show() {
     //ImGui::InputText("Shader Name", &shaderName, ImGuiInputTextFlags_CallbackResize);
     std::string copyString = shaderName;
     if(ImGui::InputText("Shader Name", &copyString, ImGuiInputTextFlags_CallbackResize | ImGuiInputTextFlags_EnterReturnsTrue)) {
-		shaderName = copyString;
+        shaderName = copyString;
     }
 }
 
-void ModelRenderer::DrawModel(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model> model)
+void ModelRenderer::DrawModel(const std::shared_ptr<Shader>& shader, const std::shared_ptr<Model>& model)
 {
     //shader->use();
     //shader->setMat4("matModel", model->transform->GetTransform());
@@ -58,7 +58,7 @@ void ModelRenderer::DrawMesh(const std::shared_ptr<Shader>& shader, const Mesh& 
     unsigned int specularNr = 0;
     unsigned int normalNr = 0;
     unsigned int heightNr = 0;
-    for (unsigned int i = 0; i < mesh.textures.size(); i++)
+    for (int i = 0; i < mesh.textures.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
         // retrieve texture number (the N in diffuse_textureN)
@@ -80,14 +80,14 @@ void ModelRenderer::DrawMesh(const std::shared_ptr<Shader>& shader, const Mesh& 
         // now set the sampler to the correct texture unit
         //glUniform1i(glGetUniformLocation(shader->ID, ("material." + name + number).c_str()), i);
 
-        shader->setInt(("material." + name + number).c_str(), i);
+        shader->setInt(("material." + name += number).c_str(), i);
         // and finally bind the texture
         glBindTexture(GL_TEXTURE_2D, mesh.textures[i].id);
     }
 
     // draw mesh
     glBindVertexArray(mesh.VAO);
-    glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, (const void *)0);
+    glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, nullptr);
     glBindVertexArray(0);
 
     // always good practice to set everything back to defaults once configured.

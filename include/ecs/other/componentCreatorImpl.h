@@ -11,7 +11,7 @@ template <class T>
 class CreatorImpl : public Creator
 {
 public:
-	CreatorImpl<T>(const std::string& classname) : Creator(classname) {}
+	CreatorImpl<T>(const std::string& classname) noexcept : Creator(classname) {}
 	virtual ~CreatorImpl<T>() {}
 
 	std::shared_ptr<Component> create(std::shared_ptr<Entity>& entityRef) override {

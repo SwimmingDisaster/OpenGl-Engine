@@ -45,24 +45,26 @@ void Rigidbody::Start()
     size = tc->scale;
 
     mMaterial = PhysicsManager::mPhysics->createMaterial(10.0f, 10.0f, 0.1f); //static friction, dynamic friction, restitution
-    if (!mMaterial)
+    if (mMaterial == nullptr) {
         Error("createMaterial failed!");
+    }
 
     glm::mat4 glmTransform = tc->GetTransformWithNoScale();
     PxMat44 physxTransform;
     GlmMat4ToPhysXMat4(glmTransform, physxTransform);
 
-    if (!isStatic)
+    if (!isStatic) {
         aDynamicActor = PxCreateDynamic(*PhysicsManager::mPhysics, PxTransform(physxTransform), cc->GetGeometry().any(), *mMaterial, 1.0f);
-    else
+    } else {
         aStaticActor = PxCreateStatic(*PhysicsManager::mPhysics, PxTransform(physxTransform), cc->GetGeometry().any(), *mMaterial);
-    if (!aDynamicActor || !aStaticActor){
+    }
+    if ((aDynamicActor == nullptr) || (aStaticActor == nullptr)) {
         Error("create actor failed!");
-	}
+    }
 
-	if(isStatic){
-		aStaticActor->setGlobalPose({tc->position.x, tc->position.y, tc->position.z});
-	}
+    if(isStatic) {
+        aStaticActor->setGlobalPose({tc->position.x, tc->position.y, tc->position.z});
+    }
 
     if (!isStatic) {
         aDynamicActor->setName(parentEntity->GetUUIDString().c_str());
@@ -74,26 +76,26 @@ void Rigidbody::Start()
         PhysicsManager::mScene->addActor(*aStaticActor);
     }
     if(!isStatic) {
-        PxShape* treasureShape;
+        PxShape* treasureShape = nullptr;
         aDynamicActor->getShapes(&treasureShape, 1);
         treasureShape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, isSimulation);
         treasureShape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, isTrigger);
     }
     else {
-        PxShape* treasureShape;
+        PxShape* treasureShape = nullptr;
         aStaticActor->getShapes(&treasureShape, 1);
         treasureShape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, isSimulation);
         treasureShape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, isTrigger);
     }
 
-	if(!isStatic){
-		const int& layer = parentEntity->GetLayer();
-		PhysicsManager::SetupFiltering(aDynamicActor, 1UL << layer, PhysicsManager::collisionLayerMask[layer], PhysicsManager::notifyLayerMask[layer]); 
-	}
-	else{
-		const int& layer = parentEntity->GetLayer();
-		PhysicsManager::SetupFiltering(aStaticActor, 1UL << layer, PhysicsManager::collisionLayerMask[layer], PhysicsManager::notifyLayerMask[layer]); 
-	}
+    if(!isStatic) {
+        const int& layer = parentEntity->GetLayer();
+        PhysicsManager::SetupFiltering(aDynamicActor, 1UL << layer, PhysicsManager::collisionLayerMask[layer], PhysicsManager::notifyLayerMask[layer]);
+    }
+    else {
+        const int& layer = parentEntity->GetLayer();
+        PhysicsManager::SetupFiltering(aStaticActor, 1UL << layer, PhysicsManager::collisionLayerMask[layer], PhysicsManager::notifyLayerMask[layer]);
+    }
 }
 void Rigidbody::Update()
 {
@@ -103,7 +105,7 @@ void Rigidbody::Update()
         if (!aDynamicActor->isSleeping())
         {
             PxTransform transform = aDynamicActor->getGlobalPose();
-            PxMat44 transformMat = PxMat44(transform);
+            auto transformMat = PxMat44(transform);
             glm::mat4 newMat;
 
             glm::vec3 translation;
@@ -113,10 +115,12 @@ void Rigidbody::Update()
             DecomposeTransform(newMat, translation, rotation, scale);
 
             auto pxvec3Vel = aDynamicActor->getLinearVelocity();
-            if(!constrainPos)
+            if(!constrainPos) {
                 tc->position = translation + glm::vec3(pxvec3Vel.x, pxvec3Vel.y, pxvec3Vel.z) * PhysicsManager::mAccumulator;
-            if(!constrainRot)
+            }
+            if(!constrainRot) {
                 tc->rotation = glm::degrees(rotation);
+            }
             tc->scale = scale;
             tc->scale = size;
         }
@@ -140,10 +144,11 @@ Rigidbody::~Rigidbody()
 #else
 Rigidbody::~Rigidbody()
 {
-    if (!isStatic)
+    if (!isStatic) {
         aDynamicActor->release();
-    else
+    } else {
         aStaticActor->release();
+    }
     mMaterial->release();
 }
 #endif

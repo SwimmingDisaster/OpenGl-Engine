@@ -49,17 +49,17 @@ void Font::Start() {
 }
 
 void Font::Show() {
-	ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.50f);
+    ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.50f);
     ImGui::InputText("File name", &fileName, ImGuiInputTextFlags_CallbackResize);
-	ImGui::SameLine();
-	ImGui::PopItemWidth();
+    ImGui::SameLine();
+    ImGui::PopItemWidth();
     if (ImGui::Button("Browse##1")) {
         fileName = OpenFile(NULL, 0);
     }
-	ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.50f);
+    ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.50f);
     ImGui::InputText("Texture name", &textureName, ImGuiInputTextFlags_CallbackResize);
-	ImGui::SameLine();
-	ImGui::PopItemWidth();
+    ImGui::SameLine();
+    ImGui::PopItemWidth();
     if (ImGui::Button("Browse##2")) {
         textureName = OpenFile(NULL, 0);
     }
@@ -239,7 +239,7 @@ void Text::RecalculateText(std::string& f_text) {
     }
 }
 void Text::Start() {
-	transform = parentEntity->GetComponent<Transform>();
+    transform = parentEntity->GetComponent<Transform>();
     font = parentEntity->GetComponent<Font>();
     shader = Shader::shaderMap[shaderName];
     glGenVertexArrays(1, &textVAO);

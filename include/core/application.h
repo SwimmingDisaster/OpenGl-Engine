@@ -36,10 +36,10 @@ public:
 	[[nodiscard]] constexpr static std::shared_ptr<Component>& GetCopiedComponent();
 
 public:
-	int Init();
+	static int Init();
+	static void Shutdown();
 	void Start();
 	void Run();
-	void Shutdown();
 
 
 	friend class Renderer;

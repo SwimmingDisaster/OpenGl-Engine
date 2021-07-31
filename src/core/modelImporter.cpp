@@ -1,21 +1,21 @@
 #include "core/modelImporter.h"
 
 static const unsigned int assimpFlags = aiProcess_CalcTangentSpace
-                                  | aiProcess_JoinIdenticalVertices
-                                  | aiProcess_Triangulate
-                                  | aiProcess_GenNormals
-                                  | aiProcess_FlipUVs
-                                  | aiProcess_ImproveCacheLocality
-                                  | aiProcess_OptimizeMeshes;
+                                        | aiProcess_JoinIdenticalVertices
+                                        | aiProcess_Triangulate
+                                        | aiProcess_GenNormals
+                                        | aiProcess_FlipUVs
+                                        | aiProcess_ImproveCacheLocality
+                                        | aiProcess_OptimizeMeshes;
 
 static const unsigned int physxFlags = aiProcess_Triangulate
-									| aiProcess_JoinIdenticalVertices;
+                                       | aiProcess_JoinIdenticalVertices;
 
 
-const aiScene* ModelImporter::GetAssimpScene(const std::string& filePath, Assimp::Importer& importer, unsigned int flags) {
+auto ModelImporter::GetAssimpScene(const std::string& filePath, Assimp::Importer& importer, unsigned int flags) -> const aiScene* {
     const aiScene* scene = importer.ReadFile(filePath, flags);
 
-    if (!scene || scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene->mRootNode)
+    if ((scene == nullptr) || ((scene->mFlags & AI_SCENE_FLAGS_INCOMPLETE) != 0u) || (scene->mRootNode == nullptr))
     {
         Error("Assimp:  " << importer.GetErrorString());
         return nullptr;
@@ -28,11 +28,11 @@ void ModelImporter::LoadModelWithTextures(const std::string& filePath, std::vect
     vertices.clear();
     indices.clear();
     textures.clear();
-    stbi_set_flip_vertically_on_load(isFlipped);
+    stbi_set_flip_vertically_on_load(static_cast<int>(isFlipped));
     Assimp::Importer importer;
     const aiScene* scene = GetAssimpScene(filePath, importer, assimpFlags);
     std::string directory = filePath.substr(0, filePath.find_last_of('/'));
-	std::string a = "woo";
+    std::string a = "woo";
     ProcessNodeWithTextures(scene->mRootNode, scene, vertices, indices, textures, directory);
 }
 void ModelImporter::LoadModelWithoutTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
@@ -111,7 +111,7 @@ void ModelImporter::ProcessMeshWithoutTextures(const aiMesh* mesh, std::vector<V
             vertex.Normal = vector;
         }
         // texture coordinates
-        if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
+        if (mesh->mTextureCoords[0] != nullptr) // does the mesh contain texture coordinates?
         {
             glm::vec2 vec;
             // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't
@@ -130,8 +130,9 @@ void ModelImporter::ProcessMeshWithoutTextures(const aiMesh* mesh, std::vector<V
             vector.z = mesh->mBitangents[i].z;
             vertex.Bitangent = vector;
         }
-        else
+        else {
             vertex.TexCoords = glm::vec2(0.0f, 0.0f);
+        }
 
         vertices.push_back(vertex);
     }
@@ -143,14 +144,15 @@ void ModelImporter::ProcessMeshWithoutTextures(const aiMesh* mesh, std::vector<V
             continue;
         }
         assert(face.mNumIndices == 3);
-        for (GLuint j = 0; j < face.mNumIndices; j++)
+        for (GLuint j = 0; j < face.mNumIndices; j++) {
             indices.push_back(face.mIndices[j]);
+        }
     }
 }
 void ModelImporter::ProcessMeshBasic(const aiMesh* mesh, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices) {
     // walk through each of the mesh's vertices
-	assert(!mesh->HasNormals());
-	Log(mesh->mNumVertices);
+    assert(!mesh->HasNormals());
+    Log(mesh->mNumVertices);
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
         glm::vec3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
@@ -168,8 +170,9 @@ void ModelImporter::ProcessMeshBasic(const aiMesh* mesh, std::vector<glm::vec3>&
             continue;
         }
         assert(face.mNumIndices == 3);
-        for (GLuint j = 0; j < face.mNumIndices; j++)
+        for (GLuint j = 0; j < face.mNumIndices; j++) {
             indices.push_back(face.mIndices[j]);
+        }
     }
 }
 

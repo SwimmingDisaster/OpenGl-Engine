@@ -2,46 +2,46 @@
 #include "assets/model.h"
 
 void Model::Start() {
-	transform = parentEntity->GetComponent<Transform>();
-	//loadModel(path);
-	ModelImporter::LoadModelWithTextures(path, vertices, indices, textures);
+    transform = parentEntity->GetComponent<Transform>();
+    //loadModel(path);
+    ModelImporter::LoadModelWithTextures(path, vertices, indices, textures);
 }
 
 
 void Model::Serialize(YAML::Emitter& out) const {
-	out << YAML::Key << name;
-	out << YAML::BeginMap;
+    out << YAML::Key << name;
+    out << YAML::BeginMap;
 
-	out << YAML::Key << "Is flipped" << YAML::Value << isFlipped;
-	out << YAML::Key << "Path" << YAML::Value << path;
+    out << YAML::Key << "Is flipped" << YAML::Value << isFlipped;
+    out << YAML::Key << "Path" << YAML::Value << path;
 
-	out << YAML::EndMap;
+    out << YAML::EndMap;
 }
 
 void Model::Deserialize(const YAML::Node& data) {
-	isFlipped = data["Is flipped"].as<bool>();
-	path = data["Path"].as<std::string>();
+    isFlipped = data["Is flipped"].as<bool>();
+    path = data["Path"].as<std::string>();
 }
 
 void Model::Show() {
-	ImGui::Checkbox("Is flipped", &isFlipped);
+    ImGui::Checkbox("Is flipped", &isFlipped);
 
-	ImGui::InputText("File path", &path, ImGuiInputTextFlags_CallbackResize);
+    ImGui::InputText("File path", &path, ImGuiInputTextFlags_CallbackResize);
 
-	if (ImGui::Button("Browse")) {
-		nfdfilteritem_t filterItemList[1] = { { "3D model", "fbx,dae,gltf,glb,blend,3ds,ase,obj,ifc,xgl,zgl,ply,dxf,lwo,lws,lxo,stl,x,ac,ms3d,cob,scn,bvh,csm,xml,irrmesh,irr,mdl,md2,md3,pk3,mdc,md5*,smd,vta,ogex,3d,b3d,q3d,q3s,nff,nff,off,raw,ter,mdl,hmp,ndo" } };
-		path = OpenFile(filterItemList, 1);
-	}
+    if (ImGui::Button("Browse")) {
+        nfdfilteritem_t filterItemList[1] = { { "3D model", "fbx,dae,gltf,glb,blend,3ds,ase,obj,ifc,xgl,zgl,ply,dxf,lwo,lws,lxo,stl,x,ac,ms3d,cob,scn,bvh,csm,xml,irrmesh,irr,mdl,md2,md3,pk3,mdc,md5*,smd,vta,ogex,3d,b3d,q3d,q3s,nff,nff,off,raw,ter,mdl,hmp,ndo" } };
+        path = OpenFile(filterItemList, 1);
+    }
 
-	ImGui::SameLine();
+    ImGui::SameLine();
 
-	if (ImGui::Button("Reload")) {
-		textures.clear();
-		vertices.clear();
-		indices.clear();
+    if (ImGui::Button("Reload")) {
+        textures.clear();
+        vertices.clear();
+        indices.clear();
 
-		Start();
-	}
+        Start();
+    }
 }
 
 /*

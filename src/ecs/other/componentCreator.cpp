@@ -3,8 +3,7 @@
 #include "ecs/other/componentCreator.h"
 #include "ecs/other/componentFactory.h"
 
-Creator::Creator(const std::string& classname)
+Creator::Creator(const std::string& classname) noexcept
 {
-	Factory::registerit(classname, this);
-	int kelp;
+    Factory::registerit(classname, this);
 }

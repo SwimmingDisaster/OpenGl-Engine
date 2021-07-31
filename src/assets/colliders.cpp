@@ -77,16 +77,16 @@ void ConcaveMeshCollider::Show() {
 }
 void ConcaveMeshCollider::Start() {
     if(filePath != "")
-		ModelImporter::LoadModelBasic(filePath, vertices, indices);
+        ModelImporter::LoadModelBasic(filePath, vertices, indices);
 
-	transform = parentEntity->GetComponent<Transform>();
+    transform = parentEntity->GetComponent<Transform>();
     PxTolerancesScale scale;
     scale.length = 100;
     scale.speed = 981;
     PxCookingParams params(scale);
-	// disable mesh cleaning - perform mesh validation on development configurations
+    // disable mesh cleaning - perform mesh validation on development configurations
     params.meshPreprocessParams |= PxMeshPreprocessingFlag::eDISABLE_CLEAN_MESH;
-	// disable edge precompute, edges are set for each triangle, slows contact generation
+    // disable edge precompute, edges are set for each triangle, slows contact generation
     params.meshPreprocessParams |= PxMeshPreprocessingFlag::eDISABLE_ACTIVE_EDGES_PRECOMPUTE;
 
     PhysicsManager::mCooking->setParams(params);
@@ -120,7 +120,7 @@ void ConcaveMeshCollider::Deserialize(const YAML::Node& data) {
     filePath = data["File path"].as<std::string>();
 }
 PxGeometryHolder ConcaveMeshCollider::GetGeometry() {
-	PxMeshScale scale(PxVec3(transform->scale.x, transform->scale.y, transform->scale.z), PxQuat(PxIdentity));
+    PxMeshScale scale(PxVec3(transform->scale.x, transform->scale.y, transform->scale.z), PxQuat(PxIdentity));
     return PxTriangleMeshGeometry(aTriangleMesh, scale);
 }
 ConcaveMeshCollider::ConcaveMeshCollider() {

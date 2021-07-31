@@ -77,8 +77,8 @@ std::shared_ptr<Entity> Scene::AddEntity(std::string name, long long uuid, int t
     std::shared_ptr<Entity> entt = std::make_shared<Entity>();
     entt->SetName(name);
     entt->SetUUID(uuid);
-	entt->SetTag(tag);
-	entt->SetLayer(layer);
+    entt->SetTag(tag);
+    entt->SetLayer(layer);
     m_entities.push_back(entt);
     return entt;
 }
@@ -119,9 +119,9 @@ void Scene::RemoveEntity(std::string name, long long uuid) noexcept
 
 void Scene::Clear() noexcept
 {
-	for(auto& entity : m_entities){
-		entity->End();
-	}
+    for(auto& entity : m_entities) {
+        entity->End();
+    }
     for (int i = 0; i < m_entities.size(); i++)
     {
         m_entities[i]->m_components.clear();
@@ -136,8 +136,8 @@ void Scene::Clear() noexcept
     Shader::shaderList.clear();
     Shader::shaderNames.clear();
 
-	TagManager::tagList.clear();
-	TagManager::tagList.emplace_back();
+    TagManager::tagList.clear();
+    TagManager::tagList.emplace_back();
 
     TextureManager::textureMap.clear();
     TextureManager::textureList.clear();
@@ -201,7 +201,7 @@ void Scene::Serialize(const std::string &filePath) const
     out << YAML::Key << "Tags" << YAML::Value << YAML::BeginSeq;
     for (int i = 1; i < TagManager::tagList.size(); i++)
     {
-		std::string& tagName = TagManager::tagList[i];
+        std::string& tagName = TagManager::tagList[i];
         out << YAML::BeginMap;
         out << YAML::Key << "Tag Name" << YAML::Value << tagName;
         out << YAML::EndMap;
@@ -331,7 +331,7 @@ void Scene::Deserialize(const std::string &filePath)
     int l = 0;
     for (auto notifyLayerMaskValue : notifyLayerMaskValues) {
         int layerName = notifyLayerMaskValue["Layer Name"].as<int>();
-		PhysicsManager::notifyLayerMask[l] = layerName;
+        PhysicsManager::notifyLayerMask[l] = layerName;
         l++;
     }
 

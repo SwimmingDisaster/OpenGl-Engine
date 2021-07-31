@@ -23,16 +23,8 @@ EditorCamera Application::editorCamera;
 bool Application::isRunning = false;
 bool Application::isRunningLast = false;
 #endif
-/*
-Scene Application::m_curentScene;
-std::shared_ptr<Entity> Application::selectedEntity;
-std::shared_ptr<Entity> Application::copiedEntity;
-std::shared_ptr<Component> Application::copiedComponent;
 
-GLFWwindow *Application::window = nullptr;
-*/
-
-int Application::Init(){
+auto Application::Init() -> int {
     Random::Init();
     ReturnIfNotZero(Renderer::InitOpenGL());
 #ifndef RELEASE_BUILD
@@ -51,34 +43,16 @@ void Application::Start() {
 #endif
 }
 
-void Application::Run(){
-    /*
-    		static bool is = false;
-    		if (isRunning && !is)
-    		{
-    			for (int i = 0; i <	500; i++)
-    			{
-    				auto newEntity = m_curentScene.AddEntityR("New Entity " + std::to_string(i));
-    				auto transform = newEntity->AddComponentR<Transform>();
-    				transform->position = {((int)i % 80) * 3.0f, 50.0f, (int)(i / 80.0f) * 3.0f};
-    				newEntity->AddComponent<Model>();
-    				auto material = newEntity->AddComponentR<Material>();
-    				material->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
-    				newEntity->AddComponent<ModelRenderer>();
-    				newEntity->Start();
-    			}
-    			is = true;
-    		}
-    		*/
-    while (!glfwWindowShouldClose(window)){
+void Application::Run() {
+    while (glfwWindowShouldClose(window) == 0) {
 
 #ifndef RELEASE_BUILD
-        if (isRunningLast == false && isRunning == true)
+        if (!isRunningLast && isRunning)
         {
             selectedEntity = nullptr;
             m_curentScene.Serialize("other/TEMP.scene");
         }
-        else if (isRunningLast == true && isRunning == false)
+        else if (isRunningLast && !isRunning)
         {
             selectedEntity = nullptr;
             m_curentScene.Deserialize("other/TEMP.scene");
@@ -86,7 +60,7 @@ void Application::Run(){
 #endif
 
 #ifndef RELEASE_BUILD
-        if (!isRunning){
+        if (!isRunning) {
             editorCamera.Update();
         }
 #endif
@@ -119,14 +93,14 @@ void Application::Run(){
         EngineInfo::CalculateDeltaTime();
     }
 #ifndef RELEASE_BUILD
-    if (!isRunning){
+    if (!isRunning) {
         m_curentScene.Serialize("other/TEMP.scene");
     }
 #endif
     m_curentScene.Clear();
 }
 
-void Application::Shutdown(){
+void Application::Shutdown() {
     PhysicsManager::ShutdownPhysx();
 #ifndef RELEASE_BUILD
     ImGuiManager::ShutdownImGui();
@@ -135,3 +109,28 @@ void Application::Shutdown(){
     NFD_Quit();
 }
 
+/*
+Scene Application::m_curentScene;
+std::shared_ptr<Entity> Application::selectedEntity;
+std::shared_ptr<Entity> Application::copiedEntity;
+std::shared_ptr<Component> Application::copiedComponent;
+
+GLFWwindow *Application::window = nullptr;
+
+    		static bool is = false;
+    		if (isRunning && !is)
+    		{
+    			for (int i = 0; i <	500; i++)
+    			{
+    				auto newEntity = m_curentScene.AddEntityR("New Entity " + std::to_string(i));
+    				auto transform = newEntity->AddComponentR<Transform>();
+    				transform->position = {((int)i % 80) * 3.0f, 50.0f, (int)(i / 80.0f) * 3.0f};
+    				newEntity->AddComponent<Model>();
+    				auto material = newEntity->AddComponentR<Material>();
+    				material->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
+    				newEntity->AddComponent<ModelRenderer>();
+    				newEntity->Start();
+    			}
+    			is = true;
+    		}
+    		*/

@@ -6,38 +6,38 @@ REGISTERIMPL(DeleteAfterTouched);
 
 void DeleteAfterTouched::Show()  {
     //	ImGui::InputText("Shader Name", &shaderName, ImGuiInputTextFlags_CallbackResize);
-	//ImGui::Text(std::to_string(time).c_str());
+    //ImGui::Text(std::to_string(time).c_str());
 }
 void DeleteAfterTouched::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
 
-	//	out << YAML::Key << "Position" << YAML::Value << position;
+    //	out << YAML::Key << "Position" << YAML::Value << position;
 
     out << YAML::EndMap;
 }
 void DeleteAfterTouched::Deserialize(const YAML::Node& data) {
     //	position = data["Position"].as<glm::vec3>();
 }
-void DeleteAfterTouched::Start(){
-	material = parentEntity->GetComponent<Material>();
+void DeleteAfterTouched::Start() {
+    material = parentEntity->GetComponent<Material>();
 }
-void DeleteAfterTouched::Update(){
-	if(isTouched){
-		time -= EngineInfo::deltaTime;
-	}
-	if(time > 2.0f){
-		material->SetProperty("color", glm::vec3(0.0f, 1.0f, 0.0f));
-	}
-	else if (time > 0.5f){
-		material->SetProperty("color", glm::vec3(1.0f, 0.39f, 0.075f));
-	}
-	else{
-		material->SetProperty("color", glm::vec3((1.0f - time) * 2.0f, 0.0f, 0.0f));
-	}
+void DeleteAfterTouched::Update() {
+    if(isTouched) {
+        time -= EngineInfo::deltaTime;
+    }
+    if(time > 2.0f) {
+        material->SetProperty("color", glm::vec3(0.0f, 1.0f, 0.0f));
+    }
+    else if (time > 0.5f) {
+        material->SetProperty("color", glm::vec3(1.0f, 0.39f, 0.075f));
+    }
+    else {
+        material->SetProperty("color", glm::vec3((1.0f - time) * 2.0f, 0.0f, 0.0f));
+    }
 }
-void DeleteAfterTouched::OnCollision(const std::shared_ptr<Entity>& other){
-	isTouched = true;
+void DeleteAfterTouched::OnCollision(const std::shared_ptr<Entity>& other) {
+    isTouched = true;
 }
 
 #ifdef SHOW_DELETED

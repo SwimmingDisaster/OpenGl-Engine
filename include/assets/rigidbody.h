@@ -8,13 +8,13 @@
 class Rigidbody : public Component {
 	REGISTER(Rigidbody);
 public:
-	PxRigidDynamic* aDynamicActor;
-	PxRigidStatic* aStaticActor;
+	PxRigidDynamic* aDynamicActor{};
+	PxRigidStatic* aStaticActor{};
 
-	PxMaterial* mMaterial;
+	PxMaterial* mMaterial{};
 	std::shared_ptr<Transform> tc;
 	std::shared_ptr<ColliderBase> cc;
-	glm::vec3 size;
+	glm::vec3 size{};
 	bool isStatic = true;
 
 	bool constrainPos = false;

@@ -7,10 +7,10 @@ class GraphBuilderInterface;
 
 void* BuildGraphOfNextDocument(Parser& parser,
                                GraphBuilderInterface& graphBuilder) {
-	GraphBuilderAdapter eventHandler(graphBuilder);
-	if (parser.HandleNextDocument(eventHandler)) {
-		return eventHandler.RootNode();
-	}
-	return nullptr;
+    GraphBuilderAdapter eventHandler(graphBuilder);
+    if (parser.HandleNextDocument(eventHandler)) {
+        return eventHandler.RootNode();
+    }
+    return nullptr;
 }
 }  // namespace YAML

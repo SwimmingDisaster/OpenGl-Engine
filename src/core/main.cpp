@@ -2,22 +2,22 @@
 #include "core/application.h"
 
 
-int main(int argc, char *argv[]) {
+auto main(int argc, char *argv[]) -> int {
 
 //#if !__linux__
-	std::freopen("other/output.txt", "w", stdout);
-	std::freopen("other/erroroutput.txt", "w", stderr);
+    std::freopen("other/output.txt", "w", stdout);
+    std::freopen("other/erroroutput.txt", "w", stderr);
 //#endif
 
-	Application& app = Application::Get();
+    Application& app = Application::Get();
 
-	ReturnIfNotZero(app.Init());
+    ReturnIfNotZero(app.Init());
 
-	app.Start();
-	app.Run();
-	app.Shutdown();
+    app.Start();
+    app.Run();
+    Application::Shutdown();
 
-	return 0;
+    return 0;
 }
 
 

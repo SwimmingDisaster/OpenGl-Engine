@@ -13,10 +13,10 @@
 class Camera : public Component {
 	REGISTER(Camera);
 public:
-	glm::vec3 vFront;
+	glm::vec3 vFront{};
 
-	glm::vec3 vUp;
-	glm::vec3 vRight;
+	glm::vec3 vUp{};
+	glm::vec3 vRight{};
 	glm::vec3 vWorldUp = {0.0f, 1.0f, 0.0f};
 
 
@@ -48,8 +48,8 @@ public:
 	virtual ~Camera() {};
 #endif
 
-	glm::mat4 GetViewMatrix();
-	glm::mat4 GetProjectionMatrix();
+	const glm::mat4 GetViewMatrix() const;
+	const glm::mat4 GetProjectionMatrix() const;
 
 
 	void updateCameraVectors();

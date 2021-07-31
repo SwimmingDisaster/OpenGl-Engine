@@ -42,13 +42,13 @@ void ImGuiManager::InitImGui()
     io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
     ImGuiStyle &style = ImGui::GetStyle();
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    if ((io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) != 0)
     {
         style.WindowRounding = 0.0f;
         style.Colors[ImGuiCol_WindowBg].w = 1.0f;
     }
 
-    imGuiContext->IO.WantCaptureMouse = (imGuiContext->ActiveId != 0 && !imGuiContext->ActiveIdAllowOverlap) && (imGuiContext->HoveredWindow != NULL);
+    imGuiContext->IO.WantCaptureMouse = (imGuiContext->ActiveId != 0 && !imGuiContext->ActiveIdAllowOverlap) && (imGuiContext->HoveredWindow != nullptr);
 
     //io.Fonts->AddFontFromFileTTF("res/fonts/OpenSans-Bold.ttf", 15.0f);
 
@@ -72,7 +72,7 @@ void ImGuiManager::StartFrame()
     ImGui::NewFrame();
     ImGuizmo::BeginFrame();
 
-    if (io.ConfigFlags & ImGuiConfigFlags_DockingEnable)
+    if ((io.ConfigFlags & ImGuiConfigFlags_DockingEnable) != 0)
     {
         ImGui::DockSpaceOverViewport(ImGui::GetMainViewport(), ImGuiDockNodeFlags_PassthruCentralNode);
     }
@@ -85,7 +85,7 @@ void ImGuiManager::EndFrame()
 
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+    if ((io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) != 0)
     {
         GLFWwindow *backup_context = glfwGetCurrentContext();
         ImGui::UpdatePlatformWindows();
@@ -94,13 +94,14 @@ void ImGuiManager::EndFrame()
     }
 }
 
-bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDraw)
+auto ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDraw) -> bool
 {
     bool entityRemoveComponent = false;
     if (ImGui::BeginPopup("EntitySettings"))
     {
-        if (ImGui::MenuItem("Remove Entity"))
+        if (ImGui::MenuItem("Remove Entity")) {
             entityRemoveComponent = true;
+        }
 
         if (ImGui::MenuItem("Paste Component"))
         {
@@ -130,7 +131,7 @@ bool ShowEntityMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDraw)
     }
     return entityRemoveComponent;
 }
-bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDraw, int i)
+auto ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDraw, int i) -> bool
 {
     bool removeComponent = false;
     if (ImGui::BeginPopup("ComponentSettings"))
@@ -172,7 +173,7 @@ bool ShowComponentMenuAndReturnTrueIfRemoved(std::shared_ptr<Entity> &entityToDr
 
 
 
-bool ShowHeader(const std::string &headerName, const std::string &popupName, const std::string &popupIcon)
+auto ShowHeader(const std::string &headerName, const std::string &popupName, const std::string &popupIcon) -> bool
 {
     ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2{4, 4});
     ImGui::Separator();
@@ -188,7 +189,7 @@ bool ShowHeader(const std::string &headerName, const std::string &popupName, con
 void ShowEntitySearchBar(std::shared_ptr<Entity> &entityToDraw)
 {
     static bool showSearch = false;
-	static std::string searchString;
+    static std::string searchString;
     if (ImGui::InputText("##Add Component", &searchString, ImGuiInputTextFlags_CallbackAlways))
     {
         showSearch = true;
@@ -261,8 +262,9 @@ void DrawEnity(std::shared_ptr<Entity> &entityToDraw)
         ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
         ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
         if(ImGui::BeginPopupModal("Tag Popup")) {
-            if (ImGui::Button("Close"))
+            if (ImGui::Button("Close")) {
                 ImGui::CloseCurrentPopup();
+            }
             for(int i = 0; i < TagManager::tagList.size(); i++) {
                 if(ImGui::MenuItem(TagManager::tagList[i].c_str())) {
                     entityToDraw->SetTag(i);
@@ -282,8 +284,9 @@ void DrawEnity(std::shared_ptr<Entity> &entityToDraw)
         ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
         ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
         if(ImGui::BeginPopupModal("Layer Popup")) {
-            if (ImGui::Button("Close"))
+            if (ImGui::Button("Close")) {
                 ImGui::CloseCurrentPopup();
+            }
             for(int i = 0; i < LayerManager::layerList.size(); i++) {
                 if(ImGui::MenuItem(LayerManager::layerList[i].c_str())) {
                     entityToDraw->SetLayer(i);
@@ -319,7 +322,7 @@ void DrawEnity(std::shared_ptr<Entity> &entityToDraw)
 }
 void DrawEnityHierarchy(const std::shared_ptr<Entity> &entt, int i)
 {
-    ImGuiTreeNodeFlags flags;
+    ImGuiTreeNodeFlags flags = 0;
     if (Application::GetSelectedEntity() == nullptr)
     {
         flags = (0) | ImGuiTreeNodeFlags_OpenOnArrow | ImGuiTreeNodeFlags_SpanAvailWidth;
@@ -372,7 +375,7 @@ void ShapeMenu(const char *name, const char *fileName)
 {
     if (ImGui::MenuItem(name))
     {
-        auto entity = Application::GetSceneModifiable().AddEntity((std::string("New ") + name).c_str());
+        auto entity = Application::GetSceneModifiable().AddEntity(std::string("New ") + name);
         entity->AddComponent<Transform>();
         auto modelComponent = entity->AddComponentR<Model>();
         modelComponent->path = fileName;
@@ -411,25 +414,27 @@ void ShowSaveAndOpenMenuItems()
     }
     ImGui::EndMainMenuBar();
 
-	static std::string sceneFileName;
+    static std::string sceneFileName;
 
     if (openScene)
     {
-		nfdfilteritem_t filterItemList[1] = { { "Scene", "scene" } };
+        nfdfilteritem_t filterItemList[1] = { { "Scene", "scene" } };
         sceneFileName = OpenFile(filterItemList, 1);
-        if (sceneFileName != "")
+        if (sceneFileName.empty()) {
             Application::GetSceneModifiable().Deserialize(sceneFileName);
+        }
     }
     else if (saveas)
     {
-		nfdfilteritem_t filterItemList[1] = { { "Scene", "scene" } };
+        nfdfilteritem_t filterItemList[1] = { { "Scene", "scene" } };
         sceneFileName = SaveFile(filterItemList, 1);
-        if (sceneFileName != "")
+        if (sceneFileName.empty()) {
             Application::GetSceneModifiable().Serialize(sceneFileName);
+        }
     }
     else if (save)
     {
-        if (sceneFileName != "")
+        if (sceneFileName.empty())
         {
             Application::GetSceneModifiable().Serialize(sceneFileName);
             if (Application::isRunning)
@@ -445,8 +450,8 @@ void ShowInfoPanel()
 
     ImGui::InputText("Scene name", &Application::GetSceneModifiable().name, ImGuiInputTextFlags_CallbackAlways);
 
-	static float frameCountToDisplay = 0;
-	static std::string frameImGuiText = "FPS";
+    static float frameCountToDisplay = 0;
+    static std::string frameImGuiText = "FPS";
     frameCountToDisplay += EngineInfo::deltaTime;
     if (frameCountToDisplay >= 1.0f)
     {
@@ -463,15 +468,16 @@ void ShowInfoPanel()
 void ShowHierarchyPanel()
 {
     ImGui::Begin("Hierarchy");
-    for (int i = 0; i < Application::GetScene().m_entities.size(); i++)
+    for (int i = 0; i < Application::GetScene().m_entities.size(); i++) {
         DrawEnityHierarchy(Application::GetScene().m_entities[i], i);
+    }
 
     if (ImGui::IsMouseDown(0) && ImGui::IsWindowHovered())
     {
         Application::GetSelectedEntity().reset();
     }
 
-    if (ImGui::BeginPopupContextWindow(0, 1, false))
+    if (ImGui::BeginPopupContextWindow(nullptr, 1, false))
     {
 
         if (ImGui::BeginMenu("Add Entity"))
@@ -581,7 +587,7 @@ void ShowOutputPanel()
 void ShowImGuizmo()
 {
     ImGui::Begin("Scene");
-	static int imguizmoType;
+    static int imguizmoType;
 
     if (Input::IsKeyPressed(INPUT_KEY_W))
     {
@@ -635,7 +641,9 @@ void ShowImGuizmo()
 
             if (ImGuizmo::IsUsing())
             {
-                glm::vec3 translation, rotation, scale;
+                glm::vec3 translation;
+                glm::vec3 rotation;
+                glm::vec3 scale;
                 DecomposeTransform(transformMat, translation, rotation, scale);
                 tc->position = translation;
                 tc->scale = scale;
@@ -660,14 +668,14 @@ void ShowShadersPanel() {
             ImGui::SameLine();
             if (ImGui::Button(("Browse##" + std::to_string(i)).c_str())) {
                 std::string& shaderName = Shader::shaderNames[i];
-                shaderName = OpenFile(NULL, 0);
+                shaderName = OpenFile(nullptr, 0);
                 shaderName = shaderName.substr(0, shaderName.size() - 3);
             }
         }
 
 
         if (ImGui::Button("Add new shader")) {
-            Shader::shaderNames.push_back("");
+            Shader::shaderNames.emplace_back("");
         }
 
 
@@ -687,12 +695,12 @@ void ShowTexturesPanel() {
             ImGui::InputText(("Texture Name " + std::to_string(i)).c_str(), &TextureManager::textureList[i], ImGuiInputTextFlags_CallbackResize);
             ImGui::SameLine();
             if (ImGui::Button(("Browse##" + std::to_string(i)).c_str())) {
-                TextureManager::textureList[i] = OpenFile(NULL, 0);
+                TextureManager::textureList[i] = OpenFile(nullptr, 0);
             }
         }
 
         if (ImGui::Button("Add new texture")) {
-            TextureManager::textureList.push_back("");
+            TextureManager::textureList.emplace_back("");
         }
 
         static int indexToDelete;
@@ -712,7 +720,7 @@ void ShowTagsPanel() {
         }
 
         if (ImGui::Button("Add new tag")) {
-            TagManager::tagList.push_back("");
+            TagManager::tagList.emplace_back("");
         }
         static int indexToDelete;
         ImGui::InputInt("Delete index", &indexToDelete);
@@ -742,7 +750,7 @@ void ShowPhysicsMask(std::array<int, 32>& arr, const std::string& name1, const s
         ImGui::Checkbox("Show all", &showAll);
         static int clickedi = 0;
         for(int i = 0; i < LayerManager::layerList.size(); i++) {
-            if(!showAll && LayerManager::layerList[i] == "") {
+            if(!showAll && LayerManager::layerList[i].empty()) {
                 continue;
             }
             if(ImGui::Button(LayerManager::layerList[i].c_str())) {
@@ -753,10 +761,11 @@ void ShowPhysicsMask(std::array<int, 32>& arr, const std::string& name1, const s
         ImGui::SetNextWindowPos(ImVec2(ImGui::GetIO().DisplaySize.x * 0.5f, ImGui::GetIO().DisplaySize.y * 0.5f), ImGuiCond_Always, ImVec2(0.5f,0.5f));
         ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize * 0.25f);
         if(ImGui::BeginPopupModal(name2.c_str())) {
-            if (ImGui::Button("Close"))
+            if (ImGui::Button("Close")) {
                 ImGui::CloseCurrentPopup();
+            }
             for(int j = 0; j < LayerManager::layerList.size(); j++) {
-                bool checkboxbool = ((arr[clickedi]) & (1<<(j)));
+                bool checkboxbool = ((arr[clickedi]) & (1<<(j))) != 0;
                 bool tempbool = checkboxbool;
                 ImGui::Checkbox(LayerManager::layerList[j].c_str(), &checkboxbool);
                 if(checkboxbool != tempbool) {

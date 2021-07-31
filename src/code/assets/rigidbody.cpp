@@ -58,7 +58,7 @@ void Rigidbody::Start()
     } else {
         aStaticActor = PxCreateStatic(*PhysicsManager::mPhysics, PxTransform(physxTransform), cc->GetGeometry().any(), *mMaterial);
     }
-    if ((aDynamicActor == nullptr) || (aStaticActor == nullptr)) {
+    if ((aDynamicActor == nullptr) && (aStaticActor == nullptr)) {
         Error("create actor failed!");
     }
 

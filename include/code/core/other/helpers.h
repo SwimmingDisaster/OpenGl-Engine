@@ -8,6 +8,7 @@ YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec2& v);
 YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v);
 YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec4& v);
 YAML::Emitter& operator<<(YAML::Emitter& out, const TextureInfo& v);
+void ToLower(std::string& stringToChange);
 
 
 namespace YAML {

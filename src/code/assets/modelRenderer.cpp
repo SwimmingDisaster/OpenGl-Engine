@@ -87,7 +87,7 @@ void ModelRenderer::DrawMesh(const std::shared_ptr<Shader>& shader, const Mesh& 
 
     // draw mesh
     glBindVertexArray(mesh.VAO);
-    glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, nullptr);
+    glDrawElements(GL_TRIANGLES, (GLsizei)mesh.indices.size(), GL_UNSIGNED_INT, (void*)0);
     glBindVertexArray(0);
 
     // always good practice to set everything back to defaults once configured.

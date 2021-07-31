@@ -25,4 +25,8 @@ YAML::Emitter& operator<<(YAML::Emitter& out, const TextureInfo& t) {
     return out;
 }
 
-
+void ToLower(std::string& stringToChange) {
+    std::transform(stringToChange.begin(), stringToChange.end(), stringToChange.begin(), [](unsigned char c) {
+        return std::tolower(c);
+    });
+}

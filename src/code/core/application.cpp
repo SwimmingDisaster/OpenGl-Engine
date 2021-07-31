@@ -24,7 +24,7 @@ bool Application::isRunning = false;
 bool Application::isRunningLast = false;
 #endif
 
-auto Application::Init() -> int {
+int Application::Init() {
     Random::Init();
     ReturnIfNotZero(Renderer::InitOpenGL());
 #ifndef RELEASE_BUILD

@@ -5,7 +5,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -39,12 +41,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/camera.o",
-      "src/assets/camera.cpp"
+      "obj/code/assets/camera.o",
+      "src/code/assets/camera.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/camera.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/camera.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/camera.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/camera.o"
   },
   {
     "arguments": [
@@ -52,7 +54,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -86,12 +90,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/cameraFPSController.o",
-      "src/assets/cameraFPSController.cpp"
+      "obj/code/assets/cameraFPSController.o",
+      "src/code/assets/cameraFPSController.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/cameraFPSController.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/cameraFPSController.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/cameraFPSController.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/cameraFPSController.o"
   },
   {
     "arguments": [
@@ -99,7 +103,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -133,12 +139,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/colliderBase.o",
-      "src/assets/colliderBase.cpp"
+      "obj/code/assets/colliderBase.o",
+      "src/code/assets/colliderBase.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/colliderBase.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/colliderBase.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/colliderBase.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/colliderBase.o"
   },
   {
     "arguments": [
@@ -146,7 +152,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -180,12 +188,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/colliders.o",
-      "src/assets/colliders.cpp"
+      "obj/code/assets/colliders.o",
+      "src/code/assets/colliders.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/colliders.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/colliders.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/colliders.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/colliders.o"
   },
   {
     "arguments": [
@@ -193,7 +201,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -227,12 +237,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/deleteAfterTouched.o",
-      "src/assets/deleteAfterTouched.cpp"
+      "obj/code/assets/deleteAfterTouched.o",
+      "src/code/assets/deleteAfterTouched.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/deleteAfterTouched.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/deleteAfterTouched.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/deleteAfterTouched.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/deleteAfterTouched.o"
   },
   {
     "arguments": [
@@ -240,7 +250,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -274,12 +286,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/material.o",
-      "src/assets/material.cpp"
+      "obj/code/assets/material.o",
+      "src/code/assets/material.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/material.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/material.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/material.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/material.o"
   },
   {
     "arguments": [
@@ -287,7 +299,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -321,12 +335,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/mesh.o",
-      "src/assets/mesh.cpp"
+      "obj/code/assets/mesh.o",
+      "src/code/assets/mesh.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/mesh.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/mesh.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/mesh.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/mesh.o"
   },
   {
     "arguments": [
@@ -334,7 +348,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -368,12 +384,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/model.o",
-      "src/assets/model.cpp"
+      "obj/code/assets/model.o",
+      "src/code/assets/model.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/model.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/model.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/model.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/model.o"
   },
   {
     "arguments": [
@@ -381,7 +397,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -415,12 +433,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/modelRenderer.o",
-      "src/assets/modelRenderer.cpp"
+      "obj/code/assets/modelRenderer.o",
+      "src/code/assets/modelRenderer.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/modelRenderer.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/modelRenderer.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/modelRenderer.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/modelRenderer.o"
   },
   {
     "arguments": [
@@ -428,7 +446,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -462,12 +482,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/physicsFPScontroller.o",
-      "src/assets/physicsFPScontroller.cpp"
+      "obj/code/assets/physicsFPScontroller.o",
+      "src/code/assets/physicsFPScontroller.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/physicsFPScontroller.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/physicsFPScontroller.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/physicsFPScontroller.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/physicsFPScontroller.o"
   },
   {
     "arguments": [
@@ -475,7 +495,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -509,12 +531,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/rigidbody.o",
-      "src/assets/rigidbody.cpp"
+      "obj/code/assets/rigidbody.o",
+      "src/code/assets/rigidbody.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/rigidbody.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/rigidbody.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/rigidbody.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/rigidbody.o"
   },
   {
     "arguments": [
@@ -522,7 +544,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -556,12 +580,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/testComponent.o",
-      "src/assets/testComponent.cpp"
+      "obj/code/assets/testComponent.o",
+      "src/code/assets/testComponent.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/testComponent.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/testComponent.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/testComponent.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/testComponent.o"
   },
   {
     "arguments": [
@@ -569,7 +593,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -603,12 +629,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/assets/transform.o",
-      "src/assets/transform.cpp"
+      "obj/code/assets/transform.o",
+      "src/code/assets/transform.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/assets/transform.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/assets/transform.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/assets/transform.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/assets/transform.o"
   },
   {
     "arguments": [
@@ -616,7 +642,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -650,12 +678,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/application.o",
-      "src/core/application.cpp"
+      "obj/code/core/application.o",
+      "src/code/core/application.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/application.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/application.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/application.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/application.o"
   },
   {
     "arguments": [
@@ -663,7 +691,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -697,12 +727,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/batchRenderer.o",
-      "src/core/batchRenderer.cpp"
+      "obj/code/core/batchRenderer.o",
+      "src/code/core/batchRenderer.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/batchRenderer.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/batchRenderer.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/batchRenderer.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/batchRenderer.o"
   },
   {
     "arguments": [
@@ -710,7 +740,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -744,12 +776,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/engineInfo.o",
-      "src/core/engineInfo.cpp"
+      "obj/code/core/engineInfo.o",
+      "src/code/core/engineInfo.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/engineInfo.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/engineInfo.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/engineInfo.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/engineInfo.o"
   },
   {
     "arguments": [
@@ -757,7 +789,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -791,12 +825,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/framebuffer.o",
-      "src/core/framebuffer.cpp"
+      "obj/code/core/framebuffer.o",
+      "src/code/core/framebuffer.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/framebuffer.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/framebuffer.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/framebuffer.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/framebuffer.o"
   },
   {
     "arguments": [
@@ -804,7 +838,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -838,12 +874,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/imGuiManager.o",
-      "src/core/imGuiManager.cpp"
+      "obj/code/core/imGuiManager.o",
+      "src/code/core/imGuiManager.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/imGuiManager.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/imGuiManager.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/imGuiManager.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/imGuiManager.o"
   },
   {
     "arguments": [
@@ -851,7 +887,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -885,12 +923,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/input.o",
-      "src/core/input.cpp"
+      "obj/code/core/input.o",
+      "src/code/core/input.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/input.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/input.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/input.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/input.o"
   },
   {
     "arguments": [
@@ -898,7 +936,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -932,12 +972,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/layer.o",
-      "src/core/layer.cpp"
+      "obj/code/core/layer.o",
+      "src/code/core/layer.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/layer.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/layer.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/layer.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/layer.o"
   },
   {
     "arguments": [
@@ -945,7 +985,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -979,12 +1021,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/main.o",
-      "src/core/main.cpp"
+      "obj/code/core/main.o",
+      "src/code/core/main.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/main.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/main.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/main.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/main.o"
   },
   {
     "arguments": [
@@ -992,7 +1034,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1026,12 +1070,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/math.o",
-      "src/core/math.cpp"
+      "obj/code/core/math.o",
+      "src/code/core/math.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/math.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/math.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/math.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/math.o"
   },
   {
     "arguments": [
@@ -1039,7 +1083,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1073,12 +1119,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/modelImporter.o",
-      "src/core/modelImporter.cpp"
+      "obj/code/core/modelImporter.o",
+      "src/code/core/modelImporter.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/modelImporter.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/modelImporter.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/modelImporter.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/modelImporter.o"
   },
   {
     "arguments": [
@@ -1086,7 +1132,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1120,12 +1168,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/other/editorCamera.o",
-      "src/core/other/editorCamera.cpp"
+      "obj/code/core/other/editorCamera.o",
+      "src/code/core/other/editorCamera.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/other/editorCamera.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/other/editorCamera.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/other/editorCamera.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/other/editorCamera.o"
   },
   {
     "arguments": [
@@ -1133,7 +1181,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1167,12 +1217,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/other/helpers.o",
-      "src/core/other/helpers.cpp"
+      "obj/code/core/other/helpers.o",
+      "src/code/core/other/helpers.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/other/helpers.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/other/helpers.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/other/helpers.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/other/helpers.o"
   },
   {
     "arguments": [
@@ -1180,7 +1230,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1214,12 +1266,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/other/log.o",
-      "src/core/other/log.cpp"
+      "obj/code/core/other/log.o",
+      "src/code/core/other/log.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/other/log.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/other/log.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/other/log.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/other/log.o"
   },
   {
     "arguments": [
@@ -1227,7 +1279,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1261,12 +1315,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/other/random.o",
-      "src/core/other/random.cpp"
+      "obj/code/core/other/random.o",
+      "src/code/core/other/random.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/other/random.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/other/random.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/other/random.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/other/random.o"
   },
   {
     "arguments": [
@@ -1274,7 +1328,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1308,12 +1364,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/physics.o",
-      "src/core/physics.cpp"
+      "obj/code/core/physics.o",
+      "src/code/core/physics.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/physics.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/physics.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/physics.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/physics.o"
   },
   {
     "arguments": [
@@ -1321,7 +1377,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1355,12 +1413,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/physxSimulationFilter.o",
-      "src/core/physxSimulationFilter.cpp"
+      "obj/code/core/physxSimulationFilter.o",
+      "src/code/core/physxSimulationFilter.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/physxSimulationFilter.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/physxSimulationFilter.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/physxSimulationFilter.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/physxSimulationFilter.o"
   },
   {
     "arguments": [
@@ -1368,7 +1426,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1402,12 +1462,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/renderer.o",
-      "src/core/renderer.cpp"
+      "obj/code/core/renderer.o",
+      "src/code/core/renderer.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/renderer.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/renderer.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/renderer.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/renderer.o"
   },
   {
     "arguments": [
@@ -1415,7 +1475,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1449,12 +1511,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/shader.o",
-      "src/core/shader.cpp"
+      "obj/code/core/shader.o",
+      "src/code/core/shader.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/shader.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/shader.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/shader.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/shader.o"
   },
   {
     "arguments": [
@@ -1462,7 +1524,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1496,12 +1560,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/tag.o",
-      "src/core/tag.cpp"
+      "obj/code/core/tag.o",
+      "src/code/core/tag.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/tag.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/tag.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/tag.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/tag.o"
   },
   {
     "arguments": [
@@ -1509,7 +1573,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1543,12 +1609,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/texture.o",
-      "src/core/texture.cpp"
+      "obj/code/core/texture.o",
+      "src/code/core/texture.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/texture.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/texture.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/texture.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/texture.o"
   },
   {
     "arguments": [
@@ -1556,7 +1622,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1590,12 +1658,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/core/ui/text.o",
-      "src/core/ui/text.cpp"
+      "obj/code/core/ui/text.o",
+      "src/code/core/ui/text.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/core/ui/text.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/core/ui/text.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/core/ui/text.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/core/ui/text.o"
   },
   {
     "arguments": [
@@ -1603,7 +1671,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1637,12 +1707,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/ecs/component.o",
-      "src/ecs/component.cpp"
+      "obj/code/ecs/component.o",
+      "src/code/ecs/component.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/ecs/component.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/ecs/component.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/ecs/component.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/ecs/component.o"
   },
   {
     "arguments": [
@@ -1650,7 +1720,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1684,12 +1756,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/ecs/entity.o",
-      "src/ecs/entity.cpp"
+      "obj/code/ecs/entity.o",
+      "src/code/ecs/entity.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/ecs/entity.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/ecs/entity.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/ecs/entity.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/ecs/entity.o"
   },
   {
     "arguments": [
@@ -1697,7 +1769,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1731,12 +1805,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/ecs/other/componentCreator.o",
-      "src/ecs/other/componentCreator.cpp"
+      "obj/code/ecs/other/componentCreator.o",
+      "src/code/ecs/other/componentCreator.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/ecs/other/componentCreator.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/ecs/other/componentCreator.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/ecs/other/componentCreator.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/ecs/other/componentCreator.o"
   },
   {
     "arguments": [
@@ -1744,7 +1818,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1778,12 +1854,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/ecs/other/componentCreatorImpl.o",
-      "src/ecs/other/componentCreatorImpl.cpp"
+      "obj/code/ecs/other/componentCreatorImpl.o",
+      "src/code/ecs/other/componentCreatorImpl.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/ecs/other/componentCreatorImpl.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/ecs/other/componentCreatorImpl.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/ecs/other/componentCreatorImpl.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/ecs/other/componentCreatorImpl.o"
   },
   {
     "arguments": [
@@ -1791,7 +1867,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1825,12 +1903,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/ecs/other/componentFactory.o",
-      "src/ecs/other/componentFactory.cpp"
+      "obj/code/ecs/other/componentFactory.o",
+      "src/code/ecs/other/componentFactory.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/ecs/other/componentFactory.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/ecs/other/componentFactory.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/ecs/other/componentFactory.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/ecs/other/componentFactory.o"
   },
   {
     "arguments": [
@@ -1838,7 +1916,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1872,12 +1952,12 @@
       "-fno-omit-frame-pointer",
       "-c",
       "-o",
-      "obj/ecs/scene.o",
-      "src/ecs/scene.cpp"
+      "obj/code/ecs/scene.o",
+      "src/code/ecs/scene.cpp"
     ],
     "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/ecs/scene.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/ecs/scene.o"
+    "file": "/home/ognjen/OpenGl-Engine/src/code/ecs/scene.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/ecs/scene.o"
   },
   {
     "arguments": [
@@ -1885,7 +1965,58 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
+      "-I",
+      "include/vendor",
+      "-I/usr/include/gtk-3.0",
+      "-I/usr/include/pango-1.0",
+      "-I/usr/include/glib-2.0",
+      "-I/usr/lib/glib-2.0/include",
+      "-I/usr/include/harfbuzz",
+      "-I/usr/include/freetype2",
+      "-I/usr/include/libpng16",
+      "-I/usr/include/libmount",
+      "-I/usr/include/blkid",
+      "-I/usr/include/fribidi",
+      "-I/usr/include/cairo",
+      "-I/usr/include/lzo",
+      "-I/usr/include/pixman-1",
+      "-I/usr/include/gdk-pixbuf-2.0",
+      "-I/usr/include/gio-unix-2.0",
+      "-I/usr/include/cloudproviders",
+      "-I/usr/include/atk-1.0",
+      "-I/usr/include/at-spi2-atk/2.0",
+      "-I/usr/include/dbus-1.0",
+      "-I/usr/lib/dbus-1.0/include",
+      "-I/usr/include/at-spi-2.0",
+      "-pthread",
+      "-fsanitize=address",
+      "-Wall",
+      "-std=c++20",
+      "-g",
+      "-Wno-unused-variable",
+      "-Wno-unused-function",
+      "-fno-omit-frame-pointer",
+      "-c",
+      "-o",
+      "obj/code/utils/fileUtils.o",
+      "src/code/utils/fileUtils.cpp"
+    ],
+    "directory": "/home/ognjen/OpenGl-Engine",
+    "file": "/home/ognjen/OpenGl-Engine/src/code/utils/fileUtils.cpp",
+    "output": "/home/ognjen/OpenGl-Engine/obj/code/utils/fileUtils.o"
+  },
+  {
+    "arguments": [
+      "/usr/bin/clang++",
+      "-include",
+      "include/mypch.h",
+      "-I",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -1932,54 +2063,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
       "-I",
-      "include/vendor",
-      "-I/usr/include/gtk-3.0",
-      "-I/usr/include/pango-1.0",
-      "-I/usr/include/glib-2.0",
-      "-I/usr/lib/glib-2.0/include",
-      "-I/usr/include/harfbuzz",
-      "-I/usr/include/freetype2",
-      "-I/usr/include/libpng16",
-      "-I/usr/include/libmount",
-      "-I/usr/include/blkid",
-      "-I/usr/include/fribidi",
-      "-I/usr/include/cairo",
-      "-I/usr/include/lzo",
-      "-I/usr/include/pixman-1",
-      "-I/usr/include/gdk-pixbuf-2.0",
-      "-I/usr/include/gio-unix-2.0",
-      "-I/usr/include/cloudproviders",
-      "-I/usr/include/atk-1.0",
-      "-I/usr/include/at-spi2-atk/2.0",
-      "-I/usr/include/dbus-1.0",
-      "-I/usr/lib/dbus-1.0/include",
-      "-I/usr/include/at-spi-2.0",
-      "-pthread",
-      "-fsanitize=address",
-      "-Wall",
-      "-std=c++20",
-      "-g",
-      "-Wno-unused-variable",
-      "-Wno-unused-function",
-      "-fno-omit-frame-pointer",
-      "-c",
-      "-o",
-      "obj/utils/fileUtils.o",
-      "src/utils/fileUtils.cpp"
-    ],
-    "directory": "/home/ognjen/OpenGl-Engine",
-    "file": "/home/ognjen/OpenGl-Engine/src/utils/fileUtils.cpp",
-    "output": "/home/ognjen/OpenGl-Engine/obj/utils/fileUtils.o"
-  },
-  {
-    "arguments": [
-      "/usr/bin/clang++",
-      "-include",
-      "include/mypch.h",
-      "-I",
-      "include",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2026,7 +2112,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2073,7 +2161,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2120,7 +2210,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2167,7 +2259,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2214,7 +2308,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2261,7 +2357,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2308,7 +2406,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2355,7 +2455,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2402,7 +2504,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2449,7 +2553,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2496,7 +2602,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2543,7 +2651,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2590,7 +2700,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2637,7 +2749,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2684,7 +2798,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2731,7 +2847,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2778,7 +2896,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2825,7 +2945,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2872,7 +2994,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2919,7 +3043,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -2966,7 +3092,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3013,7 +3141,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3060,7 +3190,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3107,7 +3239,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3154,7 +3288,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3201,7 +3337,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3248,7 +3386,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3295,7 +3435,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3342,7 +3484,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3389,7 +3533,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3436,7 +3582,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3483,7 +3631,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3530,7 +3680,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3577,7 +3729,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3624,7 +3778,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3671,7 +3827,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3718,7 +3876,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3765,7 +3925,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3812,7 +3974,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3859,7 +4023,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3906,7 +4072,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",
@@ -3953,7 +4121,9 @@
       "-include",
       "include/mypch.h",
       "-I",
-      "include",
+      "include/",
+      "-I",
+      "include/code",
       "-I",
       "include/vendor",
       "-I/usr/include/gtk-3.0",

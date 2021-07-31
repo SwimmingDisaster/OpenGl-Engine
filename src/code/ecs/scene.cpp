@@ -276,6 +276,7 @@ void Scene::Serialize(const std::string &filePath) const
 }
 void Scene::Deserialize(const std::string &filePath)
 {
+
 #ifdef SHOW_SCENE_SERIALISATION
     Log("Deserialized: " << filePath);
 #endif

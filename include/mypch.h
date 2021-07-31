@@ -42,6 +42,7 @@
 #include "glm/gtx/string_cast.hpp"
 #include "glm/gtx/rotate_vector.hpp"
 #include "glm/gtx/quaternion.hpp"
+#include "glm/fwd.hpp"
 
 //#define PX_SUPPORT_GPU_PHYSX 1
 #include "physx/PxPhysicsAPI.h"

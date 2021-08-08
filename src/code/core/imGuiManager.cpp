@@ -411,7 +411,7 @@ void ShowSaveAndOpenMenuItems()
 
     if (openScene)
     {
-        nfdfilteritem_t filterItemList[1] = { { "Scene", "scene" } };
+        nfdfilteritem_t filterItemList[1] = { { "Scene", "scene,.scene" } };
         sceneFileName = OpenFile(filterItemList, 1);
         if (!sceneFileName.empty()) {
             Application::GetSceneModifiable().Deserialize(sceneFileName);

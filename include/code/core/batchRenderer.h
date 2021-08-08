@@ -3,7 +3,7 @@
 #include "assets/material.h"
 #include "core/modelImporter.h"
 
-#define BATCH_SIZE 150
+#define BATCH_SIZE 3
 
 class Batch{
 public:
@@ -15,6 +15,7 @@ public:
 	void Draw(const std::shared_ptr<Shader>& shader);
 public:
 	int index = 0;
+	int textureIndex = 0;
 
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -24,13 +25,12 @@ public:
 	std::unordered_map<std::string, std::any> materialMap;
 	std::unordered_map<std::string, int> textureIndexMap;
 
-	int textureIndex = 0;
 
 private:
 	void AddPropertyVector(std::shared_ptr<Material>& material, int& i);
 	void AddProperty(std::shared_ptr<Material>& material, int& i); 
 private:
-	unsigned int VAO = 0, VBO = 0, EBO = 0;
+	unsigned int VAO, VBO, EBO;
 };
 
 class BatchRenderer{

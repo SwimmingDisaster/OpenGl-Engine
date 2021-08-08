@@ -27,7 +27,7 @@ public:
 public:
 	virtual ~TestComponent();
 #else
-public:
-	virtual ~TestComponent() {};
+//public:
+	//virtual ~TestComponent() {};
 #endif
 };

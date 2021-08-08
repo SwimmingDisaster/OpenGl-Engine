@@ -25,8 +25,8 @@ public:
 public:
 	virtual ~Transform();
 #else
-public:
-	virtual ~Transform() {};
+//public:
+	//virtual ~Transform() {};
 #endif
 };
 

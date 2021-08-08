@@ -111,7 +111,7 @@ void ModelImporter::ProcessMeshWithoutTextures(const aiMesh* mesh, std::vector<V
             vertex.Normal = vector;
         }
         // texture coordinates
-        if (mesh->mTextureCoords[0] != nullptr) // does the mesh contain texture coordinates?
+        if (mesh->mTextureCoords[0]) // does the mesh contain texture coordinates?
         {
             glm::vec2 vec;
             // a vertex can contain up to 8 different texture coordinates. We thus make the assumption that we won't

@@ -4,7 +4,7 @@
 void Model::Start() {
     transform = parentEntity->GetComponent<Transform>();
     //loadModel(path);
-    ModelImporter::LoadModelWithTextures(path, vertices, indices, textures);
+    ModelImporter::LoadModelWithoutTextures(path, vertices, indices);
 }
 
 

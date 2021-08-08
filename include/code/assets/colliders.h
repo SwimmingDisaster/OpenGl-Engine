@@ -25,8 +25,8 @@ public:
 public:
 	virtual ~BoxCollider();
 #else
-public:
-	virtual ~BoxCollider(){};
+//public:
+	//virtual ~BoxCollider(){};
 #endif
 };
 
@@ -50,8 +50,8 @@ public:
 public:
 	virtual ~SphereCollider();
 #else
-public:
-	virtual ~SphereCollider(){};
+//public:
+	//virtual ~SphereCollider(){};
 #endif
 };
 

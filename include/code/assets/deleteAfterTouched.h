@@ -27,8 +27,8 @@ public:
 public:
 	virtual ~DeleteAfterTouched();
 #else
-public:
-	virtual ~DeleteAfterTouched() {};
+//public:
+	//virtual ~DeleteAfterTouched() {};
 #endif
 
 };

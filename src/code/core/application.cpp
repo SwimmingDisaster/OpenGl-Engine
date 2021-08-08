@@ -46,6 +46,24 @@ void Application::Start() {
 void Application::Run() {
     while (glfwWindowShouldClose(window) == 0) {
 
+    		static bool is = false;
+    		if (isRunning && !is)
+    		{
+    			for (int i = 0; i <	200; i++)
+    			{
+    				auto newEntity = m_curentScene.AddEntity("New Entity " + std::to_string(i), Random::Int());
+    				auto transform = newEntity->AddComponentR<Transform>();
+    				transform->position = {0.3f, 5.0f, i * 0.3f};
+    				transform->scale = {0.1f, 0.1f, 0.1f};
+    				newEntity->AddComponent<Model>();
+    				auto material = newEntity->AddComponentR<Material>();
+    				material->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
+    				newEntity->AddComponent<ModelRenderer>();
+    				newEntity->Start();
+    			}
+    			is = true;
+    		}
+
 #ifndef RELEASE_BUILD
         if (!isRunningLast && isRunning)
         {
@@ -58,6 +76,7 @@ void Application::Run() {
             m_curentScene.Deserialize("other/TEMP.scene");
         }
 #endif
+
 
 #ifndef RELEASE_BUILD
         if (!isRunning) {
@@ -117,20 +136,4 @@ std::shared_ptr<Component> Application::copiedComponent;
 
 GLFWwindow *Application::window = nullptr;
 
-    		static bool is = false;
-    		if (isRunning && !is)
-    		{
-    			for (int i = 0; i <	500; i++)
-    			{
-    				auto newEntity = m_curentScene.AddEntityR("New Entity " + std::to_string(i));
-    				auto transform = newEntity->AddComponentR<Transform>();
-    				transform->position = {((int)i % 80) * 3.0f, 50.0f, (int)(i / 80.0f) * 3.0f};
-    				newEntity->AddComponent<Model>();
-    				auto material = newEntity->AddComponentR<Material>();
-    				material->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
-    				newEntity->AddComponent<ModelRenderer>();
-    				newEntity->Start();
-    			}
-    			is = true;
-    		}
     		*/

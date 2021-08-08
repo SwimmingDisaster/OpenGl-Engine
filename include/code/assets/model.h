@@ -41,7 +41,7 @@ public:
 public:
 	virtual ~Model();
 #else
-public:
-	virtual ~Model() {};
+//public:
+	//virtual ~Model() {};
 #endif
 };

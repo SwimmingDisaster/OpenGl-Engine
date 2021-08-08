@@ -44,8 +44,7 @@ public:
 public:
 	virtual ~Camera();
 #else
-public:
-	virtual ~Camera() {};
+//	virtual ~Camera() {};
 #endif
 
 	const glm::mat4 GetViewMatrix() const;

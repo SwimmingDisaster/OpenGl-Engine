@@ -34,8 +34,8 @@ public:
 public:
 	virtual ~PhysicsFPScontroler();
 #else
-public:
-	virtual ~PhysicsFPScontroler() {};
+//public:
+	//virtual ~PhysicsFPScontroler() {};
 #endif
 
 };

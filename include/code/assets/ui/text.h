@@ -57,8 +57,8 @@ public:
 public:
     virtual ~Font();
 #else
-public:
-    virtual ~Font() {};
+//public:
+    //virtual ~Font() {};
 #endif
 };
 
@@ -92,8 +92,8 @@ public:
 public:
     virtual ~Text();
 #else
-public:
-    virtual ~Text() {};
+//public:
+    //virtual ~Text() {};
 #endif
 
 public:

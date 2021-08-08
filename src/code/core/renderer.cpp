@@ -18,7 +18,7 @@ void Renderer::GlfwErrorCallback(int error_code, const char* error_message) {
     Error("Error Number: " << error_code << " Error Message: " << error_message);
 }
 
-auto Renderer::InitOpenGL() -> int {
+int Renderer::InitOpenGL() {
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -54,16 +54,20 @@ auto Renderer::InitOpenGL() -> int {
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
+    glDisable(GL_DEPTH_TEST);
+
     glEnable(GL_DEBUG_OUTPUT);
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
+	glDisable(GL_CULL_FACE);
 
     glfwSwapInterval(EngineInfo::swapInterval);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glDisable(GL_BLEND);
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
     return 0;

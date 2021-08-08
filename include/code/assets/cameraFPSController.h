@@ -26,8 +26,8 @@ public:
 public:
 	virtual ~CameraFPSController();
 #else
-public:
-	virtual ~CameraFPSController() {};
+//public:
+	//virtual ~CameraFPSController() {};
 #endif
 
 	void ProcessKeyboard(float deltaTime);

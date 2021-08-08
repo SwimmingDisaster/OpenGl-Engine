@@ -22,7 +22,7 @@ public:
 public:
     virtual ~Material();
 #else
-public:
-    virtual ~Material() {};
+//public:
+    //virtual ~Material() {};
 #endif
 };

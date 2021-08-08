@@ -9,7 +9,6 @@ class Material;
 class ModelRenderer : public Component
 {
 	REGISTER(ModelRenderer);
-
 public:
 	std::shared_ptr<Shader> m_shader;
 	std::string shaderName = "res/shaders/color";
@@ -28,8 +27,8 @@ public:
 public:
 	virtual ~ModelRenderer();
 #else
-public:
-	virtual ~ModelRenderer() {}
+//public:
+	//virtual ~ModelRenderer() {}
 #endif
 public:
 	void DrawModel(const std::shared_ptr<Shader> &shader, const std::shared_ptr<Model>& model);

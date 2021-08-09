@@ -29,8 +29,8 @@ int Renderer::InitOpenGL() {
     glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
     glfwSetErrorCallback(GlfwErrorCallback);
 
-    Application::Get().window = glfwCreateWindow(EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT, EngineInfo::name.c_str(),  nullptr, nullptr);
-    if (Application::GetWindow() == nullptr) {
+    Application::Get().window = glfwCreateWindow(EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT, EngineInfo::name.c_str(), NULL, NULL);
+    if (!Application::GetWindow()) {
         Error("Failed to create a GLFW window");
         glfwTerminate();
         return -1;
@@ -54,20 +54,17 @@ int Renderer::InitOpenGL() {
 
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    glDisable(GL_DEPTH_TEST);
 
     glEnable(GL_DEBUG_OUTPUT);
 
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
-	glDisable(GL_CULL_FACE);
 
     glfwSwapInterval(EngineInfo::swapInterval);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	glDisable(GL_BLEND);
 
     glPixelStorei(GL_UNPACK_ALIGNMENT, 4);
     return 0;

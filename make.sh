@@ -1,1 +1,6 @@
-make -j3 -f Debug
+if [ "$1" == "Debug" ]; 
+then 
+	make -j3 -f Debug
+else 
+	make -j3 -f Release
+fi

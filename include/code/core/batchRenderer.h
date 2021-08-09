@@ -3,15 +3,18 @@
 #include "assets/material.h"
 #include "core/modelImporter.h"
 
-#define BATCH_SIZE 3
+#define BATCH_SIZE 50
 
 class Batch{
 public:
-	~Batch();
+	Batch() = default;
+    Batch(const Batch& other) = delete;
+	Batch(Batch&& other) noexcept;
 public:
 	void AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform);
 	void Setup();
 	void Clear();
+	void Destroy();
 	void Draw(const std::shared_ptr<Shader>& shader);
 public:
 	int index = 0;

@@ -41,6 +41,12 @@ public:
 	void Start();
 	void Run();
 
+	Application() = default;
+	Application(const Application& other) = delete;
+	Application(Application&& other) = delete;
+	Application& operator=(const Application& other) = delete;
+	Application& operator=(Application&& other) = delete;
+
 
 	friend class Renderer;
  };

@@ -57,7 +57,8 @@ void Application::Run() {
     				transform->scale = {0.1f, 0.1f, 0.1f};
     				newEntity->AddComponent<Model>();
     				auto material = newEntity->AddComponentR<Material>();
-    				material->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
+    				//material->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
+    				material->materialProperties.push_back(std::make_pair("color", glm::vec3(1.0f, 0.0f, 0.0f)));
     				newEntity->AddComponent<ModelRenderer>();
     				newEntity->Start();
     			}

@@ -1,5 +1,5 @@
 mkdir -p  bin/linux/Debug
-mkdir -p  bin/linux/Relase
+mkdir -p  bin/linux/Release
 
 mkdir -p obj/code
 mkdir -p obj/code/assets

@@ -14,25 +14,25 @@ void Batch::Setup() {
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)0);
+	glEnableVertexAttribArray(0);
 
-	glEnableVertexAttribArray(1);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Normal));
+	glEnableVertexAttribArray(1);
 
-	glEnableVertexAttribArray(2);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, TexCoords));
+	glEnableVertexAttribArray(2);
 
-	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Tangent));
+	glEnableVertexAttribArray(3);
 
-	glEnableVertexAttribArray(4);
 	glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, Bitangent));
+	glEnableVertexAttribArray(4);
 
-	glEnableVertexAttribArray(5);
 	glVertexAttribPointer(5, 1, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)offsetof(Vertex, ObjectIndex));
+	glEnableVertexAttribArray(5);
 
-
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
 
@@ -133,7 +133,6 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
 	assert(vertices.size() != 0);
 	assert(indices.size() != 0);
 
-	shader->use();
 	for(auto& property : materialMap) {
 		if(property.second.type() == typeid(std::vector<float>)) {
 			auto* propertyVector = std::any_cast<std::vector<float>>(&property.second);
@@ -174,17 +173,36 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
 
 	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, (const void *)0);
-	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+	glFinish();
+}
+Batch::Batch(Batch&& other) noexcept {
+	index = std::move(other.index);
+	textureIndex = std::move(other.textureIndex);
+
+	vertices = std::move(other.vertices);
+	indices = std::move(other.indices);
+
+	matrixList = std::move(other.matrixList);
+
+	materialMap = std::move(other.materialMap);
+	textureIndexMap = std::move(other.textureIndexMap);
+
+	VAO = std::move(other.VAO);
+	VBO = std::move(other.VBO);
+	EBO = std::move(other.EBO);
 }
 
-Batch::~Batch() {
+void Batch::Destroy() {
 	Clear();
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
 	glDeleteVertexArrays(1, &VAO);
 }
+
+//Batch::~Batch() {}
 
 void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
 	std::vector<Batch>& batchList= batchMap[shaderName];
@@ -200,6 +218,11 @@ void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const st
 }
 
 void BatchRenderer::Clear() {
+	for(auto& batchPair : batchMap) {
+		for(auto& batch : batchPair.second) {
+			batch.Destroy();
+		}
+	}
 	batchMap.clear();
 }
 
@@ -210,13 +233,5 @@ void BatchRenderer::Draw() {
 		for(auto& batch : batchPair.second) {
 			batch.Draw(shader);
 		}
-		/*
-		for(int i = 0; i < batchPair.second.size(); i++){
-			shader->use();
-			if(Input::IsKeyHeld(INPUT_KEY_1 + i)){
-				batchPair.second[i].Draw(shader);
-			}
-		}
-		*/
 	}
 }

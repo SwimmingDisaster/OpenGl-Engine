@@ -224,7 +224,7 @@ void ShowEntitySearchBar(const std::shared_ptr<Entity>& entityToDraw)
 }
 
 void ShowEntityTagAndLayer(const std::shared_ptr<Entity>& entityToDraw) {
-    ImGui::TextUnformatted(("Tag: "s += TagManager::tagList[entityToDraw->GetTag()] += " ("s += std::to_string(entityToDraw->GetTag()) += ")"s).c_str());
+    ImGui::TextUnformatted(("Tag: "s += TagManager::tagList[entityToDraw->GetTag()] + " ("s += std::to_string(entityToDraw->GetTag()) += ")"s).c_str());
     ImGui::SameLine();
     if(ImGui::Button("Change tag")) {
         ImGui::OpenPopup("Tag Popup");
@@ -243,7 +243,7 @@ void ShowEntityTagAndLayer(const std::shared_ptr<Entity>& entityToDraw) {
         ImGui::EndPopup();
     }
 
-    ImGui::TextUnformatted(("Layer: "s += LayerManager::layerList[entityToDraw->GetLayer()] += " ("s += std::to_string(entityToDraw->GetLayer()) += ")"s).c_str());
+    ImGui::TextUnformatted(("Layer: "s += LayerManager::layerList[entityToDraw->GetLayer()] + " ("s += std::to_string(entityToDraw->GetLayer()) += ")"s).c_str());
     ImGui::SameLine();
     if(ImGui::Button("Change layer")) {
         ImGui::OpenPopup("Layer Popup");

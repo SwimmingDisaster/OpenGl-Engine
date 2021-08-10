@@ -30,8 +30,8 @@ public:
 
 
 private:
-	void AddPropertyVector(std::shared_ptr<Material>& material, int& i);
-	void AddProperty(std::shared_ptr<Material>& material, int& i); 
+	void AddPropertyVector(std::shared_ptr<Material>& material, unsigned long& i);
+	void AddProperty(std::shared_ptr<Material>& material, unsigned long& i); 
 private:
 	unsigned int VAO, VBO, EBO;
 };

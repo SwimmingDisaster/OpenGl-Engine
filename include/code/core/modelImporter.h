@@ -26,9 +26,17 @@ class ModelImporter {
 private:
 	[[nodiscard]] static const aiScene* GetAssimpScene(const std::string& filePath, Assimp::Importer& importer, unsigned int flags);
 public:	
-	static void LoadModelWithTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, bool isFlipped = false);
-	static void LoadModelWithoutTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
-	static void LoadModelBasic(const std::string& filePath, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices);
+	static void LoadModelWithTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, bool isFlipped = false, bool loadBinaryVersion = true, bool makeBinaryVersion = true);
+	static void LoadModelWithoutTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, bool loadBinaryVersion = true, bool makeBinaryVersion = true);
+	static void LoadModelBasic(const std::string& filePath, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, bool loadBinaryVersion = true, bool makeBinaryVersion = true);
+
+	static bool LoadBinaryModelWithTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, bool isFlipped = false);
+	static bool LoadBinaryModelWithoutTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);
+	static bool LoadBinaryModelBasic(const std::string& filePath, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices);
+
+	static void SaveBinaryModelWithTextures(const std::string& filePath, const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, const std::vector<Texture>& textures, bool isFlipped = false);
+	static void SaveBinaryModelWithoutTextures(const std::string& filePath, const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices);
+	static void SaveBinaryModelBasic(const std::string& filePath, const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& indices);
 
 	static void ProcessNodeWithTextures(const aiNode* node, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, const std::string& directory);
 	static void ProcessNodeWithoutTextures(const aiNode* node, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices);

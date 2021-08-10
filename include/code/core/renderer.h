@@ -11,7 +11,8 @@ public:
 	static glm::vec3 clearColor;
 
 #ifndef RELEASE_BUILD
-	static FrameBuffer frameBuffer;
+	static FrameBuffer multisampledFrameBuffer;
+	static FrameBuffer normalFrameBuffer;
 #endif
 
 public:

@@ -77,7 +77,7 @@ void ConcaveMeshCollider::Show() {
 }
 void ConcaveMeshCollider::Start() {
     if(filePath != "")
-        ModelImporter::LoadModelBasic(filePath, vertices, indices);
+        ModelImporter::LoadModelBasic(filePath, vertices, indices, false, false);
 
     transform = parentEntity->GetComponent<Transform>();
     PxTolerancesScale scale;

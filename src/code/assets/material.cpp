@@ -9,7 +9,7 @@ REGISTERIMPL(Material);
 
 void Material::Show()  {
 
-    for(int i = 0; i < materialProperties.size(); i++) {
+    for(unsigned long i = 0; i < materialProperties.size(); i++) {
         ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.25f);
         ImGui::InputText(std::to_string(i).c_str(), &materialProperties[i].first, ImGuiInputTextFlags_CallbackResize | ImGuiInputTextFlags_EnterReturnsTrue);
         ImGui::SameLine();

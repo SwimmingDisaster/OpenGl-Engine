@@ -646,7 +646,7 @@ bool    ImGui_ImplOpenGL3_CreateDeviceObjects()
         "#ifdef GL_ES\n"
         "    precision mediump float;\n"
         "#endif\n"
-        "uniform sampler2D Texture;\n"
+        "uniform sampler2Dz Texture;\n"
         "varying vec2 Frag_UV;\n"
         "varying vec4 Frag_Color;\n"
         "void main()\n"

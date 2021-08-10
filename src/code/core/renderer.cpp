@@ -2,6 +2,7 @@
 #include "core/renderer.h"
 #include "core/application.h"
 #include "core/input.h"
+#include "core/engineInfo.h"
 
 unsigned int Renderer::matrixUBO;
 glm::mat4 Renderer::projectionMatrix;
@@ -10,7 +11,8 @@ glm::mat4 Renderer::viewProjectionMatrix;
 glm::vec3 Renderer::clearColor = {0.1f, 0.1f, 0.1f};
 
 #ifndef RELEASE_BUILD
-FrameBuffer Renderer::frameBuffer;
+FrameBuffer Renderer::multisampledFrameBuffer;
+FrameBuffer Renderer::normalFrameBuffer;
 #endif
 
 
@@ -76,14 +78,15 @@ void Renderer::Init() {
 
     glGenBuffers(1, &matrixUBO);
     glBindBuffer(GL_UNIFORM_BUFFER, matrixUBO);
-    glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), nullptr, GL_STATIC_DRAW);
+    glBufferData(GL_UNIFORM_BUFFER, 2 * sizeof(glm::mat4), nullptr, GL_STREAM_DRAW);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
     glBindBufferBase(GL_UNIFORM_BUFFER, 0, matrixUBO);
 
 
 
 #ifndef RELEASE_BUILD
-    frameBuffer = FrameBuffer((float)EngineInfo::SCREEN_WIDTH, (float)EngineInfo::SCREEN_HEIGHT);
+    multisampledFrameBuffer = FrameBuffer((float)EngineInfo::SCREEN_WIDTH, (float)EngineInfo::SCREEN_HEIGHT, 8);
+    normalFrameBuffer = FrameBuffer((float)EngineInfo::SCREEN_WIDTH, (float)EngineInfo::SCREEN_HEIGHT, 0);
 #endif
 }
 
@@ -121,7 +124,8 @@ void Renderer::SetWindowSize(GLFWwindow * window, int width, int height) {
         EngineInfo::Resize(width, height);
 
 #ifndef RELEASE_BUILD
-        frameBuffer.Resize(width, height);
+        multisampledFrameBuffer.Resize(width, height);
+        normalFrameBuffer.Resize(width, height);
 #endif
 
         float ratio = 1.0f;
@@ -135,7 +139,7 @@ void Renderer::SetWindowSize(GLFWwindow * window, int width, int height) {
 
 void Renderer::StartFrame() {
 #ifndef RELEASE_BUILD
-    frameBuffer.Bind();
+    multisampledFrameBuffer.Bind();
 #endif
     //--------------------------Draw--------------------------
 #ifndef RELEASE_BUILD
@@ -156,7 +160,10 @@ void Renderer::StartFrame() {
 
 void Renderer::EndFrame() {
 #ifndef RELEASE_BUILD
-    frameBuffer.Unbind();
+	glBindFramebuffer(GL_READ_FRAMEBUFFER, multisampledFrameBuffer.GetObject());
+    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, normalFrameBuffer.GetObject());
+    glBlitFramebuffer(0, 0, EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT, 0, 0, EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+    multisampledFrameBuffer.Unbind();
 #endif
 }
 

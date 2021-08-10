@@ -235,7 +235,7 @@ void ShowEntityTagAndLayer(const std::shared_ptr<Entity>& entityToDraw) {
         if (ImGui::Button("Close")) {
             ImGui::CloseCurrentPopup();
         }
-        for(int i = 0; i < TagManager::tagList.size(); i++) {
+        for(unsigned long i = 0; i < TagManager::tagList.size(); i++) {
             if(ImGui::MenuItem(TagManager::tagList[i].c_str())) {
                 entityToDraw->SetTag(i);
             }
@@ -254,7 +254,7 @@ void ShowEntityTagAndLayer(const std::shared_ptr<Entity>& entityToDraw) {
         if (ImGui::Button("Close")) {
             ImGui::CloseCurrentPopup();
         }
-        for(int i = 0; i < LayerManager::layerList.size(); i++) {
+        for(unsigned long i = 0; i < LayerManager::layerList.size(); i++) {
             if(ImGui::MenuItem(LayerManager::layerList[i].c_str())) {
                 entityToDraw->SetLayer(i);
             }
@@ -538,7 +538,7 @@ void ShowRightClickHierarchyContextMenu() {
 void ShowHierarchyPanel()
 {
     ImGui::Begin("Hierarchy");
-    for (int i = 0; i < Application::GetScene().m_entities.size(); i++) {
+    for (unsigned long i = 0; i < Application::GetScene().m_entities.size(); i++) {
         DrawEntityHierarchy(Application::GetScene().m_entities[i], i);
     }
 
@@ -623,7 +623,7 @@ void ShowImGuizmo()
     {
         borderColor = ImVec4(0, 1, 1, 1);
     }
-    ImGui::Image((void*)(uintptr_t)Renderer::frameBuffer.GetData(), ImVec2(EngineInfo::SCREEN_WIDTH - 2.0f, EngineInfo::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
+    ImGui::Image((void*)(uintptr_t)Renderer::normalFrameBuffer.GetData(), ImVec2(EngineInfo::SCREEN_WIDTH - 2.0f, EngineInfo::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
 
     if (Application::GetSelectedEntity() && imguizmoType != -2)
     {
@@ -665,7 +665,7 @@ void ShowImGuizmo()
 void ShowShadersPanel() {
     bool open = ImGui::TreeNodeEx((void *)"Shaders", treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s", "Shaders");
     if(open) {
-        for(int i = 0; i < Shader::shaderNames.size(); i++) {
+        for(unsigned long i = 0; i < Shader::shaderNames.size(); i++) {
             ImGui::InputText(("Shader Name " + std::to_string(i)).c_str(), &Shader::shaderNames[i], ImGuiInputTextFlags_CallbackResize);
             ImGui::SameLine();
             if (ImGui::Button(("Browse##" + std::to_string(i)).c_str())) {
@@ -693,7 +693,7 @@ void ShowShadersPanel() {
 void ShowTexturesPanel() {
     bool open = ImGui::TreeNodeEx((void *)"Textures", treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s", "Textures");
     if(open) {
-        for(int i = 0; i < TextureManager::textureList.size(); i++) {
+        for(unsigned long i = 0; i < TextureManager::textureList.size(); i++) {
             ImGui::InputText(("Texture Name " + std::to_string(i)).c_str(), &TextureManager::textureList[i], ImGuiInputTextFlags_CallbackResize);
             ImGui::SameLine();
             if (ImGui::Button(("Browse##" + std::to_string(i)).c_str())) {
@@ -717,7 +717,7 @@ void ShowTexturesPanel() {
 void ShowTagsPanel() {
     bool open = ImGui::TreeNodeEx((void *)"Tags", treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s", "Tags");
     if(open) {
-        for(int i = 1; i < TagManager::tagList.size(); i++) {
+        for(unsigned long i = 1; i < TagManager::tagList.size(); i++) {
             ImGui::InputText(("Tag " + std::to_string(i)).c_str(), &TagManager::tagList[i], ImGuiInputTextFlags_CallbackResize);
         }
 
@@ -735,7 +735,7 @@ void ShowTagsPanel() {
 void ShowLayersPanel() {
     bool open = ImGui::TreeNodeEx((void *)"Layers", treeNodeFlags ^ ImGuiTreeNodeFlags_DefaultOpen, "%s", "Layers");
     if(open) {
-        for(int i = 0; i < LayerManager::layerList.size(); i++) {
+        for(unsigned long i = 0; i < LayerManager::layerList.size(); i++) {
             ImGui::InputText(("Layer " + std::to_string(i)).c_str(), &LayerManager::layerList[i], ImGuiInputTextFlags_CallbackResize);
         }
         ImGui::TreePop();
@@ -750,8 +750,8 @@ void ShowPhysicsMask(std::array<int, 32>& arr, const std::string& name1, const s
         ImGui::TextUnformatted(name2.c_str());
         ImGui::SameLine();
         ImGui::Checkbox("Show all", &showAll);
-        static int clickedi = 0;
-        for(int i = 0; i < LayerManager::layerList.size(); i++) {
+        static unsigned long clickedi = 0;
+        for(unsigned long i = 0; i < LayerManager::layerList.size(); i++) {
             if(!showAll && LayerManager::layerList[i].empty()) {
                 continue;
             }
@@ -766,7 +766,7 @@ void ShowPhysicsMask(std::array<int, 32>& arr, const std::string& name1, const s
             if (ImGui::Button("Close")) {
                 ImGui::CloseCurrentPopup();
             }
-            for(int j = 0; j < LayerManager::layerList.size(); j++) {
+            for(unsigned long j = 0; j < LayerManager::layerList.size(); j++) {
                 bool checkboxbool = ((arr[clickedi]) & (1<<(j))) != 0;
                 bool tempbool = checkboxbool;
                 ImGui::Checkbox(LayerManager::layerList[j].c_str(), &checkboxbool);

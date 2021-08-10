@@ -44,7 +44,7 @@ void Batch::Clear() {
 	index = 0;
 }
 
-void Batch::AddProperty(std::shared_ptr<Material>& material, int& i) {
+void Batch::AddProperty(std::shared_ptr<Material>& material, unsigned long& i) {
 	const auto& materialType = material->materialProperties[i].second.type();
 	if(materialType == typeid(float)) {
 		std::any_cast<std::vector<float>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<float>(&material->materialProperties[i].second));
@@ -70,7 +70,7 @@ void Batch::AddProperty(std::shared_ptr<Material>& material, int& i) {
 	}
 }
 
-void Batch::AddPropertyVector(std::shared_ptr<Material>& material, int& i) {
+void Batch::AddPropertyVector(std::shared_ptr<Material>& material, unsigned long& i) {
 	const auto& materialType = material->materialProperties[i].second.type();
 
 	if(materialType == typeid(float)) {
@@ -91,7 +91,7 @@ void Batch::AddPropertyVector(std::shared_ptr<Material>& material, int& i) {
 }
 
 void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform)  {
-	for(int i = 0; i < material->materialProperties.size(); i++) {
+	for(unsigned long i = 0; i < material->materialProperties.size(); i++) {
 		if(materialMap.count(material->materialProperties[i].first) ==  0) { //if the vector doesnt exits
 			AddPropertyVector(material, i);
 		}

@@ -96,7 +96,7 @@ template<typename T> constexpr void Entity::AddComponent() {
 
 
 template<typename T> void Entity::RemoveComponent() {
-    for (int i = 0; i < m_components.size(); i++) {
+    for (unsigned long i = 0; i < m_components.size(); i++) {
         if ( std::shared_ptr<T> castedComp = std::dynamic_pointer_cast<T>( m_components[i] ) )
         {
             m_components.erase(m_components.begin() + i);

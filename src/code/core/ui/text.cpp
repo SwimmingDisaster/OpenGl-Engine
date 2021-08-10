@@ -96,12 +96,12 @@ std::vector<Word> Text::WordsFromText(std::string f_text) {
     std::vector<std::string> strs;
 
     boost::split(strs, f_text, boost::is_any_of("\t "), boost::token_compress_on);
-    unsigned int numWords = strs.size();
+    unsigned long numWords = strs.size();
     std::vector<Word> words(numWords);
 
-    for (int i = 0; i < numWords; i++) {
+    for (unsigned long i = 0; i < numWords; i++) {
         words[i].characters.reserve(strs[i].length());
-        for (int j = 0; j < strs[i].length(); j++) {
+        for (unsigned long j = 0; j < strs[i].length(); j++) {
             words[i].characters.emplace_back(font->Char_map[strs[i][j]]);
         }
     }
@@ -111,8 +111,8 @@ std::vector<Word> Text::WordsFromText(std::string f_text) {
 std::vector<Line> Text::LinesFromWords(std::vector<Word> words) {
     std::vector<Line> lines(1);
     float lineSize = 0;
-    unsigned int index = 0;
-    for (int i = 0; i < words.size(); i++) {
+    unsigned long index = 0;
+    for (unsigned long i = 0; i < words.size(); i++) {
         if (lineSize + getSize(words[i]) * fontSize < lineMaxWidth * EngineInfo::SCREEN_WIDTH) {
             lines[index].words.push_back(words[i]);
         }

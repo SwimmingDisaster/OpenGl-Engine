@@ -24,7 +24,12 @@ auto ModelImporter::GetAssimpScene(const std::string& filePath, Assimp::Importer
     return scene;
 }
 
-void ModelImporter::LoadModelWithTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, bool isFlipped) {
+void ModelImporter::LoadModelWithTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, bool isFlipped, bool loadBinaryVersion, bool makeBinaryVersion) {
+	if(loadBinaryVersion){
+		if(LoadBinaryModelWithTextures(filePath + ".bin", vertices, indices, textures)){
+			return;
+		}
+	}
     vertices.clear();
     indices.clear();
     textures.clear();
@@ -32,22 +37,40 @@ void ModelImporter::LoadModelWithTextures(const std::string& filePath, std::vect
     Assimp::Importer importer;
     const aiScene* scene = GetAssimpScene(filePath, importer, assimpFlags);
     std::string directory = filePath.substr(0, filePath.find_last_of('/'));
-    std::string a = "woo";
     ProcessNodeWithTextures(scene->mRootNode, scene, vertices, indices, textures, directory);
+	if(makeBinaryVersion){
+		SaveBinaryModelWithTextures(filePath + ".bin", vertices, indices, textures);
+	}
 }
-void ModelImporter::LoadModelWithoutTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+void ModelImporter::LoadModelWithoutTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, bool loadBinaryVersion, bool makeBinaryVersion) {
+	if(loadBinaryVersion){
+		if(LoadBinaryModelWithoutTextures(filePath + ".bin", vertices, indices)){
+			return;
+		}
+	}
     vertices.clear();
     indices.clear();
     Assimp::Importer importer;
     const aiScene* scene = GetAssimpScene(filePath, importer, assimpFlags);
     ProcessNodeWithoutTextures(scene->mRootNode, scene, vertices, indices);
+	if(makeBinaryVersion){
+		SaveBinaryModelWithoutTextures(filePath + ".bin", vertices, indices);
+	}
 }
-void ModelImporter::LoadModelBasic(const std::string& filePath, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices) {
+void ModelImporter::LoadModelBasic(const std::string& filePath, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, bool loadBinaryVersion, bool makeBinaryVersion) {
+	if(loadBinaryVersion){
+		if(LoadBinaryModelBasic(filePath + ".bin", vertices, indices)){
+			return;
+		}
+	}
     vertices.clear();
     indices.clear();
     Assimp::Importer importer;
     const aiScene* scene = GetAssimpScene(filePath, importer, physxFlags);
     ProcessNodeBasic(scene->mRootNode, scene, vertices, indices);
+	if(makeBinaryVersion){
+		SaveBinaryModelBasic(filePath + ".bin", vertices, indices);
+	}
 }
 
 void ModelImporter::ProcessNodeWithTextures(const aiNode* node, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, const std::string& directory) {
@@ -210,4 +233,126 @@ void ModelImporter::LoadTextures(std::vector<Texture>& textures, const aiMateria
     }
 }
 
+bool ModelImporter::LoadBinaryModelWithTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, bool isFlipped){
+	std::ifstream in(filePath, std::ios::binary);
+	if(!in){
+		return false;
+	}
+    decltype(vertices.size()) verticesSize;
+	decltype(indices.size()) indicesSize;
+	decltype(textures.size()) texturesSize;
+    in.read(reinterpret_cast<char*>(&verticesSize), sizeof(verticesSize));
+    in.read(reinterpret_cast<char*>(&indicesSize), sizeof(indicesSize));
+    in.read(reinterpret_cast<char*>(&texturesSize), sizeof(texturesSize));
+    vertices.resize(verticesSize); indices.resize(indicesSize); textures.resize(texturesSize); 
 
+    in.read(reinterpret_cast<char*>(&vertices[0]), sizeof(vertices[0])*vertices.size());
+    in.read(reinterpret_cast<char*>(&indices[0]), sizeof(indices[0])*indices.size());
+    in.read(reinterpret_cast<char*>(&textures[0]), sizeof(textures[0])*textures.size());
+	in.close();
+	if(!in){
+		ErrorAtPos("Reading from binary file: " << filePath << " failed");
+		return false;
+	}
+
+    return true;
+}
+bool ModelImporter::LoadBinaryModelWithoutTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices){
+	std::ifstream in(filePath, std::ios::binary);
+	if(!in){
+		return false;
+	}
+    decltype(vertices.size()) verticesSize;
+	decltype(indices.size()) indicesSize;
+
+    in.read(reinterpret_cast<char*>(&verticesSize), sizeof(verticesSize));
+    in.read(reinterpret_cast<char*>(&indicesSize), sizeof(indicesSize));
+
+	Log("Loaded: " << filePath << " " << verticesSize << " " << indicesSize);
+    vertices.resize(verticesSize); indices.resize(indicesSize);
+
+    in.read(reinterpret_cast<char*>(&vertices[0]), sizeof(vertices[0])*vertices.size());
+    in.read(reinterpret_cast<char*>(&indices[0]), sizeof(indices[0])*indices.size());
+
+	in.close();
+	if(!in){
+		ErrorAtPos("Reading from binary file: " << filePath << " failed");
+		return false;
+	}
+
+    return true;
+}
+bool ModelImporter::LoadBinaryModelBasic(const std::string& filePath, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices){
+	std::ifstream in(filePath, std::ios::binary);
+	if(!in){
+		return false;
+	}
+    decltype(vertices.size()) verticesSize;
+	decltype(indices.size()) indicesSize;
+
+    in.read(reinterpret_cast<char*>(&verticesSize), sizeof(verticesSize));
+    in.read(reinterpret_cast<char*>(&indicesSize), sizeof(indicesSize));
+
+    vertices.resize(verticesSize); indices.resize(indicesSize);
+
+    in.read(reinterpret_cast<char*>(&vertices[0]), sizeof(vertices[0])*vertices.size());
+    in.read(reinterpret_cast<char*>(&indices[0]), sizeof(indices[0])*indices.size());
+
+	in.close();
+	if(!in){
+		ErrorAtPos("Reading from binary file: " << filePath << " failed");
+		return false;
+	}
+
+    return true;
+}
+
+void ModelImporter::SaveBinaryModelWithoutTextures(const std::string& filePath, const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices){
+	std::ofstream out(filePath, std::ios::binary);
+    auto verticesSize = vertices.size();
+	auto indicesSize = indices.size();
+
+    out.write(reinterpret_cast<const char*>(&verticesSize), sizeof(verticesSize));
+    out.write(reinterpret_cast<const char*>(&indicesSize), sizeof(indicesSize));
+
+    out.write(reinterpret_cast<const char*>(&vertices[0]), sizeof(vertices[0])*vertices.size());
+    out.write(reinterpret_cast<const char*>(&indices[0]), sizeof(indices[0])*indices.size());
+	out.close();
+	if(!out){
+		ErrorAtPos("Writing to binary file: " << filePath << " failed");
+	}
+}
+
+void ModelImporter::SaveBinaryModelWithTextures(const std::string& filePath, const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, const std::vector<Texture>& textures, bool isFlipped){
+	std::ofstream out(filePath, std::ios::binary);
+    auto verticesSize = vertices.size();
+	auto indicesSize = indices.size();
+	auto texturesSize = textures.size();
+
+    out.write(reinterpret_cast<const char*>(&verticesSize), sizeof(verticesSize));
+    out.write(reinterpret_cast<const char*>(&indicesSize), sizeof(indicesSize));
+    out.write(reinterpret_cast<const char*>(&texturesSize), sizeof(texturesSize));
+
+    out.write(reinterpret_cast<const char*>(&vertices[0]), sizeof(vertices[0])*vertices.size());
+    out.write(reinterpret_cast<const char*>(&indices[0]), sizeof(indices[0])*indices.size());
+    out.write(reinterpret_cast<const char*>(&textures[0]), sizeof(textures[0])*textures.size());
+	out.close();
+	if(!out){
+		ErrorAtPos("Writing to binary file: " << filePath << " failed");
+	}
+}
+void ModelImporter::SaveBinaryModelBasic(const std::string& filePath, const std::vector<glm::vec3>& vertices, const std::vector<unsigned int>& indices){
+	std::ofstream out(filePath, std::ios::binary);
+    auto verticesSize = vertices.size();
+	auto indicesSize = indices.size();
+
+    out.write(reinterpret_cast<const char*>(&verticesSize), sizeof(verticesSize));
+    out.write(reinterpret_cast<const char*>(&indicesSize), sizeof(indicesSize));
+
+    out.write(reinterpret_cast<const char*>(&vertices[0]), sizeof(vertices[0])*vertices.size());
+    out.write(reinterpret_cast<const char*>(&indices[0]), sizeof(indices[0])*indices.size());
+	out.close();
+	if(!out){
+		ErrorAtPos("Writing to binary file: " << filePath << " failed");
+	}
+}

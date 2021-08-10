@@ -85,7 +85,7 @@ std::shared_ptr<Entity> Scene::AddEntity(std::string name, long long uuid, int t
 
 void Scene::RemoveEntity(std::string name) noexcept
 {
-    for (int i = 0; i < m_entities.size(); i++)
+    for (unsigned long i = 0; i < m_entities.size(); i++)
     {
         if (m_entities[i]->GetName() == name)
         {
@@ -96,7 +96,7 @@ void Scene::RemoveEntity(std::string name) noexcept
 }
 void Scene::RemoveEntity(long long uuid) noexcept
 {
-    for (int i = 0; i < m_entities.size(); i++)
+    for (unsigned long i = 0; i < m_entities.size(); i++)
     {
         if (m_entities[i]->GetUUID() == uuid)
         {
@@ -107,7 +107,7 @@ void Scene::RemoveEntity(long long uuid) noexcept
 }
 void Scene::RemoveEntity(std::string name, long long uuid) noexcept
 {
-    for (int i = 0; i < m_entities.size(); i++)
+    for (unsigned long i = 0; i < m_entities.size(); i++)
     {
         if (m_entities[i]->GetName() == name && m_entities[i]->GetUUID() == uuid)
         {
@@ -122,7 +122,7 @@ void Scene::Clear() noexcept
     for(auto& entity : m_entities) {
         entity->End();
     }
-    for (int i = 0; i < m_entities.size(); i++)
+    for (unsigned long i = 0; i < m_entities.size(); i++)
     {
         m_entities[i]->m_components.clear();
         m_entities.erase(m_entities.begin() + i);
@@ -144,14 +144,14 @@ void Scene::Clear() noexcept
 }
 void Scene::Update() const
 {
-    for (int i = 0; i < m_entities.size(); i++)
+    for (unsigned long i = 0; i < m_entities.size(); i++)
     {
         m_entities[i]->Update();
     }
 }
 void Scene::Render() const
 {
-    for (int i = 0; i < m_entities.size(); i++)
+    for (unsigned long i = 0; i < m_entities.size(); i++)
     {
         auto modelRendererComponent = m_entities[i]->GetComponent<ModelRenderer>();
         if (modelRendererComponent != nullptr)
@@ -160,7 +160,7 @@ void Scene::Render() const
         }
     }
     BatchRenderer::Draw();
-    for (int i = 0; i < m_entities.size(); i++)
+    for (unsigned long i = 0; i < m_entities.size(); i++)
     {
         auto textRendererComponent = m_entities[i]->GetComponent<Text>();
         if (textRendererComponent != nullptr)
@@ -199,7 +199,7 @@ void Scene::Serialize(const std::string &filePath) const
     out << YAML::EndSeq;
 
     out << YAML::Key << "Tags" << YAML::Value << YAML::BeginSeq;
-    for (int i = 1; i < TagManager::tagList.size(); i++)
+    for (unsigned long i = 1; i < TagManager::tagList.size(); i++)
     {
         std::string& tagName = TagManager::tagList[i];
         out << YAML::BeginMap;
@@ -350,7 +350,7 @@ void Scene::Deserialize(const std::string &filePath)
             std::vector<std::string> componentNames = entity["Components"].as<std::vector<std::string>>();
 
             std::shared_ptr<Entity> newEntity = AddEntity(name, uuid, tag, layer);
-            for (int i = 0; i < componentNames.size(); i++)
+            for (unsigned long i = 0; i < componentNames.size(); i++)
             {
                 const YAML::Node &componentData = entity[componentNames[i]];
                 if (componentData)

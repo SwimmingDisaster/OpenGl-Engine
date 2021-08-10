@@ -58,7 +58,7 @@ void ModelRenderer::DrawMesh(const std::shared_ptr<Shader>& shader, const Mesh& 
     unsigned int specularNr = 0;
     unsigned int normalNr = 0;
     unsigned int heightNr = 0;
-    for (int i = 0; i < mesh.textures.size(); i++)
+    for (unsigned long i = 0; i < mesh.textures.size(); i++)
     {
         glActiveTexture(GL_TEXTURE0 + i); // active proper texture unit before binding
         // retrieve texture number (the N in diffuse_textureN)

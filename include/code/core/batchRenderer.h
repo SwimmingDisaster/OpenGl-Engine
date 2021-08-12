@@ -39,6 +39,9 @@ private:
 class BatchRenderer{
 public:
 	static std::unordered_map<std::string, std::vector<Batch>> batchMap;
+	static std::unordered_map<std::string, unsigned long> batchIndexes;
+
+public:
 	static void AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName);
 	static void Clear();
 	static void Draw();

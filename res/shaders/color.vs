@@ -7,8 +7,8 @@ layout (location = 4) in vec3 aBitangent;
 layout (location = 5) in int ObjectIndexVertex;
 
 out vec3 FragPos;
-out vec3 Normal;
 out vec2 TexCoords;  
+smooth out vec3 Normal;
 out flat int ObjectIndexFragment;
 
 uniform mat4 matModel[150];

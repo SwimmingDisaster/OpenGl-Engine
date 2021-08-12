@@ -5,8 +5,11 @@
 #include "core/input.h"
 
 std::unordered_map<std::string, std::vector<Batch>> BatchRenderer::batchMap;
+std::unordered_map<std::string, unsigned long> BatchRenderer::batchIndexes;
+
 
 void Batch::Setup() {
+
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 	glGenBuffers(1, &EBO);
@@ -104,8 +107,8 @@ void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vecto
 	const int numVertices = vertices.size();
 	const int numIndices = indices.size();
 
-	vertices.reserve(numVertices + numNewVertices);
-	indices.reserve(numIndices + numNewIndices);
+	//vertices.reserve(numVertices + numNewVertices);
+	//indices.reserve(numIndices + numNewIndices);
 
 	vertices.insert(vertices.end(), otherVertices.begin(), otherVertices.end());
 	indices.insert(indices.end(), otherIndices.begin(), otherIndices.end());
@@ -113,11 +116,11 @@ void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vecto
 	matrixList.push_back(transform->GetTransform());
 
 
-	for (int i = numVertices; i < numVertices + numNewVertices; i++) {
+	for (std::size_t i = numVertices; i < numVertices + numNewVertices; i++) {
 		vertices[i].ObjectIndex = index;
 	}
 
-	for (int i = numIndices; i < numIndices + numNewIndices; i++) {
+	for (std::size_t i = numIndices; i < numIndices + numNewIndices; i++) {
 		indices[i] += numVertices;
 	}
 
@@ -205,6 +208,29 @@ void Batch::Destroy() {
 //Batch::~Batch() {}
 
 void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
+	std::vector<Batch>& batchList = batchMap[shaderName];
+	unsigned long& batchIndex = batchIndexes[shaderName];
+
+	if(batchList.empty()) {
+		batchList.emplace_back().Setup();
+		//batchList.emplace_back();
+		//batchList[batchList.size() - 1].Setup();
+		batchIndex = 0;
+	}
+	else if(batchList[batchIndex].index == BATCH_SIZE || batchList[batchIndex].textureIndex == 16){//todo change the texture index max value to a define or smth
+		if(batchIndex < batchList.size() - 1){
+			batchIndex++;
+		}
+		else{
+			//batchList.emplace_back();
+			//batchList[batchList.size() - 1].Setup();
+			batchList.emplace_back().Setup();
+			batchIndex++;
+		}
+	}
+	batchList[batchList.size() - 1].AddObject(otherVertices, otherIndices, material, transform);
+	/*
+	batchList[batchList.size() - 1].AddObject(otherVertices, otherIndices, material, transform);
 	std::vector<Batch>& batchList= batchMap[shaderName];
 	if(batchList.empty()) {
 		batchList.emplace_back();
@@ -215,12 +241,16 @@ void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const st
 		batchList[batchList.size() - 1].Setup();
 	}
 	batchList[batchList.size() - 1].AddObject(otherVertices, otherIndices, material, transform);
+	*/
 }
 
 void BatchRenderer::Clear() {
 	for(auto& batchPair : batchMap) {
-		for(auto& batch : batchPair.second) {
-			batch.Destroy();
+		for(unsigned long i = 0; i < batchIndexes[batchPair.first]; i++){
+			batchPair.second[i].Clear();
+		}
+		for(unsigned long i = batchIndexes[batchPair.first]; i < batchPair.second.size(); i++) {
+			batchPair.second[i].Destroy();
 		}
 	}
 	batchMap.clear();

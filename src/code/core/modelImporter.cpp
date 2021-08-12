@@ -1,5 +1,8 @@
 #include "core/modelImporter.h"
 
+
+constexpr std::ifstream o;
+
 static const unsigned int assimpFlags = aiProcess_CalcTangentSpace
                                         | aiProcess_JoinIdenticalVertices
                                         | aiProcess_Triangulate
@@ -26,7 +29,7 @@ auto ModelImporter::GetAssimpScene(const std::string& filePath, Assimp::Importer
 
 void ModelImporter::LoadModelWithTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, bool isFlipped, bool loadBinaryVersion, bool makeBinaryVersion) {
 	if(loadBinaryVersion){
-		if(LoadBinaryModelWithTextures(filePath + ".bin", vertices, indices, textures)){
+		if(LoadBinaryModelWithTextures(filePath + ".wt", vertices, indices, textures)){
 			return;
 		}
 	}
@@ -39,12 +42,12 @@ void ModelImporter::LoadModelWithTextures(const std::string& filePath, std::vect
     std::string directory = filePath.substr(0, filePath.find_last_of('/'));
     ProcessNodeWithTextures(scene->mRootNode, scene, vertices, indices, textures, directory);
 	if(makeBinaryVersion){
-		SaveBinaryModelWithTextures(filePath + ".bin", vertices, indices, textures);
+		SaveBinaryModelWithTextures(filePath + ".wt", vertices, indices, textures);
 	}
 }
 void ModelImporter::LoadModelWithoutTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, bool loadBinaryVersion, bool makeBinaryVersion) {
 	if(loadBinaryVersion){
-		if(LoadBinaryModelWithoutTextures(filePath + ".bin", vertices, indices)){
+		if(LoadBinaryModelWithoutTextures(filePath + ".wot", vertices, indices)){
 			return;
 		}
 	}
@@ -54,12 +57,12 @@ void ModelImporter::LoadModelWithoutTextures(const std::string& filePath, std::v
     const aiScene* scene = GetAssimpScene(filePath, importer, assimpFlags);
     ProcessNodeWithoutTextures(scene->mRootNode, scene, vertices, indices);
 	if(makeBinaryVersion){
-		SaveBinaryModelWithoutTextures(filePath + ".bin", vertices, indices);
+		SaveBinaryModelWithoutTextures(filePath + ".wot", vertices, indices);
 	}
 }
 void ModelImporter::LoadModelBasic(const std::string& filePath, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, bool loadBinaryVersion, bool makeBinaryVersion) {
 	if(loadBinaryVersion){
-		if(LoadBinaryModelBasic(filePath + ".bin", vertices, indices)){
+		if(LoadBinaryModelBasic(filePath + ".bs", vertices, indices)){
 			return;
 		}
 	}
@@ -69,7 +72,7 @@ void ModelImporter::LoadModelBasic(const std::string& filePath, std::vector<glm:
     const aiScene* scene = GetAssimpScene(filePath, importer, physxFlags);
     ProcessNodeBasic(scene->mRootNode, scene, vertices, indices);
 	if(makeBinaryVersion){
-		SaveBinaryModelBasic(filePath + ".bin", vertices, indices);
+		SaveBinaryModelBasic(filePath + ".bs", vertices, indices);
 	}
 }
 
@@ -175,7 +178,6 @@ void ModelImporter::ProcessMeshWithoutTextures(const aiMesh* mesh, std::vector<V
 void ModelImporter::ProcessMeshBasic(const aiMesh* mesh, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices) {
     // walk through each of the mesh's vertices
     assert(!mesh->HasNormals());
-    Log(mesh->mNumVertices);
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
         glm::vec3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.
@@ -268,7 +270,6 @@ bool ModelImporter::LoadBinaryModelWithoutTextures(const std::string& filePath, 
     in.read(reinterpret_cast<char*>(&verticesSize), sizeof(verticesSize));
     in.read(reinterpret_cast<char*>(&indicesSize), sizeof(indicesSize));
 
-	Log("Loaded: " << filePath << " " << verticesSize << " " << indicesSize);
     vertices.resize(verticesSize); indices.resize(indicesSize);
 
     in.read(reinterpret_cast<char*>(&vertices[0]), sizeof(vertices[0])*vertices.size());

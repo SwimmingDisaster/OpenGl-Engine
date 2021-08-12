@@ -1,5 +1,8 @@
 #version 430 core
-out vec4 FragColor;
+
+layout (location = 0) out vec4 gColor;
+layout (location = 1) out vec4 gPosition;
+layout (location = 2) out vec4 gNormal;
 
 struct Material {
     sampler2D texture_diffuse1;
@@ -22,7 +25,10 @@ uniform Material material;
 void main()
 {    
     //FragColor = vec4(color[ObjectIndexFragment], 1.0f);
-	FragColor = texture(textures[ObjectIndexFragment], TexCoords);
+	gColor = texture(textures[ObjectIndexFragment], TexCoords);
+    gPosition.xyz = FragPos;
+	gPosition.a = 1.0f;
+    gNormal = vec4(normalize(Normal), 1.0f);
 	//FragColor = vec4(color[0], 1.0f);
 	//FragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 }

@@ -623,7 +623,7 @@ void ShowImGuizmo()
     {
         borderColor = ImVec4(0, 1, 1, 1);
     }
-    ImGui::Image((void*)(uintptr_t)Renderer::normalFrameBuffer.GetData(), ImVec2(EngineInfo::SCREEN_WIDTH - 2.0f, EngineInfo::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
+    ImGui::Image((void*)(uintptr_t)Renderer::multisampledFrameBuffer.GetData(), ImVec2(EngineInfo::SCREEN_WIDTH - 2.0f, EngineInfo::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
 
     if (Application::GetSelectedEntity() && imguizmoType != -2)
     {

@@ -16,6 +16,15 @@ struct Vertex {
 	Vertex(){}
 };
 
+struct BasicVertex {
+	glm::vec3 Position;
+	int ObjectIndex;
+
+	BasicVertex(const glm::vec3& otherPos)
+		:Position(otherPos) {}
+	BasicVertex(){}
+};
+
 struct Texture {
 	unsigned int id;
 	std::string type;

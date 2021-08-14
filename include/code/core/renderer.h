@@ -9,9 +9,11 @@ public:
 	static glm::mat4 viewMatrix;
 	static glm::mat4 viewProjectionMatrix;
 	static glm::vec3 clearColor;
+	static glm::vec3 viewPos;
 
 #ifndef RELEASE_BUILD
 	static DeferredFrameBuffer multisampledFrameBuffer;
+	static ForwardFrameBuffer forwardFrameBuffer;
 #endif
 
 public:

@@ -26,7 +26,7 @@ void Camera::Update() {
     Renderer::viewMatrix = GetViewMatrix();
     Renderer::projectionMatrix = GetProjectionMatrix();
     Renderer::clearColor = backgroundColor;
-
+	Renderer::viewPos = transform->position;
 }
 void Camera::Show() {
     ImGui::DragFloat("Fov", &fov, 0.1f);

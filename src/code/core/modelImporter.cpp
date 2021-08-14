@@ -1,8 +1,6 @@
 #include "core/modelImporter.h"
 
 
-constexpr std::ifstream o;
-
 static const unsigned int assimpFlags = aiProcess_CalcTangentSpace
                                         | aiProcess_JoinIdenticalVertices
                                         | aiProcess_Triangulate
@@ -177,7 +175,10 @@ void ModelImporter::ProcessMeshWithoutTextures(const aiMesh* mesh, std::vector<V
 }
 void ModelImporter::ProcessMeshBasic(const aiMesh* mesh, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices) {
     // walk through each of the mesh's vertices
-    assert(!mesh->HasNormals());
+    //assert(!mesh->HasNormals());
+
+    Warn("Mesh has normals");
+
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
         glm::vec3 vector; // we declare a placeholder vector since assimp uses its own vector class that doesn't directly convert to glm's vec3 class so we transfer the data to this placeholder glm::vec3 first.

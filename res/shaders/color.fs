@@ -21,8 +21,7 @@ uniform vec3 color[150];
 
 uniform Material material;
 
-void main()
-{    
+void main(){    
     gColor = vec4(color[ObjectIndexFragment], 1.0f);
     gPosition.xyz = FragPos;
 	gPosition.a = 1.0f;

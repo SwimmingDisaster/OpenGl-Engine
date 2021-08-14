@@ -13,15 +13,15 @@ SRC += $(GLAD)
 
 OBJ := $(SRC:$(SRC_DIR)/%.cpp=$(OBJ_DIR)/%.o)
 
-#CPPFLAGS := -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0` 
-#CFLAGS   := -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer
-#LDFLAGS  := -g -Llibg
-#LDLIBS   := -fsanitize=address -rpath ./lib/linux -rpath . -Llib/linux -lassimp -lglfw3 -lnfd -lpthread -ldl -lX11 `pkg-config --libs gtk+-3.0` -Llib/linux/physx -lPhysXExtensions_static_64 -lPhysX_static_64 -lPhysXPvdSDK_static_64 -lPhysXVehicle_static_64 -lPhysXCharacterKinematic_static_64 -lPhysXCooking_static_64 -lPhysXCommon_static_64 -lPhysXFoundation_static_64 -lSnippetRender_static_64 -lSnippetUtils_static_64 
-
 CPPFLAGS := -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0` 
-CFLAGS   := -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer
+CFLAGS   := -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer
 LDFLAGS  := -g -Llibg
-LDLIBS   := -rpath ./lib/linux -rpath . -Llib/linux -lassimp -lglfw3 -lnfd -lpthread -ldl -lX11 `pkg-config --libs gtk+-3.0` -Llib/linux/physx -lPhysXExtensions_static_64 -lPhysX_static_64 -lPhysXPvdSDK_static_64 -lPhysXVehicle_static_64 -lPhysXCharacterKinematic_static_64 -lPhysXCooking_static_64 -lPhysXCommon_static_64 -lPhysXFoundation_static_64 -lSnippetRender_static_64 -lSnippetUtils_static_64 
+LDLIBS   := -fsanitize=address -rpath ./lib/linux -rpath . -Llib/linux -lassimp -lglfw3 -lnfd -lpthread -ldl -lX11 `pkg-config --libs gtk+-3.0` -Llib/linux/physx -lPhysXExtensions_static_64 -lPhysX_static_64 -lPhysXPvdSDK_static_64 -lPhysXVehicle_static_64 -lPhysXCharacterKinematic_static_64 -lPhysXCooking_static_64 -lPhysXCommon_static_64 -lPhysXFoundation_static_64 -lSnippetRender_static_64 -lSnippetUtils_static_64 
+
+#CPPFLAGS := -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0` 
+#CFLAGS   := -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer
+#LDFLAGS  := -g -Llibg
+#LDLIBS   := -rpath ./lib/linux -rpath . -Llib/linux -lassimp -lglfw3 -lnfd -lpthread -ldl -lX11 `pkg-config --libs gtk+-3.0` -Llib/linux/physx -lPhysXExtensions_static_64 -lPhysX_static_64 -lPhysXPvdSDK_static_64 -lPhysXVehicle_static_64 -lPhysXCharacterKinematic_static_64 -lPhysXCooking_static_64 -lPhysXCommon_static_64 -lPhysXFoundation_static_64 -lSnippetRender_static_64 -lSnippetUtils_static_64 
 
 
 

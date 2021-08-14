@@ -1,214 +1,291 @@
 /usr/bin/make -f "/home/ognjen/OpenGl-Engine/Debug" --dry-run --always-make --keep-going --print-directory
 make: Entering directory '/home/ognjen/OpenGl-Engine'
 obj/code/assets/animator.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/animator.cpp -o obj/code/assets/animator.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/animator.cpp -o obj/code/assets/animator.o
+ 
 obj/code/assets/camera.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/camera.cpp -o obj/code/assets/camera.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/camera.cpp -o obj/code/assets/camera.o
 obj/code/assets/cameraFPSController.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/cameraFPSController.cpp -o obj/code/assets/cameraFPSController.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/cameraFPSController.cpp -o obj/code/assets/cameraFPSController.o
 obj/code/assets/colliderBase.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/colliderBase.cpp -o obj/code/assets/colliderBase.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/colliderBase.cpp -o obj/code/assets/colliderBase.o
+ 
 obj/code/assets/colliders.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/colliders.cpp -o obj/code/assets/colliders.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/colliders.cpp -o obj/code/assets/colliders.o
 obj/code/assets/deleteAfterTouched.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/deleteAfterTouched.cpp -o obj/code/assets/deleteAfterTouched.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/deleteAfterTouched.cpp -o obj/code/assets/deleteAfterTouched.o
+obj/code/assets/lights.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/lights.cpp -o obj/code/assets/lights.o
+obj/code/assets/lightsBase.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/lightsBase.cpp -o obj/code/assets/lightsBase.o
 obj/code/assets/material.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/material.cpp -o obj/code/assets/material.o
- 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/material.cpp -o obj/code/assets/material.o
 obj/code/assets/mesh.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/mesh.cpp -o obj/code/assets/mesh.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/mesh.cpp -o obj/code/assets/mesh.o
 obj/code/assets/model.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/model.cpp -o obj/code/assets/model.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/model.cpp -o obj/code/assets/model.o
 obj/code/assets/modelRenderer.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/modelRenderer.cpp -o obj/code/assets/modelRenderer.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/modelRenderer.cpp -o obj/code/assets/modelRenderer.o
 obj/code/assets/physicsFPScontroller.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/physicsFPScontroller.cpp -o obj/code/assets/physicsFPScontroller.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/physicsFPScontroller.cpp -o obj/code/assets/physicsFPScontroller.o
 obj/code/assets/rigidbody.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/rigidbody.cpp -o obj/code/assets/rigidbody.o
-obj/code/assets/testComponent.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/testComponent.cpp -o obj/code/assets/testComponent.o
-obj/code/assets/transform.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/transform.cpp -o obj/code/assets/transform.o
-obj/code/core/application.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/application.cpp -o obj/code/core/application.o
-obj/code/core/batchRenderer.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/batchRenderer.cpp -o obj/code/core/batchRenderer.o
-obj/code/core/engineInfo.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/engineInfo.cpp -o obj/code/core/engineInfo.o
-obj/code/core/framebuffer.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/framebuffer.cpp -o obj/code/core/framebuffer.o
-obj/code/core/imGuiManager.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/imGuiManager.cpp -o obj/code/core/imGuiManager.o
-obj/code/core/input.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/input.cpp -o obj/code/core/input.o
-obj/code/core/layer.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/layer.cpp -o obj/code/core/layer.o
-obj/code/core/main.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/main.cpp -o obj/code/core/main.o
-obj/code/core/math.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/math.cpp -o obj/code/core/math.o
-obj/code/core/modelImporter.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/modelImporter.cpp -o obj/code/core/modelImporter.o
-obj/code/core/other/editorCamera.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/other/editorCamera.cpp -o obj/code/core/other/editorCamera.o
-obj/code/core/other/helpers.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/other/helpers.cpp -o obj/code/core/other/helpers.o
-obj/code/core/other/log.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/other/log.cpp -o obj/code/core/other/log.o
-obj/code/core/other/random.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/other/random.cpp -o obj/code/core/other/random.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/rigidbody.cpp -o obj/code/assets/rigidbody.o
  
+obj/code/assets/testComponent.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/testComponent.cpp -o obj/code/assets/testComponent.o
+obj/code/assets/transform.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/assets/transform.cpp -o obj/code/assets/transform.o
+ 
+obj/code/core/application.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/application.cpp -o obj/code/core/application.o
+ 
+obj/code/core/batchRenderer.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/batchRenderer.cpp -o obj/code/core/batchRenderer.o
+ 
+obj/code/core/engineInfo.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/engineInfo.cpp -o obj/code/core/engineInfo.o
+obj/code/core/framebuffer.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/framebuffer.cpp -o obj/code/core/framebuffer.o
+ 
+obj/code/core/imGuiManager.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/imGuiManager.cpp -o obj/code/core/imGuiManager.o
+ 
+obj/code/core/input.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/input.cpp -o obj/code/core/input.o
+ 
+obj/code/core/layer.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/layer.cpp -o obj/code/core/layer.o
+obj/code/core/main.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/main.cpp -o obj/code/core/main.o
+ 
+obj/code/core/math.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/math.cpp -o obj/code/core/math.o
+obj/code/core/modelImporter.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/modelImporter.cpp -o obj/code/core/modelImporter.o
+obj/code/core/other/editorCamera.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/other/editorCamera.cpp -o obj/code/core/other/editorCamera.o
+obj/code/core/other/helpers.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/other/helpers.cpp -o obj/code/core/other/helpers.o
+obj/code/core/other/log.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/other/log.cpp -o obj/code/core/other/log.o
+obj/code/core/other/random.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/other/random.cpp -o obj/code/core/other/random.o
 obj/code/core/physics.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/physics.cpp -o obj/code/core/physics.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/physics.cpp -o obj/code/core/physics.o
 obj/code/core/physxSimulationFilter.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/physxSimulationFilter.cpp -o obj/code/core/physxSimulationFilter.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/physxSimulationFilter.cpp -o obj/code/core/physxSimulationFilter.o
 obj/code/core/renderer.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/renderer.cpp -o obj/code/core/renderer.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/renderer.cpp -o obj/code/core/renderer.o
+ 
 obj/code/core/shader.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/shader.cpp -o obj/code/core/shader.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/shader.cpp -o obj/code/core/shader.o
+ 
 obj/code/core/tag.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/tag.cpp -o obj/code/core/tag.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/tag.cpp -o obj/code/core/tag.o
  
 obj/code/core/texture.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/texture.cpp -o obj/code/core/texture.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/texture.cpp -o obj/code/core/texture.o
  
-obj/code/core/ui/text.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/ui/text.cpp -o obj/code/core/ui/text.o
+obj/code/core/ui/text.o 
+
  
-obj/code/ecs/component.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/ecs/component.cpp -o obj/code/ecs/component.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/core/ui/text.cpp -o obj/code/core/ui/text.o
  
-obj/code/ecs/entity.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/ecs/entity.cpp -o obj/code/ecs/entity.o
+obj/code/ecs/component.o 
+
  
-obj/code/ecs/other/componentCreator.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/ecs/other/componentCreator.cpp -o obj/code/ecs/other/componentCreator.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/ecs/component.cpp -o obj/code/ecs/component.o
  
-obj/code/ecs/other/componentCreatorImpl.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/ecs/other/componentCreatorImpl.cpp -o obj/code/ecs/other/componentCreatorImpl.o
+obj/code/ecs/entity.o 
+
  
-obj/code/ecs/other/componentFactory.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/ecs/other/componentFactory.cpp -o obj/code/ecs/other/componentFactory.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/ecs/entity.cpp -o obj/code/ecs/entity.o
  
-obj/code/ecs/scene.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/ecs/scene.cpp -o obj/code/ecs/scene.o
+obj/code/ecs/other/componentCreator.o 
+
  
-obj/code/utils/fileUtils.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/utils/fileUtils.cpp -o obj/code/utils/fileUtils.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/ecs/other/componentCreator.cpp -o obj/code/ecs/other/componentCreator.o
  
-obj/mypch.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/mypch.cpp -o obj/mypch.o
+obj/code/ecs/other/componentCreatorImpl.o 
+
  
-obj/vendor/ImGUI/imgui.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui.cpp -o obj/vendor/ImGUI/imgui.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/ecs/other/componentCreatorImpl.cpp -o obj/code/ecs/other/componentCreatorImpl.o
  
-obj/vendor/ImGUI/imgui_demo.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_demo.cpp -o obj/vendor/ImGUI/imgui_demo.o
+obj/code/ecs/other/componentFactory.o 
+
  
-obj/vendor/ImGUI/imgui_draw.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_draw.cpp -o obj/vendor/ImGUI/imgui_draw.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/ecs/other/componentFactory.cpp -o obj/code/ecs/other/componentFactory.o
  
-obj/vendor/ImGUI/imgui_impl_glfw.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_impl_glfw.cpp -o obj/vendor/ImGUI/imgui_impl_glfw.o
+obj/code/ecs/scene.o 
+
  
-obj/vendor/ImGUI/imgui_impl_opengl3.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_impl_opengl3.cpp -o obj/vendor/ImGUI/imgui_impl_opengl3.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/ecs/scene.cpp -o obj/code/ecs/scene.o
  
-obj/vendor/ImGUI/imgui_stdlib.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_stdlib.cpp -o obj/vendor/ImGUI/imgui_stdlib.o
+obj/code/utils/fileUtils.o 
+
  
-obj/vendor/ImGUI/imgui_tables.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_tables.cpp -o obj/vendor/ImGUI/imgui_tables.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/code/utils/fileUtils.cpp -o obj/code/utils/fileUtils.o
  
-obj/vendor/ImGUI/imgui_widgets.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_widgets.cpp -o obj/vendor/ImGUI/imgui_widgets.o
+obj/mypch.o 
+
  
-obj/vendor/imguizmo/ImCurveEdit.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/imguizmo/ImCurveEdit.cpp -o obj/vendor/imguizmo/ImCurveEdit.o
-obj/vendor/imguizmo/ImGradient.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/imguizmo/ImGradient.cpp -o obj/vendor/imguizmo/ImGradient.o
-obj/vendor/imguizmo/ImGuizmo.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/imguizmo/ImGuizmo.cpp -o obj/vendor/imguizmo/ImGuizmo.o
-obj/vendor/imguizmo/ImSequencer.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/imguizmo/ImSequencer.cpp -o obj/vendor/imguizmo/ImSequencer.o
-obj/vendor/yaml-cpp/binary.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/binary.cpp -o obj/vendor/yaml-cpp/binary.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/mypch.cpp -o obj/mypch.o
  
-obj/vendor/yaml-cpp/contrib/graphbuilder.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/contrib/graphbuilder.cpp -o obj/vendor/yaml-cpp/contrib/graphbuilder.o
+obj/vendor/ImGUI/imgui.o 
+
  
-obj/vendor/yaml-cpp/contrib/graphbuilderadapter.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/contrib/graphbuilderadapter.cpp -o obj/vendor/yaml-cpp/contrib/graphbuilderadapter.o
-obj/vendor/yaml-cpp/convert.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/convert.cpp -o obj/vendor/yaml-cpp/convert.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui.cpp -o obj/vendor/ImGUI/imgui.o
  
-obj/vendor/yaml-cpp/depthguard.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/depthguard.cpp -o obj/vendor/yaml-cpp/depthguard.o
-obj/vendor/yaml-cpp/directives.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/directives.cpp -o obj/vendor/yaml-cpp/directives.o
+obj/vendor/ImGUI/imgui_demo.o 
+
  
-obj/vendor/yaml-cpp/emit.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/emit.cpp -o obj/vendor/yaml-cpp/emit.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_demo.cpp -o obj/vendor/ImGUI/imgui_demo.o
  
-obj/vendor/yaml-cpp/emitfromevents.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/emitfromevents.cpp -o obj/vendor/yaml-cpp/emitfromevents.o
+obj/vendor/ImGUI/imgui_draw.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_draw.cpp -o obj/vendor/ImGUI/imgui_draw.o
+ 
+obj/vendor/ImGUI/imgui_impl_glfw.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_impl_glfw.cpp -o obj/vendor/ImGUI/imgui_impl_glfw.o
+ 
+obj/vendor/ImGUI/imgui_impl_opengl3.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_impl_opengl3.cpp -o obj/vendor/ImGUI/imgui_impl_opengl3.o
+ 
+obj/vendor/ImGUI/imgui_stdlib.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_stdlib.cpp -o obj/vendor/ImGUI/imgui_stdlib.o
+ 
+obj/vendor/ImGUI/imgui_tables.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_tables.cpp -o obj/vendor/ImGUI/imgui_tables.o
+ 
+obj/vendor/ImGUI/imgui_widgets.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/ImGUI/imgui_widgets.cpp -o obj/vendor/ImGUI/imgui_widgets.o
+ 
+obj/vendor/imguizmo/ImCurveEdit.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/imguizmo/ImCurveEdit.cpp -o obj/vendor/imguizmo/ImCurveEdit.o
+ 
+obj/vendor/imguizmo/ImGradient.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/imguizmo/ImGradient.cpp -o obj/vendor/imguizmo/ImGradient.o
+ 
+obj/vendor/imguizmo/ImGuizmo.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/imguizmo/ImGuizmo.cpp -o obj/vendor/imguizmo/ImGuizmo.o
+ 
+obj/vendor/imguizmo/ImSequencer.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/imguizmo/ImSequencer.cpp -o obj/vendor/imguizmo/ImSequencer.o
+ 
+obj/vendor/yaml-cpp/binary.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/binary.cpp -o obj/vendor/yaml-cpp/binary.o
+ 
+obj/vendor/yaml-cpp/contrib/graphbuilder.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/contrib/graphbuilder.cpp -o obj/vendor/yaml-cpp/contrib/graphbuilder.o
+ 
+obj/vendor/yaml-cpp/contrib/graphbuilderadapter.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/contrib/graphbuilderadapter.cpp -o obj/vendor/yaml-cpp/contrib/graphbuilderadapter.o
+ 
+obj/vendor/yaml-cpp/convert.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/convert.cpp -o obj/vendor/yaml-cpp/convert.o
+ 
+obj/vendor/yaml-cpp/depthguard.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/depthguard.cpp -o obj/vendor/yaml-cpp/depthguard.o
+ 
+obj/vendor/yaml-cpp/directives.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/directives.cpp -o obj/vendor/yaml-cpp/directives.o
+ 
+obj/vendor/yaml-cpp/emit.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/emit.cpp -o obj/vendor/yaml-cpp/emit.o
+ 
+obj/vendor/yaml-cpp/emitfromevents.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/emitfromevents.cpp -o obj/vendor/yaml-cpp/emitfromevents.o
  
 obj/vendor/yaml-cpp/emitter.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/emitter.cpp -o obj/vendor/yaml-cpp/emitter.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/emitter.cpp -o obj/vendor/yaml-cpp/emitter.o
+ 
 obj/vendor/yaml-cpp/emitterstate.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/emitterstate.cpp -o obj/vendor/yaml-cpp/emitterstate.o
-obj/vendor/yaml-cpp/emitterutils.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/emitterutils.cpp -o obj/vendor/yaml-cpp/emitterutils.o
-obj/vendor/yaml-cpp/exceptions.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/exceptions.cpp -o obj/vendor/yaml-cpp/exceptions.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/emitterstate.cpp -o obj/vendor/yaml-cpp/emitterstate.o
+ 
+obj/vendor/yaml-cpp/emitterutils.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/emitterutils.cpp -o obj/vendor/yaml-cpp/emitterutils.o
+ 
+obj/vendor/yaml-cpp/exceptions.o 
+
+ 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/exceptions.cpp -o obj/vendor/yaml-cpp/exceptions.o
 obj/vendor/yaml-cpp/exp.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/exp.cpp -o obj/vendor/yaml-cpp/exp.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/exp.cpp -o obj/vendor/yaml-cpp/exp.o
 obj/vendor/yaml-cpp/memory.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/memory.cpp -o obj/vendor/yaml-cpp/memory.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/memory.cpp -o obj/vendor/yaml-cpp/memory.o
 obj/vendor/yaml-cpp/node.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/node.cpp -o obj/vendor/yaml-cpp/node.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/node.cpp -o obj/vendor/yaml-cpp/node.o
 obj/vendor/yaml-cpp/node_data.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/node_data.cpp -o obj/vendor/yaml-cpp/node_data.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/node_data.cpp -o obj/vendor/yaml-cpp/node_data.o
 obj/vendor/yaml-cpp/nodebuilder.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/nodebuilder.cpp -o obj/vendor/yaml-cpp/nodebuilder.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/nodebuilder.cpp -o obj/vendor/yaml-cpp/nodebuilder.o
 obj/vendor/yaml-cpp/nodeevents.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/nodeevents.cpp -o obj/vendor/yaml-cpp/nodeevents.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/nodeevents.cpp -o obj/vendor/yaml-cpp/nodeevents.o
 obj/vendor/yaml-cpp/null.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/null.cpp -o obj/vendor/yaml-cpp/null.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/null.cpp -o obj/vendor/yaml-cpp/null.o
 obj/vendor/yaml-cpp/ostream_wrapper.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/ostream_wrapper.cpp -o obj/vendor/yaml-cpp/ostream_wrapper.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/ostream_wrapper.cpp -o obj/vendor/yaml-cpp/ostream_wrapper.o
 obj/vendor/yaml-cpp/parse.o
- 
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/parse.cpp -o obj/vendor/yaml-cpp/parse.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/parse.cpp -o obj/vendor/yaml-cpp/parse.o
 obj/vendor/yaml-cpp/parser.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/parser.cpp -o obj/vendor/yaml-cpp/parser.o
- 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/parser.cpp -o obj/vendor/yaml-cpp/parser.o
 obj/vendor/yaml-cpp/regex_yaml.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/regex_yaml.cpp -o obj/vendor/yaml-cpp/regex_yaml.o
- 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/regex_yaml.cpp -o obj/vendor/yaml-cpp/regex_yaml.o
 obj/vendor/yaml-cpp/scanner.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/scanner.cpp -o obj/vendor/yaml-cpp/scanner.o
- 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/scanner.cpp -o obj/vendor/yaml-cpp/scanner.o
 obj/vendor/yaml-cpp/scanscalar.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/scanscalar.cpp -o obj/vendor/yaml-cpp/scanscalar.o
- 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/scanscalar.cpp -o obj/vendor/yaml-cpp/scanscalar.o
 obj/vendor/yaml-cpp/scantag.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/scantag.cpp -o obj/vendor/yaml-cpp/scantag.o
- 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/scantag.cpp -o obj/vendor/yaml-cpp/scantag.o
 obj/vendor/yaml-cpp/scantoken.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/scantoken.cpp -o obj/vendor/yaml-cpp/scantoken.o
- 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/scantoken.cpp -o obj/vendor/yaml-cpp/scantoken.o
 obj/vendor/yaml-cpp/simplekey.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/simplekey.cpp -o obj/vendor/yaml-cpp/simplekey.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/simplekey.cpp -o obj/vendor/yaml-cpp/simplekey.o
 obj/vendor/yaml-cpp/singledocparser.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/singledocparser.cpp -o obj/vendor/yaml-cpp/singledocparser.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/singledocparser.cpp -o obj/vendor/yaml-cpp/singledocparser.o
 obj/vendor/yaml-cpp/stream.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/stream.cpp -o obj/vendor/yaml-cpp/stream.o
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/stream.cpp -o obj/vendor/yaml-cpp/stream.o
  
 obj/vendor/yaml-cpp/tag.o
-/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -fsanitize=address -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/tag.cpp -o obj/vendor/yaml-cpp/tag.o
- 
+/usr/bin/clang++ -include include/mypch.h -I include/ -I include/code -I include/vendor -MMD -MP `pkg-config --cflags gtk+-3.0`  -Wall -Wextra -Wno-unused-parameter -std=c++20 -g -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer -c src/vendor/yaml-cpp/tag.cpp -o obj/vendor/yaml-cpp/tag.o
 bin/linux/Debug/main
-/usr/bin/clang++ -g -Llibg obj/code/assets/animator.o obj/code/assets/camera.o obj/code/assets/cameraFPSController.o obj/code/assets/colliderBase.o obj/code/assets/colliders.o obj/code/assets/deleteAfterTouched.o obj/code/assets/material.o obj/code/assets/mesh.o obj/code/assets/model.o obj/code/assets/modelRenderer.o obj/code/assets/physicsFPScontroller.o obj/code/assets/rigidbody.o obj/code/assets/testComponent.o obj/code/assets/transform.o obj/code/core/application.o obj/code/core/batchRenderer.o obj/code/core/engineInfo.o obj/code/core/framebuffer.o obj/code/core/imGuiManager.o obj/code/core/input.o obj/code/core/layer.o obj/code/core/main.o obj/code/core/math.o obj/code/core/modelImporter.o obj/code/core/other/editorCamera.o obj/code/core/other/helpers.o obj/code/core/other/log.o obj/code/core/other/random.o obj/code/core/physics.o obj/code/core/physxSimulationFilter.o obj/code/core/renderer.o obj/code/core/shader.o obj/code/core/tag.o obj/code/core/texture.o obj/code/core/ui/text.o obj/code/ecs/component.o obj/code/ecs/entity.o obj/code/ecs/other/componentCreator.o obj/code/ecs/other/componentCreatorImpl.o obj/code/ecs/other/componentFactory.o obj/code/ecs/scene.o obj/code/utils/fileUtils.o obj/mypch.o obj/vendor/ImGUI/imgui.o obj/vendor/ImGUI/imgui_demo.o obj/vendor/ImGUI/imgui_draw.o obj/vendor/ImGUI/imgui_impl_glfw.o obj/vendor/ImGUI/imgui_impl_opengl3.o obj/vendor/ImGUI/imgui_stdlib.o obj/vendor/ImGUI/imgui_tables.o obj/vendor/ImGUI/imgui_widgets.o obj/vendor/imguizmo/ImCurveEdit.o obj/vendor/imguizmo/ImGradient.o obj/vendor/imguizmo/ImGuizmo.o obj/vendor/imguizmo/ImSequencer.o obj/vendor/yaml-cpp/binary.o obj/vendor/yaml-cpp/contrib/graphbuilder.o obj/vendor/yaml-cpp/contrib/graphbuilderadapter.o obj/vendor/yaml-cpp/convert.o obj/vendor/yaml-cpp/depthguard.o obj/vendor/yaml-cpp/directives.o obj/vendor/yaml-cpp/emit.o obj/vendor/yaml-cpp/emitfromevents.o obj/vendor/yaml-cpp/emitter.o obj/vendor/yaml-cpp/emitterstate.o obj/vendor/yaml-cpp/emitterutils.o obj/vendor/yaml-cpp/exceptions.o obj/vendor/yaml-cpp/exp.o obj/vendor/yaml-cpp/memory.o obj/vendor/yaml-cpp/node.o obj/vendor/yaml-cpp/node_data.o obj/vendor/yaml-cpp/nodebuilder.o obj/vendor/yaml-cpp/nodeevents.o obj/vendor/yaml-cpp/null.o obj/vendor/yaml-cpp/ostream_wrapper.o obj/vendor/yaml-cpp/parse.o obj/vendor/yaml-cpp/parser.o obj/vendor/yaml-cpp/regex_yaml.o obj/vendor/yaml-cpp/scanner.o obj/vendor/yaml-cpp/scanscalar.o obj/vendor/yaml-cpp/scantag.o obj/vendor/yaml-cpp/scantoken.o obj/vendor/yaml-cpp/simplekey.o obj/vendor/yaml-cpp/singledocparser.o obj/vendor/yaml-cpp/stream.o obj/vendor/yaml-cpp/tag.o obj/vendor/GLAD/glad.o -fsanitize=address -rpath ./lib/linux -rpath . -Llib/linux -lassimp -lglfw3 -lnfd -lpthread -ldl -lX11 `pkg-config --libs gtk+-3.0` -Llib/linux/physx -lPhysXExtensions_static_64 -lPhysX_static_64 -lPhysXPvdSDK_static_64 -lPhysXVehicle_static_64 -lPhysXCharacterKinematic_static_64 -lPhysXCooking_static_64 -lPhysXCommon_static_64 -lPhysXFoundation_static_64 -lSnippetRender_static_64 -lSnippetUtils_static_64  -o bin/linux/Debug/main
+/usr/bin/clang++ -g -Llibg obj/code/assets/animator.o obj/code/assets/camera.o obj/code/assets/cameraFPSController.o obj/code/assets/colliderBase.o obj/code/assets/colliders.o obj/code/assets/deleteAfterTouched.o obj/code/assets/lights.o obj/code/assets/lightsBase.o obj/code/assets/material.o obj/code/assets/mesh.o obj/code/assets/model.o obj/code/assets/modelRenderer.o obj/code/assets/physicsFPScontroller.o obj/code/assets/rigidbody.o obj/code/assets/testComponent.o obj/code/assets/transform.o obj/code/core/application.o obj/code/core/batchRenderer.o obj/code/core/engineInfo.o obj/code/core/framebuffer.o obj/code/core/imGuiManager.o obj/code/core/input.o obj/code/core/layer.o obj/code/core/main.o obj/code/core/math.o obj/code/core/modelImporter.o obj/code/core/other/editorCamera.o obj/code/core/other/helpers.o obj/code/core/other/log.o obj/code/core/other/random.o obj/code/core/physics.o obj/code/core/physxSimulationFilter.o obj/code/core/renderer.o obj/code/core/shader.o obj/code/core/tag.o obj/code/core/texture.o obj/code/core/ui/text.o obj/code/ecs/component.o obj/code/ecs/entity.o obj/code/ecs/other/componentCreator.o obj/code/ecs/other/componentCreatorImpl.o obj/code/ecs/other/componentFactory.o obj/code/ecs/scene.o obj/code/utils/fileUtils.o obj/mypch.o obj/vendor/ImGUI/imgui.o obj/vendor/ImGUI/imgui_demo.o obj/vendor/ImGUI/imgui_draw.o obj/vendor/ImGUI/imgui_impl_glfw.o obj/vendor/ImGUI/imgui_impl_opengl3.o obj/vendor/ImGUI/imgui_stdlib.o obj/vendor/ImGUI/imgui_tables.o obj/vendor/ImGUI/imgui_widgets.o obj/vendor/imguizmo/ImCurveEdit.o obj/vendor/imguizmo/ImGradient.o obj/vendor/imguizmo/ImGuizmo.o obj/vendor/imguizmo/ImSequencer.o obj/vendor/yaml-cpp/binary.o obj/vendor/yaml-cpp/contrib/graphbuilder.o obj/vendor/yaml-cpp/contrib/graphbuilderadapter.o obj/vendor/yaml-cpp/convert.o obj/vendor/yaml-cpp/depthguard.o obj/vendor/yaml-cpp/directives.o obj/vendor/yaml-cpp/emit.o obj/vendor/yaml-cpp/emitfromevents.o obj/vendor/yaml-cpp/emitter.o obj/vendor/yaml-cpp/emitterstate.o obj/vendor/yaml-cpp/emitterutils.o obj/vendor/yaml-cpp/exceptions.o obj/vendor/yaml-cpp/exp.o obj/vendor/yaml-cpp/memory.o obj/vendor/yaml-cpp/node.o obj/vendor/yaml-cpp/node_data.o obj/vendor/yaml-cpp/nodebuilder.o obj/vendor/yaml-cpp/nodeevents.o obj/vendor/yaml-cpp/null.o obj/vendor/yaml-cpp/ostream_wrapper.o obj/vendor/yaml-cpp/parse.o obj/vendor/yaml-cpp/parser.o obj/vendor/yaml-cpp/regex_yaml.o obj/vendor/yaml-cpp/scanner.o obj/vendor/yaml-cpp/scanscalar.o obj/vendor/yaml-cpp/scantag.o obj/vendor/yaml-cpp/scantoken.o obj/vendor/yaml-cpp/simplekey.o obj/vendor/yaml-cpp/singledocparser.o obj/vendor/yaml-cpp/stream.o obj/vendor/yaml-cpp/tag.o obj/vendor/GLAD/glad.o -rpath ./lib/linux -rpath . -Llib/linux -lassimp -lglfw3 -lnfd -lpthread -ldl -lX11 `pkg-config --libs gtk+-3.0` -Llib/linux/physx -lPhysXExtensions_static_64 -lPhysX_static_64 -lPhysXPvdSDK_static_64 -lPhysXVehicle_static_64 -lPhysXCharacterKinematic_static_64 -lPhysXCooking_static_64 -lPhysXCommon_static_64 -lPhysXFoundation_static_64 -lSnippetRender_static_64 -lSnippetUtils_static_64  -o bin/linux/Debug/main
 make: Leaving directory '/home/ognjen/OpenGl-Engine'
  

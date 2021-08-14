@@ -9,9 +9,11 @@ glm::mat4 Renderer::projectionMatrix;
 glm::mat4 Renderer::viewMatrix;
 glm::mat4 Renderer::viewProjectionMatrix;
 glm::vec3 Renderer::clearColor = {0.1f, 0.1f, 0.1f};
+glm::vec3 Renderer::viewPos;
 
 #ifndef RELEASE_BUILD
 DeferredFrameBuffer Renderer::multisampledFrameBuffer;
+ForwardFrameBuffer Renderer::forwardFrameBuffer;
 #endif
 
 
@@ -85,6 +87,7 @@ void Renderer::Init() {
 
 #ifndef RELEASE_BUILD
     multisampledFrameBuffer = DeferredFrameBuffer((float)EngineInfo::SCREEN_WIDTH, (float)EngineInfo::SCREEN_HEIGHT, 0);
+    forwardFrameBuffer = ForwardFrameBuffer((float)EngineInfo::SCREEN_WIDTH, (float)EngineInfo::SCREEN_HEIGHT);
 #endif
 }
 
@@ -100,6 +103,7 @@ void Renderer::SetupMatrices() {
     glBindBuffer(GL_UNIFORM_BUFFER, matrixUBO);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, sizeof(glm::mat4), glm::value_ptr(viewMatrix));
     glBufferSubData(GL_UNIFORM_BUFFER, sizeof(glm::mat4), sizeof(glm::mat4), glm::value_ptr(projectionMatrix));
+    glBindBufferBase(GL_UNIFORM_BUFFER, 0, matrixUBO);
     glBindBuffer(GL_UNIFORM_BUFFER, 0);
 }
 
@@ -108,8 +112,7 @@ void Renderer::ShutdownOpenGL() {
 }
 
 
-void Renderer::ResizeCallback(GLFWwindow * window, int width, int height)
-{
+void Renderer::ResizeCallback(GLFWwindow * window, int width, int height){
 #ifdef RELEASE_BUILD
     SetWindowSize(window, width, height);
 #endif
@@ -123,6 +126,7 @@ void Renderer::SetWindowSize(GLFWwindow * window, int width, int height) {
 
 #ifndef RELEASE_BUILD
         multisampledFrameBuffer.Resize(width, height);
+        forwardFrameBuffer.Resize(width, height);
 #endif
 
         float ratio = 1.0f;
@@ -135,23 +139,34 @@ void Renderer::SetWindowSize(GLFWwindow * window, int width, int height) {
 }
 
 void Renderer::StartFrame() {
+    //--------------------------Draw----------------------
+#ifndef RELEASE_BUILD
+    forwardFrameBuffer.Bind();
+#endif
+    //--------------------------Draw--------------------------
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    //--------------------------Draw----------------------
 #ifndef RELEASE_BUILD
     multisampledFrameBuffer.Bind();
 #endif
     //--------------------------Draw--------------------------
 #ifndef RELEASE_BUILD
+	/*
     if (Application::isRunning) {
         glClearColor(clearColor.r, clearColor.g, clearColor.b, 1.0f);
     }
     else {
         glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     }
+	*/
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 #else
     glClearColor(clearColor.r, clearColor.g, clearColor.b, 1.0f);
 #endif
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    //--------------------------Draw----------------------
 
 }
 

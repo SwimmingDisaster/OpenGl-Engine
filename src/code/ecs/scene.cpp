@@ -6,6 +6,7 @@
 #include "core/application.h"
 #include "core/batchRenderer.h"
 #include "core/physics.h"
+#include "core/renderer.h"
 
 #include "core/tag.h"
 #include "core/layer.h"
@@ -16,8 +17,7 @@
 #include "assets/modelRenderer.h"
 
 
-std::shared_ptr<Entity> Scene::GetEntity(std::string name) const noexcept
-{
+std::shared_ptr<Entity> Scene::GetEntity(std::string name) const noexcept{
     for (auto &entt : m_entities)
     {
         if (entt->GetName() == name)
@@ -27,8 +27,7 @@ std::shared_ptr<Entity> Scene::GetEntity(std::string name) const noexcept
     }
     return nullptr;
 }
-std::shared_ptr<Entity> Scene::GetEntity(long long uuid) const noexcept
-{
+std::shared_ptr<Entity> Scene::GetEntity(long long uuid) const noexcept{
     for (auto &entt : m_entities)
     {
         if (entt->GetUUID() == uuid)
@@ -38,8 +37,7 @@ std::shared_ptr<Entity> Scene::GetEntity(long long uuid) const noexcept
     }
     return nullptr;
 }
-std::shared_ptr<Entity> Scene::GetEntityWithUUID(long long uuid) const noexcept
-{
+std::shared_ptr<Entity> Scene::GetEntityWithUUID(long long uuid) const noexcept{
     for (auto &entt : m_entities)
     {
         if (entt->GetUUID() == uuid)
@@ -49,8 +47,7 @@ std::shared_ptr<Entity> Scene::GetEntityWithUUID(long long uuid) const noexcept
     }
     return nullptr;
 }
-std::shared_ptr<Entity> Scene::GetEntityWithUUID(const std::string& uuidstring) const noexcept
-{
+std::shared_ptr<Entity> Scene::GetEntityWithUUID(const std::string& uuidstring) const noexcept{
     for (auto &entt : m_entities)
     {
         if (entt->GetUUIDString() == uuidstring)
@@ -60,8 +57,7 @@ std::shared_ptr<Entity> Scene::GetEntityWithUUID(const std::string& uuidstring) 
     }
     return nullptr;
 }
-std::shared_ptr<Entity> Scene::GetEntity(std::string name, long long uuid) const noexcept
-{
+std::shared_ptr<Entity> Scene::GetEntity(std::string name, long long uuid) const noexcept{
     for (auto &entt : m_entities)
     {
         if (entt->GetName() == name && entt->GetUUID() == uuid)
@@ -72,8 +68,7 @@ std::shared_ptr<Entity> Scene::GetEntity(std::string name, long long uuid) const
     return nullptr;
 }
 
-std::shared_ptr<Entity> Scene::AddEntity(std::string name, long long uuid, int tag, int layer)
-{
+std::shared_ptr<Entity> Scene::AddEntity(std::string name, long long uuid, int tag, int layer){
     std::shared_ptr<Entity> entt = std::make_shared<Entity>();
     entt->SetName(name);
     entt->SetUUID(uuid);
@@ -83,8 +78,7 @@ std::shared_ptr<Entity> Scene::AddEntity(std::string name, long long uuid, int t
     return entt;
 }
 
-void Scene::RemoveEntity(std::string name) noexcept
-{
+void Scene::RemoveEntity(std::string name) noexcept{
     for (unsigned long i = 0; i < m_entities.size(); i++)
     {
         if (m_entities[i]->GetName() == name)
@@ -94,8 +88,7 @@ void Scene::RemoveEntity(std::string name) noexcept
         }
     }
 }
-void Scene::RemoveEntity(long long uuid) noexcept
-{
+void Scene::RemoveEntity(long long uuid) noexcept{
     for (unsigned long i = 0; i < m_entities.size(); i++)
     {
         if (m_entities[i]->GetUUID() == uuid)
@@ -105,8 +98,7 @@ void Scene::RemoveEntity(long long uuid) noexcept
         }
     }
 }
-void Scene::RemoveEntity(std::string name, long long uuid) noexcept
-{
+void Scene::RemoveEntity(std::string name, long long uuid) noexcept{
     for (unsigned long i = 0; i < m_entities.size(); i++)
     {
         if (m_entities[i]->GetName() == name && m_entities[i]->GetUUID() == uuid)
@@ -117,8 +109,7 @@ void Scene::RemoveEntity(std::string name, long long uuid) noexcept
     }
 }
 
-void Scene::Clear() noexcept
-{
+void Scene::Clear() noexcept{
     for(auto& entity : m_entities) {
         entity->End();
     }
@@ -142,17 +133,14 @@ void Scene::Clear() noexcept
     TextureManager::textureMap.clear();
     TextureManager::textureList.clear();
 }
-void Scene::Update() const
-{
+void Scene::Update() const{
     for (unsigned long i = 0; i < m_entities.size(); i++)
     {
         m_entities[i]->Update();
     }
 }
-void Scene::Render() const
-{
-    for (unsigned long i = 0; i < m_entities.size(); i++)
-    {
+void Scene::Render() const{
+    for (std::size_t i = 0; i < m_entities.size(); i++){
         auto modelRendererComponent = m_entities[i]->GetComponent<ModelRenderer>();
         if (modelRendererComponent != nullptr)
         {
@@ -160,18 +148,26 @@ void Scene::Render() const
         }
     }
     BatchRenderer::Draw();
-    for (unsigned long i = 0; i < m_entities.size(); i++)
-    {
+    for (std::size_t i = 0; i < m_entities.size(); i++) {
         auto textRendererComponent = m_entities[i]->GetComponent<Text>();
         if (textRendererComponent != nullptr)
         {
             textRendererComponent->Draw();
         }
     }
+    for (std::size_t i = 0; i < m_entities.size(); i++) {
+        auto lightRendererComponent = m_entities[i]->GetComponent<LightBase>();
+        if (lightRendererComponent != nullptr)
+        {
+            lightRendererComponent->Draw();
+        }
+    }
+	Renderer::forwardFrameBuffer.Bind(); 
+	LightsBatchRenderer::Draw();
+	Renderer::forwardFrameBuffer.Unbind(); 
 }
 
-void Scene::Serialize(const std::string &filePath) const
-{
+void Scene::Serialize(const std::string &filePath) const{
 #ifdef SHOW_SCENE_SERIALISATION
     Log("Serialized: " << filePath);
 #endif
@@ -274,8 +270,7 @@ void Scene::Serialize(const std::string &filePath) const
     fout.open(filePath, std::fstream::out);
     fout << out.c_str();
 }
-void Scene::Deserialize(const std::string &filePath)
-{
+void Scene::Deserialize(const std::string &filePath){
 
 #ifdef SHOW_SCENE_SERIALISATION
     Log("Deserialized: " << filePath);
@@ -375,7 +370,6 @@ void Scene::Deserialize(const std::string &filePath)
 #endif
 }
 
-void Scene::RemoveEntity(const std::shared_ptr<Entity> &entity)
-{
+void Scene::RemoveEntity(const std::shared_ptr<Entity> &entity){
     m_entities.erase(std::remove(m_entities.begin(), m_entities.end(), entity), m_entities.end());
 }

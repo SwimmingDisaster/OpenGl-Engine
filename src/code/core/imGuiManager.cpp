@@ -427,7 +427,7 @@ void ShowSaveAndOpenMenuItems()
     }
     else if (save)
     {
-        if (sceneFileName.empty())
+        if (!sceneFileName.empty())
         {
             Application::GetSceneModifiable().Serialize(sceneFileName);
             if (Application::isRunning)
@@ -623,7 +623,12 @@ void ShowImGuizmo()
     {
         borderColor = ImVec4(0, 1, 1, 1);
     }
-    ImGui::Image((void*)(uintptr_t)Renderer::multisampledFrameBuffer.GetData(), ImVec2(EngineInfo::SCREEN_WIDTH - 2.0f, EngineInfo::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
+	if(Input::IsKeyHeld(INPUT_KEY_1)){ 
+		ImGui::Image((void*)(uintptr_t)Renderer::multisampledFrameBuffer.GetData(), ImVec2(EngineInfo::SCREEN_WIDTH - 2.0f, EngineInfo::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
+	}
+	else{
+		ImGui::Image((void*)(uintptr_t)Renderer::forwardFrameBuffer.GetData(), ImVec2(EngineInfo::SCREEN_WIDTH - 2.0f, EngineInfo::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
+	}
 
     if (Application::GetSelectedEntity() && imguizmoType != -2)
     {

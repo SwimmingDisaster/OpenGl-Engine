@@ -25,108 +25,108 @@ bool Application::isRunningLast = false;
 #endif
 
 int Application::Init() {
-    Random::Init();
-    ReturnIfNotZero(Renderer::InitOpenGL());
+	Random::Init();
+	ReturnIfNotZero(Renderer::InitOpenGL());
 #ifndef RELEASE_BUILD
-    ImGuiManager::InitImGui();
+	ImGuiManager::InitImGui();
 #endif
-    Renderer::Init();
-    PhysicsManager::InitPhysx();
-    NFD_Init();
-    return 0;
+	Renderer::Init();
+	PhysicsManager::InitPhysx();
+	NFD_Init();
+	LightsBatchRenderer::Init();
+	return 0;
 }
 
 void Application::Start() {
 
 #ifdef RELEASE_BUILD
-    m_curentScene.Deserialize("other/scenes/shapes.scene");//change this so that the initial scene is set in a .project file
+	m_curentScene.Deserialize("other/scenes/shapes.scene");//change this so that the initial scene is set in a .project file
 #endif
 }
 
 void Application::Run() {
-    while (glfwWindowShouldClose(window) == 0) {
+	while (glfwWindowShouldClose(window) == 0) {
 
-    		static bool is = false;
-    		if (isRunning && !is)
-    		{
-    			for (int i = 0; i <	200; i++)
-    			{
-    				auto newEntity = m_curentScene.AddEntity("New Entity " + std::to_string(i), Random::Int());
-    				auto transform = newEntity->AddComponentR<Transform>();
-    				transform->position = {0.3f, 5.0f, i * 0.3f};
-    				transform->scale = {0.1f, 0.1f, 0.1f};
-    				newEntity->AddComponent<Model>();
-    				auto material = newEntity->AddComponentR<Material>();
-    				//material->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
-    				material->materialProperties.push_back(std::make_pair("color", glm::vec3(1.0f, 0.0f, 0.0f)));
-    				newEntity->AddComponent<ModelRenderer>();
-    				newEntity->Start();
-    			}
-    			is = true;
-    		}
+		static bool is = false;
+		if (isRunning && !is) {
+			for (int i = 0; i <	200; i++){
+				auto newEntity = m_curentScene.AddEntity("New Entity " + std::to_string(i), Random::Int());
+				auto transform = newEntity->AddComponentR<Transform>();
+				transform->position = {0.3f, 5.0f, i * 0.3f};
+				transform->scale = {0.1f, 0.1f, 0.1f};
+				newEntity->AddComponent<Model>();
+				auto material = newEntity->AddComponentR<Material>();
+				//material->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
+				material->materialProperties.push_back(std::make_pair("color", glm::vec3(1.0f, 0.0f, 0.0f)));
+				newEntity->AddComponent<ModelRenderer>();
+				newEntity->Start();
+			}
+			is = true;
+		}
 
 #ifndef RELEASE_BUILD
-        if (!isRunningLast && isRunning)
-        {
-            selectedEntity = nullptr;
-            m_curentScene.Serialize("other/TEMP.scene");
-        }
-        else if (isRunningLast && !isRunning)
-        {
-            selectedEntity = nullptr;
-            m_curentScene.Deserialize("other/TEMP.scene");
-        }
+		if (!isRunningLast && isRunning)
+		{
+			selectedEntity = nullptr;
+			m_curentScene.Serialize("other/TEMP.scene");
+		}
+		else if (isRunningLast && !isRunning)
+		{
+			selectedEntity = nullptr;
+			m_curentScene.Deserialize("other/TEMP.scene");
+		}
 #endif
 
 
 #ifndef RELEASE_BUILD
-        if (!isRunning) {
-            editorCamera.Update();
-        }
+		if (!isRunning) {
+			editorCamera.Update();
+		}
 #endif
-        Renderer::SetupMatrices();
-        Renderer::StartFrame();
+		Renderer::SetupMatrices();
+		Renderer::StartFrame();
 
-        PhysicsManager::Update();
+		PhysicsManager::Update();
 
 
 #ifndef RELEASE_BUILD
-        if (isRunning)	{
-            m_curentScene.Update();
-        }
+		if (isRunning)	{
+			m_curentScene.Update();
+		}
 #else
-        m_curentScene.Update();
+		m_curentScene.Update();
 #endif
-        m_curentScene.Render();
-        Renderer::EndFrame();
+		m_curentScene.Render();
+		Renderer::EndFrame();
 
 #ifndef RELEASE_BUILD
-        ImGuiManager::Update();
+		ImGuiManager::Update();
 #endif
 
-        BatchRenderer::Clear();
-        glfwSwapBuffers(window);
+		BatchRenderer::Clear();
+		LightsBatchRenderer::Clear();
+		glfwSwapBuffers(window);
 
-        Input::Update();
-        glfwPollEvents();
+		Input::Update();
+		glfwPollEvents();
 
-        EngineInfo::CalculateDeltaTime();
-    }
+		EngineInfo::CalculateDeltaTime();
+	}
 #ifndef RELEASE_BUILD
-    if (!isRunning) {
-        m_curentScene.Serialize("other/TEMP.scene");
-    }
+	if (!isRunning) {
+		m_curentScene.Serialize("other/TEMP.scene");
+	}
 #endif
-    m_curentScene.Clear();
+	m_curentScene.Clear();
 }
 
 void Application::Shutdown() {
-    PhysicsManager::ShutdownPhysx();
+	PhysicsManager::ShutdownPhysx();
 #ifndef RELEASE_BUILD
-    ImGuiManager::ShutdownImGui();
+	ImGuiManager::ShutdownImGui();
 #endif
-    Renderer::ShutdownOpenGL();
-    NFD_Quit();
+	Renderer::ShutdownOpenGL();
+	NFD_Quit();
 }
 
 /*

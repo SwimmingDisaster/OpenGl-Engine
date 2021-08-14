@@ -3,4 +3,4 @@
 
 class LightBase : public Component {
 
-}
+};

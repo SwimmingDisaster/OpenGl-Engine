@@ -1,7 +1,7 @@
 #pragma once
 
 class FrameBuffer {
-protected:
+public:
 	unsigned int m_frameBufferObject{};
 	unsigned int m_color{};
 	unsigned int m_depthBuffer{};
@@ -43,7 +43,7 @@ public:
 };
 
 class DeferredFrameBuffer : public FrameBuffer{
-private:
+public:
 	unsigned int m_position{};
 	unsigned int m_normal{};
 public:

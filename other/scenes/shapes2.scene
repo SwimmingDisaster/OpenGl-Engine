@@ -4,6 +4,7 @@ Shaders:
   - Shader Path: res/shaders/color
   - Shader Path: res/shaders/model
   - Shader Path: res/shaders/test
+  - Shader Path: res/shaders/pointLight
 Textures:
   - Texture Path: res/robot/body_dif.png
   - Texture Path: res/robot/arm_dif.png
@@ -351,7 +352,23 @@ Entities:
       Constrain rotation: false
       Is simulation: true
       Is trigger: false
+  - Entity: New Point Light
+    UUID: -1
+    Tag: 0
+    Layer: 0
+    Components: [Transform, PointLightComponent]
+    Transform:
+      Position: [-0.0353796482, 2.27059603, -11.5646915]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    PointLightComponent:
+      Color: [1, 0.999989986, 0.999989986]
+      Ambient intensity: 0.0199999996
+      Diffuse intensity: 0.0199999996
+      Constant: 1
+      Linear: 0.0900000036
+      Exp: 0.0320000015
 Editor Camera:
-  - Camera vPos: [43.673439, 17.8801899, 13.9964705]
-    Camera vUp: [-0.448239148, 0.803857327, 0.391018093]
-    Camera vRot: [-36.4999619, -221.099579, 0]
+  - Camera vPos: [6.95662928, 4.27662802, -18.3203621]
+    Camera vUp: [-0.160844609, 0.983571529, 0.0819521621]
+    Camera vRot: [-10.3999968, -206.999359, 0]

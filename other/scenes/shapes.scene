@@ -4,6 +4,7 @@ Shaders:
   - Shader Path: res/shaders/color
   - Shader Path: res/shaders/model
   - Shader Path: res/shaders/test
+  - Shader Path: res/shaders/null
 Textures:
   - Texture Path: res/robot/body_dif.png
   - Texture Path: res/robot/arm_dif.png

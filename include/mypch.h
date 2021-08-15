@@ -18,6 +18,7 @@
 #include <functional>
 #include <random>
 #include <limits>
+#include <cmath>
 
 #include <string>
 #include <sstream>

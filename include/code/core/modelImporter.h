@@ -22,6 +22,8 @@ struct BasicVertex {
 
 	BasicVertex(const glm::vec3& otherPos)
 		:Position(otherPos) {}
+	BasicVertex(const float x, const float y, const float z, const float i)
+		:Position(x,y,z), ObjectIndex(i) {}
 	BasicVertex(){}
 };
 

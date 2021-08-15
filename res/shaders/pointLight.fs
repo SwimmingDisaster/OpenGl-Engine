@@ -2,7 +2,6 @@
 
 layout (location = 0) out vec4 gFragColor;
 
-in vec3 FragPos;
 in flat int ObjectIndexFragment;
 
 struct PointLight {
@@ -13,9 +12,10 @@ struct PointLight {
 	float constant;
 	float linear;
 	float exp;
+	float dummy;
 };
-layout (std140, binding = 3) uniform lights{
-	PointLight[32] pointLightList;
+layout (std430, binding = 3) buffer lights{
+	PointLight[] pointLightList;
 };
 
 uniform vec3 eyePos;
@@ -25,43 +25,29 @@ uniform sampler2D gColor;
 uniform sampler2D gPosition;
 uniform sampler2D gNormal;
 
-vec4 CalcLightInternal(PointLight light, vec3 lightDirection, vec3 worldPos, vec3 normal, float specularIntensity){
-	vec4 ambientColor = vec4(light.color, 1.0f) * light.ambientIntensity;
-//	float diffuseFactor = dot(normal, -lightDirection);
-	float diffuseFactor = 1.0f;
 
-	vec4 diffuseColor  = vec4(0, 0, 0, 0);
-	vec4 specularColor = vec4(0, 0, 0, 0);
-
-	if (diffuseFactor > 0) {
-		diffuseColor = vec4(light.color, 1.0f) * light.diffuseIntensity * diffuseFactor;
-
-		vec3 vertexToEye = normalize(eyePos - worldPos);
-		vec3 lightReflect = normalize(reflect(lightDirection, normal));
-		float specularFactor = dot(vertexToEye, lightReflect);
-		specularFactor = pow(specularFactor, specularPower);
-		if (specularFactor > 0) {
-			specularColor = vec4(light.color, 1.0f) * specularIntensity * specularFactor;
-		}
-	}
-
-	return (ambientColor + diffuseColor + specularColor);
+vec3 CalcPointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir, float shininess, vec3 color){
+    vec3 lightDir = normalize(light.position - fragPos);
+    // diffuse shading
+    float diff = max(dot(normal, lightDir), 0.0);
+    // specular shading
+    vec3 reflectDir = reflect(-lightDir, normal);
+    float spec = pow(max(dot(viewDir, reflectDir), 0.0), shininess);
+    // attenuation
+    float distance = length(light.position - fragPos);
+    float attenuation = 1.0 / (light.constant + light.linear * distance + light.exp * (distance * distance));
+    // combine results
+    vec3 ambient = light.ambientIntensity * color * light.color;
+    vec3 diffuse = light.diffuseIntensity * diff * color * light.color;
+	//float specValue = shininess * spec; 
+	float specValue = 0.0f;
+    vec3 specular = vec3(specValue, specValue, specValue);
+    ambient *= attenuation;
+    diffuse *= attenuation;
+    specular *= attenuation;
+    return (ambient + diffuse + specular);
 }
-vec4 CalcPointLight(PointLight pointLight, vec3 worldPos, vec3 normal, float specularIntensity){
-	vec3 lightDirection = worldPos - pointLight.position;
-	float distance = length(lightDirection);
-	lightDirection = normalize(lightDirection);
 
-	vec4 color = CalcLightInternal(pointLight, lightDirection, worldPos, normal, specularIntensity);
-
-	float attenuation =  pointLight.constant +
-						 pointLight.linear * distance +
-						 pointLight.exp * distance * distance;
-
-	attenuation = max(1.0, attenuation);
-
-	return color / attenuation;
-}
 vec2 CalcTexCoord(){
     return gl_FragCoord.xy / gScreenSize;
 }
@@ -74,7 +60,17 @@ void main() {
 	vec3 normal = texture(gNormal, texCoord).xyz;
 	normal = normalize(normal);
 
-	gFragColor = color * CalcPointLight(pointLightList[ObjectIndexFragment], worldPos, normal, spec);
+    vec3 viewDir = normalize(eyePos - worldPos);
+
+	vec3 finalColor = vec3(0.0f, 0.0f, 0.0f);
+	for(int i = 0; i < pointLightList.length(); i++){
+		finalColor += CalcPointLight(pointLightList[i], worldPos, normal, viewDir, spec, color.xyz);
+	}
+	//finalColor += CalcPointLight(pointLightList[ObjectIndexFragment], worldPos, normal, viewDir, spec, color.xyz);
+	gFragColor = vec4(finalColor, 1.0f);
+
+	//vec3 CalcPointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir, float shininess, vec3 color){
+	// gFragColor = vec4(1.0f, 0.0f, 0.0f, 1.0f);
 	//gColor = vec4(color[ObjectIndexFragment], 1.0f);
 }
 

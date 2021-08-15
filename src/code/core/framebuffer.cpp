@@ -84,14 +84,14 @@ void DeferredFrameBuffer::Resize(int width, int height) const {
 }
 
 unsigned int DeferredFrameBuffer::GetData() const {
-	if(Input::IsKeyHeld(INPUT_KEY_1)) {
-		return m_color;
+	if(Input::IsKeyHeld(INPUT_KEY_3)) {
+		return m_normal;
 	}
 	else if(Input::IsKeyHeld(INPUT_KEY_2)) {
 		return m_position;
 	}
-	else if(Input::IsKeyHeld(INPUT_KEY_3)) {
-		return m_normal;
+	else if(Input::IsKeyHeld(INPUT_KEY_1)) {
+		return m_color;
 	}
 	return m_color;
 }

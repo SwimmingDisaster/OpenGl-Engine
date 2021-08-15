@@ -5,7 +5,7 @@
 #include "core/modelImporter.h"
 
 
-#define BATCH_SIZE 50
+#define BATCH_SIZE 150
 #define LIGHT_BATCH_SIZE 33
 
 enum class LightBatchType{
@@ -93,9 +93,8 @@ public:
 	static std::unordered_map<std::string, std::vector<LightBatch>> spotLightBatchMap;
 	static std::unordered_map<std::string, unsigned long> batchIndexes;
 
-	static const std::string sphereMeshFilePath;
-	static std::vector<BasicVertex> sphereVertices;
-	static std::vector<unsigned int> sphereIndices;
+	static std::vector<BasicVertex> quadVertices;
+	static std::vector<unsigned int> quadIndices;
 
 public:
 	static void Init();

@@ -46,6 +46,7 @@ void ModelImporter::LoadModelWithTextures(const std::string& filePath, std::vect
 void ModelImporter::LoadModelWithoutTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, bool loadBinaryVersion, bool makeBinaryVersion) {
 	if(loadBinaryVersion){
 		if(LoadBinaryModelWithoutTextures(filePath + ".wot", vertices, indices)){
+//			Log("Loaded model without textures at path: " << filePath << " with " << vertices.size() << " vertices and " << indices.size() << " indices.");
 			return;
 		}
 	}
@@ -57,6 +58,7 @@ void ModelImporter::LoadModelWithoutTextures(const std::string& filePath, std::v
 	if(makeBinaryVersion){
 		SaveBinaryModelWithoutTextures(filePath + ".wot", vertices, indices);
 	}
+//	Log("Loaded model without textures at path: " << filePath << " with " << vertices.size() << " vertices and " << indices.size() << " indices.");
 }
 void ModelImporter::LoadModelBasic(const std::string& filePath, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, bool loadBinaryVersion, bool makeBinaryVersion) {
 	if(loadBinaryVersion){

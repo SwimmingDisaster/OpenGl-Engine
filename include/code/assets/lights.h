@@ -24,6 +24,7 @@ struct PointLight
     float constant;
     float linear;
     float exp;
+	float dummy;
 };
 
 struct SpotLight
@@ -50,6 +51,8 @@ public:
     void Serialize(YAML::Emitter& out) const override;
     void Deserialize(const YAML::Node& data) override;
     void Show() override;
+
+	void RecalculateSize();
 
 	PointLightComponent();
 #ifdef SHOW_DELETED

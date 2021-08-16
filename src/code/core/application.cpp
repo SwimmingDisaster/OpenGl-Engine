@@ -48,19 +48,37 @@ void Application::Run() {
 	while (glfwWindowShouldClose(window) == 0) {
 
 		static bool is = false;
+		constexpr float sz = 100.0f;
 		if (isRunning && !is) {
 			for (int i = 0; i <	200; i++){
 				auto newEntity = m_curentScene.AddEntity("New Entity " + std::to_string(i), Random::Int());
 				auto transform = newEntity->AddComponentR<Transform>();
-				transform->position = {0.3f, 5.0f, i * 0.3f};
-				transform->scale = {0.1f, 0.1f, 0.1f};
+				transform->position = {Random::Float() * sz, Random::Float() * sz, Random::Float() * sz};
+				transform->scale = glm::vec3(0.3f, 0.3f, 0.3f);
 				newEntity->AddComponent<Model>();
 				auto material = newEntity->AddComponentR<Material>();
 				//material->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
-				material->materialProperties.push_back(std::make_pair("color", glm::vec3(1.0f, 0.0f, 0.0f)));
+				material->materialProperties.push_back(std::make_pair("color", glm::vec3(1.0f, 1.0f, 1.0f)));
 				newEntity->AddComponent<ModelRenderer>();
 				newEntity->Start();
 			}
+		/*
+			for (int i = 0; i <	200; i++){
+				auto newEntity = m_curentScene.AddEntity("New Light " + std::to_string(i), Random::Int());
+				auto transform = newEntity->AddComponentR<Transform>();
+				transform->position = glm::vec3(Random::Float() * sz, Random::Float() * sz, Random::Float() * sz);
+				auto light = newEntity->AddComponentR<PointLightComponent>();
+				//light->pointLight.color = glm::vec3(Random::Float(), Random::Float(), Random::Float());
+				light->pointLight.color = glm::vec3(Random::Float(), 0.0f, 0.0f);
+				light->pointLight.ambientIntensity = 0.0f;
+				light->pointLight.diffuseIntensity = 0.1f;
+				
+				light->pointLight.constant = 1.0f;
+				light->pointLight.linear = 0.001f;
+				light->pointLight.exp = 0.0032f;
+				newEntity->Start();
+			}
+		*/
 			is = true;
 		}
 

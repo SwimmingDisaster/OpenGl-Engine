@@ -6,7 +6,7 @@
 
 
 #define BATCH_SIZE 150
-#define LIGHT_BATCH_SIZE 33
+#define LIGHT_BATCH_SIZE 500
 
 enum class LightBatchType{
 	Point,
@@ -26,8 +26,8 @@ public:
 	void Destroy();
 	void Draw(const std::shared_ptr<Shader>& shader);
 public:
-	int index = 0;
-	int textureIndex = 0;
+	std::size_t index = 0;
+	std::size_t textureIndex = 0;
 
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
@@ -59,7 +59,7 @@ public:
 	void Destroy();
 	void Draw(const std::shared_ptr<Shader>& shader);
 public:
-	int index = 0;
+	std::size_t index = 0;
 
 	LightBatchType type;
 

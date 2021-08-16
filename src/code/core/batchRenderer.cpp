@@ -18,6 +18,22 @@ std::vector<BasicVertex> LightsBatchRenderer::quadVertices;
 std::vector<unsigned int> LightsBatchRenderer::quadIndices;
 
 
+Batch::Batch(Batch&& other) noexcept {
+	index = std::move(other.index);
+	textureIndex = std::move(other.textureIndex);
+
+	vertices = std::move(other.vertices);
+	indices = std::move(other.indices);
+
+	matrixList = std::move(other.matrixList);
+
+	materialMap = std::move(other.materialMap);
+	textureIndexMap = std::move(other.textureIndexMap);
+
+	VAO = std::move(other.VAO);
+	VBO = std::move(other.VBO);
+	EBO = std::move(other.EBO);
+}
 void Batch::Setup() {
 
 	glGenVertexArrays(1, &VAO);
@@ -47,15 +63,6 @@ void Batch::Setup() {
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-}
-void Batch::Clear() {
-	vertices.clear();
-	indices.clear();
-	materialMap.clear();
-	matrixList.clear();
-
-	index = 0;
-	textureIndex = 0;
 }
 void Batch::AddProperty(std::shared_ptr<Material>& material, unsigned long& i) {
 	const auto& materialType = material->materialProperties[i].second.type();
@@ -174,7 +181,6 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
 	glUniformMatrix4fv(glGetUniformLocation(shader->GetID(), "matModel"), matrixList.size(), GL_FALSE, &matrixList[0][0][0]);
 
 	glBindVertexArray(VAO);
-	glFinish();
 
 	int size;
 
@@ -184,41 +190,35 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
 		glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(Vertex), &vertices[0]);
 	}
 	else{
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STREAM_DRAW);
+		Log("Current size: " << size << " desired size: " << vertices.size() * sizeof(Vertex));
 	}
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
-	if(vertices.size() * sizeof(Vertex) <= size){
+	if(indices.size() * sizeof(unsigned int) <= size){
 		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, indices.size() * sizeof(unsigned int), &indices[0]);
 	}
 	else{
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STREAM_DRAW);
 	}
 
 	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, (const void *)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
-	glFinish();
 }
-Batch::Batch(Batch&& other) noexcept {
-	index = std::move(other.index);
-	textureIndex = std::move(other.textureIndex);
+void Batch::Clear() {
+	vertices.clear();
+	indices.clear();
+	materialMap.clear();
+	matrixList.clear();
 
-	vertices = std::move(other.vertices);
-	indices = std::move(other.indices);
-
-	matrixList = std::move(other.matrixList);
-
-	materialMap = std::move(other.materialMap);
-	textureIndexMap = std::move(other.textureIndexMap);
-
-	VAO = std::move(other.VAO);
-	VBO = std::move(other.VBO);
-	EBO = std::move(other.EBO);
+	index = 0;
+	textureIndex = 0;
 }
 void Batch::Destroy() {
+	Log("batch destroyed");
 	Clear();
 	glDeleteBuffers(1, &VBO);
 	glDeleteBuffers(1, &EBO);
@@ -242,6 +242,42 @@ LightBatch::LightBatch(LightBatch&& other) noexcept {
 	EBO = std::move(other.EBO);
 	UBO = std::move(other.UBO);
 }
+void LightBatch::Setup(LightBatchType otherType) {
+	type = otherType;
+
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
+	glGenBuffers(1, &UBO);
+
+
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, UBO);
+	switch(type) {
+	case LightBatchType::Point:
+		glBufferData(GL_SHADER_STORAGE_BUFFER, LIGHT_BATCH_SIZE * sizeof(PointLight), nullptr, GL_STREAM_DRAW);
+		break;
+	case LightBatchType::Directional:
+		glBufferData(GL_SHADER_STORAGE_BUFFER, LIGHT_BATCH_SIZE * sizeof(DirectionalLight), nullptr, GL_STREAM_DRAW);
+		break;
+	case LightBatchType::Spot:
+		glBufferData(GL_SHADER_STORAGE_BUFFER, LIGHT_BATCH_SIZE * sizeof(SpotLight), nullptr, GL_STREAM_DRAW);
+		break;
+	}
+	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
+	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, UBO);
+
+	glBindVertexArray(VAO);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(BasicVertex), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(BasicVertex), (void*)offsetof(BasicVertex, ObjectIndex));
+	glEnableVertexAttribArray(1);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+}
 void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, std::shared_ptr<Transform>& transform) {
 	const std::size_t numNewVertices = otherVertices.size();
 	const std::size_t numNewIndices = otherIndices.size();
@@ -255,7 +291,7 @@ void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const 
 	vertices.insert(vertices.end(), otherVertices.begin(), otherVertices.end());
 	indices.insert(indices.end(), otherIndices.begin(), otherIndices.end());
 
-	matrixList.push_back(transform->GetTransform());
+//	matrixList.push_back(transform->GetTransformWithNoScale());
 	pointLightList.push_back(light);
 
 	for (std::size_t i = numVertices; i < numVertices + numNewVertices; i++) {
@@ -294,58 +330,6 @@ void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const 
 	index++;
 	assert(index <= BATCH_SIZE);
 	assert(matrixList.size() <= BATCH_SIZE);
-}
-void LightBatch::Setup(LightBatchType otherType) {
-	type = otherType;
-
-	glGenVertexArrays(1, &VAO);
-	glGenBuffers(1, &VBO);
-	glGenBuffers(1, &EBO);
-	glGenBuffers(1, &UBO);
-
-
-	glBindBuffer(GL_SHADER_STORAGE_BUFFER, UBO);
-	switch(type) {
-	case LightBatchType::Point:
-		glBufferData(GL_SHADER_STORAGE_BUFFER, LIGHT_BATCH_SIZE * sizeof(PointLight), nullptr, GL_STREAM_DRAW);
-		break;
-	case LightBatchType::Directional:
-		glBufferData(GL_SHADER_STORAGE_BUFFER, LIGHT_BATCH_SIZE * sizeof(DirectionalLight), nullptr, GL_STREAM_DRAW);
-		break;
-	case LightBatchType::Spot:
-		glBufferData(GL_SHADER_STORAGE_BUFFER, LIGHT_BATCH_SIZE * sizeof(SpotLight), nullptr, GL_STREAM_DRAW);
-		break;
-	}
-	glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
-	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, UBO);
-
-	glBindVertexArray(VAO);
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(BasicVertex), (void*)0);
-	glEnableVertexAttribArray(0);
-
-	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(BasicVertex), (void*)offsetof(BasicVertex, ObjectIndex));
-	glEnableVertexAttribArray(1);
-
-	glBindBuffer(GL_ARRAY_BUFFER, 0);
-	glBindVertexArray(0);
-}
-void LightBatch::Clear() {
-	vertices.clear();
-	indices.clear();
-
-	pointLightList.clear();
-	directionalLightList.clear();
-
-	index = 0;
-}
-void LightBatch::Destroy() {
-	Clear();
-	glDeleteBuffers(1, &VBO);
-	glDeleteBuffers(1, &EBO);
-	glDeleteBuffers(1, &UBO);
-	glDeleteVertexArrays(1, &VAO);
 }
 void LightBatch::Draw(const std::shared_ptr<Shader>& shader) {
 	if (vertices.size() == 0) {
@@ -402,9 +386,38 @@ void LightBatch::Draw(const std::shared_ptr<Shader>& shader) {
 	glBindVertexArray(0);
 	glFinish();
 }
+void LightBatch::Clear() {
+	vertices.clear();
+	indices.clear();
 
-//Batch::~Batch() {}
+	pointLightList.clear();
+	directionalLightList.clear();
+	matrixList.clear();
 
+	index = 0;
+}
+void LightBatch::Destroy() {
+	Clear();
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+	glDeleteBuffers(1, &UBO);
+	glDeleteVertexArrays(1, &VAO);
+}
+
+
+void BatchRenderer::Clear() {
+	for(auto& batchPair : batchMap) {
+		for(unsigned long i = 0; i < batchIndexes[batchPair.first] + 1; i++) {
+			batchPair.second[i].Clear();
+		}
+		for(unsigned long i = batchIndexes[batchPair.first] + 1; i < batchPair.second.size(); i++) {
+			batchPair.second[i].Destroy();
+		}
+	}
+	for(auto& batchPair : batchIndexes) {
+		batchPair.second = 0;
+	}
+}
 void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
 	std::vector<Batch>& batchList = batchMap[shaderName];
 	unsigned long& batchIndex = batchIndexes[shaderName];
@@ -422,7 +435,7 @@ void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const st
 			batchIndex++;
 		}
 	}
-	batchList[batchList.size() - 1].AddObject(otherVertices, otherIndices, material, transform);
+	batchList[batchIndex].AddObject(otherVertices, otherIndices, material, transform);
 	/*
 	batchList[batchList.size() - 1].AddObject(otherVertices, otherIndices, material, transform);
 	std::vector<Batch>& batchList= batchMap[shaderName];
@@ -436,16 +449,6 @@ void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const st
 	}
 	batchList[batchList.size() - 1].AddObject(otherVertices, otherIndices, material, transform);
 	*/
-}
-void BatchRenderer::Clear() {
-	for(auto& batchPair : batchMap) {
-		for(unsigned long i = 0; i < batchIndexes[batchPair.first] + 1; i++) {
-			batchPair.second[i].Clear();
-		}
-		for(unsigned long i = batchIndexes[batchPair.first] + 1; i < batchPair.second.size(); i++) {
-			batchPair.second[i].Destroy();
-		}
-	}
 }
 void BatchRenderer::Draw() {
 	for(auto& batchPair : batchMap) {
@@ -461,10 +464,10 @@ void BatchRenderer::Draw() {
 void LightsBatchRenderer::Init() {
 	quadVertices = 
 	{
-		BasicVertex{-1.0f, -1.0f, 0.0f, 0},
-		BasicVertex{1.0f, -1.0f, 0.0f, 0},
-		BasicVertex{1.0f, 1.0f, 0.0f, 0},
-		BasicVertex{-1.0f, 1.0f, 0.0f, 0}
+		BasicVertex(-1.0f, -1.0f, 0.0f, 0),
+		BasicVertex( 1.0f, -1.0f, 0.0f, 0),
+		BasicVertex( 1.0f,  1.0f, 0.0f, 0),
+		BasicVertex(-1.0f,  1.0f, 0.0f, 0)
 	};
 	quadIndices = {
 		0, 1, 2,
@@ -511,52 +514,45 @@ void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertice
 }
 void LightsBatchRenderer::Clear() {
 	for(auto& batchPair : pointLightBatchMap) {
-		for(unsigned long i = 0; i < batchIndexes[batchPair.first]; i++) {
+		for(unsigned long i = 0; i < batchIndexes[batchPair.first] + 1; i++) {
 			batchPair.second[i].Clear();
 		}
-		for(unsigned long i = batchIndexes[batchPair.first]; i < batchPair.second.size(); i++) {
+		for(unsigned long i = batchIndexes[batchPair.first] + 1; i < batchPair.second.size(); i++) {
 			batchPair.second[i].Destroy();
 		}
 	}
 	for(auto& batchPair : directionalLightBatchMap) {
-		for(unsigned long i = 0; i < batchIndexes[batchPair.first]; i++) {
+		for(unsigned long i = 0; i < batchIndexes[batchPair.first] + 1; i++) {
 			batchPair.second[i].Clear();
 		}
-		for(unsigned long i = batchIndexes[batchPair.first]; i < batchPair.second.size(); i++) {
+		for(unsigned long i = batchIndexes[batchPair.first] + 1; i < batchPair.second.size(); i++) {
 			batchPair.second[i].Destroy();
 		}
 	}
 	for(auto& batchPair : spotLightBatchMap) {
-		for(unsigned long i = 0; i < batchIndexes[batchPair.first]; i++) {
+		for(unsigned long i = 0; i < batchIndexes[batchPair.first] + 1; i++) {
 			batchPair.second[i].Clear();
 		}
-		for(unsigned long i = batchIndexes[batchPair.first]; i < batchPair.second.size(); i++) {
+		for(unsigned long i = batchIndexes[batchPair.first] + 1; i < batchPair.second.size(); i++) {
 			batchPair.second[i].Destroy();
 		}
 	}
-	pointLightBatchMap.clear();
-	directionalLightBatchMap.clear();
-	spotLightBatchMap.clear();
 }
 void LightsBatchRenderer::Draw() {
 	if(pointLightBatchMap.size() + directionalLightBatchMap.size() == 0){
 		return;
 	}
+
 	for(auto& batchPair : pointLightBatchMap) {
 		auto& shader = Shader::shaderMap[batchPair.first];
 		shader->use();
 		shader->setVec3("eyePos", Renderer::viewPos);
 		shader->setVec2("gScreenSize", {EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT});
 		shader->setFloat("specularPower", 1.0f);
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_color);
-		shader->setInt("gColor", 0);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_position);
-		shader->setInt("gPosition", 1);
-		glActiveTexture(GL_TEXTURE2);
-		glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_normal);
-		shader->setInt("gNormal", 2);
+		glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_color); shader->setInt("gColor", 0);
+		glActiveTexture(GL_TEXTURE1); glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_position); shader->setInt("gPosition", 1);
+		glActiveTexture(GL_TEXTURE2); glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_normal); shader->setInt("gNormal", 2);
+
 		for(auto& batch : batchPair.second) {
 			batch.Draw(shader);
 		}

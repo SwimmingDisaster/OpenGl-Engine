@@ -127,7 +127,9 @@ void Scene::Clear() noexcept{
     LightsBatchRenderer::pointLightBatchMap.clear();
     LightsBatchRenderer::directionalLightBatchMap.clear();
     LightsBatchRenderer::spotLightBatchMap.clear();
-    LightsBatchRenderer::batchIndexes.clear();
+    LightsBatchRenderer::pointLightBatchIndexes.clear();
+    LightsBatchRenderer::directionalLightBatchIndexes.clear();
+    LightsBatchRenderer::spotLightBatchIndexes.clear();
 
     Shader::shaderMap.clear();
     Shader::shaderList.clear();

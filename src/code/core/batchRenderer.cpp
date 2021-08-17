@@ -12,10 +12,15 @@ std::unordered_map<std::string, unsigned long> BatchRenderer::batchIndexes;
 std::unordered_map<std::string, std::vector<LightBatch>> LightsBatchRenderer::pointLightBatchMap;
 std::unordered_map<std::string, std::vector<LightBatch>> LightsBatchRenderer::directionalLightBatchMap;
 std::unordered_map<std::string, std::vector<LightBatch>> LightsBatchRenderer::spotLightBatchMap;
-std::unordered_map<std::string, unsigned long> LightsBatchRenderer::batchIndexes;
+std::unordered_map<std::string, unsigned long> LightsBatchRenderer::pointLightBatchIndexes;
+std::unordered_map<std::string, unsigned long> LightsBatchRenderer::directionalLightBatchIndexes;
+std::unordered_map<std::string, unsigned long> LightsBatchRenderer::spotLightBatchIndexes;
 
 std::vector<BasicVertex> LightsBatchRenderer::quadVertices;
 std::vector<unsigned int> LightsBatchRenderer::quadIndices;
+
+std::vector<BasicVertex> LightsBatchRenderer::sphereVertices;
+std::vector<unsigned int> LightsBatchRenderer::sphereIndices;
 
 
 Batch::Batch(Batch&& other) noexcept {
@@ -291,7 +296,7 @@ void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const 
 	vertices.insert(vertices.end(), otherVertices.begin(), otherVertices.end());
 	indices.insert(indices.end(), otherIndices.begin(), otherIndices.end());
 
-//	matrixList.push_back(transform->GetTransformWithNoScale());
+	matrixList.push_back(transform->GetTransform());
 	pointLightList.push_back(light);
 
 	for (std::size_t i = numVertices; i < numVertices + numNewVertices; i++) {
@@ -371,9 +376,6 @@ void LightBatch::Draw(const std::shared_ptr<Shader>& shader) {
 	glBindVertexArray(VAO);
 	glFinish();
 
-	vertices = LightsBatchRenderer::quadVertices;
-	indices = LightsBatchRenderer::quadIndices;
-
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), &vertices[0], GL_STATIC_DRAW);
 
@@ -392,6 +394,7 @@ void LightBatch::Clear() {
 
 	pointLightList.clear();
 	directionalLightList.clear();
+	//spotLightList.clear();
 	matrixList.clear();
 
 	index = 0;
@@ -462,8 +465,7 @@ void BatchRenderer::Draw() {
 
 
 void LightsBatchRenderer::Init() {
-	quadVertices = 
-	{
+	quadVertices = {
 		BasicVertex(-1.0f, -1.0f, 0.0f, 0),
 		BasicVertex( 1.0f, -1.0f, 0.0f, 0),
 		BasicVertex( 1.0f,  1.0f, 0.0f, 0),
@@ -473,10 +475,14 @@ void LightsBatchRenderer::Init() {
 		0, 1, 2,
 		0, 2, 3
 	};
+	std::vector<glm::vec3> tempVertices;
+	//ModelImporter::LoadModelBasic("res/fbx/sphere.fbx", tempVertices, sphereIndices);
+	ModelImporter::LoadModelBasic("res/fbx/box.fbx", tempVertices, sphereIndices);
+	sphereVertices = std::vector<BasicVertex>(tempVertices.begin(), tempVertices.end());
 }
 void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, std::shared_ptr<Transform>& transform, const std::string& shaderName) {
 	std::vector<LightBatch>& batchList = pointLightBatchMap[shaderName];
-	unsigned long& batchIndex = batchIndexes[shaderName];
+	unsigned long& batchIndex = pointLightBatchIndexes[shaderName];
 
 	if(batchList.empty()) {
 		batchList.emplace_back().Setup(LightBatchType::Point);
@@ -491,11 +497,11 @@ void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertice
 			batchIndex++;
 		}
 	}
-	batchList[batchList.size() - 1].AddObject(otherVertices, otherIndices, light, transform);
+	batchList[batchIndex].AddObject(otherVertices, otherIndices, light, transform);
 }
 void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, DirectionalLight& light, std::shared_ptr<Transform>& transform, const std::string& shaderName) {
 	std::vector<LightBatch>& batchList = directionalLightBatchMap[shaderName];
-	unsigned long& batchIndex = batchIndexes[shaderName];
+	unsigned long& batchIndex = directionalLightBatchIndexes[shaderName];
 
 	if(batchList.empty()) {
 		batchList.emplace_back().Setup(LightBatchType::Directional);
@@ -514,28 +520,37 @@ void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertice
 }
 void LightsBatchRenderer::Clear() {
 	for(auto& batchPair : pointLightBatchMap) {
-		for(unsigned long i = 0; i < batchIndexes[batchPair.first] + 1; i++) {
+		for(unsigned long i = 0; i < pointLightBatchIndexes[batchPair.first] + 1; i++) {
 			batchPair.second[i].Clear();
 		}
-		for(unsigned long i = batchIndexes[batchPair.first] + 1; i < batchPair.second.size(); i++) {
+		for(unsigned long i = pointLightBatchIndexes[batchPair.first] + 1; i < batchPair.second.size(); i++) {
 			batchPair.second[i].Destroy();
 		}
 	}
 	for(auto& batchPair : directionalLightBatchMap) {
-		for(unsigned long i = 0; i < batchIndexes[batchPair.first] + 1; i++) {
+		for(unsigned long i = 0; i < directionalLightBatchIndexes[batchPair.first] + 1; i++) {
 			batchPair.second[i].Clear();
 		}
-		for(unsigned long i = batchIndexes[batchPair.first] + 1; i < batchPair.second.size(); i++) {
+		for(unsigned long i = directionalLightBatchIndexes[batchPair.first] + 1; i < batchPair.second.size(); i++) {
 			batchPair.second[i].Destroy();
 		}
 	}
 	for(auto& batchPair : spotLightBatchMap) {
-		for(unsigned long i = 0; i < batchIndexes[batchPair.first] + 1; i++) {
+		for(unsigned long i = 0; i < spotLightBatchIndexes[batchPair.first] + 1; i++) {
 			batchPair.second[i].Clear();
 		}
-		for(unsigned long i = batchIndexes[batchPair.first] + 1; i < batchPair.second.size(); i++) {
+		for(unsigned long i = spotLightBatchIndexes[batchPair.first] + 1; i < batchPair.second.size(); i++) {
 			batchPair.second[i].Destroy();
 		}
+	}
+	for(auto& batchPair : pointLightBatchIndexes) {
+		batchPair.second = 0;
+	}
+	for(auto& batchPair : directionalLightBatchIndexes) {
+		batchPair.second = 0;
+	}
+	for(auto& batchPair : spotLightBatchIndexes) {
+		batchPair.second = 0;
 	}
 }
 void LightsBatchRenderer::Draw() {
@@ -543,6 +558,68 @@ void LightsBatchRenderer::Draw() {
 		return;
 	}
 
+    glEnable(GL_STENCIL_TEST);
+
+	auto& nullShader = Shader::shaderMap["res/shaders/null"];
+
+	glEnable(GL_DEPTH_TEST);
+	glDepthMask(GL_FALSE);
+
+    glDisable(GL_CULL_FACE);
+
+    glClear(GL_STENCIL_BUFFER_BIT);
+    glStencilFunc(GL_ALWAYS, 0, 0);
+    glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP);
+    glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP);
+	nullShader->use();
+	for(auto& batchPair : pointLightBatchMap) {
+		for(auto& batch : batchPair.second) {
+			batch.Draw(nullShader);
+		}
+	}
+    glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
+
+    glDisable(GL_DEPTH_TEST);
+    glEnable(GL_BLEND);
+    glBlendEquation(GL_FUNC_ADD);
+    glBlendFunc(GL_ONE, GL_ONE);
+
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_FRONT);
+    glFrontFace(GL_CCW);
+
+	for(auto& batchPair : pointLightBatchMap) {
+		auto& shader = Shader::shaderMap[batchPair.first];
+		shader->use();
+		shader->setVec3("eyePos", Renderer::viewPos);
+		shader->setVec2("gScreenSize", {EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT});
+		shader->setFloat("specularPower", 1.0f);
+		glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_color); shader->setInt("gColor", 0);
+		glActiveTexture(GL_TEXTURE1); glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_position); shader->setInt("gPosition", 1);
+		glActiveTexture(GL_TEXTURE2); glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_normal); shader->setInt("gNormal", 2);
+
+		for(auto& batch : batchPair.second) {
+			batch.Draw(shader);
+		}
+	}
+    glDisable(GL_STENCIL_TEST);
+	for(auto& batchPair : directionalLightBatchMap) {
+		auto& shader = Shader::shaderMap[batchPair.first];
+		shader->use();
+		for(auto& batch : batchPair.second) {
+			batch.Draw(shader);
+		}
+	}
+	glCullFace(GL_BACK);
+	glEnable(GL_DEPTH_TEST);
+	glDisable(GL_BLEND);
+	glDepthMask(GL_TRUE);
+}
+/*
+void LightsBatchRenderer::Draw() {
+	if(pointLightBatchMap.size() + directionalLightBatchMap.size() == 0){
+		return;
+	}
 	for(auto& batchPair : pointLightBatchMap) {
 		auto& shader = Shader::shaderMap[batchPair.first];
 		shader->use();
@@ -565,3 +642,4 @@ void LightsBatchRenderer::Draw() {
 		}
 	}
 }
+*/

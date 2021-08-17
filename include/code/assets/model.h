@@ -21,6 +21,7 @@ public:
 
 	std::string directory;
 	std::string path = "res/fbx/box.fbx";
+	//std::string path = "res/fbx/sphere.fbx";
 	bool isFlipped = false;
 
 public:

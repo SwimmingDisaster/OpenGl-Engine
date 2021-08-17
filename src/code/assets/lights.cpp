@@ -50,7 +50,8 @@ void PointLightComponent::Update() {
 void PointLightComponent::Draw() {
 	RecalculateSize();
 	pointLight.position = transform->position;
-	LightsBatchRenderer::AddObject(LightsBatchRenderer::quadVertices,	LightsBatchRenderer::quadIndices, pointLight, transform, "res/shaders/pointLight");
+	//LightsBatchRenderer::AddObject(LightsBatchRenderer::quadVertices,	LightsBatchRenderer::quadIndices, pointLight, transform, "res/shaders/pointLight");
+	LightsBatchRenderer::AddObject(LightsBatchRenderer::sphereVertices,	LightsBatchRenderer::sphereIndices, pointLight, transform, "res/shaders/pointLight");
 }
 void PointLightComponent::End() {
 

@@ -6,7 +6,7 @@
 
 
 #define BATCH_SIZE 150
-#define LIGHT_BATCH_SIZE 500
+#define LIGHT_BATCH_SIZE 50
 
 enum class LightBatchType{
 	Point,
@@ -91,11 +91,15 @@ public:
 	static std::unordered_map<std::string, std::vector<LightBatch>> pointLightBatchMap;
 	static std::unordered_map<std::string, std::vector<LightBatch>> directionalLightBatchMap;
 	static std::unordered_map<std::string, std::vector<LightBatch>> spotLightBatchMap;
-	static std::unordered_map<std::string, unsigned long> batchIndexes;
+	static std::unordered_map<std::string, unsigned long> pointLightBatchIndexes;
+	static std::unordered_map<std::string, unsigned long> directionalLightBatchIndexes;
+	static std::unordered_map<std::string, unsigned long> spotLightBatchIndexes;
 
 	static std::vector<BasicVertex> quadVertices;
 	static std::vector<unsigned int> quadIndices;
 
+	static std::vector<BasicVertex> sphereVertices;
+	static std::vector<unsigned int> sphereIndices;
 public:
 	static void Init();
 	static void AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, std::shared_ptr<Transform>& transform, const std::string& shaderName);

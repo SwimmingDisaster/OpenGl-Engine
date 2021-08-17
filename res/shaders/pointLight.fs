@@ -36,9 +36,9 @@ vec3 CalcPointLight(PointLight light, vec3 fragPos, vec3 normal, vec3 viewDir, f
     // attenuation
     float distance = length(light.position - fragPos);
     float attenuation = 1.0 / (light.constant + light.linear * distance + light.exp * (distance * distance));
-	if(attenuation < 0.01f){
-		attenuation = 0.0f;
-	}
+//	if(attenuation < 0.01f){
+//		attenuation = 0.0f;
+//	}
     // combine results
     vec3 ambient = light.ambientIntensity * color * light.color;
     vec3 diffuse = light.diffuseIntensity * diff * color * light.color;
@@ -65,10 +65,13 @@ void main() {
 
     vec3 viewDir = normalize(eyePos - worldPos);
 
+	vec3 finalColor = CalcPointLight(pointLightList[ObjectIndexFragment], worldPos, normal, viewDir, spec, color.xyz);
+	/*
 	vec3 finalColor = vec3(0.0f, 0.0f, 0.0f);
 	for(int i = 0; i < pointLightList.length(); i++){
 		finalColor += CalcPointLight(pointLightList[i], worldPos, normal, viewDir, spec, color.xyz);
 	}
+	*/
 	//finalColor += CalcPointLight(pointLightList[ObjectIndexFragment], worldPos, normal, viewDir, spec, color.xyz);
 	gFragColor = vec4(finalColor, 1.0f);
 

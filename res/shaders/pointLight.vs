@@ -16,8 +16,8 @@ layout (std140, binding = 0) uniform Matrices
 
 void main(){
 	ObjectIndexFragment = ObjectIndexVertex;
-//    FragPos = vec3(matModel[ObjectIndexVertex] * vec4(aPos, 1.0f));
-
-    //gl_Position = matProj *  matView * vec4(FragPos, 1.0f);
-    gl_Position = vec4(aPos, 1.0f);
+	
+	vec3 FragPos = vec3(matModel[ObjectIndexVertex] * vec4(aPos, 1.0f));
+    gl_Position = matProj *  matView * vec4(FragPos, 1.0f);
+//    gl_Position = vec4(aPos, 1.0f);
 }

@@ -12,8 +12,8 @@ public:
 	PxRigidStatic* aStaticActor{};
 
 	PxMaterial* mMaterial{};
-	std::shared_ptr<Transform> tc;
-	std::shared_ptr<ColliderBase> cc;
+	Transform* tc;
+	ColliderBase* cc;
 	glm::vec3 size{};
 	bool isStatic = true;
 
@@ -29,7 +29,7 @@ public:
 	void Update() override;
 	void Serialize(YAML::Emitter& out) const override;
 	void Deserialize(const YAML::Node& data) override;
-	void OnCollision(const std::shared_ptr<Entity>& other) override;
+	void OnCollision(const Entity* const other) override;
 
 	Rigidbody();
 #ifdef SHOW_DELETED

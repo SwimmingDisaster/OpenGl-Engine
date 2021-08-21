@@ -11,19 +11,24 @@ template <class T>
 class CreatorImpl : public Creator
 {
 public:
-	CreatorImpl<T>(const std::string& classname) noexcept : Creator(classname) {}
-	virtual ~CreatorImpl<T>() {}
+	CreatorImpl(const std::string& classname) noexcept : Creator(classname) {}
 
-	std::shared_ptr<Component> create(std::shared_ptr<Entity>& entityRef) override {
+	virtual ~CreatorImpl() {}
+
+	Component* create(Entity* entityRef) override {
+		/*
 		auto comp = entityRef->GetComponent<T>();
 		if (comp == nullptr)
-			return entityRef->AddComponentR<T>();
+			return entityRef->AddComponent<T>();
 		else
 			return comp;
+		*/
+
+		return entityRef->GetComponentOrMakeIfNone<T>(); 
 	}
 
-	void copy(const std::shared_ptr<Entity>& entityRef, std::shared_ptr<Component>& componentRef) override {
-		*entityRef->GetComponentOrMakeIfNone<T>() = *std::static_pointer_cast<T>(componentRef);
+	void copy(Entity* const entityRef, const Component* const componentRef) override {
+		*entityRef->GetComponentOrMakeIfNone<T>() = *static_cast<const T*>(componentRef);
 	}
 };
 

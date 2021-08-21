@@ -29,7 +29,7 @@ public:
 	glm::vec3 backgroundColor = {0.1f, 0.1f, 0.1f};
 
 public:
-	std::shared_ptr<Transform> transform;
+	Transform* transform;
 
 public:
 	void Start() override;

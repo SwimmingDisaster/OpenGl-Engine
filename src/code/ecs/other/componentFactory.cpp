@@ -9,7 +9,7 @@ void Factory::registerit(const std::string &classname, Creator *creator)
     get_table()[classname] = creator;
 }
 
-std::shared_ptr<Component> Factory::create(const std::string &classname, std::shared_ptr<Entity> &entityRef)
+Component* Factory::create(const std::string &classname, Entity* entityRef)
 {
 
     std::unordered_map<std::string, Creator *>::iterator i;
@@ -21,7 +21,7 @@ std::shared_ptr<Component> Factory::create(const std::string &classname, std::sh
         return nullptr;
 }
 
-void Factory::copy(const std::string &classname, const std::shared_ptr<Entity> &entityRef, std::shared_ptr<Component> &componentRef)
+void Factory::copy(const std::string &classname, Entity* entityRef, const Component* componentRef)
 {
     std::unordered_map<std::string, Creator *>::iterator i;
     i = get_table().find(classname);

@@ -9,9 +9,9 @@
 std::unordered_map<std::string, std::vector<Batch>> BatchRenderer::batchMap;
 std::unordered_map<std::string, unsigned long> BatchRenderer::batchIndexes;
 
-std::unordered_map<std::string, std::vector<LightBatch>> LightsBatchRenderer::pointLightBatchMap;
-std::unordered_map<std::string, std::vector<LightBatch>> LightsBatchRenderer::directionalLightBatchMap;
-std::unordered_map<std::string, std::vector<LightBatch>> LightsBatchRenderer::spotLightBatchMap;
+std::unordered_map<std::string, std::vector<LightBatch>>  LightsBatchRenderer::pointLightBatchMap;
+std::unordered_map<std::string, std::vector<LightBatch>>  LightsBatchRenderer::directionalLightBatchMap;
+std::unordered_map<std::string, std::vector<LightBatch>>  LightsBatchRenderer::spotLightBatchMap;
 std::unordered_map<std::string, unsigned long> LightsBatchRenderer::pointLightBatchIndexes;
 std::unordered_map<std::string, unsigned long> LightsBatchRenderer::directionalLightBatchIndexes;
 std::unordered_map<std::string, unsigned long> LightsBatchRenderer::spotLightBatchIndexes;
@@ -84,7 +84,7 @@ void Batch::Destroy() {
 	glDeleteVertexArrays(1, &VAO);
 }
 
-void Batch::AddProperty(std::shared_ptr<Material>& material, unsigned long& i) {
+void Batch::AddProperty(const Material* const material, unsigned long& i) {
 	const auto& materialType = material->materialProperties[i].second.index();
 	switch(materialType) {
 	case 0:
@@ -110,7 +110,7 @@ void Batch::AddProperty(std::shared_ptr<Material>& material, unsigned long& i) {
 		break;
 	}
 }
-void Batch::AddPropertyVector(std::shared_ptr<Material>& material, unsigned long& i) {
+void Batch::AddPropertyVector(const Material* const material, unsigned long& i) {
 	const auto& materialType = material->materialProperties[i].second.index();
 
 	switch(materialType) {
@@ -131,7 +131,7 @@ void Batch::AddPropertyVector(std::shared_ptr<Material>& material, unsigned long
 		break;
 	}
 }
-void Batch::AddProperties(std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform){
+void Batch::AddProperties(const Material* const material, const Transform* const transform){
 	for(unsigned long i = 0; i < material->materialProperties.size(); i++) {
 		if(materialMap.count(material->materialProperties[i].first) ==  0) { //if the vector doesnt exits
 			AddPropertyVector(material, i);
@@ -140,7 +140,7 @@ void Batch::AddProperties(std::shared_ptr<Material>& material, std::shared_ptr<T
 	}
 	matrixList.push_back(transform->GetTransform());
 }
-void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform)  {
+void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* const material, const Transform* const transform)  {
 	AddProperties(material, transform);
 
 	const std::size_t numNewVertices = otherVertices.size();
@@ -166,7 +166,7 @@ void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vecto
 	assert(index <= BATCH_SIZE);
 	assert(matrixList.size() <= BATCH_SIZE);
 }
-void Batch::SetProperties(Shader* shader) {
+void Batch::SetProperties(Shader* const shader) {
 	for(auto& property : materialMap) {
 		const auto& materialType = property.second.index();
 		switch(materialType) {
@@ -199,7 +199,7 @@ void Batch::SetProperties(Shader* shader) {
 	}
 }
 
-void Batch::Draw(const std::shared_ptr<Shader>& shader) {
+void Batch::Draw(Shader* shader) {
 	if (vertices.size() == 0) {
 		return;
 	}
@@ -207,7 +207,7 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
 	assert(indices.size() != 0);
 	assert(index == matrixList.size());
 
-	SetProperties(shader.get());
+	SetProperties(shader);
 
 	for(auto& a : textureIndexMap) {
 		glActiveTexture(GL_TEXTURE0 + a.second); // activate the texture unit first before binding texture
@@ -244,8 +244,8 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
-void Batch::DrawThisGeometry(const std::shared_ptr<Shader>& shader, const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices){
-	SetProperties(shader.get());
+void Batch::DrawThisGeometry(Shader* const shader, const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices){
+	SetProperties(shader);
 
 	for(auto& a : textureIndexMap) {
 		glActiveTexture(GL_TEXTURE0 + a.second); // activate the texture unit first before binding texture
@@ -337,7 +337,7 @@ void LightBatch::Setup(LightBatchType otherType) {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
-void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, std::shared_ptr<Transform>& transform) {
+void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, const Transform* const transform) {
 	const std::size_t numNewVertices = otherVertices.size();
 	const std::size_t numNewIndices = otherIndices.size();
 
@@ -390,7 +390,7 @@ void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const 
 	assert(index <= LIGHT_BATCH_SIZE);
 	assert(matrixList.size() <= LIGHT_BATCH_SIZE);
 }
-void LightBatch::Draw(const std::shared_ptr<Shader>& shader) {
+void LightBatch::Draw(Shader* shader) {
 	if (vertices.size() == 0) {
 		return;
 	}
@@ -475,7 +475,7 @@ void BatchRenderer::Clear() {
 		batchPair.second = 0;
 	}
 }
-void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform, const std::string& shaderName)  {
+void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* const material, const Transform* const transform, const std::string& shaderName)  {
 	std::vector<Batch>& batchList = batchMap[shaderName];
 	unsigned long& batchIndex = batchIndexes[shaderName];
 
@@ -509,7 +509,7 @@ void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const st
 }
 void BatchRenderer::Draw() {
 	for(auto& batchPair : batchMap) {
-		auto& shader = Shader::shaderMap[batchPair.first];
+		auto shader = Shader::shaderMap[batchPair.first].get();
 		shader->use();
 		for(auto& batch : batchPair.second) {
 			batch.Draw(shader);
@@ -534,7 +534,7 @@ void LightsBatchRenderer::Init() {
 	ModelImporter::LoadModelBasic("res/fbx/box.fbx", tempVertices, sphereIndices);
 	sphereVertices = std::vector<BasicVertex>(tempVertices.begin(), tempVertices.end());
 }
-void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, std::shared_ptr<Transform>& transform, const std::string& shaderName) {
+void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, const Transform* const transform, const std::string& shaderName) {
 	std::vector<LightBatch>& batchList = pointLightBatchMap[shaderName];
 	unsigned long& batchIndex = pointLightBatchIndexes[shaderName];
 
@@ -553,7 +553,7 @@ void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertice
 	}
 	batchList[batchIndex].AddObject(otherVertices, otherIndices, light, transform);
 }
-void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, DirectionalLight& light, std::shared_ptr<Transform>& transform, const std::string& shaderName) {
+void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, DirectionalLight& light, const Transform* const transform, const std::string& shaderName) {
 	std::vector<LightBatch>& batchList = directionalLightBatchMap[shaderName];
 	unsigned long& batchIndex = directionalLightBatchIndexes[shaderName];
 
@@ -614,7 +614,7 @@ void LightsBatchRenderer::Draw() {
 
 	glEnable(GL_STENCIL_TEST);
 
-	auto& nullShader = Shader::shaderMap["res/shaders/null"];
+	auto nullShader = Shader::shaderMap["res/shaders/null"].get();
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_FALSE);
@@ -643,7 +643,7 @@ void LightsBatchRenderer::Draw() {
 	glFrontFace(GL_CCW);
 
 	for(auto& batchPair : pointLightBatchMap) {
-		auto& shader = Shader::shaderMap[batchPair.first];
+		auto shader = Shader::shaderMap[batchPair.first].get();
 		shader->use();
 		shader->setVec3("eyePos", Renderer::viewPos);
 		shader->setVec2("gScreenSize", {EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT});
@@ -664,7 +664,7 @@ void LightsBatchRenderer::Draw() {
 	}
 	glDisable(GL_STENCIL_TEST);
 	for(auto& batchPair : directionalLightBatchMap) {
-		auto& shader = Shader::shaderMap[batchPair.first];
+		auto shader = Shader::shaderMap[batchPair.first].get();
 		shader->use();
 		for(auto& batch : batchPair.second) {
 			batch.Draw(shader);

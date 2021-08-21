@@ -41,7 +41,7 @@ class PointLightComponent : public LightBase {
 public:
 	// variables go here
 	PointLight pointLight;
-	std::shared_ptr<Transform> transform;
+	Transform* transform;
 
 public:
     void Start() override;

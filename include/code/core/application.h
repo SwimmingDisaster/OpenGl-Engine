@@ -8,15 +8,14 @@
 #include "ecs/scene.h"
 
 
-class Application
-{
+class Application{
 private:
 	static Application m_instance;
 
 	GLFWwindow *window;
-	std::shared_ptr<Entity> selectedEntity;
-	std::shared_ptr<Entity> copiedEntity;
-	std::shared_ptr<Component> copiedComponent; // EDITOR MANAGER?
+	Entity* selectedEntity;
+	Entity* copiedEntity;
+	Component* copiedComponent; // EDITOR MANAGER?
 
 	Scene m_curentScene;
 public:
@@ -27,13 +26,13 @@ public:
 #endif
 
 public:
-	[[nodiscard]] constexpr static Application& Get();
-	[[nodiscard]] constexpr static const Scene& GetScene();
-	[[nodiscard]] constexpr static Scene& GetSceneModifiable();
-	[[nodiscard]] constexpr static GLFWwindow* GetWindow();
-	[[nodiscard]] constexpr static std::shared_ptr<Entity>& GetSelectedEntity();
-	[[nodiscard]] constexpr static std::shared_ptr<Entity>& GetCopiedEntity();
-	[[nodiscard]] constexpr static std::shared_ptr<Component>& GetCopiedComponent();
+	[[nodiscard]] static Application& Get();
+	[[nodiscard]] static const Scene& GetScene();
+	[[nodiscard]] static Scene& GetSceneModifiable();
+	[[nodiscard]] static GLFWwindow* GetWindow();
+	[[nodiscard]] static Entity*& GetSelectedEntity();
+	[[nodiscard]] static Entity*& GetCopiedEntity();
+	[[nodiscard]] static Component*& GetCopiedComponent();
 
 public:
 	static int Init();
@@ -51,24 +50,3 @@ public:
 	friend class Renderer;
  };
 
-constexpr Application& Application::Get(){
-	return m_instance;
-}
-constexpr const Scene& Application::GetScene() {
-	return Get().m_curentScene; 
-}
-constexpr Scene& Application::GetSceneModifiable(){
-	return Get().m_curentScene;
-}
-constexpr GLFWwindow* Application::GetWindow(){
-	return Get().window;
-}
-constexpr std::shared_ptr<Entity>& Application::GetSelectedEntity(){
-	return Get().selectedEntity;
-}
-constexpr std::shared_ptr<Entity>& Application::GetCopiedEntity(){
-	return Get().copiedEntity;
-}
-constexpr std::shared_ptr<Component>& Application::GetCopiedComponent(){
-	return Get().copiedComponent;
-}

@@ -27,12 +27,11 @@ void Entity::Deserialize(YAML::Node& data) {
         comp->Deserialize(data);
     }
 }
-void Entity::OnCollision(const std::shared_ptr<Entity>& other) {
+void Entity::OnCollision(const Entity* other) {
     for (auto& comp : m_components) {
         comp->OnCollision(other);
     }
 }
-
 
 void Entity::SetName(const std::string& othername) {
     name = othername;
@@ -67,16 +66,17 @@ void Entity::SetLayer(const int otherlayer) {
     return name;
 }
 
-void Entity::Copy(const std::shared_ptr<Entity>& other) {
+
+void Entity::Copy(const Entity* other) {
     name = other->name;
     uuid = other->uuid;
 
     for (auto& component : other->m_components) {
-        Factory::copy(component.get()->name, shared_from_this(), component);
+        Factory::copy(component.get()->name, this, component.get());
     }
     for (auto& component : m_components) {
         component->name = component.get()->name;
-        component->parentEntity = shared_from_this();
+        component->parentEntity = this;
     }
     Start();
 

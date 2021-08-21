@@ -12,7 +12,7 @@ public:
 	// variables go here
 	bool isTouched = false;
 	float time = 3.0f;
-	std::shared_ptr<Material> material;
+	Material* material;
 
 public:
     void Start() override;
@@ -20,7 +20,7 @@ public:
     void Serialize(YAML::Emitter& out) const override;
     void Deserialize(const YAML::Node& data) override;
     void Show() override;
-	void OnCollision(const std::shared_ptr<Entity>& other) override;
+	void OnCollision(const Entity* const other) override;
 
 	DeleteAfterTouched();
 #ifdef SHOW_DELETED

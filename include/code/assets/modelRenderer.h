@@ -6,15 +6,14 @@
 #include "ecs/other/componentDefines.h"
 
 class Material;
-class ModelRenderer : public Component
-{
+class ModelRenderer : public Component{
 	REGISTER(ModelRenderer);
 public:
-	std::shared_ptr<Shader> m_shader;
 	std::string shaderName = "res/shaders/color";
-	std::shared_ptr<Model> m_modelComponent;
-	std::shared_ptr<Transform> m_transformComponent;
-	std::shared_ptr<Material> m_materialComponent;
+	Shader* m_shader;
+	Model* m_modelComponent;
+	Transform* m_transformComponent;
+	Material* m_materialComponent;
 
 	bool isntBatched = false;
 	int textureIndex;

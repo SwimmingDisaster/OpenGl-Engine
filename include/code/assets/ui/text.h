@@ -24,7 +24,6 @@ struct Character {
     Character(int c_id, float c_x, float c_y, float c_xMax, float c_yMax, float c_xOffset, float c_yOffset, float c_xSize, float c_ySize, float c_xAdvance): id(c_id), xTextureCoord(c_x), yTextureCoord(c_y), xMaxTextureCoord(c_xMax),  yMaxTextureCoord(c_yMax), xOffset(c_xOffset), yOffset(c_yOffset), sizeX(c_xSize), sizeY(c_ySize), xAdvance(c_xAdvance)
     {}
 };
-
 struct Word {
     std::vector<Character> characters;
 };
@@ -117,9 +116,9 @@ public:
 	std::string shaderName;
 
 private:
-	std::shared_ptr<Transform> transform;
-    std::shared_ptr<Font> font;
-	std::shared_ptr<Shader> shader;
+	Transform* transform;
+    Font* font;
+	Shader* shader;
 
     unsigned int textVAO, vertexVBO, textureVBO;
     std::vector<float> vertexCoord;

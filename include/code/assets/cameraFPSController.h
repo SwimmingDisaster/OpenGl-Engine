@@ -8,8 +8,8 @@
 class CameraFPSController : public Component {
 	REGISTER(CameraFPSController);
 public:
-	std::shared_ptr<Transform> transform;
-	std::shared_ptr<Camera> camera;
+	Transform* transform;
+	Camera* camera;
 	float mouseSensitivity = 0.35f;
 	float movementSpeed = 15.0f;
 	bool isLocked = false;

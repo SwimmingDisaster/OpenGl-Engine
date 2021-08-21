@@ -4,9 +4,9 @@
 
 #include "ecs/other/componentFactory.h"
 
-class Entity : public std::enable_shared_from_this<Entity> {
+class Entity{
 public:
-	std::vector< std::shared_ptr<Component> > m_components;
+	std::vector<std::unique_ptr<Component>> m_components;
 
 private:
 	int tag = 0;
@@ -26,16 +26,22 @@ public:
 	[[nodiscard]] const std::string& GetUUIDString() const;
 	[[nodiscard]] const int& GetTag() const;
 	[[nodiscard]] const int& GetLayer() const;
-
 	[[nodiscard]] std::string& GetNameReference();
-	
+
+
+	template<typename T> [[nodiscard]] T* GetComponent() const noexcept;
+	template<typename T> [[nodiscard]] T* GetComponentOrMakeIfNone() noexcept;
+	template<typename T> T* AddComponent();
+	template<typename T> void RemoveComponent();
+
 	void Start();
 	void Update();
 	void End();
 	void Serialize(YAML::Emitter& out) const;
 	void Deserialize(YAML::Node& data);
-	void OnCollision(const std::shared_ptr<Entity>& other);
+	void OnCollision(const Entity* other);
 
+	void Copy(const Entity* const other);
 	Entity() {}
 #ifdef SHOW_DELETED
 public:
@@ -44,64 +50,38 @@ public:
 public:
 	virtual ~Entity() {};
 #endif
-
-public:
-
-	void Copy(const std::shared_ptr<Entity>& other);
-
-	template<typename T> [[nodiscard]] constexpr std::shared_ptr<T> GetComponent() const noexcept;
-	template<typename T> [[nodiscard]] constexpr std::shared_ptr<T> GetComponentOrMakeIfNone() noexcept;
-	template<typename T> [[nodiscard]] constexpr std::shared_ptr<T> AddComponentR();
-	template<typename T> constexpr void AddComponent();
-	template<typename T> void RemoveComponent();
 };
 
-template<typename T> [[nodiscard]] constexpr std::shared_ptr<T> Entity::GetComponent() const noexcept {
-    for (auto& comp : m_components) {
-        if ( std::shared_ptr<T> castedComp = std::dynamic_pointer_cast<T>( comp ) )
-        {
-            return castedComp;
-        }
-    }
-    return nullptr;
+template<typename T> [[nodiscard]] T* Entity::GetComponent() const noexcept {
+	for (const auto& comp : m_components) {
+		if ( T* const castedComp = dynamic_cast<T*>(comp.get()))
+		{
+			return castedComp;
+		}
+	}
+	return nullptr;
 }
-
-
-template<typename T> [[nodiscard]] constexpr std::shared_ptr<T> Entity::GetComponentOrMakeIfNone() noexcept{
-    for (auto& comp : m_components) {
-        if ( std::shared_ptr<T> castedComp = std::dynamic_pointer_cast<T>( comp ) )
-        {
-            return castedComp;
-        }
-    }
-    return AddComponentR<T>();
+template<typename T> [[nodiscard]]  T* Entity::GetComponentOrMakeIfNone() noexcept {
+	for (const auto& comp : m_components) {
+		if ( T* const castedComp = dynamic_cast<T*>(comp.get()))
+		{
+			return castedComp;
+		}
+	}
+	return AddComponent<T>();
 
 }
-
-
-template<typename T> [[nodiscard]] constexpr std::shared_ptr<T> Entity::AddComponentR() {
-    std::shared_ptr<T> comp = std::make_shared<T>();
-    comp->parentEntity = shared_from_this();
-    m_components.push_back(comp);
-    return comp;
+template<typename T> T* Entity::AddComponent() {
+	const auto& comp = m_components.emplace_back(new T);
+	comp->parentEntity = this;
+	return static_cast<T*>(comp.get());
 }
-
-
-
-template<typename T> constexpr void Entity::AddComponent() {
-    std::shared_ptr<T> comp = std::make_shared<T>();
-    comp->parentEntity = shared_from_this();
-    m_components.push_back(comp);
-}
-
-
 template<typename T> void Entity::RemoveComponent() {
-    for (unsigned long i = 0; i < m_components.size(); i++) {
-        if ( std::shared_ptr<T> castedComp = std::dynamic_pointer_cast<T>( m_components[i] ) )
-        {
-            m_components.erase(m_components.begin() + i);
-            i--;
-        }
-    }
-
+	for (unsigned long i = 0; i < m_components.size(); i++) {
+		if ( T* const castedComp = std::dynamic_pointer_cast<T>( m_components[i] ) )
+		{
+			m_components.erase(m_components.begin() + i);
+			i--;
+		}
+	}
 }

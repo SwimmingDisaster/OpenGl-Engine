@@ -88,7 +88,14 @@ void ModelImporter::ProcessNodeWithTextures(const aiNode* node, const aiScene* s
     }
 }
 void ModelImporter::ProcessNodeWithoutTextures(const aiNode* node, const aiScene* scene, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
-    for (unsigned int i = 0; i < node->mNumMeshes; i++)
+/*
+	if(strcmp(node->mName.C_Str(), "RootNode")){
+		std::string name = node->mName.C_Str();
+		Log(name);
+	}
+	*/
+	//Log(aiNode->mTransformation);
+	for (unsigned int i = 0; i < node->mNumMeshes; i++)
     {
         aiMesh* mesh = scene->mMeshes[node->mMeshes[i]];
         ProcessMeshWithoutTextures(mesh, vertices, indices);

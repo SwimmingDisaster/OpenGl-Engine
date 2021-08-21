@@ -13,10 +13,10 @@ std::ostream& operator<<(std::ostream& out, const glm::mat4& g);
 #define COMBINE1(X,Y) X##Y  // helper macro
 #define COMBINE(X,Y) COMBINE1(X,Y)
 
-#define Log(x) 		std::cout << "Log: " 	<< x << '\n'
-#define Warn(x) 	std::cout << "Warn: " 	<< x << '\n'
-#define Error(x)	std::cerr << "Error: " 	<< x << '\n'
-#define ErrorAtPos(x)	std::cerr << "Error: " 	<< x << " In file: " << __FILE__ << " on line: " << __LINE__ << '\n'
+#define Log(x) 		std::cout << "Log: " 	<< x << std::endl;
+#define Warn(x) 	std::cout << "Warn: " 	<< x << std::endl;
+#define Error(x)	std::cerr << "Error: " 	<< x << std::endl;
+#define ErrorAtPos(x)	std::cerr << "Error: " 	<< x << " In file: " << __FILE__ << " on line: " << __LINE__ << std::endl;
 #define ReturnIfNotZero(x)	\
 int COMBINE(returnValue,__LINE__) = x; \
 if (COMBINE(returnValue,__LINE__) != 0) {\

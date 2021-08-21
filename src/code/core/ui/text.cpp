@@ -241,7 +241,7 @@ void Text::RecalculateText(std::string& f_text) {
 void Text::Start() {
     transform = parentEntity->GetComponent<Transform>();
     font = parentEntity->GetComponent<Font>();
-    shader = Shader::shaderMap[shaderName];
+    shader = Shader::shaderMap[shaderName].get();
     glGenVertexArrays(1, &textVAO);
     glGenBuffers(1, &vertexVBO);
     glGenBuffers(1, &textureVBO);

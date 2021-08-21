@@ -6,8 +6,7 @@
 #include "assets/transform.h"
 
 //--------------BoxCollider--------------
-class BoxCollider : public ColliderBase
-{
+class BoxCollider : public ColliderBase{
 	REGISTER(BoxCollider);
 
 public:
@@ -31,8 +30,7 @@ public:
 };
 
 //--------------BoxCollider--------------
-class SphereCollider : public ColliderBase
-{
+class SphereCollider : public ColliderBase{
 	REGISTER(SphereCollider);
 
 public:
@@ -56,8 +54,7 @@ public:
 };
 
 //--------------ConcaveMeshCollider--------------
-class ConcaveMeshCollider : public ColliderBase
-{
+class ConcaveMeshCollider : public ColliderBase{
 	REGISTER(ConcaveMeshCollider);
 
 private:
@@ -65,7 +62,7 @@ private:
 	std::vector<unsigned int> indices;
 	PxTriangleMesh* aTriangleMesh = nullptr;
 
-	std::shared_ptr<Transform> transform;
+	Transform* transform;
 
 public:
 	std::string filePath;

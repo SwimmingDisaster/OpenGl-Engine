@@ -3,7 +3,7 @@
 
 
 
-std::unordered_map<std::string, std::shared_ptr<Shader> > Shader::shaderMap;
+std::unordered_map<std::string, std::unique_ptr<Shader> > Shader::shaderMap;
 std::vector<std::shared_ptr<Shader>> Shader::shaderList;
 std::vector<std::string> Shader::shaderNames;
 int Shader::BoundShaderID;
@@ -73,7 +73,7 @@ void Shader::CreateVertexAndFragment(const std::string& name) {
     //size_t lastindex = fullname.find_last_of(".");
     //std::string rawname = fullname.substr(0, lastindex);
     //shaderMap[rawname] = shared_from_this();
-    shaderMap[name] = shared_from_this();
+    shaderMap[name] = std::make_unique<Shader>(*this);
 }
 void Shader::CreateCompute(const char* computePath) {
     std::string computeCode;

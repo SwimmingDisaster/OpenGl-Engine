@@ -7,9 +7,9 @@ class TestComponent : public Component {
 	REGISTER(TestComponent);
 
 public:
-	std::shared_ptr<Entity> entity;
-	std::shared_ptr<Transform> transform;
-	std::shared_ptr<Transform> otherTransform;
+	Entity* entity;
+	Transform* transform;
+	Transform* otherTransform;
 	float speed = 1.0f;
 	std::string entity_name = "";
 	glm::vec3 offset = {0.0f, 0.0f, 0.0f};

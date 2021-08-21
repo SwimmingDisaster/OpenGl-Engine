@@ -127,7 +127,7 @@ void Rigidbody::Update()
     }
 }
 
-void Rigidbody::OnCollision(const std::shared_ptr<Entity>& other) {
+void Rigidbody::OnCollision(const Entity* const other) {
     //Log(parentEntity->GetName() << " collided with " << other->GetName());
 }
 

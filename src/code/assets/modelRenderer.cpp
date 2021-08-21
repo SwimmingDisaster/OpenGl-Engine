@@ -8,7 +8,7 @@
 
 REGISTERIMPL(ModelRenderer);
 void ModelRenderer::Start() {
-    m_shader = Shader::shaderMap[shaderName];
+    m_shader = Shader::shaderMap[shaderName].get();
     m_modelComponent = parentEntity->GetComponent<Model>();
     m_materialComponent = parentEntity->GetComponent<Material>();
     m_transformComponent = parentEntity->GetComponent<Transform>();
@@ -47,7 +47,7 @@ void ModelRenderer::DrawModel(){
 		b->Clear();
 	//	b->AddObject(m_modelComponent->vertices, m_modelComponent->indices, m_materialComponent, m_transformComponent);
 		b->AddProperties(m_materialComponent, m_transformComponent);
-		b->DrawThisGeometry(Shader::shaderMap[shaderName], m_modelComponent->vertices, m_modelComponent->indices);
+		b->DrawThisGeometry(Shader::shaderMap[shaderName].get(), m_modelComponent->vertices, m_modelComponent->indices);
 		b->Destroy();
 
 		delete b;

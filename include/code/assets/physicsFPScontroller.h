@@ -9,9 +9,9 @@
 class PhysicsFPScontroler : public Component {
 	REGISTER(PhysicsFPScontroler);
 public:
-	std::shared_ptr<Transform> transform;
-	std::shared_ptr<Camera> camera;
-	std::shared_ptr<Rigidbody> rigidbody;
+	Transform* transform;
+	Camera* camera;
+	Rigidbody* rigidbody;
 	float mouseSensitivity = 0.35f;
 	float movementSpeed = 15.0f;
 	bool isLocked = false;
@@ -24,7 +24,7 @@ public:
     void Serialize(YAML::Emitter& out) const override;
     void Deserialize(const YAML::Node& data) override;
     void Show() override;
-	void OnCollision(const std::shared_ptr<Entity>& other) override;
+	void OnCollision(const Entity* const other) override;
 
 	void ProcessKeyboard(float deltaTime);
 	void ProcessMouseMovement(bool constrainPitch);

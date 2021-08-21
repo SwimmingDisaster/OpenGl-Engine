@@ -17,8 +17,8 @@ public:
 	void Serialize(YAML::Emitter& out) const override;
 	void Deserialize(const YAML::Node& data) override;
 
-	[[nodiscard]] constexpr const glm::mat4 GetTransform() const;
-	[[nodiscard]] constexpr const glm::mat4 GetTransformWithNoScale() const;
+	[[nodiscard]] const glm::mat4 GetTransform() const;
+	[[nodiscard]] const glm::mat4 GetTransformWithNoScale() const;
 
 	Transform();
 #ifdef SHOW_DELETED
@@ -30,22 +30,4 @@ public:
 #endif
 };
 
-[[nodiscard]] constexpr const glm::mat4 Transform::GetTransform() const{
-	//constexpr glm::mat4 identity = glm::mat4(1.0f);
-	//return glm::translate(identity, position) * glm::toMat4(glm::quat(glm::radians(rotation))) * glm::scale(identity, scale);
-
-	glm::mat4 trans = glm::mat4(1.0f);
-	trans = glm::translate(trans, position);
-	trans *= glm::toMat4(glm::quat(glm::radians(rotation)));
-	trans = glm::scale(trans, scale);
-
-	return trans;
-}
-
-
-[[nodiscard]] constexpr const glm::mat4 Transform::GetTransformWithNoScale() const{
-	constexpr glm::mat4 identity = glm::mat4(1.0f);
-	return glm::translate(identity, position)
-	       * glm::toMat4(glm::quat(glm::radians(rotation)));
-}
 

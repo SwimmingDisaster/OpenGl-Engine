@@ -7,7 +7,7 @@ float EngineInfo::deltaTime = 0.0001f;
 float EngineInfo::lastFrame = 0.0f;
 
 std::string EngineInfo::name = "ENGINE";
-int EngineInfo::swapInterval = 1;
+int EngineInfo::swapInterval = 0;
 
 void EngineInfo::CalculateDeltaTime()
 {

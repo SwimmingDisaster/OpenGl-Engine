@@ -36,7 +36,7 @@ void DeleteAfterTouched::Update() {
         material->SetProperty("color", glm::vec3((1.0f - time) * 2.0f, 0.0f, 0.0f));
     }
 }
-void DeleteAfterTouched::OnCollision(const std::shared_ptr<Entity>& other) {
+void DeleteAfterTouched::OnCollision(const Entity* const other) {
     isTouched = true;
 }
 

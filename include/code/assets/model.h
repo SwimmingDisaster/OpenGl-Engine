@@ -17,7 +17,7 @@ public:
 	std::vector<Texture>      textures;
 	unsigned int VAO, VBO, EBO;
 
-	std::shared_ptr<Transform> transform;
+	Transform* transform;
 
 	std::string directory;
 	std::string path = "res/fbx/box.fbx";

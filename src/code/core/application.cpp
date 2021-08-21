@@ -36,14 +36,12 @@ int Application::Init() {
 	LightsBatchRenderer::Init();
 	return 0;
 }
-
 void Application::Start() {
 
 #ifdef RELEASE_BUILD
 	m_curentScene.Deserialize("other/scenes/shapes.scene");//change this so that the initial scene is set in a .project file
 #endif
 }
-
 void Application::Run() {
 	while (glfwWindowShouldClose(window) == 0) {
 
@@ -55,11 +53,11 @@ void Application::Run() {
 		if (isRunning && !is) {
 			for (int i = 0; i < squareCount; i++){
 				auto newEntity = m_curentScene.AddEntity("New Entity " + std::to_string(i), Random::Int());
-				auto transform = newEntity->AddComponentR<Transform>();
+				auto transform = newEntity->AddComponent<Transform>();
 				transform->position = {Random::Float() * sz, Random::Float() * sz, Random::Float() * sz};
 				transform->scale = glm::vec3(sc, sc, sc);
 				newEntity->AddComponent<Model>();
-				auto material = newEntity->AddComponentR<Material>();
+				auto material = newEntity->AddComponent<Material>();
 				//material->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
 				material->materialProperties.push_back(std::make_pair("color", glm::vec3(1.0f, 1.0f, 1.0f)));
 				newEntity->AddComponent<ModelRenderer>();
@@ -68,9 +66,9 @@ void Application::Run() {
 		///*
 			for (int i = 0; i <	lightCount; i++){
 				auto newEntity = m_curentScene.AddEntity("New Light " + std::to_string(i), Random::Int());
-				auto transform = newEntity->AddComponentR<Transform>();
+				auto transform = newEntity->AddComponent<Transform>();
 				transform->position = glm::vec3(Random::Float() * sz - sz * 0.5f, 1.0f, Random::Float() * sz - sz * 0.5f);
-				auto light = newEntity->AddComponentR<PointLightComponent>();
+				auto light = newEntity->AddComponent<PointLightComponent>();
 				//light->pointLight.color = glm::vec3(Random::Float(), Random::Float(), Random::Float());
 				light->pointLight.color = glm::vec3(Random::Float(), 0.8f, 0.8f);
 				light->pointLight.ambientIntensity = 0.0f;
@@ -140,7 +138,6 @@ void Application::Run() {
 #endif
 	m_curentScene.Clear();
 }
-
 void Application::Shutdown() {
 	PhysicsManager::ShutdownPhysx();
 #ifndef RELEASE_BUILD
@@ -159,3 +156,24 @@ std::shared_ptr<Component> Application::copiedComponent;
 GLFWwindow *Application::window = nullptr;
 
     		*/
+Application& Application::Get(){
+	return m_instance;
+}
+const Scene& Application::GetScene() {
+	return Get().m_curentScene; 
+}
+Scene& Application::GetSceneModifiable(){
+	return Get().m_curentScene;
+}
+GLFWwindow* Application::GetWindow(){
+	return Get().window;
+}
+Entity*& Application::GetSelectedEntity(){
+	return Get().selectedEntity;
+}
+Entity*& Application::GetCopiedEntity(){
+	return Get().copiedEntity;
+}
+Component*& Application::GetCopiedComponent(){
+	return Get().copiedComponent;
+}

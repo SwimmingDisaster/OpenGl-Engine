@@ -87,7 +87,7 @@ void PhysicsFPScontroler::ProcessKeyboard(float deltaTime)
     //acceleration.z -=  30.0f * deltaTime, 0;
 }
 
-void PhysicsFPScontroler::OnCollision(const std::shared_ptr<Entity>& other) {
+void PhysicsFPScontroler::OnCollision(const Entity* const other) {
     acceleration.y = 0.0f;
     canjump = true;
 }

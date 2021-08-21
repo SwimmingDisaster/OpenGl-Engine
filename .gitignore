@@ -1,5 +1,7 @@
 obj/
 bin/
+build/
+CMakeFiles/
 .vs/
 *.d
 *.o

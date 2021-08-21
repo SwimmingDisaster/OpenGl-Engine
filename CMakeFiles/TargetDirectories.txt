@@ -1,2 +1,0 @@
-/home/ognjen/OpenGl-Engine/CMakeFiles/rebuild_cache.dir
-/home/ognjen/OpenGl-Engine/CMakeFiles/edit_cache.dir

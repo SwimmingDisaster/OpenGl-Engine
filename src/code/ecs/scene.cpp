@@ -173,6 +173,7 @@ void Scene::Render() const{
 	glBindFramebuffer(GL_READ_FRAMEBUFFER, Renderer::multisampledFrameBuffer.GetObject());
 	glBindFramebuffer(GL_DRAW_FRAMEBUFFER, Renderer::forwardFrameBuffer.GetObject());
 	glBlitFramebuffer(0, 0, EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT, 0, 0, EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT, GL_DEPTH_BUFFER_BIT, GL_NEAREST);
+
 	Renderer::forwardFrameBuffer.Bind(); 
 	LightsBatchRenderer::Draw();
 	Renderer::forwardFrameBuffer.Unbind(); 

@@ -8,6 +8,8 @@
 #define BATCH_SIZE 150
 #define LIGHT_BATCH_SIZE 50
 
+typedef std::variant<std::vector<float>, std::vector<int>, std::vector<glm::vec3>, std::vector<glm::vec4>, std::vector<TextureInfo>> BatchPropertyType;
+
 enum class LightBatchType{
 	Point,
 	Directional,
@@ -25,6 +27,10 @@ public:
 	void Clear();
 	void Destroy();
 	void Draw(const std::shared_ptr<Shader>& shader);
+	void DrawThisGeometry(const std::shared_ptr<Shader>& shader, const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices);
+
+	void SetProperties(Shader* shader);
+	void AddProperties(std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform);
 public:
 	std::size_t index = 0;
 	std::size_t textureIndex = 0;
@@ -34,7 +40,7 @@ public:
 
 	std::vector<glm::mat4> matrixList;
 
-	std::unordered_map<std::string, std::any> materialMap;
+	std::unordered_map<std::string, BatchPropertyType> materialMap;
 	std::unordered_map<std::string, int> textureIndexMap;
 
 
@@ -44,7 +50,6 @@ private:
 private:
 	unsigned int VAO, VBO, EBO;
 };
-
 class LightBatch{
 public:
 	LightBatch() = default;
@@ -85,7 +90,6 @@ public:
 	static void Clear();
 	static void Draw();
 };
-
 class LightsBatchRenderer{
 public:
 	static std::unordered_map<std::string, std::vector<LightBatch>> pointLightBatchMap;

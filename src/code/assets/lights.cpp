@@ -1,5 +1,6 @@
 #include "assets/lights.h"
 #include "core/batchRenderer.h"
+#include "core/input.h"
 
 
 REGISTERIMPL(PointLightComponent);
@@ -56,7 +57,7 @@ void PointLightComponent::Draw() {
 void PointLightComponent::End() {
 
 }
-void PointLightComponent::RecalculateSize(){
+void PointLightComponent::RecalculateSize() {
 	float pointLightMax  = std::fmaxf(std::fmaxf(pointLight.color.r, pointLight.color.g), pointLight.color.b);
 	float radius    = (-pointLight.linear +  sqrtf(pointLight.linear * pointLight.linear - 4 * pointLight.exp * (pointLight.constant - (256.0 / 5.0) * pointLightMax))) / (2 * pointLight.exp);
 	transform->scale = {radius, radius, radius};

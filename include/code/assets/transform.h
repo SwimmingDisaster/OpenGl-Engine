@@ -31,8 +31,15 @@ public:
 };
 
 [[nodiscard]] constexpr const glm::mat4 Transform::GetTransform() const{
-	constexpr glm::mat4 identity = glm::mat4(1.0f);
-	return glm::translate(identity, position) * glm::toMat4(glm::quat(glm::radians(rotation))) * glm::scale(identity, scale);
+	//constexpr glm::mat4 identity = glm::mat4(1.0f);
+	//return glm::translate(identity, position) * glm::toMat4(glm::quat(glm::radians(rotation))) * glm::scale(identity, scale);
+
+	glm::mat4 trans = glm::mat4(1.0f);
+	trans = glm::translate(trans, position);
+	trans *= glm::toMat4(glm::quat(glm::radians(rotation)));
+	trans = glm::scale(trans, scale);
+
+	return trans;
 }
 
 

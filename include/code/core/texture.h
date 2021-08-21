@@ -10,8 +10,6 @@ public:
 	//if this is a map instead of unordered_map
 	static std::unordered_map<std::string, int> textureMap;
 };
-
-
 class TextureInfo {
 public:
 	std::string name;

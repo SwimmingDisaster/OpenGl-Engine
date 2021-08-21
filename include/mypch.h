@@ -10,7 +10,6 @@
 
 
 #include <iostream>
-#include <any>
 #include <float.h>
 #include <memory>
 #include <utility>
@@ -19,6 +18,7 @@
 #include <random>
 #include <limits>
 #include <cmath>
+#include <typeinfo>
 
 #include <string>
 #include <sstream>
@@ -29,6 +29,8 @@
 #include <map>
 #include <unordered_map>
 #include <unordered_set>
+#include <any>
+#include <variant>
 
 #define GLEW_STATIC
 #include "glad/glad.h"

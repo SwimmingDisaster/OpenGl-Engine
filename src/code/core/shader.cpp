@@ -80,9 +80,7 @@ void Shader::CreateCompute(const char* computePath) {
     std::ifstream computeFile;
     computeFile.exceptions (std::ifstream::failbit | std::ifstream::badbit);
 
-    try
-    {
-
+    try{
         computeFile.open(computePath);
         std::stringstream vComputeStream;
 

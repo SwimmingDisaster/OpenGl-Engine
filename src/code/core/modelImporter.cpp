@@ -1,6 +1,5 @@
 #include "core/modelImporter.h"
 
-
 static const unsigned int assimpFlags = aiProcess_CalcTangentSpace
                                         | aiProcess_JoinIdenticalVertices
                                         | aiProcess_Triangulate
@@ -118,6 +117,9 @@ void ModelImporter::ProcessMeshWithTextures(const aiMesh* mesh, const aiScene* s
     ProcessTextures(textures, material, directory);
 }
 void ModelImporter::ProcessMeshWithoutTextures(const aiMesh* mesh, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices) {
+	const std::size_t numVertices = vertices.size();
+	//const std::size_t numIndices = indices.size();
+	//
     // walk through each of the mesh's vertices
     for (unsigned int i = 0; i < mesh->mNumVertices; i++)
     {
@@ -160,6 +162,8 @@ void ModelImporter::ProcessMeshWithoutTextures(const aiMesh* mesh, std::vector<V
             vertex.TexCoords = glm::vec2(0.0f, 0.0f);
         }
 
+		vertex.ObjectIndex = 0;
+
         vertices.push_back(vertex);
     }
     // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
@@ -171,7 +175,7 @@ void ModelImporter::ProcessMeshWithoutTextures(const aiMesh* mesh, std::vector<V
         }
         assert(face.mNumIndices == 3);
         for (GLuint j = 0; j < face.mNumIndices; j++) {
-            indices.push_back(face.mIndices[j]);
+            indices.push_back(face.mIndices[j] + numVertices);
         }
     }
 }

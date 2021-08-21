@@ -5,7 +5,7 @@ layout (location = 1) in int ObjectIndexVertex;
 
 out flat int ObjectIndexFragment;
 
-uniform mat4 matModel[32];
+uniform mat4 matModel[50];
 
 layout (std140, binding = 0) uniform Matrices
 {

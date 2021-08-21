@@ -50,8 +50,8 @@ Layers:
 Collision layer mask:
   - Layer Name: 15
   - Layer Name: 15
-  - Layer Name: 7
-  - Layer Name: 11
+  - Layer Name: 15
+  - Layer Name: 15
   - Layer Name: 0
   - Layer Name: 0
   - Layer Name: 0
@@ -83,8 +83,8 @@ Collision layer mask:
 Notify layer mask:
   - Layer Name: 15
   - Layer Name: 15
-  - Layer Name: 7
-  - Layer Name: 11
+  - Layer Name: 15
+  - Layer Name: 15
   - Layer Name: 0
   - Layer Name: 0
   - Layer Name: 0
@@ -153,6 +153,7 @@ Entities:
       Path: res/fbx/box.fbx
     ModelRenderer:
       Shader name: res/shaders/color
+      Isnt batched: false
     Material:
       3color: [0.776470602, 0.772549033, 0.772549033]
     BoxCollider:
@@ -177,6 +178,7 @@ Entities:
       Path: res/fbx/box.fbx
     ModelRenderer:
       Shader name: res/shaders/color
+      Isnt batched: false
     Material:
       3color: [0, 1, 0]
     BoxCollider:
@@ -203,6 +205,7 @@ Entities:
       Path: res/fbx/sphere.fbx
     ModelRenderer:
       Shader name: res/shaders/color
+      Isnt batched: false
     Material:
       3color: [0, 1, 0]
   - Entity: New Cone
@@ -219,6 +222,7 @@ Entities:
       Path: res/fbx/cone.fbx
     ModelRenderer:
       Shader name: res/shaders/color
+      Isnt batched: false
     Material:
       3color: [0, 0, 1]
   - Entity: New Torus
@@ -235,6 +239,7 @@ Entities:
       Path: res/fbx/torus.fbx
     ModelRenderer:
       Shader name: res/shaders/color
+      Isnt batched: false
     Material:
       3color: [1, 0, 0.501960814]
   - Entity: New Cylinder
@@ -251,6 +256,7 @@ Entities:
       Path: res/fbx/cylinder.fbx
     ModelRenderer:
       Shader name: res/shaders/test
+      Isnt batched: false
     Material:
       3color: [0.264705777, 1, 0]
       ttextures: res/test/white.png
@@ -268,6 +274,7 @@ Entities:
       Path: res/fbx/cylinder.fbx
     ModelRenderer:
       Shader name: res/shaders/test
+      Isnt batched: false
     Material:
       3color: [0.264705777, 1, 0]
       ttextures: res/test/yellow.png
@@ -293,6 +300,7 @@ Entities:
       Path: res/fbx/box.fbx
     ModelRenderer:
       Shader name: res/shaders/test
+      Isnt batched: false
     Material:
       3color: [0.264705777, 1, 0]
       ttextures: res/test/colors.png
@@ -318,6 +326,7 @@ Entities:
       Path: res/fbx/sphere.fbx
     ModelRenderer:
       Shader name: res/shaders/test
+      Isnt batched: false
     Material:
       3color: [0, 1, 0]
       ttextures: res/test/colors.png
@@ -343,6 +352,7 @@ Entities:
       Path: res/physx/platform.fbx
     ModelRenderer:
       Shader name: res/shaders/color
+      Isnt batched: false
     Material:
       3color: [0, 1, 0]
     ConcaveMeshCollider:
@@ -359,13 +369,13 @@ Entities:
     Layer: 0
     Components: [Transform, PointLightComponent]
     Transform:
-      Position: [-0.0353796482, 9.19750118, -9.34888744]
+      Position: [-52.312336, 14.1376505, 0.269890189]
       Rotation: [0, 0, 0]
       Scale: [111.97422, 111.97422, 111.97422]
     PointLightComponent:
       Color: [1, 0.999989986, 0.999989986]
       Ambient intensity: 0.100000001
-      Diffuse intensity: 4.51999998
+      Diffuse intensity: 1
       Constant: 1
       Linear: 0.0900000036
       Exp: 0.00319999992
@@ -401,7 +411,24 @@ Entities:
       Constant: 1
       Linear: 0.0900000036
       Exp: 0.00319999992
+  - Entity: SPONZA
+    UUID: -1042643220
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [-65, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [2, 2, 2]
+    Model:
+      Is flipped: false
+      Path: /home/ognjen/Downloads/Sponza/sponza.obj
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Isnt batched: false
+    Material:
+      3color: [1, 0.999989986, 0.999989986]
 Editor Camera:
-  - Camera vPos: [-30.0875683, 21.0510273, -4.78008938]
-    Camera vUp: [0.492268443, 0.857167065, 0.151447773]
-    Camera vRot: [-31.0000286, 17.1006603, 0]
+  - Camera vPos: [-62.8256111, 12.9502945, 9.948596]
+    Camera vUp: [-0.0398486629, 0.996637344, -0.0715961978]
+    Camera vRot: [-4.70000458, -119.099228, 0]

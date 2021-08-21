@@ -48,10 +48,12 @@ void Application::Run() {
 	while (glfwWindowShouldClose(window) == 0) {
 
 		static bool is = false;
-		constexpr float sz = 200.0f;
+		constexpr float sz = 40.0f;
 		constexpr float sc = 1.0f;
+		constexpr int squareCount = 0;
+		constexpr int lightCount = 64;
 		if (isRunning && !is) {
-			for (int i = 0; i < 500; i++){
+			for (int i = 0; i < squareCount; i++){
 				auto newEntity = m_curentScene.AddEntity("New Entity " + std::to_string(i), Random::Int());
 				auto transform = newEntity->AddComponentR<Transform>();
 				transform->position = {Random::Float() * sz, Random::Float() * sz, Random::Float() * sz};
@@ -64,10 +66,10 @@ void Application::Run() {
 				newEntity->Start();
 			}
 		///*
-			for (int i = 0; i <	0; i++){
+			for (int i = 0; i <	lightCount; i++){
 				auto newEntity = m_curentScene.AddEntity("New Light " + std::to_string(i), Random::Int());
 				auto transform = newEntity->AddComponentR<Transform>();
-				transform->position = glm::vec3(Random::Float() * sz, Random::Float() * sz, Random::Float() * sz);
+				transform->position = glm::vec3(Random::Float() * sz - sz * 0.5f, 1.0f, Random::Float() * sz - sz * 0.5f);
 				auto light = newEntity->AddComponentR<PointLightComponent>();
 				//light->pointLight.color = glm::vec3(Random::Float(), Random::Float(), Random::Float());
 				light->pointLight.color = glm::vec3(Random::Float(), 0.8f, 0.8f);

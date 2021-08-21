@@ -13,7 +13,14 @@ public:
 	std::shared_ptr<Shader> m_shader;
 	std::string shaderName = "res/shaders/color";
 	std::shared_ptr<Model> m_modelComponent;
+	std::shared_ptr<Transform> m_transformComponent;
 	std::shared_ptr<Material> m_materialComponent;
+
+	bool isntBatched = false;
+	int textureIndex;
+
+	std::unordered_map<std::string, int> textureIndexMap;
+	unsigned int VAO, VBO, EBO;
 
 public:
 	void Serialize(YAML::Emitter& out) const override;
@@ -31,6 +38,5 @@ public:
 	//virtual ~ModelRenderer() {}
 #endif
 public:
-	void DrawModel(const std::shared_ptr<Shader> &shader, const std::shared_ptr<Model>& model);
-	static void DrawMesh(const std::shared_ptr<Shader> &shader, const Mesh &mesh);
+	void DrawModel();
 };

@@ -62,7 +62,7 @@ void PhysicsManager::ShutdownPhysx()
     {
         mScene->release();
     }
-    //mCooking->release();
+    mCooking->release();
     mPhysics->release();
     mFoundation->release();
 }

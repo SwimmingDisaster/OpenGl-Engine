@@ -22,7 +22,6 @@ std::vector<unsigned int> LightsBatchRenderer::quadIndices;
 std::vector<BasicVertex> LightsBatchRenderer::sphereVertices;
 std::vector<unsigned int> LightsBatchRenderer::sphereIndices;
 
-
 Batch::Batch(Batch&& other) noexcept {
 	index = std::move(other.index);
 	textureIndex = std::move(other.textureIndex);
@@ -69,57 +68,80 @@ void Batch::Setup() {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
-void Batch::AddProperty(std::shared_ptr<Material>& material, unsigned long& i) {
-	const auto& materialType = material->materialProperties[i].second.type();
-	if(materialType == typeid(float)) {
-		std::any_cast<std::vector<float>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<float>(&material->materialProperties[i].second));
-	}
-	else if(materialType == typeid(int)) {
-		std::any_cast<std::vector<int>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<int>(&material->materialProperties[i].second));
-	}
-	else if(materialType == typeid(glm::vec3)) {
-		std::any_cast<std::vector<glm::vec3>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<glm::vec3>(&material->materialProperties[i].second));
-	}
-	else if(materialType == typeid(glm::vec4)) {
-		std::any_cast<std::vector<glm::vec4>>(&materialMap[material->materialProperties[i].first])->push_back(*std::any_cast<glm::vec4>(&material->materialProperties[i].second));
-	}
-	else if(materialType == typeid(TextureInfo)) {
+void Batch::Clear() {
+	vertices.clear();
+	indices.clear();
+	materialMap.clear();
+	matrixList.clear();
 
-		std::string textureName = std::any_cast<TextureInfo>(material->materialProperties[i].second).name;
+	index = 0;
+	textureIndex = 0;
+}
+void Batch::Destroy() {
+	Clear();
+	glDeleteBuffers(1, &VBO);
+	glDeleteBuffers(1, &EBO);
+	glDeleteVertexArrays(1, &VAO);
+}
+
+void Batch::AddProperty(std::shared_ptr<Material>& material, unsigned long& i) {
+	const auto& materialType = material->materialProperties[i].second.index();
+	switch(materialType) {
+	case 0:
+		std::get<std::vector<float>>(materialMap[material->materialProperties[i].first]).push_back(std::get<float>(material->materialProperties[i].second));
+		break;
+	case 1:
+		std::get<std::vector<int>>(materialMap[material->materialProperties[i].first]).push_back(std::get<int>(material->materialProperties[i].second));
+		break;
+	case 2:
+		std::get<std::vector<glm::vec3>>(materialMap[material->materialProperties[i].first]).push_back(std::get<glm::vec3>(material->materialProperties[i].second));
+		break;
+	case 3:
+		std::get<std::vector<glm::vec4>>(materialMap[material->materialProperties[i].first]).push_back(std::get<glm::vec4>(material->materialProperties[i].second));
+		break;
+	case 4:
+		std::string textureName = std::get<TextureInfo>(material->materialProperties[i].second).name;
 
 		if(textureIndexMap.find(textureName) == textureIndexMap.end()) {
 			textureIndexMap[textureName] = textureIndex;
 			textureIndex++;
 		}
-		std::any_cast<std::vector<int>>(&materialMap[material->materialProperties[i].first])->push_back(textureIndexMap[textureName]);
+		std::get<std::vector<int>>(materialMap[material->materialProperties[i].first]).push_back(textureIndexMap[textureName]);
+		break;
 	}
 }
 void Batch::AddPropertyVector(std::shared_ptr<Material>& material, unsigned long& i) {
-	const auto& materialType = material->materialProperties[i].second.type();
+	const auto& materialType = material->materialProperties[i].second.index();
 
-	if(materialType == typeid(float)) {
+	switch(materialType) {
+	case 0:
 		materialMap[material->materialProperties[i].first] = std::vector<float>();
-	}
-	else if(materialType == typeid(int)) {
+		break;
+	case 1:
 		materialMap[material->materialProperties[i].first] = std::vector<int>();
-	}
-	else if(materialType == typeid(glm::vec3)) {
+		break;
+	case 2:
 		materialMap[material->materialProperties[i].first] = std::vector<glm::vec3>();
-	}
-	else if(materialType == typeid(glm::vec4)) {
+		break;
+	case 3:
 		materialMap[material->materialProperties[i].first] = std::vector<glm::vec4>();
-	}
-	else if(materialType == typeid(TextureInfo)) {
+		break;
+	case 4:
 		materialMap[material->materialProperties[i].first] = std::vector<int>();
+		break;
 	}
 }
-void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform)  {
+void Batch::AddProperties(std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform){
 	for(unsigned long i = 0; i < material->materialProperties.size(); i++) {
 		if(materialMap.count(material->materialProperties[i].first) ==  0) { //if the vector doesnt exits
 			AddPropertyVector(material, i);
 		}
 		AddProperty(material, i);
 	}
+	matrixList.push_back(transform->GetTransform());
+}
+void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, std::shared_ptr<Material>& material, std::shared_ptr<Transform>& transform)  {
+	AddProperties(material, transform);
 
 	const std::size_t numNewVertices = otherVertices.size();
 	const std::size_t numNewIndices = otherIndices.size();
@@ -133,13 +155,9 @@ void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vecto
 	vertices.insert(vertices.end(), otherVertices.begin(), otherVertices.end());
 	indices.insert(indices.end(), otherIndices.begin(), otherIndices.end());
 
-	matrixList.push_back(transform->GetTransform());
-
-
 	for (std::size_t i = numVertices; i < numVertices + numNewVertices; i++) {
 		vertices[i].ObjectIndex = index;
 	}
-
 	for (std::size_t i = numIndices; i < numIndices + numNewIndices; i++) {
 		indices[i] += numVertices;
 	}
@@ -148,6 +166,39 @@ void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vecto
 	assert(index <= BATCH_SIZE);
 	assert(matrixList.size() <= BATCH_SIZE);
 }
+void Batch::SetProperties(Shader* shader) {
+	for(auto& property : materialMap) {
+		const auto& materialType = property.second.index();
+		switch(materialType) {
+		case 0: {
+			const auto& propertyVector = std::get<std::vector<float>>(property.second);
+			glUniform1fv(shader->GetUniformLocation(property.first.c_str()), propertyVector.size(), &propertyVector[0]);
+			break;
+		}
+		case 1: {
+			const auto& propertyVector = std::get<std::vector<int>>(property.second);
+			glUniform1iv(shader->GetUniformLocation(property.first.c_str()), propertyVector.size(), &propertyVector[0]);
+			break;
+		}
+		case 2: {
+			const auto& propertyVector = std::get<std::vector<glm::vec3>>(property.second);
+			glUniform3fv(shader->GetUniformLocation(property.first.c_str()), propertyVector.size(), &propertyVector[0][0]);
+			break;
+		}
+		case 3: {
+			const auto& propertyVector = std::get<std::vector<glm::vec4>>(property.second);
+			glUniform4fv(shader->GetUniformLocation(property.first.c_str()), propertyVector.size(), &propertyVector[0][0]);
+			break;
+		}
+		case 4: {
+			const auto& propertyVector = std::get<std::vector<int>>(property.second);
+			glUniform1iv(shader->GetUniformLocation(property.first.c_str()), propertyVector.size(), &propertyVector[0]);
+			break;
+		}
+		}
+	}
+}
+
 void Batch::Draw(const std::shared_ptr<Shader>& shader) {
 	if (vertices.size() == 0) {
 		return;
@@ -156,28 +207,7 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
 	assert(indices.size() != 0);
 	assert(index == matrixList.size());
 
-	for(auto& property : materialMap) {
-		if(property.second.type() == typeid(std::vector<float>)) {
-			auto* propertyVector = std::any_cast<std::vector<float>>(&property.second);
-			glUniform1fv(glGetUniformLocation(shader->GetID(), property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
-		}
-		else if(property.second.type() == typeid(std::vector<int>)) {
-			auto* propertyVector = std::any_cast<std::vector<int>>(&property.second);
-			glUniform1iv(glGetUniformLocation(shader->GetID(), property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
-		}
-		else if(property.second.type() == typeid(std::vector<glm::vec3>)) {
-			auto* propertyVector = std::any_cast<std::vector<glm::vec3>>(&property.second);
-			glUniform3fv(glGetUniformLocation(shader->GetID(), property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0][0]));
-		}
-		else if(property.second.type() == typeid(std::vector<glm::vec4>)) {
-			auto* propertyVector = std::any_cast<std::vector<glm::vec4>>(&property.second);
-			glUniform4fv(glGetUniformLocation(shader->GetID(), property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0][0]));
-		}
-		else if(property.second.type() == typeid(std::vector<int>)) {
-			auto* propertyVector = std::any_cast<std::vector<int>>(&property.second);
-			glUniform1iv(glGetUniformLocation(shader->GetID(), property.first.c_str()), (*propertyVector).size(), &((*propertyVector)[0]));
-		}
-	}
+	SetProperties(shader.get());
 
 	for(auto& a : textureIndexMap) {
 		glActiveTexture(GL_TEXTURE0 + a.second); // activate the texture unit first before binding texture
@@ -190,22 +220,23 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
 	int size;
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &size); 
-	if(vertices.size() * sizeof(Vertex) <= size){
+	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
+	if(vertices.size() * sizeof(Vertex) <= size) {
 		glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(Vertex), &vertices[0]);
 	}
-	else{
+	else {
 		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STREAM_DRAW);
-		Log("Current size: " << size << " desired size: " << vertices.size() * sizeof(Vertex));
+		//Log("Vertices current size: " << size << " desired size: " << vertices.size() * sizeof(Vertex));
 	}
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
-	if(indices.size() * sizeof(unsigned int) <= size){
+	if(indices.size() * sizeof(unsigned int) <= size) {
 		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, indices.size() * sizeof(unsigned int), &indices[0]);
 	}
-	else{
+	else {
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STREAM_DRAW);
+		//Log("Indices current size: " << size << " desired size: " << vertices.size() * sizeof(Vertex));
 	}
 
 	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, (const void *)0);
@@ -213,22 +244,45 @@ void Batch::Draw(const std::shared_ptr<Shader>& shader) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
-void Batch::Clear() {
-	vertices.clear();
-	indices.clear();
-	materialMap.clear();
-	matrixList.clear();
+void Batch::DrawThisGeometry(const std::shared_ptr<Shader>& shader, const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices){
+	SetProperties(shader.get());
 
-	index = 0;
-	textureIndex = 0;
+	for(auto& a : textureIndexMap) {
+		glActiveTexture(GL_TEXTURE0 + a.second); // activate the texture unit first before binding texture
+		glBindTexture(GL_TEXTURE_2D, TextureManager::textureMap[a.first]);
+	}
+	glUniformMatrix4fv(glGetUniformLocation(shader->GetID(), "matModel"), matrixList.size(), GL_FALSE, &matrixList[0][0][0]);
+
+	glBindVertexArray(VAO);
+
+	int size;
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
+	if(otherVertices.size() * sizeof(Vertex) <= size) {
+		glBufferSubData(GL_ARRAY_BUFFER, 0, otherVertices.size() * sizeof(Vertex), &otherVertices[0]);
+	}
+	else {
+		glBufferData(GL_ARRAY_BUFFER, otherVertices.size() * sizeof(Vertex), &otherVertices[0], GL_STREAM_DRAW);
+		//Log("Vertices current size: " << size << " desired size: " << otherVertices.size() * sizeof(Vertex));
+	}
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
+	if(otherIndices.size() * sizeof(unsigned int) <= size) {
+		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, otherIndices.size() * sizeof(unsigned int), &otherIndices[0]);
+	}
+	else {
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, otherIndices.size() * sizeof(unsigned int), &otherIndices[0], GL_STREAM_DRAW);
+		//Log("Indices current size: " << size << " desired size: " << otherVertices.size() * sizeof(Vertex));
+	}
+
+	glDrawElements(GL_TRIANGLES, (GLsizei)otherIndices.size(), GL_UNSIGNED_INT, (const void *)0);
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
 }
-void Batch::Destroy() {
-	Log("batch destroyed");
-	Clear();
-	glDeleteBuffers(1, &VBO);
-	glDeleteBuffers(1, &EBO);
-	glDeleteVertexArrays(1, &VAO);
-}
+
 
 
 LightBatch::LightBatch(LightBatch&& other) noexcept {
@@ -307,8 +361,8 @@ void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const 
 	}
 
 	index++;
-	assert(index <= BATCH_SIZE);
-	assert(matrixList.size() <= BATCH_SIZE);
+	assert(index <= LIGHT_BATCH_SIZE);
+	assert(matrixList.size() <= LIGHT_BATCH_SIZE);
 }
 void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, DirectionalLight& light) {
 	const std::size_t numNewVertices = otherVertices.size();
@@ -333,8 +387,8 @@ void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const 
 	}
 
 	index++;
-	assert(index <= BATCH_SIZE);
-	assert(matrixList.size() <= BATCH_SIZE);
+	assert(index <= LIGHT_BATCH_SIZE);
+	assert(matrixList.size() <= LIGHT_BATCH_SIZE);
 }
 void LightBatch::Draw(const std::shared_ptr<Shader>& shader) {
 	if (vertices.size() == 0) {
@@ -488,7 +542,7 @@ void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertice
 		batchList.emplace_back().Setup(LightBatchType::Point);
 		batchIndex = 0;
 	}
-	else if(batchList[batchIndex].index == BATCH_SIZE) { //todo change the texture index max value to a define or smth
+	else if(batchList[batchIndex].index == LIGHT_BATCH_SIZE) { //todo change the texture index max value to a define or smth
 		if(batchIndex < batchList.size() - 1) {
 			batchIndex++;
 		}
@@ -507,7 +561,7 @@ void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertice
 		batchList.emplace_back().Setup(LightBatchType::Directional);
 		batchIndex = 0;
 	}
-	else if(batchList[batchIndex].index == BATCH_SIZE) { //todo change the texture index max value to a define or smth
+	else if(batchList[batchIndex].index == LIGHT_BATCH_SIZE) { //todo change the texture index max value to a define or smth
 		if(batchIndex < batchList.size() - 1) {
 			batchIndex++;
 		}
@@ -554,39 +608,39 @@ void LightsBatchRenderer::Clear() {
 	}
 }
 void LightsBatchRenderer::Draw() {
-	if(pointLightBatchMap.size() + directionalLightBatchMap.size() == 0){
+	if(pointLightBatchMap.size() + directionalLightBatchMap.size() == 0) {
 		return;
 	}
 
-    glEnable(GL_STENCIL_TEST);
+	glEnable(GL_STENCIL_TEST);
 
 	auto& nullShader = Shader::shaderMap["res/shaders/null"];
 
 	glEnable(GL_DEPTH_TEST);
 	glDepthMask(GL_FALSE);
 
-    glDisable(GL_CULL_FACE);
+	glDisable(GL_CULL_FACE);
 
-    glClear(GL_STENCIL_BUFFER_BIT);
-    glStencilFunc(GL_ALWAYS, 0, 0);
-    glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP);
-    glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP);
+	glClear(GL_STENCIL_BUFFER_BIT);
+	glStencilFunc(GL_ALWAYS, 0, 0);
+	glStencilOpSeparate(GL_BACK, GL_KEEP, GL_INCR_WRAP, GL_KEEP);
+	glStencilOpSeparate(GL_FRONT, GL_KEEP, GL_DECR_WRAP, GL_KEEP);
 	nullShader->use();
 	for(auto& batchPair : pointLightBatchMap) {
 		for(auto& batch : batchPair.second) {
 			batch.Draw(nullShader);
 		}
 	}
-    glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
+	glStencilFunc(GL_NOTEQUAL, 0, 0xFF);
 
-    glDisable(GL_DEPTH_TEST);
-    glEnable(GL_BLEND);
-    glBlendEquation(GL_FUNC_ADD);
-    glBlendFunc(GL_ONE, GL_ONE);
+	glDisable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendEquation(GL_FUNC_ADD);
+	glBlendFunc(GL_ONE, GL_ONE);
 
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_FRONT);
-    glFrontFace(GL_CCW);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_FRONT);
+	glFrontFace(GL_CCW);
 
 	for(auto& batchPair : pointLightBatchMap) {
 		auto& shader = Shader::shaderMap[batchPair.first];
@@ -594,15 +648,21 @@ void LightsBatchRenderer::Draw() {
 		shader->setVec3("eyePos", Renderer::viewPos);
 		shader->setVec2("gScreenSize", {EngineInfo::SCREEN_WIDTH, EngineInfo::SCREEN_HEIGHT});
 		shader->setFloat("specularPower", 1.0f);
-		glActiveTexture(GL_TEXTURE0); glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_color); shader->setInt("gColor", 0);
-		glActiveTexture(GL_TEXTURE1); glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_position); shader->setInt("gPosition", 1);
-		glActiveTexture(GL_TEXTURE2); glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_normal); shader->setInt("gNormal", 2);
+		glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_color);
+		shader->setInt("gColor", 0);
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_position);
+		shader->setInt("gPosition", 1);
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, Renderer::multisampledFrameBuffer.m_normal);
+		shader->setInt("gNormal", 2);
 
 		for(auto& batch : batchPair.second) {
 			batch.Draw(shader);
 		}
 	}
-    glDisable(GL_STENCIL_TEST);
+	glDisable(GL_STENCIL_TEST);
 	for(auto& batchPair : directionalLightBatchMap) {
 		auto& shader = Shader::shaderMap[batchPair.first];
 		shader->use();

@@ -9,16 +9,15 @@ struct Vertex {
 	glm::vec2 TexCoords;
 	glm::vec3 Tangent;
 	glm::vec3 Bitangent;
-	int ObjectIndex;
+	int ObjectIndex = 0;
 
 	Vertex(const glm::vec3& otherPos)
 		:Position(otherPos) {}
 	Vertex(){}
 };
-
 struct BasicVertex {
 	glm::vec3 Position;
-	int ObjectIndex;
+	int ObjectIndex = 0;
 
 	BasicVertex(const glm::vec3& otherPos)
 		:Position(otherPos) {}
@@ -26,7 +25,6 @@ struct BasicVertex {
 		:Position(x,y,z), ObjectIndex(i) {}
 	BasicVertex(){}
 };
-
 struct Texture {
 	unsigned int id;
 	std::string type;

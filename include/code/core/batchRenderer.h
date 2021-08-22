@@ -89,6 +89,7 @@ public:
 	static void AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* const material, const Transform* const transform, const std::string& shaderName);
 	static void Clear();
 	static void Draw();
+	static void Destroy();
 };
 class LightsBatchRenderer{
 public:
@@ -110,4 +111,5 @@ public:
 	static void AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, DirectionalLight& light, const Transform* const transform, const std::string& shaderName);
 	static void Clear();
 	static void Draw();
+	static void Destroy();
 };

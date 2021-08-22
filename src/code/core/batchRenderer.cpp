@@ -428,7 +428,6 @@ void LightBatch::Draw(Shader* shader) {
 	glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 3, UBO);
 
 	glBindVertexArray(VAO);
-	glFinish();
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), &vertices[0], GL_STATIC_DRAW);
@@ -516,7 +515,15 @@ void BatchRenderer::Draw() {
 		}
 	}
 }
-
+void BatchRenderer::Destroy(){
+	for(auto& batchPair : batchMap) {
+		for(auto& batch : batchPair.second){
+			batch.Destroy();
+		}
+	}
+	BatchRenderer::batchMap.clear();
+	BatchRenderer::batchIndexes.clear();
+}
 
 void LightsBatchRenderer::Init() {
 	quadVertices = {
@@ -703,3 +710,26 @@ void LightsBatchRenderer::Draw() {
 	}
 }
 */
+void LightsBatchRenderer::Destroy(){
+	for(auto& batchPair : pointLightBatchMap) {
+		for(auto& batch : batchPair.second){
+			batch.Destroy();
+		}
+	}
+	for(auto& batchPair : directionalLightBatchMap) {
+		for(auto& batch : batchPair.second){
+			batch.Destroy();
+		}
+	}
+	for(auto& batchPair : spotLightBatchMap) {
+		for(auto& batch : batchPair.second){
+			batch.Destroy();
+		}
+	}
+	LightsBatchRenderer::pointLightBatchMap.clear();
+	LightsBatchRenderer::directionalLightBatchMap.clear();
+	LightsBatchRenderer::spotLightBatchMap.clear();
+	LightsBatchRenderer::pointLightBatchIndexes.clear();
+	LightsBatchRenderer::directionalLightBatchIndexes.clear();
+	LightsBatchRenderer::spotLightBatchIndexes.clear();
+}

@@ -120,15 +120,8 @@ void Scene::Clear() noexcept {
 	}
 	m_entities.clear();
 
-	BatchRenderer::batchMap.clear();
-	BatchRenderer::batchIndexes.clear();
-
-	LightsBatchRenderer::pointLightBatchMap.clear();
-	LightsBatchRenderer::directionalLightBatchMap.clear();
-	LightsBatchRenderer::spotLightBatchMap.clear();
-	LightsBatchRenderer::pointLightBatchIndexes.clear();
-	LightsBatchRenderer::directionalLightBatchIndexes.clear();
-	LightsBatchRenderer::spotLightBatchIndexes.clear();
+	BatchRenderer::Destroy();
+	LightsBatchRenderer::Destroy();
 
 	Shader::shaderMap.clear();
 	Shader::shaderList.clear();
@@ -319,27 +312,27 @@ void Scene::Deserialize(const std::string &filePath) {
 	}
 
 	const YAML::Node &layers = data["Layers"];
-	int j = 0;
+	std::size_t i = 0;
 	for (auto layer : layers) {
 		std::string layerName = layer["Layer Name"].as<std::string>();
-		LayerManager::layerList[j] = layerName;
-		j++;
+		LayerManager::layerList[i] = std::move(layerName);
+		i++;
 	}
 
 	const YAML::Node &collisionLayerMaskValues = data["Collision layer mask"];
-	int k = 0;
+	i = 0;
 	for (auto collisionLayerMaskValue : collisionLayerMaskValues) {
 		int layerName = collisionLayerMaskValue["Layer Name"].as<int>();
-		PhysicsManager::collisionLayerMask[k] = layerName;
-		k++;
+		PhysicsManager::collisionLayerMask[i] = layerName;
+		i++;
 	}
 
 	const YAML::Node &notifyLayerMaskValues = data["Notify layer mask"];
-	int l = 0;
+	i = 0;
 	for (auto notifyLayerMaskValue : notifyLayerMaskValues) {
 		int layerName = notifyLayerMaskValue["Layer Name"].as<int>();
-		PhysicsManager::notifyLayerMask[l] = layerName;
-		l++;
+		PhysicsManager::notifyLayerMask[i] = layerName;
+		i++;
 	}
 
 

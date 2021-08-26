@@ -209,7 +209,7 @@ void Scene::Serialize(const std::string &filePath) const {
 	out << YAML::EndSeq;
 
 	out << YAML::Key << "Layers" << YAML::Value << YAML::BeginSeq;
-	for (auto& layerName : LayerManager::layerList)
+	for (auto layerName : LayerManager::layerList)
 	{
 		out << YAML::BeginMap;
 		out << YAML::Key << "Layer Name" << YAML::Value << layerName;
@@ -227,7 +227,7 @@ void Scene::Serialize(const std::string &filePath) const {
 	out << YAML::EndSeq;
 
 	out << YAML::Key << "Notify layer mask" << YAML::Value << YAML::BeginSeq;
-	for (auto& layerName : PhysicsManager::collisionLayerMask)
+	for (auto layerName : PhysicsManager::collisionLayerMask)
 	{
 		out << YAML::BeginMap;
 		out << YAML::Key << "Layer Name" << YAML::Value << layerName;

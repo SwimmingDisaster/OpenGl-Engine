@@ -45,14 +45,15 @@ https://developercommunity.visualstudio.com/content/problem/66047/possible-compi
 
 // define API function declaration (public API only needed because of extensions)
 #if defined PX_PHYSX_STATIC_LIB
-#define PX_PHYSX_CORE_API
+	#define PX_PHYSX_CORE_API
 #else
-#if PX_WINDOWS_FAMILY
+#if PX_WINDOWS_FAMILY && _MSC_VER
 #if defined PX_PHYSX_CORE_EXPORTS
 #define PX_PHYSX_CORE_API __declspec(dllexport)
 #else
 #define PX_PHYSX_CORE_API __declspec(dllimport)
 #endif
+
 #elif PX_UNIX_FAMILY
 #define PX_PHYSX_CORE_API PX_UNIX_EXPORT
 #else

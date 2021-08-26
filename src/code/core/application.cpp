@@ -44,6 +44,7 @@ void Application::Start() {
 }
 void Application::Run() {
 	while (glfwWindowShouldClose(window) == 0) {
+		OPTICK_FRAME("MainThread");
 
 		static bool is = false;
 		constexpr float sz = 40.0f;
@@ -51,6 +52,9 @@ void Application::Run() {
 		constexpr int squareCount = 0;
 		constexpr int lightCount = 64;
 		if (isRunning && !is) {
+			for (int i = 0; i < 100; i++) {
+				Log(Random::Float());
+			}
 			for (int i = 0; i < squareCount; i++){
 				auto newEntity = m_curentScene.AddEntity("New Entity " + std::to_string(i), Random::Int());
 				auto transform = newEntity->AddComponent<Transform>();

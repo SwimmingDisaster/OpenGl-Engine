@@ -10,6 +10,9 @@ endif()
 # set the project name
 project(main)
 
+# option to use warnings set to true
+# set debug and release builds
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED True) 
 
@@ -22,10 +25,15 @@ if(LINUX)
 endif()
 
 if(CMAKE_CXX_COMPILER_ID MATCHES "MSVC")
-	set(COMPILE_WARNINGS "/W4 /Zi")
-	set(SHARED_FLAGS "")
+	set(COMPILE_WARNINGS "/DEBUG:FULL /Zi")
+	#set(COMPILE_WARNINGS "/W4 /Zi")
+	set(SHARED_FLAGS "/DEBUG:FULL")
+	set(DEBUG_FLAGS "")
+	set(RELEASE_FLAGS "")
 else()
 	set(COMPILE_WARNINGS "-Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer")
+	set(DEBUG_FLAGS "")
+	set(RELEASE_FLAGS "")
 	#set(SHARED_FLAGS "-g -fsanitize=address");
 	set(SHARED_FLAGS "-g")
 endif()

@@ -44,12 +44,11 @@ void Application::Start() {
 }
 void Application::Run() {
 	while (glfwWindowShouldClose(window) == 0) {
-		OPTICK_FRAME("MainThread");
 
 		static bool is = false;
 		constexpr float sz = 40.0f;
 		constexpr float sc = 1.0f;
-		constexpr int squareCount = 0;
+		constexpr int squareCount = 500;
 		constexpr int lightCount = 64;
 		if (isRunning && !is) {
 			for (int i = 0; i < 100; i++) {

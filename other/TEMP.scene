@@ -1,7 +1,369 @@
-Scene: ""
+Scene: SHAPES
+Shaders:
+  - Shader Path: res/shaders/glyph
+  - Shader Path: res/shaders/color
+  - Shader Path: res/shaders/model
+  - Shader Path: res/shaders/test
+  - Shader Path: res/shaders/pointLight
+  - Shader Path: res/shaders/null
+Textures:
+  - Texture Path: res/robot/body_dif.png
+  - Texture Path: res/robot/arm_dif.png
+  - Texture Path: res/test/white.png
+  - Texture Path: res/test/yellow.png
+  - Texture Path: res/test/colors.png
+Tags:
+  - Tag Name: test
+Layers:
+  - Layer Name: default
+  - Layer Name: player
+  - Layer Name: ground
+  - Layer Name: ball
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+  - Layer Name: ""
+Collision layer mask:
+  - Layer Name: 15
+  - Layer Name: 15
+  - Layer Name: 7
+  - Layer Name: 11
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+Notify layer mask:
+  - Layer Name: 15
+  - Layer Name: 15
+  - Layer Name: 7
+  - Layer Name: 11
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
+  - Layer Name: 0
 Entities:
-  []
+  - Entity: Camera
+    UUID: 1595950024
+    Tag: 0
+    Layer: 1
+    Components: [Transform, Camera, SphereCollider, Rigidbody, PhysicsFPScontroler]
+    Transform:
+      Position: [-16.2427464, 1, -21.5332584]
+      Rotation: [21.2499981, 4.07979965, 0]
+      Scale: [1, 1, 1]
+    Camera:
+      Fov: 90
+      fNear: 0.0500000007
+      fFar: 1000
+      Background Color: [0.100000001, 0.100000001, 0.100000001]
+    SphereCollider:
+      Radius: 1
+    Rigidbody:
+      Is Static: false
+      Constrain position: false
+      Constrain rotation: true
+      Is simulation: true
+      Is trigger: false
+    PhysicsFPScontroler:
+      Mouse Sensitivity: 0.349999994
+      Movement Speed: 5
+  - Entity: New Plane
+    UUID: -1641502703
+    Tag: 0
+    Layer: 2
+    Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
+    Transform:
+      Position: [0, -1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [25, 1, 25]
+    Model:
+      Is flipped: false
+      Path: res/fbx/box.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Isnt batched: false
+    Material:
+      3color: [0.776470602, 0.772549033, 0.772549033]
+    BoxCollider:
+      Scale: [25, 1, 25]
+    Rigidbody:
+      Is Static: true
+      Constrain position: false
+      Constrain rotation: false
+      Is simulation: true
+      Is trigger: false
+  - Entity: New Cube
+    UUID: -1103208782
+    Tag: 0
+    Layer: 3
+    Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody, DeleteAfterTouched]
+    Transform:
+      Position: [-5, 0, 0]
+      Rotation: [0, -0, 0]
+      Scale: [1, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/box.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Isnt batched: false
+    Material:
+      3color: [0, 1, 0]
+    BoxCollider:
+      Scale: [1, 1, 1]
+    Rigidbody:
+      Is Static: false
+      Constrain position: false
+      Constrain rotation: false
+      Is simulation: true
+      Is trigger: false
+    DeleteAfterTouched:
+      {}
+  - Entity: New Sphere
+    UUID: 1732036372
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [-10, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Isnt batched: false
+    Material:
+      3color: [0, 1, 0]
+  - Entity: New Cone
+    UUID: -731618429
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [-15, 0, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1.00000012, 1.00000012, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/cone.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Isnt batched: false
+    Material:
+      3color: [0, 0, 1]
+  - Entity: New Torus
+    UUID: 468162451
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [5, 1, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/torus.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Isnt batched: false
+    Material:
+      3color: [1, 0, 0.501960814]
+  - Entity: New Cylinder
+    UUID: -1758694919
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material]
+    Transform:
+      Position: [0, 4.32737207, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/cylinder.fbx
+    ModelRenderer:
+      Shader name: res/shaders/test
+      Isnt batched: false
+    Material:
+      3color: [0.264705777, 1, 0]
+      ttextures: res/test/white.png
+  - Entity: New Cylinder
+    UUID: -28820628
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
+    Transform:
+      Position: [3.08942032, 4.38205767, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/fbx/cylinder.fbx
+    ModelRenderer:
+      Shader name: res/shaders/test
+      Isnt batched: false
+    Material:
+      3color: [0.264705777, 1, 0]
+      ttextures: res/test/yellow.png
+    BoxCollider:
+      Scale: [1, 1, 1]
+    Rigidbody:
+      Is Static: true
+      Constrain position: false
+      Constrain rotation: false
+      Is simulation: true
+      Is trigger: false
+  - Entity: New Box
+    UUID: -1115886422
+    Tag: 0
+    Layer: 2
+    Components: [Transform, Model, ModelRenderer, Material, BoxCollider, Rigidbody]
+    Transform:
+      Position: [0.464540005, 0.999994695, -11.5768242]
+      Rotation: [-179.999481, 45.1923637, 179.999634]
+      Scale: [0.999999762, 1, 0.999999881]
+    Model:
+      Is flipped: false
+      Path: res/fbx/box.fbx
+    ModelRenderer:
+      Shader name: res/shaders/test
+      Isnt batched: false
+    Material:
+      3color: [0.264705777, 1, 0]
+      ttextures: res/test/colors.png
+    BoxCollider:
+      Scale: [1, 1, 1]
+    Rigidbody:
+      Is Static: false
+      Constrain position: false
+      Constrain rotation: false
+      Is simulation: true
+      Is trigger: false
+  - Entity: New Sphere
+    UUID: -762144144
+    Tag: 0
+    Layer: 3
+    Components: [Transform, Model, ModelRenderer, Material, SphereCollider, Rigidbody]
+    Transform:
+      Position: [0, 0, 0]
+      Rotation: [0, -0, 0]
+      Scale: [0.75, 0.75, 0.75]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/test
+      Isnt batched: false
+    Material:
+      3color: [0, 1, 0]
+      ttextures: res/test/colors.png
+    SphereCollider:
+      Radius: 0.75
+    Rigidbody:
+      Is Static: false
+      Constrain position: false
+      Constrain rotation: false
+      Is simulation: true
+      Is trigger: false
+  - Entity: New Platform
+    UUID: -1699205927
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material, ConcaveMeshCollider, Rigidbody]
+    Transform:
+      Position: [0, 15, 60]
+      Rotation: [0, 0, 0]
+      Scale: [2, 1, 1]
+    Model:
+      Is flipped: false
+      Path: res/physx/platform.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Isnt batched: false
+    Material:
+      3color: [0, 1, 0]
+    ConcaveMeshCollider:
+      File path: res/physx/platform.fbx
+    Rigidbody:
+      Is Static: true
+      Constrain position: false
+      Constrain rotation: false
+      Is simulation: true
+      Is trigger: false
 Editor Camera:
-  - Camera vPos: [0, 0, -10]
-    Camera vUp: [0.846903801, 0.0226873513, 0.531261921]
-    Camera vRot: [-88.6999969, 32.1000061, 0]
+  - Camera vPos: [-30.0875683, 21.0510273, -4.78008938]
+    Camera vUp: [-0.0956127495, 0.554844379, -0.826441705]
+    Camera vRot: [-56.3000031, 263.400665, 0]

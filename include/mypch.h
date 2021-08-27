@@ -8,9 +8,7 @@
 //#define SHOW_DELETED
 //#define RELEASE_BUILD
 
-
 #include <iostream>
-#include <float.h>
 #include <memory>
 #include <utility>
 #include <algorithm>
@@ -31,6 +29,9 @@
 #include <unordered_set>
 #include <any>
 #include <variant>
+
+#include <float.h>
+#include <time.h>
 
 #define GLEW_STATIC
 #include "glad/glad.h"
@@ -84,8 +85,9 @@
 #if defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__)
 #define _WINSOCKAPI_
 #include <Windows.h>
+#undef far
+#undef near
 #endif
 
-#include "optick/optick.h"
 
 using namespace physx; //all classes are prefixed with Px so its very hard to confuze classes from the namespace physx and no namespace :)

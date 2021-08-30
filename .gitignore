@@ -3,5 +3,6 @@ bin/
 build/
 CMakeFiles/
 .vs/
+.vscode/
 *.d
 *.o

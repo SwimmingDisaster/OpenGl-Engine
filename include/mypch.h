@@ -2,10 +2,14 @@
 #pragma warning(disable : 4005)
 
 #define NOMINMAX
+
 #define _DEBUG
-//#undef NDEBUG
+#undef NDEBUG
+
+
 //#define SHOW_SCENE_SERIALISATION
 //#define SHOW_DELETED
+
 //#define RELEASE_BUILD
 
 #include <iostream>

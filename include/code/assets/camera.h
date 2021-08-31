@@ -12,6 +12,7 @@
 
 class Camera : public Component {
 	REGISTER(Camera);
+	GETNAME();
 public:
 	glm::vec3 vFront{};
 

@@ -5,7 +5,7 @@
 
 class TestComponent : public Component {
 	REGISTER(TestComponent);
-
+	GETNAME();
 public:
 	Entity* entity;
 	Transform* transform;
@@ -21,8 +21,6 @@ public:
 	void Serialize(YAML::Emitter& out) const override;
 	void Deserialize(const YAML::Node& data) override;
 
-
-	TestComponent();
 #ifdef SHOW_DELETED
 public:
 	virtual ~TestComponent();

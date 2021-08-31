@@ -1,7 +1,6 @@
 #pragma once
 #include "mypch.h"
 
-
 //#define SHOW_DELETED
 
 class Entity;
@@ -16,11 +15,13 @@ public:
     virtual void Show() {}
 	virtual void OnCollision(const Entity* const other) {}
 
+	virtual const std::string& GetName() = 0;
+
 public:
     virtual ~Component() noexcept = default;
 
-
 public:
     Entity* parentEntity;
-    std::string name = "Unnamed Component";
+private:
+    static std::string name;
 };

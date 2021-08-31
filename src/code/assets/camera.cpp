@@ -6,8 +6,9 @@
 #include "core/renderer.h"
 
 REGISTERIMPL(Camera);
+GETNAMEIMPL(Camera);
 Camera::Camera() {
-    name = "Camera";
+    //name = "Camera";
 }
 
 
@@ -26,7 +27,7 @@ void Camera::Update() {
     Renderer::viewMatrix = GetViewMatrix();
     Renderer::projectionMatrix = GetProjectionMatrix();
     Renderer::clearColor = backgroundColor;
-	Renderer::viewPos = transform->position;
+	Renderer::viewPos = transform->GetPosition();
 }
 void Camera::Show() {
     ImGui::DragFloat("Fov", &fov, 0.1f);
@@ -54,7 +55,7 @@ void Camera::Deserialize(const YAML::Node& data) {
 
 const glm::mat4 Camera::GetViewMatrix() const
 {
-    return glm::lookAt(transform->position, transform->position + vFront, vUp);
+    return glm::lookAt(transform->GetPosition(), transform->GetPosition() + vFront, vUp);
 }
 
 const glm::mat4 Camera::GetProjectionMatrix() const
@@ -72,14 +73,14 @@ const glm::mat4 Camera::GetProjectionMatrix() const
 void Camera::updateCameraVectors()
 {
     glm::vec3 front;
-    front.x = cos(glm::radians(transform->rotation.y)) * cos(glm::radians(transform->rotation.x));
-    front.y = sin(glm::radians(transform->rotation.x));
-    front.z = sin(glm::radians(transform->rotation.y)) * cos(glm::radians(transform->rotation.x));
+    front.x = cos(glm::radians(transform->GetRotation().y)) * cos(glm::radians(transform->GetRotation().x));
+    front.y = sin(glm::radians(transform->GetRotation().x));
+    front.z = sin(glm::radians(transform->GetRotation().y)) * cos(glm::radians(transform->GetRotation().x));
 
     vFront = glm::normalize(front);
 
 
     vRight = glm::normalize(glm::cross(vFront, vWorldUp));
     vUp    = glm::normalize(glm::cross(vRight, vFront));
-    vUp    = glm::rotate(vUp, glm::radians(transform->rotation.z), vFront);
+    vUp    = glm::rotate(vUp, glm::radians(transform->GetRotation().z), vFront);
 }

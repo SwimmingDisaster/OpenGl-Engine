@@ -131,7 +131,7 @@ void Batch::AddPropertyVector(const Material* const material, unsigned long& i) 
 		break;
 	}
 }
-void Batch::AddProperties(const Material* const material, const Transform* const transform){
+void Batch::AddProperties(const Material* material, Transform* transform){
 	for(unsigned long i = 0; i < material->materialProperties.size(); i++) {
 		if(materialMap.count(material->materialProperties[i].first) ==  0) { //if the vector doesnt exits
 			AddPropertyVector(material, i);
@@ -140,7 +140,7 @@ void Batch::AddProperties(const Material* const material, const Transform* const
 	}
 	matrixList.push_back(transform->GetTransform());
 }
-void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* const material, const Transform* const transform)  {
+void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* material, Transform* transform)  {
 	AddProperties(material, transform);
 
 	const std::size_t numNewVertices = otherVertices.size();
@@ -337,13 +337,13 @@ void LightBatch::Setup(LightBatchType otherType) {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
-void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, const Transform* const transform) {
-	const std::size_t numNewVertices = otherVertices.size();
-	const std::size_t numNewIndices = otherIndices.size();
+void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, Transform* transform) {
 
 	const std::size_t numVertices = vertices.size();
 	const std::size_t numIndices = indices.size();
 
+	const std::size_t numNewVertices = otherVertices.size();
+	const std::size_t numNewIndices = otherIndices.size();
 	//vertices.reserve(numVertices + numNewVertices);
 	//indices.reserve(numIndices + numNewIndices);
 
@@ -430,10 +430,10 @@ void LightBatch::Draw(Shader* shader) {
 	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(vertices[0]), &vertices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(BasicVertex), &vertices[0], GL_STREAM_DRAW);
 
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STREAM_DRAW);
 
 	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, (const void *)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -473,7 +473,7 @@ void BatchRenderer::Clear() {
 		batchPair.second = 0;
 	}
 }
-void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* const material, const Transform* const transform, const std::string& shaderName)  {
+void BatchRenderer::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* material, Transform* transform, const std::string& shaderName)  {
 	std::vector<Batch>& batchList = batchMap[shaderName];
 	unsigned long& batchIndex = batchIndexes[shaderName];
 
@@ -540,7 +540,7 @@ void LightsBatchRenderer::Init() {
 	ModelImporter::LoadModelBasic("res/fbx/box.fbx", tempVertices, sphereIndices);
 	sphereVertices = std::vector<BasicVertex>(tempVertices.begin(), tempVertices.end());
 }
-void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, const Transform* const transform, const std::string& shaderName) {
+void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, Transform* transform, const std::string& shaderName) {
 	std::vector<LightBatch>& batchList = pointLightBatchMap[shaderName];
 	unsigned long& batchIndex = pointLightBatchIndexes[shaderName];
 
@@ -559,7 +559,7 @@ void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertice
 	}
 	batchList[batchIndex].AddObject(otherVertices, otherIndices, light, transform);
 }
-void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, DirectionalLight& light, const Transform* const transform, const std::string& shaderName) {
+void LightsBatchRenderer::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, DirectionalLight& light, Transform* transform, const std::string& shaderName) {
 	std::vector<LightBatch>& batchList = directionalLightBatchMap[shaderName];
 	unsigned long& batchIndex = directionalLightBatchIndexes[shaderName];
 

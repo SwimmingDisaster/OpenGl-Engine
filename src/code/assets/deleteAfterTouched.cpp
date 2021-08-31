@@ -3,6 +3,7 @@
 
 
 REGISTERIMPL(DeleteAfterTouched);
+GETNAMEIMPL(DeleteAfterTouched);
 
 void DeleteAfterTouched::Show()  {
     //	ImGui::InputText("Shader Name", &shaderName, ImGuiInputTextFlags_CallbackResize);
@@ -45,6 +46,3 @@ DeleteAfterTouched::~DeleteAfterTouched() {
     Log("Deleted " << name);
 }
 #endif
-DeleteAfterTouched::DeleteAfterTouched() {
-    name = "DeleteAfterTouched";
-}

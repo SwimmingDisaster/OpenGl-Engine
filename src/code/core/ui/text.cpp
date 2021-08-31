@@ -7,6 +7,7 @@
 
 
 REGISTERIMPL(Font);
+GETNAMEIMPL(Font);
 
 void Font::Start() {
     if(fileName == "" || textureName == "") {
@@ -47,7 +48,6 @@ void Font::Start() {
     atlasTexture = loadTexture(textureName.c_str());
     spaceWidth = Char_map[32].xAdvance;
 }
-
 void Font::Show() {
     ImGui::PushItemWidth(ImGui::GetContentRegionAvail().x * 0.50f);
     ImGui::InputText("File name", &fileName, ImGuiInputTextFlags_CallbackResize);
@@ -64,8 +64,6 @@ void Font::Show() {
         textureName = OpenFile(NULL, 0);
     }
 }
-
-
 void Font::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
@@ -80,9 +78,6 @@ void Font::Deserialize(const YAML::Node& data) {
     textureName = data["TextureName"].as<std::string>();
 }
 
-Font::Font() {
-    name = "Font";
-}
 #ifdef SHOW_DELETED
 Font::~Font() {
     Log("Deleted " << name);
@@ -90,7 +85,7 @@ Font::~Font() {
 #endif
 
 REGISTERIMPL(Text);
-
+GETNAMEIMPL(Text);
 
 std::vector<Word> Text::WordsFromText(std::string f_text) {
     std::vector<std::string> strs;
@@ -107,7 +102,6 @@ std::vector<Word> Text::WordsFromText(std::string f_text) {
     }
     return words;
 }
-
 std::vector<Line> Text::LinesFromWords(std::vector<Word> words) {
     std::vector<Line> lines(1);
     float lineSize = 0;
@@ -128,7 +122,6 @@ std::vector<Line> Text::LinesFromWords(std::vector<Word> words) {
     }
     return lines;
 }
-
 float Text::getSize(Word word) {
     float size = 0.0f;
     for (Character& c : word.characters) {
@@ -136,7 +129,6 @@ float Text::getSize(Word word) {
     }
     return size;
 }
-
 float Text::getSize(Line line) {
     float size = 0.0f;
     for (Word& w : line.words) {
@@ -145,7 +137,6 @@ float Text::getSize(Line line) {
     size += (line.words.size() - 1) * font->spaceWidth;
     return size;
 }
-
 
 void Text::addVerticesForCharacter(Character& chara, float curX, float curY) {
     float x = curX + (chara.xOffset * fontSize);
@@ -158,7 +149,6 @@ void Text::addVerticesForCharacter(Character& chara, float curX, float curY) {
     float properMaxY = (-2 * maxY) + 1;
     addVertexPos(properX, properY, properMaxX, properMaxY);
 }
-
 void Text::addVertexPos(float x, float y, float maxX, float maxY) {
     vertexCoord.push_back(x);
     vertexCoord.push_back(y);
@@ -173,7 +163,6 @@ void Text::addVertexPos(float x, float y, float maxX, float maxY) {
     vertexCoord.push_back(x);
     vertexCoord.push_back(y);
 }
-
 void Text::addTexCoords(float x, float y, float maxX, float maxY) {
     textureCoord.push_back(x);
     textureCoord.push_back(y);
@@ -188,8 +177,6 @@ void Text::addTexCoords(float x, float y, float maxX, float maxY) {
     textureCoord.push_back(x);
     textureCoord.push_back(y);
 }
-
-
 
 void Text::RecalculateText(std::string& f_text) {
 
@@ -247,7 +234,6 @@ void Text::Start() {
     glGenBuffers(1, &textureVBO);
     RecalculateText(text);
 }
-
 void Text::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
@@ -266,7 +252,6 @@ void Text::Serialize(YAML::Emitter& out) const {
 
     out << YAML::EndMap;
 }
-
 void Text::Deserialize(const YAML::Node& data) {
     text = data["Text"].as<std::string>();
     isCentered = (bool)data["IsCentered"].as<int>();
@@ -281,15 +266,13 @@ void Text::Deserialize(const YAML::Node& data) {
     shaderName = data["ShaderName"].as<std::string>();
 
 }
-
-
 void Text::Draw() {
 
 
     shader->use();
     shader->setFloat("text", font->atlasTexture);
     shader->setVec3("textColor", color);
-    shader->setVec2("position", {transform->position.x, transform->position.y});
+    shader->setVec2("GetPosition()", {transform->GetPosition().x, transform->GetPosition().y});
 
     shader->setFloat("width", width);
     shader->setFloat("edge", edge);
@@ -300,7 +283,7 @@ void Text::Draw() {
     model = glm::scale(model, glm::vec3(scale, scale, 1.0f));
     shader->setMat4("projection", /*EngineInfo::projectionMatrix * EngineInfo::viewMatrix * */ proj * model);
 
-    glm::mat4 rot = glm::translate(glm::mat4(1.0f), glm::vec3(transform->position.x, transform->position.y, 0.0f));
+    glm::mat4 rot = glm::translate(glm::mat4(1.0f), glm::vec3(transform->GetPosition().x, transform->GetPosition().y, 0.0f));
     rot = glm::rotate(rot, glm::radians(angle), glm::vec3(0.0, 0.0, 1.0f));
     shader->setMat4("rotation", rot);
     if (vertexCoord.size() > 0 ) //IF THE STRING IS NOT EMPTY
@@ -327,7 +310,6 @@ void Text::Draw() {
         glEnable(GL_DEPTH_TEST);
     }
 }
-
 void Text::Show() {
     bool changed = false;
     changed |= ImGui::InputText("Text box", &text, ImGuiInputTextFlags_CallbackResize);
@@ -355,6 +337,3 @@ Text::~Text() {
     Log("Deleted " << name);
 }
 #endif
-Text::Text() {
-    name = "Text";
-}

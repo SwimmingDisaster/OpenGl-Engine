@@ -8,6 +8,7 @@ typedef std::variant<float, int, glm::vec3, glm::vec4, TextureInfo> MaterialProp
 
 class Material : public Component {
     REGISTER(Material);
+	GETNAME();
 
 public:
     std::vector<std::pair<std::string, MaterialPropertyType>> materialProperties;
@@ -22,7 +23,6 @@ public:
 	void AddAndDeleteProperties();
 	void SaveAndLoadFromFile();
 
-    Material();
 #ifdef SHOW_DELETED
 public:
     virtual ~Material();

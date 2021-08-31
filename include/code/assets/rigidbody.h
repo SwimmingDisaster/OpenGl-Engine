@@ -7,6 +7,7 @@
 
 class Rigidbody : public Component {
 	REGISTER(Rigidbody);
+	GETNAME();
 public:
 	PxRigidDynamic* aDynamicActor{};
 	PxRigidStatic* aStaticActor{};
@@ -31,7 +32,6 @@ public:
 	void Deserialize(const YAML::Node& data) override;
 	void OnCollision(const Entity* const other) override;
 
-	Rigidbody();
 #ifdef SHOW_DELETED
 public:
 	virtual ~Rigidbody();

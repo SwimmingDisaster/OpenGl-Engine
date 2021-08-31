@@ -27,7 +27,6 @@ struct Character {
 struct Word {
     std::vector<Character> characters;
 };
-
 struct Line {
     std::vector<Word> words;
 };
@@ -35,6 +34,7 @@ struct Line {
 
 class Font : public Component {
     REGISTER(Font);
+	GETNAME();
 public:
     void Show() override;
     void Start() override;
@@ -50,8 +50,6 @@ public:
     std::string fileName;
     std::string textureName;
 
-
-    Font();
 #ifdef SHOW_DELETED
 public:
     virtual ~Font();
@@ -63,6 +61,7 @@ public:
 
 class Text : public Component {
     REGISTER(Text);
+	GETNAME();
 public:
     void Start() override;
     void Draw() override;
@@ -85,8 +84,6 @@ public:
 
     void RecalculateText(std::string& f_text);
 	
-public:
-    Text();
 #ifdef SHOW_DELETED
 public:
     virtual ~Text();

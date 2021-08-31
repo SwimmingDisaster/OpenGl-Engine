@@ -103,7 +103,7 @@ void ImGuiManager::EndFrame()
         {
             if (Application::GetCopiedComponent() != nullptr)
             {
-                Factory::copy(Application::GetCopiedComponent()->name, entityToDraw, Application::GetCopiedComponent());
+                Factory::copy(Application::GetCopiedComponent()->GetName(), entityToDraw, Application::GetCopiedComponent());
                 Application::GetCopiedComponent() = nullptr;
                 entityToDraw->Start();
             }
@@ -152,7 +152,7 @@ void ImGuiManager::EndFrame()
         {
             if (Application::GetCopiedComponent() != nullptr)
             {
-                Factory::copy(Application::GetCopiedComponent()->name, entityToDraw, Application::GetCopiedComponent());
+                Factory::copy(Application::GetCopiedComponent()->GetName(), entityToDraw, Application::GetCopiedComponent());
                 Application::GetCopiedComponent() = nullptr;
                 (*iter)->Start();
             }
@@ -272,7 +272,7 @@ void ShowEntity(Entity* entityToDraw) {
     for (auto component = entityToDraw->m_components.begin(); component != entityToDraw->m_components.end(); ++component)
     {
 
-        bool isComponentOpen = ShowHeader((*component)->name, "ComponentSettings", "*");
+        bool isComponentOpen = ShowHeader((*component)->GetName(), "ComponentSettings", "*");
         bool isComponentRemoved = ShowComponentMenuAndReturnTrueIfRemoved(entityToDraw, component);
 
         if (isComponentOpen)
@@ -652,15 +652,15 @@ void ShowImGuizmo()
                 glm::vec3 rotation;
                 glm::vec3 scale;
                 DecomposeTransform(transformMat, translation, rotation, scale);
-                tc->position = translation;
-                tc->scale = scale;
+                tc->SetPosition(translation);
+                tc->SetScale(scale);
                 auto rc = Application::GetSelectedEntity()->GetComponent<Rigidbody>();
                 if (rc && Application::isRunning) {
-                    rc->aDynamicActor->setGlobalPose({tc->position.x, tc->position.y, tc->position.z}, false);
+                    rc->aDynamicActor->setGlobalPose({tc->GetPosition().x, tc->GetPosition().y, tc->GetPosition().z}, false);
                 }
 
-                glm::vec3 deltaRot = glm::degrees(rotation) - tc->rotation;
-                tc->rotation += deltaRot;
+                glm::vec3 deltaRot = glm::degrees(rotation) - tc->GetRotation();
+                tc->SetRotation(tc->GetRotation() + deltaRot);
             }
         }
     }

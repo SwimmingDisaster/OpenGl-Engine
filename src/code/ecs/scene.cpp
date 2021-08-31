@@ -140,23 +140,23 @@ void Scene::Update() const {
 	}
 }
 void Scene::Render() const {
-	for (std::size_t i = 0; i < m_entities.size(); i++) {
-		auto modelRendererComponent = m_entities[i]->GetComponent<ModelRenderer>();
+	for (const auto& entity : m_entities) {
+		const auto& modelRendererComponent = entity->GetComponentByName<ModelRenderer>("ModelRenderer");
 		if (modelRendererComponent != nullptr)
 		{
 			modelRendererComponent->Draw();
 		}
 	}
 	BatchRenderer::Draw();
-	for (std::size_t i = 0; i < m_entities.size(); i++) {
-		auto textRendererComponent = m_entities[i]->GetComponent<Text>();
+	for (const auto& entity : m_entities) {
+		const auto textRendererComponent = entity->GetComponentByName<Text>("Text");
 		if (textRendererComponent != nullptr)
 		{
 			textRendererComponent->Draw();
 		}
 	}
-	for (std::size_t i = 0; i < m_entities.size(); i++) {
-		auto lightRendererComponent = m_entities[i]->GetComponent<LightBase>();
+	for (const auto& entity : m_entities) {
+		const auto& lightRendererComponent = entity->GetComponent<LightBase>();
 		if (lightRendererComponent != nullptr)
 		{
 			lightRendererComponent->Draw();
@@ -248,7 +248,7 @@ void Scene::Serialize(const std::string &filePath) const {
 		out << YAML::Flow;
 		out << YAML::Key << "Components" << YAML::Flow << YAML::BeginSeq;
 		for (auto& component : entity->m_components)
-			out << component->name;
+			out << component->GetName();
 		out << YAML::EndSeq;
 
 		entity->Serialize(out);

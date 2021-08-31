@@ -4,6 +4,7 @@
 
 
 REGISTERIMPL(PointLightComponent);
+GETNAMEIMPL(PointLightComponent);
 
 void PointLightComponent::Show()  {
 	//	ImGui::InputText("Shader Name", &shaderName, ImGuiInputTextFlags_CallbackResize);
@@ -46,11 +47,11 @@ void PointLightComponent::Start() {
 	transform = parentEntity->GetComponent<Transform>();
 }
 void PointLightComponent::Update() {
-	pointLight.position = transform->position;
+	//pointLight.position = transform->GetPosition();
 }
 void PointLightComponent::Draw() {
 	RecalculateSize();
-	pointLight.position = transform->position;
+	pointLight.position = transform->GetPosition();
 	//LightsBatchRenderer::AddObject(LightsBatchRenderer::quadVertices,	LightsBatchRenderer::quadIndices, pointLight, transform, "res/shaders/pointLight");
 	LightsBatchRenderer::AddObject(LightsBatchRenderer::sphereVertices,	LightsBatchRenderer::sphereIndices, pointLight, transform, "res/shaders/pointLight");
 }
@@ -60,7 +61,7 @@ void PointLightComponent::End() {
 void PointLightComponent::RecalculateSize() {
 	float pointLightMax  = std::fmaxf(std::fmaxf(pointLight.color.r, pointLight.color.g), pointLight.color.b);
 	float radius    = (-pointLight.linear +  sqrtf(pointLight.linear * pointLight.linear - 4 * pointLight.exp * (pointLight.constant - (256.0 / 5.0) * pointLightMax))) / (2 * pointLight.exp);
-	transform->scale = {radius, radius, radius};
+	transform->SetScale({radius, radius, radius});
 }
 
 #ifdef SHOW_DELETED
@@ -68,13 +69,11 @@ PointLightComponent::~PointLightComponent() {
 	Log("Deleted " << name);
 }
 #endif
-PointLightComponent::PointLightComponent() {
-	name = "PointLightComponent";
-}
 
 
 
 REGISTERIMPL(DirectionalLightComponent);
+GETNAMEIMPL(DirectionalLightComponent);
 
 void DirectionalLightComponent::Show()  {
 	//	ImGui::InputText("Shader Name", &shaderName, ImGuiInputTextFlags_CallbackResize);
@@ -124,6 +123,3 @@ DirectionalLightComponent::~DirectionalLightComponent() {
 	Log("Deleted " << name);
 }
 #endif
-DirectionalLightComponent::DirectionalLightComponent() {
-	name = "DirectionalLightComponent";
-}

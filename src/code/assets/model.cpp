@@ -1,13 +1,14 @@
 #include "mypch.h"
 #include "assets/model.h"
 
+REGISTERIMPL(Model);
+GETNAMEIMPL(Model);
+
 void Model::Start() {
     transform = parentEntity->GetComponent<Transform>();
     //loadModel(path);
     ModelImporter::LoadModelWithoutTextures(path, vertices, indices);
 }
-
-
 void Model::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
@@ -17,12 +18,10 @@ void Model::Serialize(YAML::Emitter& out) const {
 
     out << YAML::EndMap;
 }
-
 void Model::Deserialize(const YAML::Node& data) {
     isFlipped = data["Is flipped"].as<bool>();
     path = data["Path"].as<std::string>();
 }
-
 void Model::Show() {
     ImGui::Checkbox("Is flipped", &isFlipped);
 
@@ -44,6 +43,11 @@ void Model::Show() {
     }
 }
 
+#ifdef SHOW_DELETED
+Model::~Model() {
+    Log("Deleted " << name);
+};
+#endif
 /*
 void Model::loadModel(std::string const& path)
 {

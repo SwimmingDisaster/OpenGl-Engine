@@ -7,16 +7,13 @@
 #include "assets/lightsBase.h"
 #include "assets/transform.h"
 
-struct DirectionalLight
-{
+struct DirectionalLight{
 	glm::vec3 color;
     float ambientIntensity;
     float diffuseIntensity;
 	glm::vec3 direction;
 };
-
-struct PointLight
-{
+struct PointLight{
 	glm::vec3 color;
     float ambientIntensity;
 	glm::vec3 position;
@@ -26,9 +23,7 @@ struct PointLight
     float exp;
 	float dummy;
 };
-
-struct SpotLight
-{
+struct SpotLight{
 	glm::vec3 color;
     float ambientIntensity;
     float diffuseIntensity;
@@ -38,6 +33,7 @@ struct SpotLight
 
 class PointLightComponent : public LightBase {
 	REGISTER(PointLightComponent);
+	GETNAME();
 public:
 	// variables go here
 	PointLight pointLight;
@@ -54,7 +50,6 @@ public:
 
 	void RecalculateSize();
 
-	PointLightComponent();
 #ifdef SHOW_DELETED
 public:
 	virtual ~PointLightComponent();
@@ -64,9 +59,9 @@ public:
 #endif
 
 };
-
 class DirectionalLightComponent : public LightBase {
 	REGISTER(DirectionalLightComponent);
+	GETNAME();
 public:
 	// variables go here
 	DirectionalLight directionalLight;
@@ -80,7 +75,6 @@ public:
     void Deserialize(const YAML::Node& data) override;
     void Show() override;
 
-	DirectionalLightComponent();
 #ifdef SHOW_DELETED
 public:
 	virtual ~DirectionalLightComponent();

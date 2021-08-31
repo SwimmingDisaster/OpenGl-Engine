@@ -8,6 +8,7 @@
 //--------------BoxCollider--------------
 class BoxCollider : public ColliderBase{
 	REGISTER(BoxCollider);
+	GETNAME();
 
 public:
 	glm::vec3 scale = {1.0f, 1.0f, 1.0f};
@@ -19,7 +20,6 @@ public:
 
 	PxGeometryHolder GetGeometry() override;
 
-	BoxCollider();
 #ifdef SHOW_DELETED
 public:
 	virtual ~BoxCollider();
@@ -32,6 +32,7 @@ public:
 //--------------BoxCollider--------------
 class SphereCollider : public ColliderBase{
 	REGISTER(SphereCollider);
+	GETNAME();
 
 public:
 	float radius = 5.0f;
@@ -43,7 +44,6 @@ public:
 
 	PxGeometryHolder GetGeometry() override;
 
-	SphereCollider();
 #ifdef SHOW_DELETED
 public:
 	virtual ~SphereCollider();
@@ -56,6 +56,7 @@ public:
 //--------------ConcaveMeshCollider--------------
 class ConcaveMeshCollider : public ColliderBase{
 	REGISTER(ConcaveMeshCollider);
+	GETNAME();
 
 private:
 	std::vector<glm::vec3> vertices;
@@ -75,7 +76,6 @@ public:
 
 	PxGeometryHolder GetGeometry() override;
 
-	ConcaveMeshCollider();
 #ifdef SHOW_DELETED
 public:
 	virtual ~ConcaveMeshCollider();

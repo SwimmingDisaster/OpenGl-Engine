@@ -57,8 +57,8 @@ void Application::Run() {
 			for (int i = 0; i < squareCount; i++){
 				auto newEntity = m_curentScene.AddEntity("New Entity " + std::to_string(i), Random::Int());
 				auto transform = newEntity->AddComponent<Transform>();
-				transform->position = {Random::Float() * sz, Random::Float() * sz, Random::Float() * sz};
-				transform->scale = glm::vec3(sc, sc, sc);
+				transform->SetPosition({Random::Float() * sz, Random::Float() * sz, Random::Float() * sz});
+				transform->SetScale(glm::vec3(sc, sc, sc));
 				newEntity->AddComponent<Model>();
 				auto material = newEntity->AddComponent<Material>();
 				//material->materialProperties.push_back(std::make_pair("color", glm::vec3(Random::Float(), Random::Float(), Random::Float())));
@@ -70,7 +70,7 @@ void Application::Run() {
 			for (int i = 0; i <	lightCount; i++){
 				auto newEntity = m_curentScene.AddEntity("New Light " + std::to_string(i), Random::Int());
 				auto transform = newEntity->AddComponent<Transform>();
-				transform->position = glm::vec3(Random::Float() * sz - sz * 0.5f, 1.0f, Random::Float() * sz - sz * 0.5f);
+				transform->SetPosition(glm::vec3(Random::Float() * sz - sz * 0.5f, 1.0f, Random::Float() * sz - sz * 0.5f));
 				auto light = newEntity->AddComponent<PointLightComponent>();
 				//light->pointLight.color = glm::vec3(Random::Float(), Random::Float(), Random::Float());
 				light->pointLight.color = glm::vec3(Random::Float(), 0.8f, 0.8f);
@@ -150,15 +150,6 @@ void Application::Shutdown() {
 	NFD_Quit();
 }
 
-/*
-Scene Application::m_curentScene;
-std::shared_ptr<Entity> Application::selectedEntity;
-std::shared_ptr<Entity> Application::copiedEntity;
-std::shared_ptr<Component> Application::copiedComponent;
-
-GLFWwindow *Application::window = nullptr;
-
-    		*/
 Application& Application::Get(){
 	return m_instance;
 }

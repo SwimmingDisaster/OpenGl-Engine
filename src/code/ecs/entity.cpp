@@ -72,10 +72,10 @@ void Entity::Copy(const Entity* other) {
     uuid = other->uuid;
 
     for (auto& component : other->m_components) {
-        Factory::copy(component.get()->name, this, component.get());
+        Factory::copy(component->GetName(), this, component.get());
     }
     for (auto& component : m_components) {
-        component->name = component.get()->name;
+        //component->name = component.get()->name;
         component->parentEntity = this;
     }
     Start();

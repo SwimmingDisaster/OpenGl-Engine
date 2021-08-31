@@ -5,12 +5,13 @@
 #include "core/application.h"
 
 REGISTERIMPL(CameraFPSController);
+GETNAMEIMPL(CameraFPSController);
 
 
 void CameraFPSController::Start() {
     transform = parentEntity->GetComponent<Transform>();
     camera = parentEntity->GetComponent<Camera>();
-    //transform->position.y = 2.0f;
+    //transform->GetPosition().y = 2.0f;
 }
 void CameraFPSController::Update() {
     if (Input::IsKeyPressed(INPUT_KEY_ESCAPE)) {
@@ -23,7 +24,6 @@ void CameraFPSController::Update() {
             glfwSetInputMode(Application::GetWindow(), GLFW_CURSOR, GLFW_CURSOR_NORMAL);
         }
     }
-
 
     ProcessKeyboard(EngineInfo::deltaTime);
     ProcessMouseMovement(true);
@@ -48,10 +48,6 @@ void CameraFPSController::Deserialize(const YAML::Node& data) {
     movementSpeed = data["Movement Speed"].as<float>();
 }
 
-
-CameraFPSController::CameraFPSController() {
-    name = "CameraFPSController";
-}
 #ifdef SHOW_DELETED
 CameraFPSController::~CameraFPSController() {
     Log("Deleted " << name);
@@ -70,16 +66,16 @@ void CameraFPSController::ProcessKeyboard(float deltaTime)
     glm::vec3 velvec3 = glm::vec3(velocity, velocity/*0*/, velocity);
 
     if (Input::IsKeyHeld(INPUT_KEY_W)) {
-        transform->position += camera->vFront * velvec3;
+        transform->SetPosition(transform->GetPosition() + camera->vFront * velvec3);
     }
     if (Input::IsKeyHeld(INPUT_KEY_S)) {
-        transform->position -= camera->vFront * velvec3;
+        transform->SetPosition(transform->GetPosition() - camera->vFront * velvec3);
     }
     if (Input::IsKeyHeld(INPUT_KEY_A)) {
-        transform->position -= camera->vRight * velvec3;
+        transform->SetPosition(transform->GetPosition() - camera->vRight * velvec3);
     }
     if (Input::IsKeyHeld(INPUT_KEY_D)) {
-        transform->position += camera->vRight * velvec3;
+        transform->SetPosition(transform->GetPosition() + camera->vRight * velvec3);
     }
     /*	if (Input::IsKeyHeld(INPUT_KEY_SPACE)) {
     		if (canjump) {
@@ -88,9 +84,9 @@ void CameraFPSController::ProcessKeyboard(float deltaTime)
     		}
     	}
     	acceleration.y -= 30.0f * deltaTime;
-    	transform->position += acceleration * deltaTime;
-    	if (transform->position.y < 2.0f) {
-    		transform->position.y = 2.0f;
+    	transform->GetPosition() += acceleration * deltaTime;
+    	if (transform->GetPosition().y < 2.0f) {
+    		transform->GetPosition().y = 2.0f;
     		acceleration.y = 0.0f;
     		canjump = true;
     	}*/
@@ -101,24 +97,21 @@ void CameraFPSController::ProcessKeyboard(float deltaTime)
 
 void CameraFPSController::ProcessMouseMovement(bool constrainPitch)
 {
-
     if (!isLocked) {
+        transform->SetRotationY(transform->GetRotation().y + Input::Get().xoffset * mouseSensitivity);
+        transform->SetRotationX(transform->GetRotation().x + Input::Get().yoffset * mouseSensitivity);
 
-        transform->rotation.y   += Input::Get().xoffset * mouseSensitivity;
-        transform->rotation.x   += Input::Get().yoffset * mouseSensitivity;
-
-        transform->rotation.y = fmod(transform->rotation.y, 360.0f);
+        transform->SetRotationY(fmod(transform->GetRotation().y, 360.0f));
 
         if (constrainPitch)
         {
-            if (transform->rotation.x > 89.0f) {
-                transform->rotation.x = 89.0f;
+            if (transform->GetRotation().x > 89.0f) {
+                transform->SetRotationX(89.0f);
             }
-            if (transform->rotation.x < -89.0f) {
-                transform->rotation.x = -89.0f;
+            if (transform->GetRotation().x < -89.0f) {
+                transform->SetRotationX(-89.0f);
             }
         }
-
         camera->updateCameraVectors();
     }
 }

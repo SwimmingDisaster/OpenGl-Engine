@@ -6,11 +6,10 @@
 #include "ecs/other/componentFactory.h"
 #include "ecs/other/componentDefines.h"
 
-
-
 class Model : public Component
 {
 	REGISTER(Model);
+	GETNAME();
 public:
 	std::vector<Vertex>       vertices;
 	std::vector<unsigned int> indices;
@@ -30,14 +29,6 @@ public:
 	void Deserialize(const YAML::Node& data) override;
 	void Show() override;
 
-	/*
-	void loadModel(std::string const& path);
-	void  processNode(aiNode * node, const aiScene * scene);
-	Mesh processMesh(aiMesh * mesh, const aiScene * scene);
-	std::vector<Texture> loadMaterialTextures(aiMaterial * mat, aiTextureType type, std::string typeName);
-	*/
-
-	Model();
 #ifdef SHOW_DELETED
 public:
 	virtual ~Model();

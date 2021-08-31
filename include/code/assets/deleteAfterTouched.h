@@ -8,6 +8,7 @@
 
 class DeleteAfterTouched : public Component {
 	REGISTER(DeleteAfterTouched);
+	GETNAME();
 public:
 	// variables go here
 	bool isTouched = false;
@@ -22,7 +23,6 @@ public:
     void Show() override;
 	void OnCollision(const Entity* const other) override;
 
-	DeleteAfterTouched();
 #ifdef SHOW_DELETED
 public:
 	virtual ~DeleteAfterTouched();

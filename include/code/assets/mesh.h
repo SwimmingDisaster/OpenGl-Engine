@@ -10,6 +10,7 @@
 
 #include "core/modelImporter.h"
 
+/*
 class Mesh {
 public:
 	std::vector<Texture> textures_loaded;
@@ -20,9 +21,9 @@ public:
 	unsigned int VAO, VBO, EBO;
 public:
 	Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, const std::vector<Texture>& textures);
-	Mesh() {}
 
 	void setupMesh();
 };
+*/
 
 

@@ -6,6 +6,7 @@
 
 class ModelRenderer;
 REGISTERIMPL(Material);
+GETNAMEIMPL(Material);
 
 void Material::ShowProperties(){
 	std::size_t i = 0;
@@ -174,6 +175,3 @@ Material::~Material() {
 	Log("Deleted " << name);
 }
 #endif
-Material::Material() {
-	name = "Material";
-}

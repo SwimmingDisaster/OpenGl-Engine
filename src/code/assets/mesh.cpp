@@ -2,7 +2,7 @@
 #include "assets/model.h"
 #include "assets/modelRenderer.h"
 
-
+/*
 Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>& indices, const std::vector<Texture>& textures) {
     this->vertices = vertices;
     this->indices = indices;
@@ -10,7 +10,6 @@ Mesh::Mesh(const std::vector<Vertex>& vertices, const std::vector<unsigned int>&
 
     setupMesh();
 }
-
 
 void Mesh::setupMesh()
 {
@@ -51,16 +50,4 @@ void Mesh::setupMesh()
 }
 
 
-
-
-REGISTERIMPL(Model);
-Model::Model() {
-    name = "Model";
-};
-#ifdef SHOW_DELETED
-Model::~Model() {
-    Log("Deleted " << name);
-};
-#endif
-
-
+*/

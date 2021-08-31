@@ -6,6 +6,7 @@
 
 //--------------BoxCollider--------------
 REGISTERIMPL(BoxCollider);
+GETNAMEIMPL(BoxCollider);
 
 void BoxCollider::Show() {
     ImGui::DragFloat3("scale", glm::value_ptr(scale), 0.01f);
@@ -22,9 +23,6 @@ void BoxCollider::Deserialize(const YAML::Node& data) {
 PxGeometryHolder BoxCollider::GetGeometry() {
     return PxBoxGeometry(scale.x, scale.y, scale.z);
 }
-BoxCollider::BoxCollider() {
-    name = "BoxCollider";
-}
 #ifdef SHOW_DELETED
 BoxCollider::~BoxCollider() {
     Log("Deleted " << name);
@@ -35,6 +33,7 @@ BoxCollider::~BoxCollider() {
 
 //--------------SphereCollider--------------
 REGISTERIMPL(SphereCollider);
+GETNAMEIMPL(SphereCollider);
 
 void SphereCollider::Show() {
     ImGui::DragFloat("Radius", &radius, 0.01f);
@@ -51,9 +50,6 @@ void SphereCollider::Deserialize(const YAML::Node& data) {
 PxGeometryHolder SphereCollider::GetGeometry() {
     return PxSphereGeometry(PxReal(radius));
 }
-SphereCollider::SphereCollider() {
-    name = "SphereCollider";
-}
 #ifdef SHOW_DELETED
 SphereCollider::~SphereCollider() {
     Log("Deleted " << name);
@@ -62,6 +58,7 @@ SphereCollider::~SphereCollider() {
 //--------------SphereCollider--------------
 //--------------ConcaveMeshCollider--------------
 REGISTERIMPL(ConcaveMeshCollider);
+GETNAMEIMPL(ConcaveMeshCollider);
 
 void ConcaveMeshCollider::Show() {
     ImGui::InputText("File path", &filePath, ImGuiInputTextFlags_CallbackResize);
@@ -120,11 +117,8 @@ void ConcaveMeshCollider::Deserialize(const YAML::Node& data) {
     filePath = data["File path"].as<std::string>();
 }
 PxGeometryHolder ConcaveMeshCollider::GetGeometry() {
-    PxMeshScale scale(PxVec3(transform->scale.x, transform->scale.y, transform->scale.z), PxQuat(PxIdentity));
+    PxMeshScale scale(PxVec3(transform->GetScale().x, transform->GetScale().y, transform->GetScale().z), PxQuat(PxIdentity));
     return PxTriangleMeshGeometry(aTriangleMesh, scale);
-}
-ConcaveMeshCollider::ConcaveMeshCollider() {
-    name = "ConcaveMeshCollider";
 }
 #ifdef SHOW_DELETED
 ConcaveMeshCollider::~ConcaveMeshCollider() {

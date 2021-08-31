@@ -31,6 +31,7 @@ public:
 
 	template<typename T> [[nodiscard]] T* GetComponent() const noexcept;
 	template<typename T> [[nodiscard]] T* GetComponentOrMakeIfNone() noexcept;
+	template<typename T> [[nodiscard]] T* GetComponentByName(const std::string& name) const noexcept;
 	template<typename T> T* AddComponent();
 	template<typename T> void RemoveComponent();
 
@@ -70,6 +71,15 @@ template<typename T> [[nodiscard]]  T* Entity::GetComponentOrMakeIfNone() noexce
 	}
 	return AddComponent<T>();
 
+}
+template<typename T> [[nodiscard]] T* Entity::GetComponentByName(const std::string& name) const noexcept{
+	for (const auto& comp : m_components) {
+		if (comp->GetName() == name)
+		{
+			return static_cast<T*>(comp.get());
+		}
+	}
+	return nullptr;
 }
 template<typename T> T* Entity::AddComponent() {
 	const auto& comp = m_components.emplace_back(new T);

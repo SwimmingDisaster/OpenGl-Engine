@@ -6,18 +6,16 @@
 #include "ecs/entity.h"
 
 REGISTERIMPL(Rigidbody);
+GETNAMEIMPL(Rigidbody);
 
-void Rigidbody::Show()
-{
+void Rigidbody::Show(){
     ImGui::Checkbox("Is Static", &isStatic);
     ImGui::Checkbox("Constrain position", &constrainPos);
     ImGui::Checkbox("Constrain rotation", &constrainRot);
     ImGui::Checkbox("Is simulation", &isSimulation);
     ImGui::Checkbox("Is trigger", &isTrigger);
 }
-
-void Rigidbody::Serialize(YAML::Emitter& out) const
-{
+void Rigidbody::Serialize(YAML::Emitter& out) const{
     out << YAML::Key << name;
     out << YAML::BeginMap;
 
@@ -29,20 +27,17 @@ void Rigidbody::Serialize(YAML::Emitter& out) const
 
     out << YAML::EndMap;
 }
-void Rigidbody::Deserialize(const YAML::Node &data)
-{
+void Rigidbody::Deserialize(const YAML::Node &data){
     isStatic = data["Is Static"].as<bool>();
     constrainPos = data["Constrain position"].as<bool>();
     constrainRot = data["Constrain rotation"].as<bool>();
     isSimulation = data["Is simulation"].as<bool>();
     isTrigger = data["Is trigger"].as<bool>();
 }
-
-void Rigidbody::Start()
-{
+void Rigidbody::Start(){
     tc = parentEntity->GetComponent<Transform>();
     cc = parentEntity->GetComponent<ColliderBase>();
-    size = tc->scale;
+    //size = tc->GetScale();
 
     mMaterial = PhysicsManager::mPhysics->createMaterial(10.0f, 10.0f, 0.1f); //static friction, dynamic friction, restitution
     if (mMaterial == nullptr) {
@@ -63,7 +58,7 @@ void Rigidbody::Start()
     }
 
     if(isStatic) {
-        aStaticActor->setGlobalPose({tc->position.x, tc->position.y, tc->position.z});
+        aStaticActor->setGlobalPose({tc->GetPosition().x, tc->GetPosition().y, tc->GetPosition().z});
     }
 
     if (!isStatic) {
@@ -97,8 +92,7 @@ void Rigidbody::Start()
         PhysicsManager::SetupFiltering(aStaticActor, 1UL << layer, PhysicsManager::collisionLayerMask[layer], PhysicsManager::notifyLayerMask[layer]);
     }
 }
-void Rigidbody::Update()
-{
+void Rigidbody::Update(){
     //aSphereActor->setGlobalPose({tc->position.x, tc->position.y, tc->position.z});
     if (!isStatic)
     {
@@ -116,24 +110,22 @@ void Rigidbody::Update()
 
             auto pxvec3Vel = aDynamicActor->getLinearVelocity();
             if(!constrainPos) {
-                tc->position = translation + glm::vec3(pxvec3Vel.x, pxvec3Vel.y, pxvec3Vel.z) * PhysicsManager::mAccumulator;
+                tc->SetPosition(translation + glm::vec3(pxvec3Vel.x, pxvec3Vel.y, pxvec3Vel.z) * PhysicsManager::mAccumulator);
             }
             if(!constrainRot) {
-                tc->rotation = glm::degrees(rotation);
+                tc->SetRotation(glm::degrees(rotation));
             }
-            tc->scale = scale;
-            tc->scale = size;
+            tc->SetScale(scale);
+            //tc->scale = size;
         }
     }
 }
-
 void Rigidbody::OnCollision(const Entity* const other) {
     //Log(parentEntity->GetName() << " collided with " << other->GetName());
 }
 
 #ifdef SHOW_DELETED
-Rigidbody::~Rigidbody()
-{
+Rigidbody::~Rigidbody(){
     Log("Deleted " << name);
     if (!isStatic)
         aDynamicActor->release();
@@ -142,8 +134,7 @@ Rigidbody::~Rigidbody()
     mMaterial->release();
 }
 #else
-Rigidbody::~Rigidbody()
-{
+Rigidbody::~Rigidbody(){
     if (!isStatic) {
         aDynamicActor->release();
     } else {
@@ -152,9 +143,5 @@ Rigidbody::~Rigidbody()
     mMaterial->release();
 }
 #endif
-Rigidbody::Rigidbody()
-{
-    name = "Rigidbody";
-}
 
 

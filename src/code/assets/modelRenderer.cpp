@@ -7,6 +7,8 @@
 #include "core/batchRenderer.h"
 
 REGISTERIMPL(ModelRenderer);
+GETNAMEIMPL(ModelRenderer);
+
 void ModelRenderer::Start() {
     m_shader = Shader::shaderMap[shaderName].get();
     m_modelComponent = parentEntity->GetComponent<Model>();
@@ -57,9 +59,6 @@ void ModelRenderer::DrawModel(){
 	}
 }
 
-ModelRenderer::ModelRenderer() {
-    name = "ModelRenderer";
-}
 #ifdef SHOW_DELETED
 ModelRenderer::~ModelRenderer() {
     Log("Deleted " << name);

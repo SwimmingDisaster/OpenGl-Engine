@@ -3,6 +3,7 @@
 #include "core/input.h"
 
 REGISTERIMPL(PhysicsFPScontroler);
+GETNAMEIMPL(PhysicsFPScontroler);
 
 void PhysicsFPScontroler::Show()  {
     //	ImGui::InputText("Shader Name", &shaderName, ImGuiInputTextFlags_CallbackResize);
@@ -47,8 +48,7 @@ void PhysicsFPScontroler::Update() {
 
 }
 
-void PhysicsFPScontroler::ProcessKeyboard(float deltaTime)
-{
+void PhysicsFPScontroler::ProcessKeyboard(float deltaTime){
     float velocity = movementSpeed * deltaTime;
 
     if (glfwGetKey(Application::GetWindow(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
@@ -57,16 +57,16 @@ void PhysicsFPScontroler::ProcessKeyboard(float deltaTime)
     glm::vec3 velvec3 = glm::vec3(velocity, 0, velocity);
 
     if (Input::IsKeyHeld(INPUT_KEY_W)) {
-        transform->position += camera->vFront * velvec3;
+        transform->SetPosition(transform->GetPosition() + camera->vFront * velvec3);
     }
     if (Input::IsKeyHeld(INPUT_KEY_S)) {
-        transform->position -= camera->vFront * velvec3;
+        transform->SetPosition(transform->GetPosition() - camera->vFront * velvec3);
     }
     if (Input::IsKeyHeld(INPUT_KEY_A)) {
-        transform->position -= camera->vRight * velvec3;
+        transform->SetPosition(transform->GetPosition() - camera->vRight * velvec3);
     }
     if (Input::IsKeyHeld(INPUT_KEY_D)) {
-        transform->position += camera->vRight * velvec3;
+        transform->SetPosition(transform->GetPosition() + camera->vRight * velvec3);
     }
     if (Input::IsKeyHeld(INPUT_KEY_SPACE)) {
         if (canjump) {
@@ -77,10 +77,10 @@ void PhysicsFPScontroler::ProcessKeyboard(float deltaTime)
     if(!canjump) {
         acceleration.y -= 30.0f * deltaTime;
     }
-    transform->position += acceleration * deltaTime;
+    transform->SetPosition(transform->GetPosition() + acceleration * deltaTime);
 
     if (rigidbody && Application::isRunning) {
-        rigidbody->aDynamicActor->setGlobalPose({transform->position.x, transform->position.y, transform->position.z}, false);
+        rigidbody->aDynamicActor->setGlobalPose({transform->GetPosition().x, transform->GetPosition().y, transform->GetPosition().z}, false);
         rigidbody->aDynamicActor->setLinearVelocity({0.0f, 0.0f, 0.0f});
     }
     //acceleration.x -= 30.0f * deltaTime, 0;
@@ -91,37 +91,28 @@ void PhysicsFPScontroler::OnCollision(const Entity* const other) {
     acceleration.y = 0.0f;
     canjump = true;
 }
-
-void PhysicsFPScontroler::ProcessMouseMovement(bool constrainPitch)
-{
-
+void PhysicsFPScontroler::ProcessMouseMovement(bool constrainPitch){
     if (!isLocked) {
+        transform->SetRotationY(transform->GetRotation().y + Input::Get().xoffset * mouseSensitivity);
+        transform->SetRotationX(transform->GetRotation().x + Input::Get().yoffset * mouseSensitivity);
 
-        transform->rotation.y   += Input::Get().xoffset * mouseSensitivity;
-        transform->rotation.x   += Input::Get().yoffset * mouseSensitivity;
-
-        transform->rotation.y = fmod(transform->rotation.y, 360.0f);
+        transform->SetRotationY(fmod(transform->GetRotation().y, 360.0f));
 
         if (constrainPitch)
         {
-            if (transform->rotation.x > 89.0f) {
-                transform->rotation.x = 89.0f;
+            if (transform->GetRotation().x > 89.0f) {
+                transform->SetRotationX(89.0f);
             }
-            if (transform->rotation.x < -89.0f) {
-                transform->rotation.x = -89.0f;
+            if (transform->GetRotation().x < -89.0f) {
+                transform->SetRotationX(-89.0f);
             }
         }
-
         camera->updateCameraVectors();
     }
 }
-
 
 #ifdef SHOW_DELETED
 PhysicsFPScontroler::~physicsFPScontroler() {
     Log("Deleted " << name);
 }
 #endif
-PhysicsFPScontroler::PhysicsFPScontroler() {
-    name = "PhysicsFPScontroler";
-}

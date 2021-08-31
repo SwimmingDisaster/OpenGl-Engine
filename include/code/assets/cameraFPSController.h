@@ -7,6 +7,7 @@
 
 class CameraFPSController : public Component {
 	REGISTER(CameraFPSController);
+	GETNAME();
 public:
 	Transform* transform;
 	Camera* camera;
@@ -21,7 +22,6 @@ public:
 	void Serialize(YAML::Emitter& out) const override;
 	void Deserialize(const YAML::Node& data) override;
 
-	CameraFPSController();
 #ifdef SHOW_DELETED
 public:
 	virtual ~CameraFPSController();

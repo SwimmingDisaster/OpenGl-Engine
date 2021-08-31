@@ -8,6 +8,7 @@
 class Material;
 class ModelRenderer : public Component{
 	REGISTER(ModelRenderer);
+	GETNAME();
 public:
 	std::string shaderName = "res/shaders/color";
 	Shader* m_shader;
@@ -28,7 +29,6 @@ public:
 	void Draw() override;
 	void Show() override;
 
-	ModelRenderer();
 #ifdef SHOW_DELETED
 public:
 	virtual ~ModelRenderer();

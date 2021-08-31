@@ -22,15 +22,15 @@ public:
     Batch(const Batch& other) = delete;
 	Batch(Batch&& other) noexcept;
 public:
-	void AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* const material, const Transform* const transform);
+	void AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* material, Transform* transform);
 	void Setup();
 	void Clear();
 	void Destroy();
 	void Draw(Shader* const shader);
-	void DrawThisGeometry(Shader* const shader, const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices);
+	void DrawThisGeometry(Shader* shader, const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices);
 
 	void SetProperties(Shader* const shader);
-	void AddProperties(const Material* const material, const Transform* const transform);
+	void AddProperties(const Material* material, Transform* transform);
 public:
 	std::size_t index = 0;
 	std::size_t textureIndex = 0;
@@ -45,8 +45,8 @@ public:
 
 
 private:
-	void AddPropertyVector(const Material* const material, unsigned long& i);
-	void AddProperty(const Material* const material, unsigned long& i); 
+	void AddPropertyVector(const Material* material, unsigned long& i);
+	void AddProperty(const Material* material, unsigned long& i); 
 private:
 	unsigned int VAO, VBO, EBO;
 };
@@ -56,13 +56,13 @@ public:
     LightBatch(const LightBatch& other) = delete;
 	LightBatch(LightBatch&& other) noexcept;
 public:
-	void AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, const Transform* const transform);
+	void AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, Transform* transform);
 	void AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, DirectionalLight& light);
 	//void AddObject(const std::vector<glm::vec3>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, std::shared_ptr<Transform>& transform);
 	void Setup(LightBatchType otherType);
 	void Clear();
 	void Destroy();
-	void Draw(Shader* const shader);
+	void Draw(Shader* shader);
 public:
 	std::size_t index = 0;
 
@@ -86,7 +86,7 @@ public:
 	static std::unordered_map<std::string, unsigned long> batchIndexes;
 
 public:
-	static void AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* const material, const Transform* const transform, const std::string& shaderName);
+	static void AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* material, Transform* transform, const std::string& shaderName);
 	static void Clear();
 	static void Draw();
 	static void Destroy();
@@ -107,8 +107,8 @@ public:
 	static std::vector<unsigned int> sphereIndices;
 public:
 	static void Init();
-	static void AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, const Transform* const transform, const std::string& shaderName);
-	static void AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, DirectionalLight& light, const Transform* const transform, const std::string& shaderName);
+	static void AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, Transform* transform, const std::string& shaderName);
+	static void AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, DirectionalLight& light, Transform* transform, const std::string& shaderName);
 	static void Clear();
 	static void Draw();
 	static void Destroy();

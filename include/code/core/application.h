@@ -13,9 +13,10 @@ private:
 	static Application m_instance;
 
 	GLFWwindow *window;
+
 	Entity* selectedEntity;
 	Entity* copiedEntity;
-	Component* copiedComponent; // EDITOR MANAGER?
+	Component* copiedComponent;
 
 	Scene m_curentScene;
 public:

@@ -1,3 +1,4 @@
+#include "mypch.h"
 #include "assets/deleteAfterTouched.h"
 #include "core/engineInfo.h"
 

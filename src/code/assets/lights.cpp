@@ -1,3 +1,4 @@
+#include "mypch.h"
 #include "assets/lights.h"
 #include "core/batchRenderer.h"
 #include "core/input.h"

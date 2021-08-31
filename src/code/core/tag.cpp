@@ -1,3 +1,4 @@
+#include "mypch.h"
 #include "core/tag.h"
 
 std::vector<std::string> TagManager::tagList = {""};

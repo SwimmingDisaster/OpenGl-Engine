@@ -1,3 +1,4 @@
+#include "mypch.h"
 #include "core/layer.h"
 
 std::array<std::string, 32> LayerManager::layerList;

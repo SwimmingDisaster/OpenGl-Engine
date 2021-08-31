@@ -1,3 +1,4 @@
+#include "mypch.h"
 #include "core/modelImporter.h"
 
 static const unsigned int assimpFlags = aiProcess_CalcTangentSpace

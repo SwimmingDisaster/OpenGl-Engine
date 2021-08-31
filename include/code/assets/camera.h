@@ -1,14 +1,12 @@
 #pragma once
-#include "mypch.h"
+//#include "mypch.h"
 
 #include "ecs/component.h"
-#include "ecs/other/componentFactory.h"
+#include "ecs/other/componentDefines.h"
 
-#include "assets/transform.h"
-
-
-//#define _ITERATOR_DEBUG_LEVEL 0
-
+class Transform;
+namespace YAML { class Emitter; }
+namespace YAML { class Node; }
 
 class Camera : public Component {
 	REGISTER(Camera);

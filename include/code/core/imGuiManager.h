@@ -1,3 +1,4 @@
+#pragma once
 #include "mypch.h"
 #include "ecs/entity.h"
 

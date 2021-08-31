@@ -4,13 +4,10 @@
 #include "core/application.h"
 #include "core/input.h"
 #include "core/renderer.h"
+#include "assets/transform.h"
 
 REGISTERIMPL(Camera);
 GETNAMEIMPL(Camera);
-Camera::Camera() {
-    //name = "Camera";
-}
-
 
 #ifdef SHOW_DELETED
 Camera::~Camera() {

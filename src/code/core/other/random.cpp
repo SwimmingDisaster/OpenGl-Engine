@@ -1,3 +1,4 @@
+#include "mypch.h"
 #include "core/other/random.h"
 
 std::mt19937 Random::s_RandomEngine;

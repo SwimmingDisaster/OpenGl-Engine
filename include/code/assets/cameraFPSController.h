@@ -2,8 +2,12 @@
 #include "mypch.h"
 
 #include "ecs/other/componentDefines.h"
-#include "assets/transform.h"
-#include "assets/camera.h"
+#include "ecs/component.h"               // for Component
+
+class Camera;
+class Transform;
+namespace YAML { class Emitter; }
+namespace YAML { class Node; }
 
 class CameraFPSController : public Component {
 	REGISTER(CameraFPSController);

@@ -3,7 +3,11 @@
 #include "assets/colliderBase.h"
 #include "ecs/other/componentDefines.h"
 
-#include "assets/transform.h"
+
+class Transform;
+namespace YAML { class Emitter; }
+namespace YAML { class Node; }
+namespace physx { class PxTriangleMesh; }
 
 //--------------BoxCollider--------------
 class BoxCollider : public ColliderBase{

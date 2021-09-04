@@ -1,5 +1,10 @@
 #include "mypch.h"
 #include "ecs/entity.h"
+#include "ecs/component.h"               // for Component
+#include "ecs/other/componentFactory.h"  // for Factory
+
+namespace YAML { class Emitter; }
+namespace YAML { class Node; }
 
 
 void Entity::Start() {

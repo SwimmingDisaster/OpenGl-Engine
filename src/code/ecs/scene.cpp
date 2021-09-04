@@ -1,21 +1,24 @@
 #include "mypch.h"
 
 #include "ecs/scene.h"
-#include "ecs/other/componentFactory.h"
 
 #include "core/application.h"
 #include "core/batchRenderer.h"
-#include "core/physics.h"
 #include "core/renderer.h"
-
+#include "core/framebuffer.h"       // for ForwardFrameBuffer, DeferredFrameBuffer
+#include "core/engineInfo.h"        // for EngineInfo, EngineInfo::SCREEN_HEIGHT, EngineInfo::SCREEN_WIDTH
+#include "wingdi.h"                 // for GetObject, DeferredFrameBuffer::GetObjectA, ForwardFrameBuffer::GetObjectA
+#include "core/shader.h"
 #include "core/tag.h"
 #include "core/layer.h"
+#include "core/physics.h"
+#include "core/other/editorCamera.h"
 
-#include "assets/ui/text.h"
-#include "assets/transform.h"
-#include "assets/mesh.h"
+#include "ecs/entity.h"
+
 #include "assets/modelRenderer.h"
-
+#include "assets/lights.h"
+#include "assets/ui/text.h"
 
 Entity* Scene::GetEntity(std::string name) const noexcept {
 	for (auto &entt : m_entities)

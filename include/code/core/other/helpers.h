@@ -3,6 +3,9 @@
 #include "core/texture.h"
 
 
+class TextureInfo;
+namespace YAML { class Emitter; }
+namespace YAML { template <typename T> struct convert; }
 
 YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec2& v);
 YAML::Emitter& operator<<(YAML::Emitter& out, const glm::vec3& v);

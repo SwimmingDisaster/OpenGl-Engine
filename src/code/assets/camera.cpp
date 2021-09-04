@@ -1,10 +1,12 @@
 #include "mypch.h"
 #include "assets/camera.h"
 
-#include "core/application.h"
-#include "core/input.h"
 #include "core/renderer.h"
 #include "assets/transform.h"
+#include "core/other/helpers.h"          // for operator<<
+#include "ecs/entity.h"                  // for Entity
+#include "core/engineInfo.h"             // for EngineInfo
+
 
 REGISTERIMPL(Camera);
 GETNAMEIMPL(Camera);

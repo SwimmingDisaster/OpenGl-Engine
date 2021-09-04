@@ -1,6 +1,7 @@
 #include "mypch.h"
 #include "core/framebuffer.h"
 #include "core/input.h"
+#include "core/other/log.h"  // for ErrorAtPos
 
 void FrameBuffer::Unbind() {
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);

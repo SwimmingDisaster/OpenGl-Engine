@@ -1,10 +1,7 @@
 #pragma once
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
-#include <vector>
-
+namespace YAML { class Emitter; }
+namespace YAML { class Node; }
 
 enum Camera_Movement {
 	FORWARD,

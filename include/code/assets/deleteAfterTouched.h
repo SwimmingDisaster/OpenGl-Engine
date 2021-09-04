@@ -1,10 +1,12 @@
 #pragma once
 #include "mypch.h"
 #include "ecs/component.h"
-#include "ecs/other/componentFactory.h"
 #include "ecs/other/componentDefines.h"
 
-#include "assets/material.h"
+class Entity;
+class Material;
+namespace YAML { class Emitter; }
+namespace YAML { class Node; }
 
 class DeleteAfterTouched : public Component {
 	REGISTER(DeleteAfterTouched);

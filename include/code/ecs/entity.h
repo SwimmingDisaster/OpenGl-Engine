@@ -1,8 +1,9 @@
 #pragma once
 #include "mypch.h"
-#include "component.h"
+#include "ecs/component.h"
 
-#include "ecs/other/componentFactory.h"
+namespace YAML { class Emitter; }
+namespace YAML { class Node; }
 
 class Entity{
 public:

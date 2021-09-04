@@ -1,7 +1,7 @@
 #pragma once
 #include "mypch.h"
-#include "ecs/entity.h"
 
+struct ImGuiContext;
 class ImGuiManager
 {
 #ifndef RELEASE_BUILD

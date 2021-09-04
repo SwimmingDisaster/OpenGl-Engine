@@ -3,6 +3,7 @@
 #include "core/application.h"
 #include "core/input.h"
 #include "core/engineInfo.h"
+#include "core/other/editorCamera.h"
 
 unsigned int Renderer::matrixUBO;
 glm::mat4 Renderer::projectionMatrix;

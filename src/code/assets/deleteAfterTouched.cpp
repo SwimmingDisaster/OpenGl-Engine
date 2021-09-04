@@ -1,7 +1,10 @@
 #include "mypch.h"
 #include "assets/deleteAfterTouched.h"
 #include "core/engineInfo.h"
+#include "ecs/entity.h"             // for Entity
+#include "assets/material.h"        // for Material
 
+namespace YAML { class Node; }
 
 REGISTERIMPL(DeleteAfterTouched);
 GETNAMEIMPL(DeleteAfterTouched);

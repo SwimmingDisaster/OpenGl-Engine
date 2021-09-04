@@ -1,9 +1,11 @@
 #pragma once
-#include "assets/model.h"
-#include "assets/material.h"
-#include "assets/lights.h"
-#include "core/modelImporter.h"
+#include "core/modelImporter.h"         // for Vertex
 
+class Material;
+class Shader;
+class Transform;
+struct DirectionalLight;
+struct PointLight;
 
 #define BATCH_SIZE 150
 #define LIGHT_BATCH_SIZE 50

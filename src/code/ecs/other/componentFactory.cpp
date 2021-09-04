@@ -1,8 +1,8 @@
 #include "mypch.h"
 
-#include "ecs/entity.h"
 #include "ecs/other/componentFactory.h"
 #include "ecs/other/componentCreator.h"
+
 
 void Factory::registerit(const std::string &classname, Creator *creator)
 {

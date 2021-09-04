@@ -3,6 +3,9 @@
 #include "core/modelImporter.h"
 #include "core/physics.h"
 
+#include "assets/transform.h"                       // for Transform
+#include "core/other/helpers.h"                     // for operator<<
+#include "ecs/entity.h"                             // for Entity
 
 //--------------BoxCollider--------------
 REGISTERIMPL(BoxCollider);

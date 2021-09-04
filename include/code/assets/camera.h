@@ -1,5 +1,5 @@
 #pragma once
-//#include "mypch.h"
+#include "mypch.h"
 
 #include "ecs/component.h"
 #include "ecs/other/componentDefines.h"
@@ -37,8 +37,6 @@ public:
 	void Serialize(YAML::Emitter& out) const override;
 	void Deserialize(const YAML::Node& data) override;
 
-
-	Camera();
 #ifdef SHOW_DELETED
 public:
 	virtual ~Camera();

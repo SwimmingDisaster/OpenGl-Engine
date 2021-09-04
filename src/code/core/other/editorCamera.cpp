@@ -4,6 +4,9 @@
 #include "core/application.h"
 #include "core/input.h"
 
+namespace YAML { class Emitter; }
+namespace YAML { class Node; }
+
 
 
 EditorCamera::EditorCamera(glm::vec3 position, glm::vec3 up, float yaw, float pitch) : vFront(glm::vec3(0.0f, 0.0f, -1.0f)), movementSpeed(SPEED), mouseSensitivity(SENSITIVITY)

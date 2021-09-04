@@ -3,6 +3,11 @@
 
 #include "core/input.h"
 #include "core/application.h"
+#include "assets/camera.h"                  // for Camera
+#include "assets/transform.h"               // for Transform
+#include "ecs/entity.h"                     // for Entity
+#include "core/engineInfo.h"                // for EngineInfo
+
 
 REGISTERIMPL(CameraFPSController);
 GETNAMEIMPL(CameraFPSController);

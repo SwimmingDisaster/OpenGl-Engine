@@ -5,17 +5,26 @@
 #include "core/renderer.h"
 #include "core/physics.h"
 
-#include "core/tag.h"
-#include "core/layer.h"
-
 #include "ecs/entity.h"
 
-#include "assets/transform.h"
-#include "assets/mesh.h"
-#include "assets/material.h"
-#include "assets/modelRenderer.h"
-#include "assets/rigidbody.h"
+#include "core/math.h"                   // for DecomposeTransform
+#include "core/other/log.h"              // for Error
+#include "core/other/random.h"           // for Random
+#include "core/engineInfo.h"             // for EngineInfo
+#include "core/tag.h"                    // for TagManager
+#include "core/layer.h"                  // for LayerManager
+#include "ecs/component.h"               // for Component
+#include "ecs/other/componentFactory.h"  // for Factory
+#include "ecs/scene.h"                   // for Scene
+#include "utils/fileUtils.h"             // for OpenFile, SaveFile
 
+using namespace std::literals::string_literals;
+
+#include "assets/transform.h"
+#include "assets/model.h"
+#include "assets/modelRenderer.h"
+#include "assets/material.h"
+#include "assets/rigidbody.h"
 
 
 #ifndef RELEASE_BUILD

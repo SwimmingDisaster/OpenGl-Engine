@@ -1,6 +1,6 @@
 #include "mypch.h"
 #include "utils/fileUtils.h"
-#include "core/application.h"
+#include "core/other/log.h"  // for Log
 
 
 std::string OpenFile(nfdfilteritem_t filterItem[], int numFilters)

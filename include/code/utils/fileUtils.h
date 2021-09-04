@@ -1,5 +1,6 @@
 #pragma once
-#include "nfd/nfd.hpp"
+#include "nfd/nfd.h"  // for nfdfilteritem_t
+#include "xstring"    // for string
 
 
 std::string OpenFile(nfdfilteritem_t filterItem[], int numFilters);

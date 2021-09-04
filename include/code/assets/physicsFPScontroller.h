@@ -1,10 +1,14 @@
 #pragma once
 #include "mypch.h"
 #include "ecs/component.h"
-#include "ecs/other/componentFactory.h"
 #include "ecs/other/componentDefines.h"
-#include "assets/camera.h"
-#include "assets/rigidbody.h"
+
+class Camera;
+class Entity;
+class Rigidbody;
+class Transform;
+namespace YAML { class Emitter; }
+namespace YAML { class Node; }
 
 class PhysicsFPScontroler : public Component {
 	REGISTER(PhysicsFPScontroler);

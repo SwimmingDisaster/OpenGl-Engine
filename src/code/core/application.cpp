@@ -1,19 +1,23 @@
 #include "mypch.h"
 
-#include "core/shader.h"
 #include "core/application.h"
 #include "core/renderer.h"
 #include "core/imGuiManager.h"
 #include "core/input.h"
 #include "core/physics.h"
-#include "core/framebuffer.h"
 #include "core/batchRenderer.h"
 
+#include "core/engineInfo.h"          // for EngineInfo
+#include "core/other/editorCamera.h"  // for EditorCamera
+#include "core/other/log.h"           // for Log, ReturnIfNotZero
+#include "core/other/random.h"        // for Random
+
+#include "assets/transform.h"
+#include "assets/material.h"
+#include "assets/lights.h"
 #include "assets/model.h"
 #include "assets/modelRenderer.h"
-#include "assets/colliders.h"
-#include "assets/rigidbody.h"
-#include "assets/material.h"
+
 
 
 Application Application::m_instance;

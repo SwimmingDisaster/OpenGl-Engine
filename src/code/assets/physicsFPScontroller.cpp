@@ -2,6 +2,11 @@
 #include "assets/physicsFPScontroller.h"
 #include "core/application.h"
 #include "core/input.h"
+#include "assets/camera.h"                  // for Camera
+#include "assets/rigidbody.h"               // for Rigidbody
+#include "assets/transform.h"               // for Transform
+#include "ecs/entity.h"                     // for Entity
+#include "core/engineInfo.h"                // for EngineInfo
 
 REGISTERIMPL(PhysicsFPScontroler);
 GETNAMEIMPL(PhysicsFPScontroler);

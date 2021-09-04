@@ -1,11 +1,12 @@
 #pragma once
 #include "mypch.h"
 
-#include "core/other/editorCamera.h"
-#include "core/engineInfo.h"
 
-#include "ecs/entity.h"
 #include "ecs/scene.h"
+#include "core/engineInfo.h"
+class Component;
+class EditorCamera;
+class Entity;
 
 
 class Application{

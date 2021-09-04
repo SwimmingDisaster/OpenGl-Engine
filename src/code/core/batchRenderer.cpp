@@ -1,10 +1,12 @@
 #include "mypch.h"
+
 #include "core/batchRenderer.h"
-#include "assets/mesh.h"
+#include "assets/lights.h"       // for DirectionalLight, PointLight, SpotLight
 #include "assets/material.h"
-#include "core/engineInfo.h"
-#include "core/input.h"
+#include "core/shader.h"
 #include "core/renderer.h"
+#include "core/engineInfo.h"
+
 
 std::unordered_map<std::string, std::vector<Batch>> BatchRenderer::batchMap;
 std::unordered_map<std::string, unsigned long> BatchRenderer::batchIndexes;

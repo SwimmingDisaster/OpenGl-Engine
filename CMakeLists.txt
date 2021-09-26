@@ -24,12 +24,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 
-set(IWYU include-what-you-use
-	#-Xiwyu --pch_in_code
-	-Xiwyu --prefix_header_includes=remove
-	)
-	#	-include=/home/ognjen/OpenGl-Engine/build/CMakeFiles/main.dir/cmake_pch.hxx)
-set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${IWYU})
+#set(IWYU include-what-you-use
+#	-Xiwyu --pch_in_code
+#	#-Xiwyu -include=/home/ognjen/OpenGl-Engine/build/CMakeFiles/main.dir/cmake_pch.hxx.pch
+#	-Xiwyu --prefix_header_includes=remove
+#	#-Xiwyu -include=mypch.h
+#	#	-Xiwyu -include=include/mypch.h
+#	)
+#	#	-include=/home/ognjen/OpenGl-Engine/build/CMakeFiles/main.dir/cmake_pch.hxx)
+#set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE ${IWYU})
 
 
 file(GLOB_RECURSE SOURCE_FILES ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/*.c)

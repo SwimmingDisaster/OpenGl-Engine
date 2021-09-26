@@ -7,7 +7,6 @@
 #include "core/renderer.h"
 #include "core/framebuffer.h"       // for ForwardFrameBuffer, DeferredFrameBuffer
 #include "core/engineInfo.h"        // for EngineInfo, EngineInfo::SCREEN_HEIGHT, EngineInfo::SCREEN_WIDTH
-#include "wingdi.h"                 // for GetObject, DeferredFrameBuffer::GetObjectA, ForwardFrameBuffer::GetObjectA
 #include "core/shader.h"
 #include "core/tag.h"
 #include "core/layer.h"

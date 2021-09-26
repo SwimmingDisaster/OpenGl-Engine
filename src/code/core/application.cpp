@@ -18,6 +18,12 @@
 #include "assets/model.h"
 #include "assets/modelRenderer.h"
 
+#include "core/other/helpers.h"
+#include "utils/fileUtils.h"
+
+#include "core/math.h"
+
+#include "nfd/nfd.hpp"
 
 
 Application Application::m_instance;

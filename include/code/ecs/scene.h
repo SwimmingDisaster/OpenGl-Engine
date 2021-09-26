@@ -1,8 +1,5 @@
 #pragma once
 #include "mypch.h"
-#include "memory"   // for unique_ptr
-#include "vector"   // for vector
-#include "xstring"  // for string
 
 class Entity;
 

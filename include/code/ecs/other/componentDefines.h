@@ -18,4 +18,4 @@ public: \
 #define GETNAMEIMPL(classname) \
 	const std::string& classname::GetName(){\
 		return name; \
-	} \
+	}

@@ -22,7 +22,7 @@ class Batch{
 public:
 	Batch() = default;
     Batch(const Batch& other) = delete;
-	Batch(Batch&& other) noexcept;
+	Batch(Batch&& other) noexcept = default;
 public:
 	void AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* material, Transform* transform);
 	void Setup();
@@ -56,7 +56,7 @@ class LightBatch{
 public:
 	LightBatch() = default;
     LightBatch(const LightBatch& other) = delete;
-	LightBatch(LightBatch&& other) noexcept;
+	LightBatch(LightBatch&& other) noexcept = default;
 public:
 	void AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, Transform* transform);
 	void AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, DirectionalLight& light);

@@ -422,7 +422,7 @@ Entities:
       Scale: [2, 2, 2]
     Model:
       Is flipped: false
-      Path: /home/ognjen/Downloads/Sponza/sponza.obj
+      Path: /home/ognjen/Other/Sponza/sponza.fbx
     ModelRenderer:
       Shader name: res/shaders/color
       Isnt batched: false

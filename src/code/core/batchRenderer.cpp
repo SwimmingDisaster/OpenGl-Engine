@@ -24,22 +24,39 @@ std::vector<unsigned int> LightsBatchRenderer::quadIndices;
 std::vector<BasicVertex> LightsBatchRenderer::sphereVertices;
 std::vector<unsigned int> LightsBatchRenderer::sphereIndices;
 
-Batch::Batch(Batch&& other) noexcept {
-	index = std::move(other.index);
-	textureIndex = std::move(other.textureIndex);
+void AddData(auto& vertices, auto& indices, const auto& otherVertices, const auto& otherIndices, std::size_t& index){
+	const std::size_t numNewVertices = otherVertices.size();
+	const std::size_t numNewIndices = otherIndices.size();
 
-	vertices = std::move(other.vertices);
-	indices = std::move(other.indices);
+	const std::size_t numVertices = vertices.size();
+	const std::size_t numIndices = indices.size();
 
-	matrixList = std::move(other.matrixList);
+	//vertices.reserve(numVertices + numNewVertices);
+	//indices.reserve(numIndices + numNewIndices);
 
-	materialMap = std::move(other.materialMap);
-	textureIndexMap = std::move(other.textureIndexMap);
+	vertices.insert(vertices.end(), otherVertices.begin(), otherVertices.end());
+	indices.insert(indices.end(), otherIndices.begin(), otherIndices.end());
 
-	VAO = std::move(other.VAO);
-	VBO = std::move(other.VBO);
-	EBO = std::move(other.EBO);
+	for (std::size_t i = numVertices; i < numVertices + numNewVertices; i++) {
+		vertices[i].ObjectIndex = index;
+	}
+	for (std::size_t i = numIndices; i < numIndices + numNewIndices; i++) {
+		indices[i] += numVertices;
+	}
+	index++;
 }
+void SetBufferData(GLenum type, unsigned int buffer, const auto& data){
+	glBindBuffer(type, buffer);
+	int size; glGetBufferParameteriv(type, GL_BUFFER_SIZE, &size);
+	if(sizeof(data) <= (std::size_t)size) {
+		glBufferSubData(type, 0, data.size() * sizeof(data[0]), &data[0]);
+	}
+	else {
+		glBufferData(type, data.size() * sizeof(data[0]), &data[0], GL_STREAM_DRAW);
+		//Log("Data current size: " << size << " desired size: " << sizeof(data));
+	}
+}
+
 void Batch::Setup() {
 
 	glGenVertexArrays(1, &VAO);
@@ -144,27 +161,8 @@ void Batch::AddProperties(const Material* material, Transform* transform){
 }
 void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* material, Transform* transform)  {
 	AddProperties(material, transform);
+	AddData(vertices, indices, otherVertices, otherIndices,index);
 
-	const std::size_t numNewVertices = otherVertices.size();
-	const std::size_t numNewIndices = otherIndices.size();
-
-	const std::size_t numVertices = vertices.size();
-	const std::size_t numIndices = indices.size();
-
-	//vertices.reserve(numVertices + numNewVertices);
-	//indices.reserve(numIndices + numNewIndices);
-
-	vertices.insert(vertices.end(), otherVertices.begin(), otherVertices.end());
-	indices.insert(indices.end(), otherIndices.begin(), otherIndices.end());
-
-	for (std::size_t i = numVertices; i < numVertices + numNewVertices; i++) {
-		vertices[i].ObjectIndex = index;
-	}
-	for (std::size_t i = numIndices; i < numIndices + numNewIndices; i++) {
-		indices[i] += numVertices;
-	}
-
-	index++;
 	assert(index <= BATCH_SIZE);
 	assert(matrixList.size() <= BATCH_SIZE);
 }
@@ -219,27 +217,8 @@ void Batch::Draw(Shader* shader) {
 
 	glBindVertexArray(VAO);
 
-	int size;
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
-	if(vertices.size() * sizeof(Vertex) <= size) {
-		glBufferSubData(GL_ARRAY_BUFFER, 0, vertices.size() * sizeof(Vertex), &vertices[0]);
-	}
-	else {
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), &vertices[0], GL_STREAM_DRAW);
-		//Log("Vertices current size: " << size << " desired size: " << vertices.size() * sizeof(Vertex));
-	}
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
-	if(indices.size() * sizeof(unsigned int) <= size) {
-		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, indices.size() * sizeof(unsigned int), &indices[0]);
-	}
-	else {
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STREAM_DRAW);
-		//Log("Indices current size: " << size << " desired size: " << vertices.size() * sizeof(Vertex));
-	}
+	SetBufferData(GL_ARRAY_BUFFER, VBO, vertices);
+	SetBufferData(GL_ELEMENT_ARRAY_BUFFER, EBO, indices);
 
 	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, (const void *)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -257,27 +236,8 @@ void Batch::DrawThisGeometry(Shader* const shader, const std::vector<Vertex>& ot
 
 	glBindVertexArray(VAO);
 
-	int size;
-
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glGetBufferParameteriv(GL_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
-	if(otherVertices.size() * sizeof(Vertex) <= size) {
-		glBufferSubData(GL_ARRAY_BUFFER, 0, otherVertices.size() * sizeof(Vertex), &otherVertices[0]);
-	}
-	else {
-		glBufferData(GL_ARRAY_BUFFER, otherVertices.size() * sizeof(Vertex), &otherVertices[0], GL_STREAM_DRAW);
-		//Log("Vertices current size: " << size << " desired size: " << otherVertices.size() * sizeof(Vertex));
-	}
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glGetBufferParameteriv(GL_ELEMENT_ARRAY_BUFFER, GL_BUFFER_SIZE, &size);
-	if(otherIndices.size() * sizeof(unsigned int) <= size) {
-		glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, otherIndices.size() * sizeof(unsigned int), &otherIndices[0]);
-	}
-	else {
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, otherIndices.size() * sizeof(unsigned int), &otherIndices[0], GL_STREAM_DRAW);
-		//Log("Indices current size: " << size << " desired size: " << otherVertices.size() * sizeof(Vertex));
-	}
+	SetBufferData(GL_ARRAY_BUFFER, VBO, vertices);
+	SetBufferData(GL_ELEMENT_ARRAY_BUFFER, EBO, indices);
 
 	glDrawElements(GL_TRIANGLES, (GLsizei)otherIndices.size(), GL_UNSIGNED_INT, (const void *)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -285,24 +245,6 @@ void Batch::DrawThisGeometry(Shader* const shader, const std::vector<Vertex>& ot
 	glBindVertexArray(0);
 }
 
-
-
-LightBatch::LightBatch(LightBatch&& other) noexcept {
-	index = std::move(other.index);
-
-	vertices = std::move(other.vertices);
-	indices = std::move(other.indices);
-
-	matrixList = std::move(other.matrixList);
-
-	pointLightList = std::move(other.pointLightList);
-	directionalLightList = std::move(other.directionalLightList);
-
-	VAO = std::move(other.VAO);
-	VBO = std::move(other.VBO);
-	EBO = std::move(other.EBO);
-	UBO = std::move(other.UBO);
-}
 void LightBatch::Setup(LightBatchType otherType) {
 	type = otherType;
 
@@ -340,55 +282,17 @@ void LightBatch::Setup(LightBatchType otherType) {
 	glBindVertexArray(0);
 }
 void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, PointLight& light, Transform* transform) {
-
-	const std::size_t numVertices = vertices.size();
-	const std::size_t numIndices = indices.size();
-
-	const std::size_t numNewVertices = otherVertices.size();
-	const std::size_t numNewIndices = otherIndices.size();
-	//vertices.reserve(numVertices + numNewVertices);
-	//indices.reserve(numIndices + numNewIndices);
-
-	vertices.insert(vertices.end(), otherVertices.begin(), otherVertices.end());
-	indices.insert(indices.end(), otherIndices.begin(), otherIndices.end());
-
 	matrixList.push_back(transform->GetTransform());
 	pointLightList.push_back(light);
+	AddData(vertices, indices, otherVertices, otherIndices, index);
 
-	for (std::size_t i = numVertices; i < numVertices + numNewVertices; i++) {
-		vertices[i].ObjectIndex = index;
-	}
-	for (std::size_t i = numIndices; i < numIndices + numNewIndices; i++) {
-		indices[i] += numVertices;
-	}
-
-	index++;
 	assert(index <= LIGHT_BATCH_SIZE);
 	assert(matrixList.size() <= LIGHT_BATCH_SIZE);
 }
 void LightBatch::AddObject(const std::vector<BasicVertex>& otherVertices, const std::vector<unsigned int>& otherIndices, DirectionalLight& light) {
-	const std::size_t numNewVertices = otherVertices.size();
-	const std::size_t numNewIndices = otherIndices.size();
-
-	const std::size_t numVertices = vertices.size();
-	const std::size_t numIndices = indices.size();
-
-	//vertices.reserve(numVertices + numNewVertices);
-	//indices.reserve(numIndices + numNewIndices);
-
-	vertices.insert(vertices.end(), otherVertices.begin(), otherVertices.end());
-	indices.insert(indices.end(), otherIndices.begin(), otherIndices.end());
-
 	directionalLightList.push_back(light);
+	AddData(vertices, indices, otherVertices, otherIndices, index);
 
-	for (std::size_t i = numVertices; i < numVertices + numNewVertices; i++) {
-		vertices[i].ObjectIndex = index;
-	}
-	for (std::size_t i = numIndices; i < numIndices + numNewIndices; i++) {
-		indices[i] += numVertices;
-	}
-
-	index++;
 	assert(index <= LIGHT_BATCH_SIZE);
 	assert(matrixList.size() <= LIGHT_BATCH_SIZE);
 }
@@ -431,11 +335,8 @@ void LightBatch::Draw(Shader* shader) {
 
 	glBindVertexArray(VAO);
 
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(BasicVertex), &vertices[0], GL_STREAM_DRAW);
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), &indices[0], GL_STREAM_DRAW);
+	SetBufferData(GL_ARRAY_BUFFER, VBO, vertices);
+	SetBufferData(GL_ELEMENT_ARRAY_BUFFER, EBO, indices);
 
 	glDrawElements(GL_TRIANGLES, (GLsizei)indices.size(), GL_UNSIGNED_INT, (const void *)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);

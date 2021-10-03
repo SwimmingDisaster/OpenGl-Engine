@@ -22,12 +22,4 @@ public:
 	void ShowProperties();
 	void AddAndDeleteProperties();
 	void SaveAndLoadFromFile();
-
-#ifdef SHOW_DELETED
-public:
-    virtual ~Material();
-#else
-//public:
-    //virtual ~Material() {};
-#endif
 };

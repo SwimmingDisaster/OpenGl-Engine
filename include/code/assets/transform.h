@@ -22,6 +22,7 @@ public:
 
 	[[nodiscard]] glm::mat4 GetTransform();
 	[[nodiscard]] glm::mat4 GetTransformWithNoScale();
+	[[nodiscard]] glm::mat3 GetTransformForNormals();
 
 	[[nodiscard]] const glm::vec3& GetPosition() const;  
 	[[nodiscard]] const glm::vec3& GetRotation() const;  
@@ -34,14 +35,6 @@ public:
 	void SetRotationX(float other);  
 	void SetRotationY(float other);  
 	void SetRotationZ(float other);  
-
-#ifdef SHOW_DELETED
-public:
-	virtual ~Transform();
-#else
-//public:
-	//virtual ~Transform() {};
-#endif
 };
 
 

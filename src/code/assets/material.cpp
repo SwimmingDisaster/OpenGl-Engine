@@ -170,8 +170,3 @@ void Material::SetProperty(const std::string& propertyName, const MaterialProper
 	}
 }
 
-#ifdef SHOW_DELETED
-Material::~Material() {
-	Log("Deleted " << name);
-}
-#endif

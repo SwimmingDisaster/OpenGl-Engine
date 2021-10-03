@@ -30,9 +30,7 @@ Libraries used:
 - [yaml-cpp](https://github.com/jbeder/yaml-cpp) -> for parsing yaml files.  
 - [glm](https://github.com/g-truc/glm) -> for math that is guaranteed to be compatable with OpenGl.  
 - [stb_image](https://github.com/nothings/stb) -> for loading images.  
-
 # Requrements
-
 In order to download and build this engine you need:  
 - [cmake](https://cmake.org/)  
 - [make](https://www.gnu.org/software/make/) (for linux) or [visual studio](https://visualstudio.microsoft.com/) (for windows)  
@@ -77,5 +75,5 @@ make
 
 That should gnerate a visual studio solution named main.sln. Open that solution and build the project named *ALL_BUILD*. After that you should see and executable named main.exe in the build/Debug folder.
 
-##On MacOS
+## On MacOS
 This project can`t be built on the MacOS platform.

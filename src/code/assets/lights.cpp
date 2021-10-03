@@ -54,7 +54,7 @@ void PointLightComponent::Draw() {
 	RecalculateSize();
 	pointLight.position = transform->GetPosition();
 	//LightsBatchRenderer::AddObject(LightsBatchRenderer::quadVertices,	LightsBatchRenderer::quadIndices, pointLight, transform, "res/shaders/pointLight");
-	LightsBatchRenderer::AddObject(LightsBatchRenderer::sphereVertices,	LightsBatchRenderer::sphereIndices, pointLight, transform, "res/shaders/pointLight");
+	LightsBatchRenderer::AddObject(LightsBatchRenderer::sphereVertices,	LightsBatchRenderer::sphereIndices, pointLight, transform.get(), "res/shaders/pointLight");
 }
 void PointLightComponent::End() {
 
@@ -64,13 +64,6 @@ void PointLightComponent::RecalculateSize() {
 	float radius    = (-pointLight.linear +  sqrtf(pointLight.linear * pointLight.linear - 4 * pointLight.exp * (pointLight.constant - (256.0 / 5.0) * pointLightMax))) / (2 * pointLight.exp);
 	transform->SetScale({radius, radius, radius});
 }
-
-#ifdef SHOW_DELETED
-PointLightComponent::~PointLightComponent() {
-	Log("Deleted " << name);
-}
-#endif
-
 
 
 REGISTERIMPL(DirectionalLightComponent);
@@ -118,9 +111,3 @@ void DirectionalLightComponent::Draw() {
 void DirectionalLightComponent::End() {
 
 }
-
-#ifdef SHOW_DELETED
-DirectionalLightComponent::~DirectionalLightComponent() {
-	Log("Deleted " << name);
-}
-#endif

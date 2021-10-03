@@ -30,9 +30,3 @@ void TestComponent::Start() {
 void TestComponent::Update() {
     transform->SetPosition(otherTransform->GetPosition() + offset);
 }
-
-#ifdef SHOW_DELETED
-TestComponent::~TestComponent() {
-    Log("Deleted " << name);
-}
-#endif

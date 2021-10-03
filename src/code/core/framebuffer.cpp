@@ -91,7 +91,7 @@ unsigned int DeferredFrameBuffer::GetData() const {
 	else if(Input::IsKeyHeld(INPUT_KEY_2)) {
 		return m_position;
 	}
-	else if(Input::IsKeyHeld(INPUT_KEY_1)) {
+	else if(Input::IsKeyHeld(INPUT_KEY_1) || Input::IsKeyHeld(INPUT_KEY_4)) {
 		return m_color;
 	}
 	return m_color;

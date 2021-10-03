@@ -12,6 +12,7 @@ smooth out vec3 Normal;
 out flat int ObjectIndexFragment;
 
 uniform mat4 matModel[150];
+uniform mat3 matNormal[150];
 
 layout (std140, binding = 0) uniform Matrices
 {
@@ -24,7 +25,7 @@ void main()
 {
 	ObjectIndexFragment = ObjectIndexVertex;
     FragPos = vec3(matModel[ObjectIndexVertex] * vec4(aPos, 1.0f));
-    Normal = aNormal;  
+    Normal = matNormal[ObjectIndexVertex] * aNormal;
     TexCoords = aTexCoords;
 
     gl_Position = matProj *  matView * vec4(FragPos, 1.0f);

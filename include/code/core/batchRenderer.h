@@ -37,10 +37,11 @@ public:
 	std::size_t index = 0;
 	std::size_t textureIndex = 0;
 
-	std::vector<Vertex> vertices;
-	std::vector<unsigned int> indices;
+	std::vector<Vertex> vertices{};
+	std::vector<unsigned int> indices{};
 
 	std::vector<glm::mat4> matrixList;
+	std::vector<glm::mat3> normalsMatrixList;
 
 	std::unordered_map<std::string, BatchPropertyType> materialMap;
 	std::unordered_map<std::string, int> textureIndexMap;

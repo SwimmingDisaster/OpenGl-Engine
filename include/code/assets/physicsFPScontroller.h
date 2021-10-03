@@ -14,9 +14,9 @@ class PhysicsFPScontroler : public Component {
 	REGISTER(PhysicsFPScontroler);
 	GETNAME();
 public:
-	Transform* transform;
-	Camera* camera;
-	Rigidbody* rigidbody;
+	std::shared_ptr<Transform> transform;
+	std::shared_ptr<Camera> camera;
+	std::shared_ptr<Rigidbody> rigidbody;
 	float mouseSensitivity = 0.35f;
 	float movementSpeed = 15.0f;
 	bool isLocked = false;
@@ -33,13 +33,4 @@ public:
 
 	void ProcessKeyboard(float deltaTime);
 	void ProcessMouseMovement(bool constrainPitch);
-
-#ifdef SHOW_DELETED
-public:
-	virtual ~PhysicsFPScontroler();
-#else
-//public:
-	//virtual ~PhysicsFPScontroler() {};
-#endif
-
 };

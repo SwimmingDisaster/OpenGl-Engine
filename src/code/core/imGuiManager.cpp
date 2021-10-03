@@ -136,7 +136,7 @@ void ImGuiManager::EndFrame()
     }
     return entityRemoveComponent;
 }
-[[nodiscard]] bool ShowComponentMenuAndReturnTrueIfRemoved(Entity* entityToDraw, std::vector<std::unique_ptr<Component>>::iterator& iter)
+[[nodiscard]] bool ShowComponentMenuAndReturnTrueIfRemoved(Entity* entityToDraw, std::vector<std::shared_ptr<Component>>::iterator& iter)
 {
     bool removeComponent = false;
     if (ImGui::BeginPopup("ComponentSettings"))
@@ -632,7 +632,7 @@ void ShowImGuizmo()
     {
         borderColor = ImVec4(0, 1, 1, 1);
     }
-	if(Input::IsKeyHeld(INPUT_KEY_1)){ 
+	if(Input::IsKeyHeld(INPUT_KEY_1) || Input::IsKeyHeld(INPUT_KEY_4)){ 
 		ImGui::Image((void*)(uintptr_t)Renderer::multisampledFrameBuffer.GetData(), ImVec2(EngineInfo::SCREEN_WIDTH - 2.0f, EngineInfo::SCREEN_HEIGHT - 2.0f), ImVec2(0.0f, 1.0f), ImVec2(1.0f, 0.0f), ImVec4(1, 1, 1, 1), borderColor);
 	}
 	else{

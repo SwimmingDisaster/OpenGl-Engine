@@ -91,7 +91,9 @@ void Batch::Clear() {
 	vertices.clear();
 	indices.clear();
 	materialMap.clear();
+
 	matrixList.clear();
+	normalsMatrixList.clear();
 
 	index = 0;
 	textureIndex = 0;
@@ -158,6 +160,7 @@ void Batch::AddProperties(const Material* material, Transform* transform){
 		AddProperty(material, i);
 	}
 	matrixList.push_back(transform->GetTransform());
+	normalsMatrixList.push_back(transform->GetTransformForNormals());
 }
 void Batch::AddObject(const std::vector<Vertex>& otherVertices, const std::vector<unsigned int>& otherIndices, const Material* material, Transform* transform)  {
 	AddProperties(material, transform);
@@ -214,6 +217,7 @@ void Batch::Draw(Shader* shader) {
 		glBindTexture(GL_TEXTURE_2D, TextureManager::textureMap[a.first]);
 	}
 	glUniformMatrix4fv(glGetUniformLocation(shader->GetID(), "matModel"), matrixList.size(), GL_FALSE, &matrixList[0][0][0]);
+	glUniformMatrix3fv(glGetUniformLocation(shader->GetID(), "matNormal"), normalsMatrixList.size(), GL_FALSE, &normalsMatrixList[0][0][0]);
 
 	glBindVertexArray(VAO);
 
@@ -236,8 +240,8 @@ void Batch::DrawThisGeometry(Shader* const shader, const std::vector<Vertex>& ot
 
 	glBindVertexArray(VAO);
 
-	SetBufferData(GL_ARRAY_BUFFER, VBO, vertices);
-	SetBufferData(GL_ELEMENT_ARRAY_BUFFER, EBO, indices);
+	SetBufferData(GL_ARRAY_BUFFER, VBO, otherVertices);
+	SetBufferData(GL_ELEMENT_ARRAY_BUFFER, EBO, otherIndices);
 
 	glDrawElements(GL_TRIANGLES, (GLsizei)otherIndices.size(), GL_UNSIGNED_INT, (const void *)0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);

@@ -13,8 +13,8 @@ public:
 	PxRigidStatic* aStaticActor{};
 
 	PxMaterial* mMaterial{};
-	Transform* tc;
-	ColliderBase* cc;
+	std::shared_ptr<Transform> tc;
+	std::shared_ptr<ColliderBase> cc;
 	glm::vec3 size{};
 	bool isStatic = true;
 
@@ -32,11 +32,5 @@ public:
 	void Deserialize(const YAML::Node& data) override;
 	void OnCollision(const Entity* const other) override;
 
-#ifdef SHOW_DELETED
-public:
 	virtual ~Rigidbody();
-#else
-public:
-	virtual ~Rigidbody();
-#endif
 };

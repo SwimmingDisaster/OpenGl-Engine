@@ -6,9 +6,13 @@ REGISTERIMPL(Transform);
 GETNAMEIMPL(Transform);
 
 void Transform::Show()  {
-	ImGui::DragFloat3("position", glm::value_ptr(position), 0.05f);
-	ImGui::DragFloat3("rotation", glm::value_ptr(rotation), 0.05f);
-	ImGui::DragFloat3("scale", glm::value_ptr(scale), 0.01f);
+	bool isChanged = false;
+	isChanged |= ImGui::DragFloat3("position", glm::value_ptr(position), 0.05f);
+	isChanged |= ImGui::DragFloat3("rotation", glm::value_ptr(rotation), 0.05f);
+	isChanged |= ImGui::DragFloat3("scale", glm::value_ptr(scale), 0.01f);
+	if(isChanged){
+		isCacheValid = false;
+	}
 }
 void Transform::Serialize(YAML::Emitter& out) const {
 	out << YAML::Key << name;
@@ -43,6 +47,9 @@ void Transform::Deserialize(const YAML::Node& data) {
 [[nodiscard]] glm::mat4 Transform::GetTransformWithNoScale() {
 	constexpr glm::mat4 identity = glm::mat4(1.0f);
 	return glm::translate(identity, position) * glm::toMat4(glm::quat(glm::radians(rotation)));
+}
+[[nodiscard]] glm::mat3 Transform::GetTransformForNormals(){
+	return glm::mat3(glm::transpose(glm::inverse(GetTransform())));
 }
 
 [[nodiscard]] const glm::vec3& Transform::GetPosition() const {
@@ -81,8 +88,3 @@ void Transform::SetRotationZ(float other){
 	rotation.z = other;
 }
 
-#ifdef SHOW_DELETED
-Transform::~Transform() {
-	Log("Deleted " << name);
-}
-#endif

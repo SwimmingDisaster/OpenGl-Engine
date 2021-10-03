@@ -58,7 +58,6 @@ public:
     //virtual ~Font() {};
 #endif
 };
-
 class Text : public Component {
     REGISTER(Text);
 	GETNAME();
@@ -107,14 +106,14 @@ public:
 
     float angle = 0.0f;
 
-    //glm::vec2 vPos = {400.0f, 200.0f};
+    //glm::vec2 vPos = {400.0f, 200.0f};{
     glm::vec3 color = {0.0f, 0.0f, 1.0f};
 
 	std::string shaderName;
 
 private:
-	Transform* transform;
-    Font* font;
+	std::shared_ptr<Transform> transform;
+	std::shared_ptr<Font> font;
 	Shader* shader;
 
     unsigned int textVAO, vertexVBO, textureVBO;

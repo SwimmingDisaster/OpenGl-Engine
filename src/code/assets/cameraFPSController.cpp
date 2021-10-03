@@ -53,12 +53,6 @@ void CameraFPSController::Deserialize(const YAML::Node& data) {
     movementSpeed = data["Movement Speed"].as<float>();
 }
 
-#ifdef SHOW_DELETED
-CameraFPSController::~CameraFPSController() {
-    Log("Deleted " << name);
-}
-#endif
-
 
 void CameraFPSController::ProcessKeyboard(float deltaTime)
 {

@@ -11,8 +11,6 @@ static const unsigned int assimpFlags = aiProcess_CalcTangentSpace
 
 static const unsigned int physxFlags = aiProcess_Triangulate
                                        | aiProcess_JoinIdenticalVertices;
-
-
 auto ModelImporter::GetAssimpScene(const std::string& filePath, Assimp::Importer& importer, unsigned int flags) -> const aiScene* {
     const aiScene* scene = importer.ReadFile(filePath, flags);
 
@@ -26,6 +24,9 @@ auto ModelImporter::GetAssimpScene(const std::string& filePath, Assimp::Importer
 }
 
 void ModelImporter::LoadModelWithTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, std::vector<Texture>& textures, bool isFlipped, bool loadBinaryVersion, bool makeBinaryVersion) {
+	if(filePath.empty()){
+		return;
+	}
 	if(loadBinaryVersion){
 		if(LoadBinaryModelWithTextures(filePath + ".wt", vertices, indices, textures)){
 			return;
@@ -44,9 +45,12 @@ void ModelImporter::LoadModelWithTextures(const std::string& filePath, std::vect
 	}
 }
 void ModelImporter::LoadModelWithoutTextures(const std::string& filePath, std::vector<Vertex>& vertices, std::vector<unsigned int>& indices, bool loadBinaryVersion, bool makeBinaryVersion) {
+	if(filePath.empty()){
+		return;
+	}
 	if(loadBinaryVersion){
-		if(LoadBinaryModelWithoutTextures(filePath + ".wot", vertices, indices)){
-//			Log("Loaded model without textures at path: " << filePath << " with " << vertices.size() << " vertices and " << indices.size() << " indices.");
+		if(LoadBinaryModelWithoutTextures(filePath + ".wot", vertices, indices)){\
+			//	Log("Loaded model without textures at path: " << filePath << " with " << vertices.size() << " vertices and " << indices.size() << " indices.");
 			return;
 		}
 	}
@@ -58,9 +62,14 @@ void ModelImporter::LoadModelWithoutTextures(const std::string& filePath, std::v
 	if(makeBinaryVersion){
 		SaveBinaryModelWithoutTextures(filePath + ".wot", vertices, indices);
 	}
-//	Log("Loaded model without textures at path: " << filePath << " with " << vertices.size() << " vertices and " << indices.size() << " indices.");
+	//	Log("Loaded model without textures at path: " << filePath << " with " << vertices.size() << " vertices and " << indices.size() << " indices.");
+	return;
+
 }
 void ModelImporter::LoadModelBasic(const std::string& filePath, std::vector<glm::vec3>& vertices, std::vector<unsigned int>& indices, bool loadBinaryVersion, bool makeBinaryVersion) {
+	if(filePath.empty()){
+		return;
+	}
 	if(loadBinaryVersion){
 		if(LoadBinaryModelBasic(filePath + ".bs", vertices, indices)){
 			return;

@@ -16,7 +16,7 @@ public:
 	std::vector<Texture>      textures;
 	unsigned int VAO, VBO, EBO;
 
-	Transform* transform;
+	std::shared_ptr<Transform> transform;
 
 	std::string directory;
 	std::string path = "res/fbx/box.fbx";
@@ -29,11 +29,5 @@ public:
 	void Deserialize(const YAML::Node& data) override;
 	void Show() override;
 
-#ifdef SHOW_DELETED
-public:
-	virtual ~Model();
-#else
-//public:
-	//virtual ~Model() {};
-#endif
+	virtual void RecalculateNormals();
 };

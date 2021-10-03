@@ -23,14 +23,6 @@ public:
 	void Deserialize(const YAML::Node &data) override;
 
 	PxGeometryHolder GetGeometry() override;
-
-#ifdef SHOW_DELETED
-public:
-	virtual ~BoxCollider();
-#else
-//public:
-	//virtual ~BoxCollider(){};
-#endif
 };
 
 //--------------BoxCollider--------------
@@ -48,13 +40,6 @@ public:
 
 	PxGeometryHolder GetGeometry() override;
 
-#ifdef SHOW_DELETED
-public:
-	virtual ~SphereCollider();
-#else
-//public:
-	//virtual ~SphereCollider(){};
-#endif
 };
 
 //--------------ConcaveMeshCollider--------------
@@ -67,7 +52,7 @@ private:
 	std::vector<unsigned int> indices;
 	PxTriangleMesh* aTriangleMesh = nullptr;
 
-	Transform* transform;
+	std::shared_ptr<Transform> transform;
 
 public:
 	std::string filePath;
@@ -80,11 +65,5 @@ public:
 
 	PxGeometryHolder GetGeometry() override;
 
-#ifdef SHOW_DELETED
-public:
 	virtual ~ConcaveMeshCollider();
-#else
-public:
-	virtual ~ConcaveMeshCollider();
-#endif
 };

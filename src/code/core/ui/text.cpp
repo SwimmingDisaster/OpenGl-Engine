@@ -78,11 +78,6 @@ void Font::Deserialize(const YAML::Node& data) {
     textureName = data["TextureName"].as<std::string>();
 }
 
-#ifdef SHOW_DELETED
-Font::~Font() {
-    Log("Deleted " << name);
-}
-#endif
 
 REGISTERIMPL(Text);
 GETNAMEIMPL(Text);
@@ -332,8 +327,3 @@ void Text::Show() {
     }
 }
 
-#ifdef SHOW_DELETED
-Text::~Text() {
-    Log("Deleted " << name);
-}
-#endif

@@ -116,9 +116,3 @@ void PhysicsFPScontroler::ProcessMouseMovement(bool constrainPitch){
         camera->updateCameraVectors();
     }
 }
-
-#ifdef SHOW_DELETED
-PhysicsFPScontroler::~physicsFPScontroler() {
-    Log("Deleted " << name);
-}
-#endif

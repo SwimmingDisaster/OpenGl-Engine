@@ -2,11 +2,12 @@
 
 
 REGISTERIMPL(COMPONENTNAME);
+GETNAMEIMPL(COMPONENTNAME);
 
 void COMPONENTNAME::Show()  {
     //	ImGui::InputText("Shader Name", &shaderName, ImGuiInputTextFlags_CallbackResize);
 }
-void COMPONENTNAME::Serialize(YAML::Emitter& out) {
+void COMPONENTNAME::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
 
@@ -35,6 +36,3 @@ COMPONENTNAME::~COMPONENTNAME() {
     Log("Deleted " << name);
 }
 #endif
-COMPONENTNAME::COMPONENTNAME() {
-    name = "COMPONENTNAME";
-}

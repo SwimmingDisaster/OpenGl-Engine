@@ -58,12 +58,9 @@ void Application::Run() {
 		static bool is = false;
 		constexpr float sz = 40.0f;
 		constexpr float sc = 1.0f;
-		constexpr int squareCount = 500;
-		constexpr int lightCount = 64;
+		constexpr int squareCount = 0;
+		constexpr int lightCount = 0;
 		if (isRunning && !is) {
-			for (int i = 0; i < 100; i++) {
-				Log(Random::Float());
-			}
 			for (int i = 0; i < squareCount; i++){
 				auto newEntity = m_curentScene.AddEntity("New Entity " + std::to_string(i), Random::Int());
 				auto transform = newEntity->AddComponent<Transform>();

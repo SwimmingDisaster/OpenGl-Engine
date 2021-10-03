@@ -37,7 +37,7 @@ class PointLightComponent : public LightBase {
 public:
 	// variables go here
 	PointLight pointLight;
-	Transform* transform;
+	std::shared_ptr<Transform> transform;
 
 public:
     void Start() override;
@@ -50,13 +50,6 @@ public:
 
 	void RecalculateSize();
 
-#ifdef SHOW_DELETED
-public:
-	virtual ~PointLightComponent();
-#else
-public:
-	virtual ~PointLightComponent() {};
-#endif
 
 };
 class DirectionalLightComponent : public LightBase {
@@ -75,12 +68,5 @@ public:
     void Deserialize(const YAML::Node& data) override;
     void Show() override;
 
-#ifdef SHOW_DELETED
-public:
-	virtual ~DirectionalLightComponent();
-#else
-public:
-	virtual ~DirectionalLightComponent() {};
-#endif
 
 };

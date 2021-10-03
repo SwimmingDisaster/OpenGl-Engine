@@ -1,21 +1,21 @@
 
-(main:84165): Gtk-WARNING **: 11:11:35.142: Theme directory actions/24 of theme dracula has no size field
+(main:6946): Gtk-WARNING **: 14:43:47.969: Theme directory actions/24 of theme dracula has no size field
 
 
-(main:84165): Gtk-WARNING **: 11:11:35.142: Theme directory actions/32 of theme dracula has no size field
+(main:6946): Gtk-WARNING **: 14:43:47.969: Theme directory actions/32 of theme dracula has no size field
 
 
-(main:84165): Gtk-WARNING **: 11:11:35.142: Theme directory actions/16@2x of theme dracula has no size field
+(main:6946): Gtk-WARNING **: 14:43:47.969: Theme directory actions/16@2x of theme dracula has no size field
 
 
-(main:84165): Gtk-WARNING **: 11:11:35.142: Theme directory actions/22@2x of theme dracula has no size field
+(main:6946): Gtk-WARNING **: 14:43:47.969: Theme directory actions/22@2x of theme dracula has no size field
 
 
-(main:84165): Gtk-WARNING **: 11:11:35.142: Theme directory actions/24@2x of theme dracula has no size field
+(main:6946): Gtk-WARNING **: 14:43:47.969: Theme directory actions/24@2x of theme dracula has no size field
 
 
-(main:84165): Gtk-WARNING **: 11:11:35.142: Theme directory actions/32@2x of theme dracula has no size field
+(main:6946): Gtk-WARNING **: 14:43:47.969: Theme directory actions/32@2x of theme dracula has no size field
 
 
-(main:84165): Gtk-WARNING **: 11:11:35.142: Theme directory actions/symbolic of theme dracula has no size field
+(main:6946): Gtk-WARNING **: 14:43:47.969: Theme directory actions/symbolic of theme dracula has no size field
 

@@ -44,9 +44,3 @@ void DeleteAfterTouched::Update() {
 void DeleteAfterTouched::OnCollision(const Entity* const other) {
     isTouched = true;
 }
-
-#ifdef SHOW_DELETED
-DeleteAfterTouched::~DeleteAfterTouched() {
-    Log("Deleted " << name);
-}
-#endif

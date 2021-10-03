@@ -24,7 +24,7 @@ public:
 			return comp;
 		*/
 
-		return entityRef->GetComponentOrMakeIfNone<T>(); 
+		return entityRef->GetComponentOrMakeIfNone<T>().get();
 	}
 
 	void copy(Entity* const entityRef, const Component* const componentRef) override {

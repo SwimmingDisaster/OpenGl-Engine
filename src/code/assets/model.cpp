@@ -5,49 +5,66 @@ REGISTERIMPL(Model);
 GETNAMEIMPL(Model);
 
 void Model::Start() {
-    transform = parentEntity->GetComponent<Transform>();
-    //loadModel(path);
-    ModelImporter::LoadModelWithoutTextures(path, vertices, indices);
+	transform = parentEntity->GetComponent<Transform>();
+	//loadModel(path);
+	ModelImporter::LoadModelWithoutTextures(path, vertices, indices);
+	RecalculateNormals();
 }
 void Model::Serialize(YAML::Emitter& out) const {
-    out << YAML::Key << name;
-    out << YAML::BeginMap;
+	out << YAML::Key << name;
+	out << YAML::BeginMap;
 
-    out << YAML::Key << "Is flipped" << YAML::Value << isFlipped;
-    out << YAML::Key << "Path" << YAML::Value << path;
+	out << YAML::Key << "Is flipped" << YAML::Value << isFlipped;
+	out << YAML::Key << "Path" << YAML::Value << path;
 
-    out << YAML::EndMap;
+	out << YAML::EndMap;
 }
 void Model::Deserialize(const YAML::Node& data) {
-    isFlipped = data["Is flipped"].as<bool>();
-    path = data["Path"].as<std::string>();
+	isFlipped = data["Is flipped"].as<bool>();
+	path = data["Path"].as<std::string>();
 }
 void Model::Show() {
-    ImGui::Checkbox("Is flipped", &isFlipped);
+	ImGui::Checkbox("Is flipped", &isFlipped);
 
-    ImGui::InputText("File path", &path, ImGuiInputTextFlags_CallbackResize);
+	ImGui::InputText("File path", &path, ImGuiInputTextFlags_CallbackResize);
 
-    if (ImGui::Button("Browse")) {
-        nfdfilteritem_t filterItemList[1] = { { "3D model", "fbx,dae,gltf,glb,blend,3ds,ase,obj,ifc,xgl,zgl,ply,dxf,lwo,lws,lxo,stl,x,ac,ms3d,cob,scn,bvh,csm,xml,irrmesh,irr,mdl,md2,md3,pk3,mdc,md5*,smd,vta,ogex,3d,b3d,q3d,q3s,nff,nff,off,raw,ter,mdl,hmp,ndo" } };
-        path = OpenFile(filterItemList, 1);
-    }
+	if (ImGui::Button("Browse")) {
+		nfdfilteritem_t filterItemList[1] = { { "3D model", "fbx,dae,gltf,glb,blend,3ds,ase,obj,ifc,xgl,zgl,ply,dxf,lwo,lws,lxo,stl,x,ac,ms3d,cob,scn,bvh,csm,xml,irrmesh,irr,mdl,md2,md3,pk3,mdc,md5*,smd,vta,ogex,3d,b3d,q3d,q3s,nff,nff,off,raw,ter,mdl,hmp,ndo" } };
+		path = OpenFile(filterItemList, 1);
+	}
 
-    ImGui::SameLine();
+	ImGui::SameLine();
 
-    if (ImGui::Button("Reload")) {
-        textures.clear();
-        vertices.clear();
-        indices.clear();
+	if (ImGui::Button("Reload")) {
+		textures.clear();
+		vertices.clear();
+		indices.clear();
 
-        Start();
-    }
+		Start();
+	}
 }
 
-#ifdef SHOW_DELETED
-Model::~Model() {
-    Log("Deleted " << name);
-};
-#endif
+void Model::RecalculateNormals() {
+	for(auto& vertex : vertices) {
+		vertex.Normal = {0,0,0};
+	}
+
+	for(std::size_t i = 0; i < indices.size(); i += 3) {
+		glm::vec3 u = vertices[indices[i]].Position		- vertices[indices[i + 2]].Position;
+		glm::vec3 v = vertices[indices[i + 1]].Position - vertices[indices[i + 2]].Position;
+
+		glm::vec3 normal = glm::cross(u, v);
+		//normal = glm::normalize(normal);
+
+		vertices[indices[i]].Normal += normal;
+		vertices[indices[i + 1]].Normal += normal;
+		vertices[indices[i + 2]].Normal += normal;
+	}
+	for(auto& vertex : vertices) {
+		vertex.Normal = glm::normalize(vertex.Normal);
+	}
+}
+
 /*
 void Model::loadModel(std::string const& path)
 {

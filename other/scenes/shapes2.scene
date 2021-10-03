@@ -319,7 +319,7 @@ Entities:
     Components: [Transform, Model, ModelRenderer, Material, SphereCollider, Rigidbody]
     Transform:
       Position: [0, 0, 0]
-      Rotation: [0, -0, 0]
+      Rotation: [0, 0, 0]
       Scale: [0.75, 0.75, 0.75]
     Model:
       Is flipped: false
@@ -411,24 +411,121 @@ Entities:
       Constant: 1
       Linear: 0.0900000036
       Exp: 0.00319999992
-  - Entity: SPONZA
-    UUID: -1042643220
+  - Entity: New Sphere
+    UUID: 1970730614
     Tag: 0
     Layer: 0
-    Components: [Transform, Model, ModelRenderer, Material]
+    Components: [Transform, Model, ModelRenderer, Material, PlanetFaceGenerator]
     Transform:
-      Position: [-65, 0, 0]
+      Position: [-2.00969458, 0, 4.38371944]
       Rotation: [0, 0, 0]
-      Scale: [2, 2, 2]
+      Scale: [10, 10, 10]
     Model:
       Is flipped: false
-      Path: /home/ognjen/Other/Sponza/sponza.fbx
+      Path: res/fbx/sphere.fbx
     ModelRenderer:
       Shader name: res/shaders/color
       Isnt batched: false
     Material:
-      3color: [1, 0.999989986, 0.999989986]
+      3color: [0, 1, 0]
+    PlanetFaceGenerator:
+      {}
+  - Entity: New Sphere
+    UUID: 236953986
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material, PlanetFaceGenerator]
+    Transform:
+      Position: [-2.00969458, 0, 4.38371944]
+      Rotation: [90, 0, 0]
+      Scale: [10, 10, 10]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Isnt batched: false
+    Material:
+      3color: [0, 1, 0]
+    PlanetFaceGenerator:
+      {}
+  - Entity: New Sphere
+    UUID: 1164463628
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material, PlanetFaceGenerator]
+    Transform:
+      Position: [-2.00969458, 0, 4.38371944]
+      Rotation: [-90, 0, 0]
+      Scale: [10, 10, 10]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Isnt batched: false
+    Material:
+      3color: [0, 1, 0]
+    PlanetFaceGenerator:
+      {}
+  - Entity: New Sphere
+    UUID: 1502435920
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material, PlanetFaceGenerator]
+    Transform:
+      Position: [-2.00969458, 0, 4.38371944]
+      Rotation: [0, 0, 90]
+      Scale: [10, 10, 10]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Isnt batched: false
+    Material:
+      3color: [0, 1, 0]
+    PlanetFaceGenerator:
+      {}
+  - Entity: New Sphere
+    UUID: 2093973843
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material, PlanetFaceGenerator]
+    Transform:
+      Position: [-2.00969458, 0, 4.38371944]
+      Rotation: [0, 0, -90]
+      Scale: [10, 10, 10]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Isnt batched: false
+    Material:
+      3color: [0, 1, 0]
+    PlanetFaceGenerator:
+      {}
+  - Entity: New Sphere
+    UUID: -120385695
+    Tag: 0
+    Layer: 0
+    Components: [Transform, Model, ModelRenderer, Material, PlanetFaceGenerator]
+    Transform:
+      Position: [-2.00969458, 0, 4.38371944]
+      Rotation: [0, 0, 180]
+      Scale: [10, 10, 10]
+    Model:
+      Is flipped: false
+      Path: res/fbx/sphere.fbx
+    ModelRenderer:
+      Shader name: res/shaders/color
+      Isnt batched: false
+    Material:
+      3color: [0, 1, 0]
+    PlanetFaceGenerator:
+      {}
 Editor Camera:
-  - Camera vPos: [-62.8703423, 12.9501371, 10.0270176]
-    Camera vUp: [-0.000864703499, 0.99999851, 0.0015159382]
-    Camera vRot: [0.0999935865, -60.2992096, 0]
+  - Camera vPos: [11.4192133, 5.11505222, -5.12119102]
+    Camera vUp: [-0.261500537, 0.948323965, 0.17971997]
+    Camera vRot: [-18.499958, 145.500656, 0]

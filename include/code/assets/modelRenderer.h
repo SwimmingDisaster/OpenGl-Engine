@@ -5,6 +5,8 @@
 #include "ecs/other/componentFactory.h"
 #include "ecs/other/componentDefines.h"
 
+#include "core/batchRenderer.h"
+
 class Material;
 class ModelRenderer : public Component{
 	REGISTER(ModelRenderer);
@@ -12,9 +14,11 @@ class ModelRenderer : public Component{
 public:
 	std::string shaderName = "res/shaders/color";
 	Shader* m_shader;
-	Model* m_modelComponent;
-	Transform* m_transformComponent;
-	Material* m_materialComponent;
+	std::shared_ptr<Transform> m_transformComponent;
+	std::shared_ptr<Material> m_materialComponent;
+	Batch* b = nullptr;
+
+	std::shared_ptr<Model> m_modelComponent;
 
 	bool isntBatched = false;
 	int textureIndex;
@@ -29,13 +33,9 @@ public:
 	void Draw() override;
 	void Show() override;
 
-#ifdef SHOW_DELETED
 public:
 	virtual ~ModelRenderer();
-#else
-//public:
-	//virtual ~ModelRenderer() {}
-#endif
+
 public:
 	void DrawModel();
 };

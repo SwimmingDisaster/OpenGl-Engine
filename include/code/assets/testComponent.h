@@ -8,8 +8,8 @@ class TestComponent : public Component {
 	GETNAME();
 public:
 	Entity* entity;
-	Transform* transform;
-	Transform* otherTransform;
+	std::shared_ptr<Transform> transform;
+	std::shared_ptr<Transform> otherTransform;
 	float speed = 1.0f;
 	std::string entity_name = "";
 	glm::vec3 offset = {0.0f, 0.0f, 0.0f};
@@ -20,12 +20,4 @@ public:
 	void Update() override;
 	void Serialize(YAML::Emitter& out) const override;
 	void Deserialize(const YAML::Node& data) override;
-
-#ifdef SHOW_DELETED
-public:
-	virtual ~TestComponent();
-#else
-//public:
-	//virtual ~TestComponent() {};
-#endif
 };

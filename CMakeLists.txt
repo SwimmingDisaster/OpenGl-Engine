@@ -63,8 +63,8 @@ else()
 	set(COMPILE_WARNINGS "-Wall -Wextra -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -fno-omit-frame-pointer")
 	set(DEBUG_FLAGS "")
 	set(RELEASE_FLAGS "")
-	#set(SHARED_FLAGS "-g -fsanitize=address");
-	set(SHARED_FLAGS "-g")
+	set(SHARED_FLAGS "-g -fsanitize=address")
+	#set(SHARED_FLAGS "-g")
 endif()
 
 SET(MY_COMPILE_FLAGS "${SHARED_FLAGS} ${COMPILE_WARNINGS}")

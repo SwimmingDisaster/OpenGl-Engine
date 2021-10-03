@@ -4,7 +4,6 @@
 #include "assets/material.h"
 #include "core/renderer.h"
 
-#include "core/batchRenderer.h"
 
 REGISTERIMPL(ModelRenderer);
 GETNAMEIMPL(ModelRenderer);
@@ -41,27 +40,27 @@ void ModelRenderer::Draw() {
 }
 void ModelRenderer::DrawModel(){
 	if(isntBatched){
-		Batch* b = new Batch();
-
+		if(b == nullptr){
+			b = new Batch();
+			b->Setup();
+		}
 
 		Shader::shaderMap[shaderName]->use();
-		b->Setup();
 		b->Clear();
 	//	b->AddObject(m_modelComponent->vertices, m_modelComponent->indices, m_materialComponent, m_transformComponent);
-		b->AddProperties(m_materialComponent, m_transformComponent);
+		b->AddProperties(m_materialComponent.get(), m_transformComponent.get());
 		b->DrawThisGeometry(Shader::shaderMap[shaderName].get(), m_modelComponent->vertices, m_modelComponent->indices);
-		b->Destroy();
 
-		delete b;
 	}
 	else{
-		BatchRenderer::AddObject(m_modelComponent->vertices, m_modelComponent->indices, m_materialComponent, m_transformComponent, shaderName);
+		BatchRenderer::AddObject(m_modelComponent->vertices, m_modelComponent->indices, m_materialComponent.get(), m_transformComponent.get(), shaderName);
 	}
 }
 
-#ifdef SHOW_DELETED
 ModelRenderer::~ModelRenderer() {
-    Log("Deleted " << name);
+	if(b != nullptr){
+		b->Destroy();
+		delete b;
+	}
 }
-#endif
 

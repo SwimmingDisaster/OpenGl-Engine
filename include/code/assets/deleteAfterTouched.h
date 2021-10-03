@@ -15,7 +15,7 @@ public:
 	// variables go here
 	bool isTouched = false;
 	float time = 3.0f;
-	Material* material;
+	std::shared_ptr<Material> material;
 
 public:
     void Start() override;
@@ -24,13 +24,5 @@ public:
     void Deserialize(const YAML::Node& data) override;
     void Show() override;
 	void OnCollision(const Entity* const other) override;
-
-#ifdef SHOW_DELETED
-public:
-	virtual ~DeleteAfterTouched();
-#else
-//public:
-	//virtual ~DeleteAfterTouched() {};
-#endif
 
 };

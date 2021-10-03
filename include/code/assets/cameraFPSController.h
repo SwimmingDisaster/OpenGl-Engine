@@ -13,8 +13,8 @@ class CameraFPSController : public Component {
 	REGISTER(CameraFPSController);
 	GETNAME();
 public:
-	Transform* transform;
-	Camera* camera;
+	std::shared_ptr<Transform> transform;
+	std::shared_ptr<Camera> camera;
 	float mouseSensitivity = 0.35f;
 	float movementSpeed = 15.0f;
 	bool isLocked = false;
@@ -25,14 +25,6 @@ public:
 	void Show() override;
 	void Serialize(YAML::Emitter& out) const override;
 	void Deserialize(const YAML::Node& data) override;
-
-#ifdef SHOW_DELETED
-public:
-	virtual ~CameraFPSController();
-#else
-//public:
-	//virtual ~CameraFPSController() {};
-#endif
 
 	void ProcessKeyboard(float deltaTime);
 	void ProcessMouseMovement(bool constrainPitch);

@@ -11,13 +11,6 @@
 REGISTERIMPL(Camera);
 GETNAMEIMPL(Camera);
 
-#ifdef SHOW_DELETED
-Camera::~Camera() {
-    Log("Deleted " << name);
-}
-#endif
-
-
 void Camera::Start() {
     transform = parentEntity->GetComponent<Transform>();
 }
@@ -34,7 +27,6 @@ void Camera::Show() {
     ImGui::DragFloat("fFar", &fFar, 0.1f);
     ImGui::ColorEdit3("Background Color", glm::value_ptr(backgroundColor));
 }
-
 void Camera::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << name;
     out << YAML::BeginMap;
@@ -44,33 +36,23 @@ void Camera::Serialize(YAML::Emitter& out) const {
     out << YAML::Key << "Background Color" << YAML::Value << backgroundColor;
     out << YAML::EndMap;
 }
-
 void Camera::Deserialize(const YAML::Node& data) {
     fov = data["Fov"].as<float>();
     fNear = data["fNear"].as<float>();
     fFar = data["fFar"].as<float>();
     backgroundColor = data["Background Color"].as<glm::vec3>();
 }
-
-const glm::mat4 Camera::GetViewMatrix() const
-{
+const glm::mat4 Camera::GetViewMatrix() const{
     return glm::lookAt(transform->GetPosition(), transform->GetPosition() + vFront, vUp);
 }
-
-const glm::mat4 Camera::GetProjectionMatrix() const
-{
+const glm::mat4 Camera::GetProjectionMatrix() const{
     float ratio = 1.0f;
     if (EngineInfo::SCREEN_HEIGHT != 0.0f) {
         ratio = (float)EngineInfo::SCREEN_WIDTH / (float)EngineInfo::SCREEN_HEIGHT;
     }
     return glm::perspective(glm::radians(fov), ratio, fNear, fFar);
 }
-
-
-
-
-void Camera::updateCameraVectors()
-{
+void Camera::updateCameraVectors(){
     glm::vec3 front;
     front.x = cos(glm::radians(transform->GetRotation().y)) * cos(glm::radians(transform->GetRotation().x));
     front.y = sin(glm::radians(transform->GetRotation().x));

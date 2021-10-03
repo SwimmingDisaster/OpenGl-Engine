@@ -124,16 +124,6 @@ void Rigidbody::OnCollision(const Entity* const other) {
     //Log(parentEntity->GetName() << " collided with " << other->GetName());
 }
 
-#ifdef SHOW_DELETED
-Rigidbody::~Rigidbody(){
-    Log("Deleted " << name);
-    if (!isStatic)
-        aDynamicActor->release();
-    else
-        aStaticActor->release();
-    mMaterial->release();
-}
-#else
 Rigidbody::~Rigidbody(){
     if (!isStatic) {
         aDynamicActor->release();
@@ -142,6 +132,5 @@ Rigidbody::~Rigidbody(){
     }
     mMaterial->release();
 }
-#endif
 
 

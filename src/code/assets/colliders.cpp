@@ -26,11 +26,6 @@ void BoxCollider::Deserialize(const YAML::Node& data) {
 PxGeometryHolder BoxCollider::GetGeometry() {
     return PxBoxGeometry(scale.x, scale.y, scale.z);
 }
-#ifdef SHOW_DELETED
-BoxCollider::~BoxCollider() {
-    Log("Deleted " << name);
-}
-#endif
 //--------------BoxCollider--------------
 
 
@@ -53,11 +48,6 @@ void SphereCollider::Deserialize(const YAML::Node& data) {
 PxGeometryHolder SphereCollider::GetGeometry() {
     return PxSphereGeometry(PxReal(radius));
 }
-#ifdef SHOW_DELETED
-SphereCollider::~SphereCollider() {
-    Log("Deleted " << name);
-}
-#endif
 //--------------SphereCollider--------------
 //--------------ConcaveMeshCollider--------------
 REGISTERIMPL(ConcaveMeshCollider);
@@ -123,14 +113,7 @@ PxGeometryHolder ConcaveMeshCollider::GetGeometry() {
     PxMeshScale scale(PxVec3(transform->GetScale().x, transform->GetScale().y, transform->GetScale().z), PxQuat(PxIdentity));
     return PxTriangleMeshGeometry(aTriangleMesh, scale);
 }
-#ifdef SHOW_DELETED
-ConcaveMeshCollider::~ConcaveMeshCollider() {
-    aTriangleMesh->release();
-    Log("Deleted " << name);
-}
-#else
 ConcaveMeshCollider::~ConcaveMeshCollider() {
     aTriangleMesh->release();
 }
-#endif
 //--------------ConcaveMeshCollider--------------
